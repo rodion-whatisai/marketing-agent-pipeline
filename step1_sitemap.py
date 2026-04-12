@@ -544,16 +544,18 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
 
                 # Display name из Playwright — то что Facebook показывает публично
                 display_name = status.get("display_name") or handle
+                page_id = status.get("page_id")
 
-                ads_urls = build_ads_library_urls(display_name)
+                ads_urls = build_ads_library_urls(display_name, page_id=page_id)
                 ads_count = get_active_ads_count(display_name)
                 count = ads_count.get("count")
 
+                pid_hint = f" [page_id: {page_id}]" if page_id else " [keyword search]"
                 if count and count > 0:
-                    print(f"  ✓ {display_name} | ✅ {count} АКТИВНЫХ ОБЪЯВЛЕНИЙ")
+                    print(f"  ✓ {display_name} | ✅ {count} АКТИВНЫХ ОБЪЯВЛЕНИЙ{pid_hint}")
                     print(f"    📢 {ads_urls['ALL']['active_only']}")
                 else:
-                    print(f"  ✓ {display_name} | ❌ РЕКЛАМА НЕ КРУТИТСЯ")
+                    print(f"  ✓ {display_name} | ❌ РЕКЛАМА НЕ КРУТИТСЯ{pid_hint}")
 
                 fb_data["accounts"].append({
                     "handle": handle,

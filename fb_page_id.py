@@ -36,6 +36,8 @@ COUNTRY_SUFFIXES = [
 
 # Паттерны для числового Page ID
 PAGE_ID_PATTERNS = [
+    # Самый надёжный — userID рядом с userVanity (это точно page/profile ID)
+    r'"userID"\s*:\s*"(\d{10,})".*?"userVanity"',
     r'"pageID"\s*:\s*"(\d{10,})"',
     r'"page_id"\s*:\s*"(\d{10,})"',
     r'"ownerId"\s*:\s*"(\d{10,})"',
@@ -196,7 +198,7 @@ def check_fb_page_alive(handle: str) -> dict:
 # ─── Получение Page ID ────────────────────────────────────────────────────────
 
 def check_fb_page_alive_playwright(handle: str) -> dict:
-    """Проверяет страницу через браузер. Заодно вытаскивает display name."""
+    """Проверяет страницу через браузер. Заодно вытаскивает display name и page_id."""
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -207,6 +209,27 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
                 locale="en-US",
             )
             page = context.new_page()
+
+            # Собираем page_id из network responses
+            page_ids_found = []
+
+            def on_response(response):
+                try:
+                    if "facebook.com" in response.url and response.status == 200:
+                        ct = response.headers.get("content-type", "")
+                        if any(t in ct for t in ["json", "javascript", "html"]):
+                            body = response.body().decode("utf-8", errors="ignore")
+                            for pattern in PAGE_ID_PATTERNS:
+                                for m in re.findall(pattern, body):
+                                    # findall может вернуть tuple если есть группы
+                                    m = m[0] if isinstance(m, tuple) else m
+                                    if len(m) >= 10:
+                                        page_ids_found.append(m)
+                except Exception:
+                    pass
+
+            page.on("response", on_response)
+
             try:
                 page.goto(f"https://www.facebook.com/{handle}",
                          wait_until="domcontentloaded", timeout=15000)
@@ -217,20 +240,32 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
             html_raw = page.content()
             html = html_raw.lower()
 
-            # Вытаскиваем display name из <title> или h1
+            # Ищем page_id в финальном HTML тоже
+            for pattern in PAGE_ID_PATTERNS:
+                for m in re.findall(pattern, html_raw):
+                    m = m[0] if isinstance(m, tuple) else m
+                    if len(m) >= 10:
+                        page_ids_found.append(m)
+
+            browser.close()
+
+            # Вытаскиваем display name
             display_name = None
             title_m = re.search(r"<title>([^|<]+)", html_raw)
             if title_m:
                 candidate = title_m.group(1).strip()
                 if candidate and "facebook" not in candidate.lower() and len(candidate) > 1:
                     display_name = candidate
-
             if not display_name:
                 h1_m = re.search(r'<h1[^>]*>([^<]+)</h1>', html_raw)
                 if h1_m:
                     display_name = h1_m.group(1).strip()
 
-            browser.close()
+            # Берём самый частый page_id
+            page_id = None
+            if page_ids_found:
+                from collections import Counter
+                page_id = Counter(page_ids_found).most_common(1)[0][0]
 
             dead_signals = [
                 "this page isn't available",
@@ -242,9 +277,9 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
                 if signal in html:
                     return {"alive": False, "reason": f"playwright: {signal[:40]}"}
 
-            return {"alive": True, "reason": "playwright_ok", "display_name": display_name}
+            return {"alive": True, "reason": "playwright_ok", "display_name": display_name, "page_id": page_id}
     except Exception:
-        return {"alive": True, "reason": "playwright_failed_assuming_alive", "display_name": None}
+        return {"alive": True, "reason": "playwright_failed_assuming_alive", "display_name": None, "page_id": None}
 
 
 def get_page_id_requests(handle: str) -> str | None:
@@ -371,23 +406,32 @@ def get_page_id(handle: str) -> tuple:
 
 # ─── Ads Library URLs ─────────────────────────────────────────────────────────
 
-def build_ads_library_urls(display_name: str, countries: list = None) -> dict:
-    """Строит ссылки на Ads Library через keyword search по display name.
-    view_all_page_id не используется — не работает без логина.
+def build_ads_library_urls(display_name: str, countries: list = None, page_id: str = None) -> dict:
+    """Строит ссылки на Ads Library.
+    Если есть page_id — search_type=page&view_all_page_id (точно, только эта страница).
+    Иначе — keyword_unordered (может показывать конкурентов).
     """
     if countries is None:
         countries = ["ALL", "CA", "US", "GB", "AU"]
 
-    keyword = display_name.strip()
     urls = {}
     for country in countries:
-        base = (
-            f"https://www.facebook.com/ads/library/"
-            f"?ad_type=all&country={country}"
-            f"&media_type=all&search_type=keyword_unordered"
-            f"&sort_data[mode]=total_impressions&sort_data[direction]=desc"
-            f"&q={keyword}"
-        )
+        if page_id:
+            base = (
+                f"https://www.facebook.com/ads/library/"
+                f"?ad_type=all&country={country}"
+                f"&media_type=all&search_type=page"
+                f"&view_all_page_id={page_id}"
+            )
+        else:
+            keyword = display_name.strip()
+            base = (
+                f"https://www.facebook.com/ads/library/"
+                f"?ad_type=all&country={country}"
+                f"&media_type=all&search_type=keyword_unordered"
+                f"&sort_data[mode]=total_impressions&sort_data[direction]=desc"
+                f"&q={keyword}"
+            )
         urls[country] = {
             "active_only": base + "&active_status=active",
             "all": base + "&active_status=all",
