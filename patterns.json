@@ -1,0 +1,354 @@
+{
+  "/contacts": {
+    "type": "lead_form",
+    "priority": 1,
+    "description": "Contact page - plural form of /contact, same intent",
+    "examples": [
+      "keepbloomingflowers.ca/contacts",
+      "https://keepbloomingflowers.ca/contacts"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/delivery": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Shipping/delivery information page - e-commerce FAQ",
+    "examples": [
+      "keepbloomingflowers.ca/delivery",
+      "https://keepbloomingflowers.ca/delivery"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/flower-care": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Product care instructions - e-commerce FAQ",
+    "examples": [
+      "keepbloomingflowers.ca/flower-care",
+      "https://keepbloomingflowers.ca/flower-care"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/returns": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Returns/refund policy page - e-commerce FAQ",
+    "examples": [
+      "keepbloomingflowers.ca/returns",
+      "https://keepbloomingflowers.ca/returns"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/login": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Login/authentication page - skip",
+    "examples": [
+      "keepbloomingflowers.ca/login",
+      "https://keepbloomingflowers.ca/login"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/loyalty": {
+    "type": "pricing",
+    "priority": 2,
+    "description": "Loyalty/rewards program page - related to pricing/offers",
+    "examples": [
+      "keepbloomingflowers.ca/loyalty",
+      "https://keepbloomingflowers.ca/loyalty"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/account": {
+    "type": "technical",
+    "priority": 5,
+    "description": "User account page - skip",
+    "examples": [],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/wishlist": {
+    "type": "product",
+    "priority": 2,
+    "description": "Wishlist page - product interest signal",
+    "examples": [],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/collections": {
+    "type": "product",
+    "priority": 2,
+    "description": "Product collections/categories - e-commerce listing",
+    "examples": [],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/shop": {
+    "type": "product",
+    "priority": 2,
+    "description": "Shop/store main page or category",
+    "examples": [
+      "https://keepbloomingflowers.ca/shop"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/use-cases": {
+    "type": "use_case",
+    "priority": 2,
+    "description": "Use cases section - plural form",
+    "examples": [
+      "bandago.com/use-cases/bands"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/campground-owners": {
+    "type": "lead_form",
+    "priority": 1,
+    "description": "B2B lead page for campground owners - become a host",
+    "examples": [
+      "hipcamp.com/campground-owners"
+    ],
+    "added": "2026-04-08",
+    "source": "manual"
+  },
+  "/faq-items": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Individual FAQ item pages - WordPress custom post type",
+    "examples": [
+      "frognerhouse.no/faq-items/er-det-heis-i-bygningene"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/faq_category": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "FAQ category pages - WordPress custom taxonomy",
+    "examples": [
+      "frognerhouse.no/faq_category/reservasjon"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/element_category": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Avada/Fusion Builder element categories - WordPress theme internal",
+    "examples": [
+      "frognerhouse.no/element_category/columns"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/fusion_tb_category": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Avada/Fusion Builder theme builder categories - internal",
+    "examples": [
+      "frognerhouse.no/fusion_tb_category/header"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/slide-page": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Avada slider pages - internal template pages",
+    "examples": [
+      "frognerhouse.no/slide-page/lokka"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/guest-portal": {
+    "type": "lead_form",
+    "priority": 1,
+    "description": "Guest portal / client area - login or lead capture",
+    "examples": [
+      "frognerhouse.no/guest-portal"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/galleri": {
+    "type": "about",
+    "priority": 3,
+    "description": "Gallery page - Norwegian word for gallery",
+    "examples": [
+      "frognerhouse.no/galleri"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/author": {
+    "type": "about",
+    "priority": 3,
+    "description": "Author profile page - WordPress author archive",
+    "examples": [
+      "frognerhouse.no/author/sara"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/tag": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Tag archive page - WordPress tag taxonomy",
+    "examples": [
+      "frognerhouse.no/tag/norway-cup"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/category": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Category archive page - WordPress category taxonomy",
+    "examples": [
+      "frognerhouse.no/category/happenings-i-oslo"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/testimonials": {
+    "type": "about",
+    "priority": 3,
+    "description": "Manually classified from websafety.ninja: /testimonials.html",
+    "examples": [
+      "https://websafety.ninja/testimonials.html",
+      "https://keepbloomingflowers.ca/testimonials"
+    ],
+    "added": "2026-04-09",
+    "source": "manual"
+  },
+  "/pages/klarna": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Shopify static page — Klarna payment info (FAQ/info)",
+    "examples": [
+      "redacted-client.example/pages/klarna",
+      "https://redacted-client.example/pages/klarna"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/affirm": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Shopify static page — Affirm payment info (FAQ/info)",
+    "examples": [
+      "redacted-client.example/pages/affirm",
+      "https://redacted-client.example/pages/affirm"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/refund-policy": {
+    "type": "legal",
+    "priority": 5,
+    "description": "Shopify static page — refund/return policy",
+    "examples": [
+      "redacted-client.example/pages/refund-policy",
+      "https://redacted-client.example/pages/refund-policy"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/booking-policy": {
+    "type": "legal",
+    "priority": 5,
+    "description": "Shopify static page — booking policy",
+    "examples": [
+      "redacted-client.example/pages/booking-policy",
+      "https://redacted-client.example/pages/booking-policy"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/accessbility-statement": {
+    "type": "legal",
+    "priority": 5,
+    "description": "Shopify static page — accessibility statement",
+    "examples": [
+      "redacted-client.example/pages/accessbility-statement",
+      "https://redacted-client.example/pages/accessbility-statement"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/faq": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Shopify static page — FAQ",
+    "examples": [
+      "redacted-client.example/pages/faq",
+      "https://redacted-client.example/pages/faq",
+      "https://shop.delta.com/pages/faq"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/locations": {
+    "type": "location",
+    "priority": 2,
+    "description": "Shopify static page — studio locations",
+    "examples": [
+      "redacted-client.example/pages/locations",
+      "https://redacted-client.example/pages/locations"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/contact": {
+    "type": "lead_form",
+    "priority": 1,
+    "description": "Shopify static page — contact form",
+    "examples": [
+      "redacted-client.example/pages/contact",
+      "https://redacted-client.example/pages/contact",
+      "https://shop.delta.com/pages/contact"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/experience": {
+    "type": "about",
+    "priority": 3,
+    "description": "Shopify static page — experience/about page",
+    "examples": [
+      "redacted-client.example/pages/experience",
+      "https://redacted-client.example/pages/experience"
+    ],
+    "added": "2026-04-11",
+    "source": "manual"
+  },
+  "/pages/rebellious-through-the-years": {
+    "type": "about",
+    "priority": 3,
+    "description": "Manually typed from www.thebodyshop.com: /pages/rebellious-through-the-years",
+    "examples": [
+      "https://www.thebodyshop.com/pages/rebellious-through-the-years"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/pages/what-is": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from www.thebodyshop.com: /pages/what-is/what-is-body-butter",
+    "examples": [
+      "https://www.thebodyshop.com/pages/what-is/what-is-body-butter"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  }
+}
