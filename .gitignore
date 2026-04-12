@@ -5,3 +5,6 @@ scans/
 *.zip
 python
 set
+pw-profile/ 
+__pycache__/ 
+scans/ 
