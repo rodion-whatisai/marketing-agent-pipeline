@@ -270,6 +270,8 @@ _CTA_JS = """
         '[class*="breadcrumb" i]', '[class*="pagination" i]',
         // Accessibility skip-links
         '[class*="skip" i]',
+        // Google Maps — все кнопки внутри карты (language/version независимо)
+        '[class*="gm-style"]',
     ];
 
     const noiseNodes = new Set();
@@ -680,7 +682,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list, platform: str
     }
 
 
-def run(step1_file: str, max_priority: int = 2, only_url: str = None):
+def run(step1_file: str, max_priority: int = 2, only_url: str = None, debug_mode: bool = False, click_mode: bool = False):
     try:
         with open(step1_file, "r", encoding="utf-8") as f:
             step1 = json.load(f)
@@ -813,6 +815,29 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None):
 
             result = scan_page(page, url, ptype, expect, platform=platform)
             result["gtm_expected_platforms"] = list(expected_platforms)
+
+            # ── Clicker — если включён флаг --click ──────────────────
+            if click_mode:
+                try:
+                    from clicker import click_page, CLICKABLE_TYPES
+                    if ptype in CLICKABLE_TYPES:
+                        import datetime as _dtc
+                        _tsc = _dtc.datetime.now().strftime("%H:%M:%S")
+                        print(f"  [{_tsc}] 🖱  Clicker: {ptype}...")
+                        click_result = click_page(page, url, ptype, platform=platform, debug=debug_mode)
+                        result["click_result"] = click_result
+                        for ev in click_result.get("conversion_events", []):
+                            if ev not in result["conversion_events_found"]:
+                                result["conversion_events_found"].append(ev)
+                        if click_result["conversion_events"]:
+                            print(f"       🎯 После клика: {', '.join(click_result['conversion_events'])}")
+                        elif click_result["clicked"]:
+                            print(f"       ➖ Кликнули, событий нет")
+                        if click_result.get("error"):
+                            print(f"       ⚠️  {click_result['error']}")
+                except Exception as e:
+                    print(f"  ⚠️  Clicker error: {e}")
+
             results.append(result)
 
             has_any_pixel   = bool(result["pixel_events"])
@@ -1057,12 +1082,15 @@ if __name__ == "__main__":
                         help="Сканировать только одну страницу по URL или пути (напр. /collections/beauty-services)")
     parser.add_argument("--debug", action="store_true", default=False,
                         help="Verbose: все pixel requests + полный CTA rejected log")
+    parser.add_argument("--click", action="store_true", default=False,
+                        help="Кликать кнопки Add to Cart и продукты для поимки событий")
     args = parser.parse_args()
 
     _log_path = setup_logging(
         json.load(open(args.step1_file)).get("base_url", "unknown"), step="step2"
     )
 
-    run(args.step1_file, max_priority=args.priority, only_url=args.url)
+    run(args.step1_file, max_priority=args.priority, only_url=args.url,
+        debug_mode=args.debug, click_mode=args.click)
 
     print(f"\n📝 Лог: {_log_path}")
