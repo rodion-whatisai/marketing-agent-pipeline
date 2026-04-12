@@ -419,7 +419,7 @@ def build_ads_library_urls(display_name: str, countries: list = None, page_id: s
         if page_id:
             base = (
                 f"https://www.facebook.com/ads/library/"
-                f"?ad_type=all&country={country}"
+                f"?ad_type=all&country=GB"
                 f"&media_type=all&search_type=page"
                 f"&view_all_page_id={page_id}"
             )
@@ -441,22 +441,30 @@ def build_ads_library_urls(display_name: str, countries: list = None, page_id: s
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
-def get_active_ads_count(display_name: str) -> dict:
+def get_active_ads_count(display_name: str, page_id: str = None) -> dict:
     """
-    Проверяет наличие активной рекламы через keyword search в Ads Library.
-    Работает без логина. view_all_page_id не используется.
+    Проверяет наличие активной рекламы в Ads Library.
+    Если есть page_id — используем search_type=page (точно).
+    Иначе — keyword search (может считать конкурентов).
     """
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         return {"count": None, "error": "playwright not installed"}
 
-    keyword = display_name.strip()
-    url = (
-        f"https://www.facebook.com/ads/library/"
-        f"?active_status=active&ad_type=all&country=ALL"
-        f"&media_type=all&search_type=keyword_unordered&q={keyword}"
-    )
+    if page_id:
+        url = (
+            f"https://www.facebook.com/ads/library/"
+            f"?active_status=active&ad_type=all&country=ALL"
+            f"&media_type=all&search_type=page&view_all_page_id={page_id}"
+        )
+    else:
+        keyword = display_name.strip()
+        url = (
+            f"https://www.facebook.com/ads/library/"
+            f"?active_status=active&ad_type=all&country=ALL"
+            f"&media_type=all&search_type=keyword_unordered&q={keyword}"
+        )
 
     try:
         with sync_playwright() as p:

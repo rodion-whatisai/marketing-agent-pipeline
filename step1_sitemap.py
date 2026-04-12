@@ -547,7 +547,7 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
                 page_id = status.get("page_id")
 
                 ads_urls = build_ads_library_urls(display_name, page_id=page_id)
-                ads_count = get_active_ads_count(display_name)
+                ads_count = get_active_ads_count(display_name, page_id=page_id)
                 count = ads_count.get("count")
 
                 pid_hint = f" [page_id: {page_id}]" if page_id else " [keyword search]"
