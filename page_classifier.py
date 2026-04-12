@@ -158,6 +158,10 @@ FAST_RULES = [
 def fast_classify(path: str, full_url: str = "") -> dict | None:
     path_lower = path.lower()
 
+    # 0. Normalize language prefix — strip /fr/, /en/, /de/, /es/, /zh-cn/ etc.
+    #    Only strips if there's a following segment (lookahead (?=/)) so /fr alone is untouched.
+    path_lower = re.sub(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)', '', path_lower)
+
     # 1. patterns.json — наша накопленная база знаний
     p = patterns_classify(path_lower, full_url)
     if p:
