@@ -113,6 +113,9 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     cats_str = ", ".join(f"{name} ({cnt})" for name, cnt in list(sitemap_cats.items())[:4])
     sitemap_poi    = data.get("sitemap_poi", scanned)
     sitemap_deduped= data.get("sitemap_deduped", scanned)
+    lang_removed   = data.get("lang_removed", 0)
+    lang_prefixes  = data.get("lang_prefixes", [])
+    lang_sub = f"только EN ({lang_removed} {', '.join(lang_prefixes).upper()} убрано как дубли)" if lang_removed > 0 else "приоритетные страницы каждой категории"
     oks            = data.get("oks", 0)
     gaps        = data.get("gaps", 0)
     no_tracking = data.get("no_tracking", 0)
@@ -151,6 +154,21 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
             shopify_platforms.add(plat)
 
     all_found = network_platforms | shopify_platforms
+
+    # Три ключевые метрики
+    pages_with_cta = sum(1 for p in all_pages if p.get("cta_elements"))
+    pages_with_pixel = sum(1 for p in all_pages if p.get("pixel_events") or p.get("shopify_pixel_platforms"))
+    pages_with_conversion = sum(
+        1 for p in all_pages
+        if any(
+            ev.get("is_conversion") or (
+                ev.get("event", "") not in ("PageView", "fired", "track", "unknown")
+                and not ev.get("is_noise")
+            )
+            for evs in p.get("pixel_events", {}).values()
+            for ev in evs
+        )
+    )
 
     # Вердикт
     if no_tracking > 0 and not all_found:
@@ -200,8 +218,9 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
         plat_rows += f'<div class="plat-row"><span class="plat-name">{plat}</span><span class="plat-status {cls}">{status}</span></div>'
 
     # ── GAP страницы ───────────────────────────────────────────────
-    TYPE_ORDER = ["lead_form", "booking_confirm", "checkout", "homepage",
-                  "product", "location", "pricing", "about", "general"]
+    TYPE_ORDER = ["lead_form", "booking_confirm", "quote", "checkout", "homepage",
+                  "product", "location", "pricing", "use_case", "search_results",
+                  "about", "general"]
 
     gap_by_type = defaultdict(list)
     for p in gap_pages:
@@ -216,11 +235,14 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
         type_labels = {
             "lead_form": "Формы и заявки",
             "booking_confirm": "Подтверждение бронирования",
+            "quote": "Запрос цены / смета",
             "checkout": "Оформление заказа",
             "homepage": "Главная страница",
             "product": "Страницы продуктов",
             "location": "Локации",
             "pricing": "Цены и пакеты",
+            "use_case": "Use cases / решения",
+            "search_results": "Поиск / каталог",
             "about": "О компании",
             "general": "Прочие страницы",
         }
@@ -371,6 +393,13 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
   /* ── Stats ── */
   .stats {{
     display: grid;
+    border-bottom: 1px solid var(--border);
+  }}
+  .stats-top {{
+    grid-template-columns: repeat(2, 1fr);
+    border-bottom: 1px solid var(--border);
+  }}
+  .stats-bottom {{
     grid-template-columns: repeat(3, 1fr);
     border-bottom: 1px solid var(--border);
   }}
@@ -538,7 +567,7 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
 </div>
 
 <!-- Stats -->
-<div class="stats">
+<div class="stats stats-top">
   <div class="stat">
     <div class="stat-num def">{sitemap_total if sitemap_total else scanned}</div>
     <div class="stat-label">Страниц на сайте</div>
@@ -546,13 +575,25 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
   </div>
   <div class="stat">
     <div class="stat-num def">{scanned}</div>
-    <div class="stat-label">Отобрано для детального аудита</div>
-    <div class="stat-sub">приоритетные страницы каждой категории</div>
+    <div class="stat-label">Отобрано для аудита</div>
+    <div class="stat-sub">{lang_sub}</div>
+  </div>
+</div>
+<div class="stats stats-bottom">
+  <div class="stat">
+    <div class="stat-num {"ok" if pages_with_cta > 0 else "gap"}">{pages_with_cta} of {scanned}</div>
+    <div class="stat-label">имеют CTA</div>
+    <div class="stat-sub">кнопки и формы похожие на конверсии</div>
   </div>
   <div class="stat">
-    <div class="stat-num {"gap" if gaps > 0 else "ok"}">{gaps}</div>
-    <div class="stat-label">Страниц с пробелами</div>
-    <div class="stat-sub">конверсионные события не зафиксированы</div>
+    <div class="stat-num {"ok" if pages_with_pixel > 0 else "gap"}">{pages_with_pixel} of {scanned}</div>
+    <div class="stat-label">имеют пиксель</div>
+    <div class="stat-sub">Meta, GA4, GTM или другие платформы</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num {"ok" if pages_with_conversion > 0 else "gap"}">{pages_with_conversion} of {scanned}</div>
+    <div class="stat-label">имеют пиксель + событие</div>
+    <div class="stat-sub">конверсионное событие зафиксировано</div>
   </div>
 </div>
 
@@ -579,6 +620,20 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     {gap_sections_html}
   </div>
   '''}
+
+  <!-- NO TRACKING страницы -->
+  {f'''
+  <div class="section">
+    <div class="section-title">❌ Пикселей нет вообще</div>
+    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
+      На этих страницах не обнаружено ни одного tracking пикселя. Attribution отсутствует полностью.
+    </p>
+    {"".join(
+      f\'<div class="ok-row"><span class="ok-path">{r.get("path","")}</span><span class="ok-events" style="color:var(--red,#e05)">Пикселей не найдено</span></div>\'
+      for r in data.get("no_tracking_pages", [])
+    )}
+  </div>
+  ''' if data.get("no_tracking_pages") else ""}
 
   <!-- OK страницы -->
   {ok_section_html}

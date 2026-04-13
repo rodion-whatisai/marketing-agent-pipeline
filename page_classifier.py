@@ -142,8 +142,11 @@ FAST_RULES = [
     (1, "checkout",        [r"/checkout(?:/|$)", r"/cart(?:/|$)", r"/basket(?:/|$)", r"/bag(?:/|$)"]),
     (1, "booking_confirm", [r"/thank-you", r"/thankyou", r"/order-confirm", r"/payment/success"]),
     (1, "lead_form",       [r"/contact(?:/|$)", r"/contact-us", r"/sign-up(?:/|$)", r"/signup(?:/|$)", r"/contacts(?:/|$)", r"/proposal(?:/|\.html|$)", r"/get-quote", r"/request(?:/|$)", r"/get-started", r"/book-demo", r"/schedule-demo", r"/request-demo", r"/start(?:/|$)", r"/try(?:/|$)", r"/join(?:/|$)", r"/register(?:/|$)", r"/apply(?:/|$)", r"/onboarding(?:/|$)", r"/create-account",
+                           r"/book(?:/|$)", r"/booking(?:/|$)", r"/book-now", r"/reserve(?:/|$)",
                            # French (CA/QC)
-                           r"/nous-contacter", r"/contactez-nous", r"/coordonnees", r"/coordonnées"]),
+                           r"/nous-contacter", r"/contactez-nous", r"/coordonnees", r"/coordonn\u00e9es",
+                           r"/reservation(?:/|$)", r"/r\u00e9servation(?:/|$)", r"/reserver(?:/|$)", r"/r\u00e9server(?:/|$)",
+                           r"/commencer(?:/|$)", r"/prendre-rendez-vous", r"/rendez-vous(?:/|$)"]),
     (1, "quote",           [r"/obtenez-un-devis", r"/obtenir-un-devis", r"/soumission(?:/|$)", r"/devis(?:/|$)"]),
     (2, "homepage",        [r"^/?$", r"^/home/?$", r"^/index\."]),
     (2, "product",         [r"/products/[^/]", r"/collections/[^/]+/products/", r"/items/", r"/listing/"]),

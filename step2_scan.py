@@ -221,9 +221,15 @@ ANALYTICS_TOOLS = {
 
 
 def detect_external_services(html: str, requests_urls: list = None) -> dict:
+    # Payment services — only via network requests, never via HTML
+    # (Jotform/other iframes include Stripe mentions in their CSS/JS, causing false positives)
+    NETWORK_ONLY = {"Stripe", "Paddle", "Gumroad"}
+
     found = {}
     html_lower = html.lower()
     for service, domains in EXTERNAL_SERVICES.items():
+        if service in NETWORK_ONLY:
+            continue
         for domain in domains:
             if domain in html_lower:
                 found[service] = {"detected_via": "html", "domain": domain}
@@ -577,8 +583,9 @@ def scan_page(page, url: str, page_type: str, expect_events: list, platform: str
 
     errors = []
     # Shopify грузит пиксели через web-pixels-manager — нужно больше времени
-    _wait_ms = 3000 if platform == "shopify" else 1500
-    _wait_ms_fallback = 2000 if platform == "shopify" else 1000
+    # WordPress/Elementor рендерит виджеты и формы после domcontentloaded
+    _wait_ms = 3000 if platform == "shopify" else (2500 if platform == "wordpress" else 1500)
+    _wait_ms_fallback = 2000 if platform == "shopify" else (1500 if platform == "wordpress" else 1000)
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=20000)
         page.wait_for_timeout(_wait_ms)
@@ -588,6 +595,20 @@ def scan_page(page, url: str, page_type: str, expect_events: list, platform: str
             page.wait_for_timeout(_wait_ms_fallback)
         except Exception as e2:
             errors.append(str(e2)[:100])
+
+    # WordPress/Elementor: scroll через всю страницу чтобы запустить lazy-load виджетов
+    if platform == "wordpress":
+        try:
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight * 0.3)")
+            page.wait_for_timeout(400)
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight * 0.7)")
+            page.wait_for_timeout(400)
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+            page.wait_for_timeout(600)
+            page.evaluate("window.scrollTo(0, 0)")
+            page.wait_for_timeout(300)
+        except Exception:
+            pass
 
     try:
         main_html = page.content()
@@ -862,6 +883,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None, debug_mode
             elif has_conv:
                 result["status"] = "✅ OK"
                 oks.append(result)
+            elif has_tracking and not has_cta:
+                # Пиксель есть, CTA нет — страница не конверсионная, нормально
+                result["status"] = "➖ NO CTA"
+                no_ctas.append(result)
             else:
                 result["status"] = "➖ NO CTA"
                 no_ctas.append(result)
@@ -943,9 +968,9 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None, debug_mode
             else:
                 print(f"  События:       не зафиксированы")
 
-            # Ожидаемые но не найденные
+            # Ожидаемые но не найденные — только если пиксели ЕСТЬ (GAP), не NO TRACKING
             missing_ev = result.get("missing_events", [])
-            if missing_ev:
+            if missing_ev and result.get("status") != "❌ NO TRACKING":
                 [print(f"  {ev}: не зафиксирован при загрузке") for ev in missing_ev]
 
             # ── Доп. аналитика ──
@@ -1047,6 +1072,12 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None, debug_mode
         "sitemap_total": len(step1.get("classified", [])),
         "sitemap_poi": len(step1.get("to_scan", step1.get("classified", []))),
         "sitemap_deduped": len(results),
+        "lang_removed": step1.get("lang_removed", 0),
+        "lang_prefixes": step1.get("lang_prefixes", []),
+        "sitemap_categories": {
+            p["type"]: sum(1 for x in step1.get("classified", []) if x.get("type") == p["type"])
+            for p in step1.get("classified", [])
+        } if step1.get("classified") else {},
         "gaps": len(gaps),
         "oks": len(oks),
         "no_ctas": len(no_ctas),

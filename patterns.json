@@ -350,5 +350,355 @@
     ],
     "added": "2026-04-12",
     "source": "manual"
+  },
+  "/quote": {
+    "type": "quote",
+    "priority": 1,
+    "description": "Learned from photographersmontreal.ca: /quote",
+    "examples": [
+      "https://www.photographersmontreal.ca/quote"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/fr/oshin-a-creative-multipurpose-wordpress-theme": {
+    "type": "product",
+    "priority": 2,
+    "description": "Learned from photographersmontreal.ca: /fr/oshin-a-creative-multipurpose-wordpress-theme",
+    "examples": [
+      "https://www.photographersmontreal.ca/fr/oshin-a-creative-multipurpose-wordpress-theme"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/oshin-a-creative-multipurpose-wordpress-theme": {
+    "type": "product",
+    "priority": 2,
+    "description": "Learned from photographersmontreal.ca: /oshin-a-creative-multipurpose-wordpress-theme",
+    "examples": [
+      "https://www.photographersmontreal.ca/oshin-a-creative-multipurpose-wordpress-theme"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/corporate-photos": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from photographersmontreal.ca: /corporate-photos",
+    "examples": [
+      "https://www.photographersmontreal.ca/corporate-photos"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/corporate-videos": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from photographersmontreal.ca: /corporate-videos",
+    "examples": [
+      "https://www.photographersmontreal.ca/corporate-videos"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/fr/corporate-photos": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from photographersmontreal.ca: /fr/corporate-photos",
+    "examples": [
+      "https://www.photographersmontreal.ca/fr/corporate-photos"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/fr/corporate-videos": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from photographersmontreal.ca: /fr/corporate-videos",
+    "examples": [
+      "https://www.photographersmontreal.ca/fr/corporate-videos"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/fr/nouvelles": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from photographersmontreal.ca: /fr/nouvelles",
+    "examples": [
+      "https://www.photographersmontreal.ca/fr/nouvelles"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/latest-news": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from photographersmontreal.ca: /latest-news",
+    "examples": [
+      "https://www.photographersmontreal.ca/latest-news"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/locations": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Learned from photographersmontreal.ca: /locations.kml",
+    "examples": [
+      "https://www.photographersmontreal.ca/locations.kml"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/fr": {
+    "type": "search_results",
+    "priority": 2,
+    "description": "Manually classified from photographersmontreal.ca: /fr/photos",
+    "examples": [
+      "https://www.photographersmontreal.ca/fr/photos"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/photos": {
+    "type": "search_results",
+    "priority": 2,
+    "description": "Manually classified from photographersmontreal.ca: /photos",
+    "examples": [
+      "https://www.photographersmontreal.ca/photos"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/portfolio_categories": {
+    "type": "search_results",
+    "priority": 2,
+    "description": "Manually classified from photographersmontreal.ca: /portfolio_categories/services",
+    "examples": [
+      "https://www.photographersmontreal.ca/portfolio_categories/services"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/services-2": {
+    "type": "search_results",
+    "priority": 2,
+    "description": "Manually classified from photographersmontreal.ca: /services-2",
+    "examples": [
+      "https://www.photographersmontreal.ca/services-2"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/useful-links": {
+    "type": "use_case",
+    "priority": 2,
+    "description": "Manually classified from photographersmontreal.ca: /useful-links",
+    "examples": [
+      "https://www.photographersmontreal.ca/useful-links"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/home-thats-amore": {
+    "type": "product",
+    "priority": 2,
+    "description": "Learned from photographersmontreal.ca: /home-thats-amore",
+    "examples": [
+      "https://www.photographersmontreal.ca/home-thats-amore"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/locations.kml": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Manually classified from photographersmontreal.ca: /locations.kml",
+    "examples": [
+      "https://www.photographersmontreal.ca/locations.kml"
+    ],
+    "added": "2026-04-12",
+    "source": "manual"
+  },
+  "/book-a-wedding-consultation": {
+    "type": "lead_form",
+    "priority": 1,
+    "description": "Learned from studioaplus.ca: /book-a-wedding-consultation",
+    "examples": [
+      "https://studioaplus.ca/book-a-wedding-consultation"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/package": {
+    "type": "pricing",
+    "priority": 2,
+    "description": "Learned from studioaplus.ca: /package",
+    "examples": [
+      "https://studioaplus.ca/package"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/photo-gallery": {
+    "type": "search_results",
+    "priority": 2,
+    "description": "Learned from studioaplus.ca: /photo-gallery",
+    "examples": [
+      "https://studioaplus.ca/photo-gallery"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/video-gallery": {
+    "type": "search_results",
+    "priority": 2,
+    "description": "Learned from studioaplus.ca: /video-gallery",
+    "examples": [
+      "https://studioaplus.ca/video-gallery"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/our-team": {
+    "type": "about",
+    "priority": 3,
+    "description": "Learned from studioaplus.ca: /our-team",
+    "examples": [
+      "https://studioaplus.ca/our-team"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/beautiful-montreal-wedding-photography-locations": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /beautiful-montreal-wedding-photography-locations",
+    "examples": [
+      "https://studioaplus.ca/beautiful-montreal-wedding-photography-locations"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/best-montreal-wedding-photography-trends-for-2025": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /best-montreal-wedding-photography-trends-for-2025",
+    "examples": [
+      "https://studioaplus.ca/best-montreal-wedding-photography-trends-for-2025"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/choosing-a-montreal-wedding-photographer": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /choosing-a-montreal-wedding-photographer",
+    "examples": [
+      "https://studioaplus.ca/choosing-a-montreal-wedding-photographer"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/interesting-montreal-wedding-photographer-photoshoot-locations": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /interesting-montreal-wedding-photographer-photoshoot-locations",
+    "examples": [
+      "https://studioaplus.ca/interesting-montreal-wedding-photographer-photoshoot-locations"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/montreal-wedding-photographer-amir-ghazi": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /montreal-wedding-photographer-amir-ghazi",
+    "examples": [
+      "https://studioaplus.ca/montreal-wedding-photographer-amir-ghazi"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/montreal-wedding-photographer-capturing-moments": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /montreal-wedding-photographer-capturing-moments",
+    "examples": [
+      "https://studioaplus.ca/montreal-wedding-photographer-capturing-moments"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/montreal-wedding-photography-trends-2026": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /montreal-wedding-photography-trends-2026",
+    "examples": [
+      "https://studioaplus.ca/montreal-wedding-photography-trends-2026"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/our-blog": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /our-blog",
+    "examples": [
+      "https://studioaplus.ca/our-blog"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/the-best-montreal-wedding-photographer": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /the-best-montreal-wedding-photographer",
+    "examples": [
+      "https://studioaplus.ca/the-best-montreal-wedding-photographer"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/the-challenges-of-wedding-photography-in-montreal": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /the-challenges-of-wedding-photography-in-montreal",
+    "examples": [
+      "https://studioaplus.ca/the-challenges-of-wedding-photography-in-montreal"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/the-evolution-of-montreal-wedding-photography": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /the-evolution-of-montreal-wedding-photography",
+    "examples": [
+      "https://studioaplus.ca/the-evolution-of-montreal-wedding-photography"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/tips-from-a-top-montreal-wedding-photographer": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /tips-from-a-top-montreal-wedding-photographer",
+    "examples": [
+      "https://studioaplus.ca/tips-from-a-top-montreal-wedding-photographer"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
+  },
+  "/top-montreal-wedding-photographer-must-have-photos": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from studioaplus.ca: /top-montreal-wedding-photographer-must-have-photos",
+    "examples": [
+      "https://studioaplus.ca/top-montreal-wedding-photographer-must-have-photos"
+    ],
+    "added": "2026-04-12",
+    "source": "claude_approved"
   }
 }
