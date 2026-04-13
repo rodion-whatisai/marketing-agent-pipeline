@@ -27,6 +27,73 @@ from utils import get_scan_dir, scan_path, HEADERS
 
 
 
+# ─── Определение страны сайта ────────────────────────────────────────────────
+
+TLD_TO_COUNTRY = {
+    "ca": "CA", "co.uk": "GB", "uk": "GB", "com.au": "AU", "au": "AU",
+    "co.nz": "NZ", "nz": "NZ", "ie": "IE", "de": "DE", "fr": "FR",
+    "es": "ES", "it": "IT", "nl": "NL", "br": "BR", "mx": "MX",
+    "in": "IN", "jp": "JP", "sg": "SG", "za": "ZA",
+}
+
+LANG_TAG_TO_COUNTRY = {
+    "en-ca": "CA", "fr-ca": "CA",
+    "en-gb": "GB", "en-au": "AU", "en-nz": "NZ", "en-ie": "IE",
+    "en-za": "ZA", "en-sg": "SG",
+    "de": "DE", "de-de": "DE", "de-at": "AT", "de-ch": "CH",
+    "fr": "FR", "fr-fr": "FR", "fr-be": "BE",
+    "nl": "NL", "nl-nl": "NL", "nl-be": "BE",
+    "es": "ES", "es-es": "ES", "pt-br": "BR",
+    "it": "IT", "it-it": "IT",
+    "ja": "JP", "ja-jp": "JP",
+    "ko": "KR", "ko-kr": "KR",
+    "zh-cn": "CN", "zh-tw": "TW",
+}
+
+
+def detect_site_country(domain: str, html: str = "", response_headers: dict = None) -> dict:
+    """
+    Определяет страну сайта по трём сигналам в порядке приоритета:
+      1. Content-Language header (en-CA, fr-FR…)
+      2. HTML lang attribute (en-CA, nl, de…)
+      3. TLD домена (.ca, .de, .nl…)
+    Если ни один не сработал — дефолт ALL.
+
+    Возвращает {"country": "CA", "source": "content-language-header"}
+    """
+    # 1. Content-Language header
+    if response_headers:
+        cl = response_headers.get("Content-Language", response_headers.get("content-language", ""))
+        if cl:
+            tag = cl.strip().split(",")[0].strip().lower()
+            if tag in LANG_TAG_TO_COUNTRY:
+                return {"country": LANG_TAG_TO_COUNTRY[tag], "source": f"content-language-header ({cl.strip()})"}
+            # Попробуем без региона (de → DE)
+            base = tag.split("-")[0]
+            if base in LANG_TAG_TO_COUNTRY:
+                return {"country": LANG_TAG_TO_COUNTRY[base], "source": f"content-language-header ({cl.strip()})"}
+
+    # 2. HTML lang attribute
+    if html:
+        import re as _re
+        m = _re.search(r'<html[^>]+lang=["\']([a-zA-Z]{2,3}(?:-[a-zA-Z]{2,4})?)["\']', html, _re.IGNORECASE)
+        if m:
+            tag = m.group(1).lower()
+            if tag in LANG_TAG_TO_COUNTRY:
+                return {"country": LANG_TAG_TO_COUNTRY[tag], "source": f"html-lang-attr ({m.group(1)})"}
+            base = tag.split("-")[0]
+            if base in LANG_TAG_TO_COUNTRY:
+                return {"country": LANG_TAG_TO_COUNTRY[base], "source": f"html-lang-attr ({m.group(1)})"}
+
+    # 3. TLD
+    d = domain.lower().rstrip("/").split("?")[0]
+    for tld, country in TLD_TO_COUNTRY.items():
+        if d.endswith(f".{tld}"):
+            return {"country": country, "source": f"tld (.{tld})"}
+
+    return {"country": "ALL", "source": "no signals found — defaulting to ALL"}
+
+
 # Суффиксы региональных аккаунтов
 COUNTRY_SUFFIXES = [
     "canada", "uk", "australia", "au", "gb", "ca", "us", "fr", "de",
@@ -407,64 +474,47 @@ def get_page_id(handle: str) -> tuple:
 # ─── Ads Library URLs ─────────────────────────────────────────────────────────
 
 def build_ads_library_urls(display_name: str, countries: list = None, page_id: str = None) -> dict:
-    """Строит ссылки на Ads Library.
-    Если есть page_id — search_type=page&view_all_page_id (точно, только эта страница).
-    Иначе — keyword_unordered (может показывать конкурентов).
-    """
-    if countries is None:
-        countries = ["ALL", "CA", "US", "GB", "AU"]
-
-    urls = {}
-    for country in countries:
-        if page_id:
-            base = (
-                f"https://www.facebook.com/ads/library/"
-                f"?ad_type=all&country=GB"
-                f"&media_type=all&search_type=page"
-                f"&view_all_page_id={page_id}"
-            )
-        else:
-            keyword = display_name.strip()
-            base = (
-                f"https://www.facebook.com/ads/library/"
-                f"?ad_type=all&country={country}"
-                f"&media_type=all&search_type=keyword_unordered"
-                f"&sort_data[mode]=total_impressions&sort_data[direction]=desc"
-                f"&q={keyword}"
-            )
-        urls[country] = {
-            "active_only": base + "&active_status=active",
-            "all": base + "&active_status=all",
+    """Строит ссылки на Ads Library — keyword search по display name, country=ALL."""
+    keyword = display_name.strip().replace(" ", "%20")
+    base = (
+        f"https://www.facebook.com/ads/library/"
+        f"?active_status=active&ad_type=all&country=ALL"
+        f"&is_targeted_country=false&media_type=all"
+        f"&q={keyword}"
+        f"&search_type=keyword_unordered"
+        f"&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+    )
+    return {
+        "ALL": {
+            "active_only": base,
+            "all": base.replace("active_status=active", "active_status=all"),
         }
-    return urls
+    }
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
-def get_active_ads_count(display_name: str, page_id: str = None) -> dict:
+def get_active_ads_count(display_name: str, page_id: str = None,
+                         country: str = "ALL", fb_page_url: str = None) -> dict:
     """
-    Проверяет наличие активной рекламы в Ads Library.
-    Если есть page_id — используем search_type=page (точно).
-    Иначе — keyword search (может считать конкурентов).
+    Проверяет наличие активной рекламы по display name (keyword search).
+    Возвращает count + search_term для прозрачности.
     """
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         return {"count": None, "error": "playwright not installed"}
 
-    if page_id:
-        url = (
-            f"https://www.facebook.com/ads/library/"
-            f"?active_status=active&ad_type=all&country=ALL"
-            f"&media_type=all&search_type=page&view_all_page_id={page_id}"
-        )
-    else:
-        keyword = display_name.strip()
-        url = (
-            f"https://www.facebook.com/ads/library/"
-            f"?active_status=active&ad_type=all&country=ALL"
-            f"&media_type=all&search_type=keyword_unordered&q={keyword}"
-        )
+    keyword = display_name.strip().replace(" ", "%20")
+    url = (
+        f"https://www.facebook.com/ads/library/"
+        f"?active_status=active&ad_type=all&country={country}"
+        f"&is_targeted_country=false&media_type=all"
+        f"&q={keyword}"
+        f"&search_type=keyword_unordered"
+        f"&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+    )
+    search_meta = {"search_term": display_name, "country": country}
 
     try:
         with sync_playwright() as p:
@@ -491,38 +541,33 @@ def get_active_ads_count(display_name: str, page_id: str = None) -> dict:
 
         # Паттерн 1: JSON count
         json_count = re.search(
-            r'"search_results_connection"\s*:\s*\{[^}]*"count"\s*:\s*(\d+)',
-            html
+            r'"search_results_connection"\s*:\s*\{[^}]*"count"\s*:\s*(\d+)', html
         )
         if json_count:
             count = int(json_count.group(1))
-            return {"count": count, "status": "active" if count > 0 else "no_active_ads", "method": "json"}
+            return {"count": count, "status": "active" if count > 0 else "no_active_ads",
+                    "method": "json", **search_meta}
 
-        # Паттерн 2: "~N results" heading
+        # Паттерн 2: "~N results"
         heading = re.search(r'~?(\d[\d,\s]*)\s+results?', html, re.IGNORECASE)
         if heading:
             num_str = re.sub(r'[,\s]', '', heading.group(1))
             try:
                 count = int(num_str)
                 if 0 < count < 1000000:
-                    return {"count": count, "status": "active", "method": "heading"}
+                    return {"count": count, "status": "active",
+                            "method": "heading", **search_meta}
             except ValueError:
                 pass
 
         # Паттерн 3: пустой результат
-        no_results_signals = [
-            'no ads match',
-            'no results',
-            '"edges":[]',
-            '"count":0',
-        ]
-        if any(s in html.lower() for s in no_results_signals):
-            return {"count": 0, "status": "no_active_ads", "method": "empty_signal"}
+        if any(s in html.lower() for s in ['no ads match', 'no results', '"edges":[]', '"count":0']):
+            return {"count": 0, "status": "no_active_ads", "method": "empty_signal", **search_meta}
 
-        return {"count": None, "status": "could_not_parse"}
+        return {"count": None, "status": "could_not_parse", **search_meta}
 
     except Exception as e:
-        return {"count": None, "error": str(e)[:100]}
+        return {"count": None, "error": str(e)[:100], **search_meta}
 
 def run(target: str) -> dict:
     print(f"\n{'═' * 60}")
@@ -535,15 +580,28 @@ def run(target: str) -> dict:
     is_handle = not is_domain and "facebook.com" not in target
 
     if is_handle:
-        # Прямой handle — обрабатываем как одиночный
         handle = target.strip("/").split("facebook.com/")[-1].split("?")[0]
         handles = [{"handle": handle, "url": f"https://www.facebook.com/{handle}"}]
         brand_name = handle
+        site_country = "ALL"
+        site_country_source = "no domain — defaulting to ALL"
     else:
-        # Домен — собираем все FB ссылки
         base_url = ("https://" + target if not target.startswith("http") else target).rstrip("/")
         brand_name = urlparse(base_url).netloc.split(".")[0]
 
+        _html, _headers = "", {}
+        try:
+            _r = requests.get(base_url, headers=HEADERS, timeout=10)
+            _html = _r.text
+            _headers = dict(_r.headers)
+        except Exception:
+            pass
+
+        country_result = detect_site_country(urlparse(base_url).netloc, html=_html, response_headers=_headers)
+        site_country = country_result["country"]
+        site_country_source = country_result["source"]
+
+        print(f"\n🌍 Страна сайта: {site_country}  (via {site_country_source})")
         print(f"\n🔍 Ищу Facebook аккаунты на {target}...")
         handles = find_all_fb_handles(base_url)
 
@@ -562,13 +620,10 @@ def run(target: str) -> dict:
         handle = item["handle"]
         fmt = item.get("format", "vanity")
         display = item.get("display_name", f"@{handle}")
+        fb_page_url = item["url"]
         print(f"\n  {display} [{fmt}]")
 
-        # Playwright как основной метод проверки
-        # Для /people/ и /profile/ форматов — проверяем по полному URL
-        check_handle = handle
         if fmt in ("people", "profile", "pages"):
-            # Используем URL напрямую через Playwright
             status = check_fb_page_alive_playwright(item["url"].replace("https://www.facebook.com/", ""))
         else:
             status = check_fb_page_alive_playwright(handle)
@@ -577,7 +632,7 @@ def run(target: str) -> dict:
             print(f"    ✗ DEAD LINK — {status['reason']}")
             results.append({
                 "handle": handle,
-                "url": item["url"],
+                "url": fb_page_url,
                 "published": False,
                 "broken_reason": status["reason"],
                 "page_id": None,
@@ -585,37 +640,35 @@ def run(target: str) -> dict:
             })
             continue
 
-        # Display name — из Playwright результата (уже есть в status)
         display_name = status.get("display_name") or display
 
         print(f"    ✓ Published | Display name: {display_name}")
 
-        # Ads Library — всё через keyword search по display name
         ads_urls = build_ads_library_urls(display_name)
         print(f"    📢 Ads Library: {ads_urls['ALL']['active_only']}")
 
-        # Проверяем активную рекламу
-        print(f"    🔢 Проверяю рекламу...")
-        ads_count = get_active_ads_count(display_name)
-        if ads_count.get("count") is not None:
-            count = ads_count["count"]
-            if count == 0:
-                print(f"    ❌ Активных объявлений: 0")
-            else:
-                print(f"    ✅ Активных объявлений: ~{count}")
+        print(f"    🔢 Проверяю рекламу по имени '{display_name}'...")
+        ads_count = get_active_ads_count(display_name, country="ALL", fb_page_url=fb_page_url)
+
+        count = ads_count.get("count")
+
+        if count is not None:
+            status_icon = "✅" if count > 0 else "❌"
+            print(f"    {status_icon} Активных объявлений: {'~' if count > 0 else ''}{count}")
         else:
             print(f"    ⚠️  Не удалось определить количество")
 
         results.append({
             "handle": handle,
             "display_name": display_name,
-            "url": item["url"],
+            "url": fb_page_url,
             "alive": True,
-            "active_ads_count": ads_count.get("count"),
+            "active_ads_count": count,
+            "ads_search_term": display_name,
             "ads_library": ads_urls,
         })
 
-        time.sleep(0.5)  # небольшая пауза между запросами
+        time.sleep(0.5)
 
     # Summary
     print(f"\n{'═' * 60}")
@@ -633,6 +686,8 @@ def run(target: str) -> dict:
     output = {
         "target": target,
         "brand_name": brand_name,
+        "site_country": site_country,
+        "site_country_source": site_country_source,
         "accounts": results,
     }
 
