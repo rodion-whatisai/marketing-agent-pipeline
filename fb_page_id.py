@@ -494,11 +494,104 @@ def build_ads_library_urls(display_name: str, countries: list = None, page_id: s
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
+def _parse_ad_library_html(html: str) -> dict:
+    """Парсит HTML страницы Ad Library — count, тексты, partnership флаг."""
+    result = {"count": None, "status": "could_not_parse", "ad_texts": [],
+              "partnership_ads": False, "partnership_count": 0}
+
+    # Count
+    json_count = re.search(
+        r'"search_results_connection"\s*:\s*\{[^}]*"count"\s*:\s*(\d+)', html
+    )
+    if json_count:
+        result["count"] = int(json_count.group(1))
+        result["status"] = "active" if result["count"] > 0 else "no_active_ads"
+        result["method"] = "json"
+    else:
+        heading = re.search(r'~?(\d[\d,\s]*)\s+results?', html, re.IGNORECASE)
+        if heading:
+            try:
+                count = int(re.sub(r'[,\s]', '', heading.group(1)))
+                if 0 < count < 1000000:
+                    result["count"] = count
+                    result["status"] = "active"
+                    result["method"] = "heading"
+            except ValueError:
+                pass
+        if result["count"] is None:
+            if any(s in html.lower() for s in ['no ads match', 'no results', '"edges":[]', '"count":0']):
+                result["count"] = 0
+                result["status"] = "no_active_ads"
+                result["method"] = "empty_signal"
+
+    # Ad texts
+    texts = re.findall(r'white-space: pre-wrap[^>]*><span>([^<]{10,600})', html)
+    seen = set()
+    unique_texts = []
+    for t in texts:
+        t = t.strip()
+        if t not in seen:
+            seen.add(t)
+            unique_texts.append(t)
+    result["ad_texts"] = unique_texts
+
+    # Partnership / branded content
+    partnership_count = len(re.findall(r'branded_content', html, re.IGNORECASE))
+    # branded_content appears ~3 times per ad card (menu item + label + data)
+    estimated = max(0, partnership_count // 3)
+    result["partnership_ads"] = estimated > 0
+    result["partnership_count"] = estimated
+
+    return result
+
+
+def _download_ad_images(page, domain: str, max_images: int = 5) -> list:
+    """Скачивает первые N изображений из результатов Ad Library. Возвращает список путей."""
+    import urllib.request
+    from pathlib import Path
+
+    img_dir = Path("scans") / domain / "fb_ads_images"
+    img_dir.mkdir(parents=True, exist_ok=True)
+
+    # Собираем img src из ad карточек через JS
+    try:
+        img_urls = page.evaluate("""
+            () => {
+                const imgs = Array.from(document.querySelectorAll('img[src]'));
+                return imgs
+                    .map(i => i.src)
+                    .filter(s => s.includes('scontent') || s.includes('fbcdn'))
+                    .filter(s => !s.includes('emoji') && !s.includes('icon') && !s.includes('avatar'))
+                    .filter(s => s.includes('.jpg') || s.includes('.png') || s.includes('_n.'))
+                    .slice(0, 20);
+            }
+        """)
+    except Exception:
+        return []
+
+    saved = []
+    for i, img_url in enumerate(img_urls[:max_images]):
+        try:
+            ext = ".jpg"
+            if ".png" in img_url:
+                ext = ".png"
+            path = img_dir / f"ad_{i+1}{ext}"
+            urllib.request.urlretrieve(img_url, path)
+            saved.append(str(path))
+            print(f"      📷 Сохранено: {path.name}")
+        except Exception as e:
+            print(f"      ⚠️  Не удалось скачать img {i+1}: {str(e)[:50]}")
+
+    return saved
+
+
 def get_active_ads_count(display_name: str, page_id: str = None,
-                         country: str = "ALL", fb_page_url: str = None) -> dict:
+                         country: str = "ALL", fb_page_url: str = None,
+                         domain: str = "", download_images: bool = True) -> dict:
     """
-    Проверяет наличие активной рекламы по display name (keyword search).
-    Возвращает count + search_term для прозрачности.
+    Проверяет рекламу по display name (keyword search).
+    Парсит: count, тексты объявлений, partnership флаг.
+    Скачивает первые 5 изображений.
     """
     try:
         from playwright.sync_api import sync_playwright
@@ -514,7 +607,6 @@ def get_active_ads_count(display_name: str, page_id: str = None,
         f"&search_type=keyword_unordered"
         f"&sort_data[direction]=desc&sort_data[mode]=total_impressions"
     )
-    search_meta = {"search_term": display_name, "country": country}
 
     try:
         with sync_playwright() as p:
@@ -537,37 +629,40 @@ def get_active_ads_count(display_name: str, page_id: str = None,
                     pass
 
             html = page.content()
+
+            # Скачиваем изображения пока браузер открыт
+            saved_images = []
+            if download_images and domain:
+                print(f"      📷 Скачиваю изображения...")
+                saved_images = _download_ad_images(page, domain)
+
             browser.close()
 
-        # Паттерн 1: JSON count
-        json_count = re.search(
-            r'"search_results_connection"\s*:\s*\{[^}]*"count"\s*:\s*(\d+)', html
-        )
-        if json_count:
-            count = int(json_count.group(1))
-            return {"count": count, "status": "active" if count > 0 else "no_active_ads",
-                    "method": "json", **search_meta}
+        parsed = _parse_ad_library_html(html)
+        parsed["saved_images"] = saved_images
+        parsed["search_term"] = display_name
+        parsed["country"] = country
 
-        # Паттерн 2: "~N results"
-        heading = re.search(r'~?(\d[\d,\s]*)\s+results?', html, re.IGNORECASE)
-        if heading:
-            num_str = re.sub(r'[,\s]', '', heading.group(1))
-            try:
-                count = int(num_str)
-                if 0 < count < 1000000:
-                    return {"count": count, "status": "active",
-                            "method": "heading", **search_meta}
-            except ValueError:
-                pass
+        # Сохраняем тексты в отдельный файл
+        if domain and parsed.get("ad_texts"):
+            from pathlib import Path
+            texts_dir = Path("scans") / domain / "fb_ads_images"
+            texts_dir.mkdir(parents=True, exist_ok=True)
+            texts_path = texts_dir / "ad_texts.txt"
+            with open(texts_path, "w", encoding="utf-8") as f:
+                f.write(f"Ad texts for: {display_name}\n")
+                f.write(f"Total: {len(parsed['ad_texts'])}\n")
+                f.write("=" * 60 + "\n\n")
+                for i, text in enumerate(parsed["ad_texts"], 1):
+                    f.write(f"[{i}]\n{text}\n\n")
+            print(f"      📄 Тексты сохранены: {texts_path}")
+            parsed["saved_texts_path"] = str(texts_path)
 
-        # Паттерн 3: пустой результат
-        if any(s in html.lower() for s in ['no ads match', 'no results', '"edges":[]', '"count":0']):
-            return {"count": 0, "status": "no_active_ads", "method": "empty_signal", **search_meta}
-
-        return {"count": None, "status": "could_not_parse", **search_meta}
+        return parsed
 
     except Exception as e:
-        return {"count": None, "error": str(e)[:100], **search_meta}
+        return {"count": None, "error": str(e)[:100],
+                "search_term": display_name, "country": country}
 
 def run(target: str) -> dict:
     print(f"\n{'═' * 60}")
@@ -648,9 +743,15 @@ def run(target: str) -> dict:
         print(f"    📢 Ads Library: {ads_urls['ALL']['active_only']}")
 
         print(f"    🔢 Проверяю рекламу по имени '{display_name}'...")
-        ads_count = get_active_ads_count(display_name, country="ALL", fb_page_url=fb_page_url)
+        full_domain = urlparse(base_url).netloc if not is_handle else brand_name
+        ads_count = get_active_ads_count(display_name, country="ALL",
+                                         fb_page_url=fb_page_url, domain=full_domain)
 
         count = ads_count.get("count")
+        ad_texts = ads_count.get("ad_texts", [])
+        partnership = ads_count.get("partnership_ads", False)
+        partnership_n = ads_count.get("partnership_count", 0)
+        saved_images = ads_count.get("saved_images", [])
 
         if count is not None:
             status_icon = "✅" if count > 0 else "❌"
@@ -658,12 +759,23 @@ def run(target: str) -> dict:
         else:
             print(f"    ⚠️  Не удалось определить количество")
 
+        if partnership:
+            print(f"    🤝 Partnership ads: да (~{partnership_n})")
+        if ad_texts:
+            print(f"    📝 Текстов объявлений: {len(ad_texts)}")
+        if saved_images:
+            print(f"    🖼  Изображений скачано: {len(saved_images)}")
+
         results.append({
             "handle": handle,
             "display_name": display_name,
             "url": fb_page_url,
             "alive": True,
             "active_ads_count": count,
+            "partnership_ads": partnership,
+            "partnership_count": partnership_n,
+            "ad_texts": ad_texts,
+            "saved_images": saved_images,
             "ads_search_term": display_name,
             "ads_library": ads_urls,
         })
@@ -691,7 +803,7 @@ def run(target: str) -> dict:
         "accounts": results,
     }
 
-    filename = scan_path(brand_name, "fb.json")
+    filename = scan_path(urlparse(base_url).netloc if not is_handle else brand_name, "fb.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
     print(f"\n💾 Сохранено: {filename}")

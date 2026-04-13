@@ -545,87 +545,32 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     # Facebook — полная проверка через fb_page_id модуль
     fb_data = {"accounts": []}
     try:
-        from fb_page_id import (
-            check_fb_page_alive_playwright, build_ads_library_urls, get_active_ads_count
-        )
+        from fb_page_id import run as fb_run
+        fb_result = fb_run(base_url)
+        fb_data = fb_result if fb_result else {"accounts": []}
 
-        # Берём FB URL из social_extractor — уже чистый, без дублей
-        fb_handles = []
-        if "facebook" in socials_raw:
-            fb_item = socials_raw["facebook"]
-            fb_handles.append({
-                "handle": fb_item["handle"],
-                "url": fb_item["url"],
-                "format": fb_item.get("type", "vanity"),
-            })
-        if "facebook_all" in socials_raw:
-            seen = {fb_handles[0]["handle"]} if fb_handles else set()
-            for extra in socials_raw["facebook_all"][1:]:
-                if extra["handle"] not in seen:
-                    seen.add(extra["handle"])
-                    fb_handles.append({
-                        "handle": extra["handle"],
-                        "url": extra["url"],
-                        "format": extra.get("type", "vanity"),
-                    })
+        for acc in fb_data.get("accounts", []):
+            if not acc.get("alive"):
+                continue
+            display_name = acc.get("display_name", acc.get("handle"))
+            count = acc.get("active_ads_count")
+            ads_url = acc.get("ads_library", {}).get("ALL", {}).get("active_only", "")
+            partnership = acc.get("partnership_ads", False)
+            partnership_n = acc.get("partnership_count", 0)
+            n_texts = len(acc.get("ad_texts", []))
+            n_images = len(acc.get("saved_images", []))
 
-        if fb_handles:
-            checked = []
-            for item in fb_handles:
-                full_path = item["url"].replace("https://www.facebook.com/", "")
-                status = check_fb_page_alive_playwright(full_path)
-                checked.append((item, status))
-
-            live_handles = {
-                item["handle"].lower().replace("_", "").replace("-", "")
-                for item, status in checked if status["alive"]
-            }
-
-            for item, status in checked:
-                handle = item["handle"]
-                fmt = item.get("format", "vanity")
-                handle_norm = handle.lower().replace("_", "").replace("-", "")
-
-                if not status["alive"]:
-                    if handle_norm in live_handles:
-                        print(f"  ⚠️  Битая ссылка на сайте: facebook.com/{handle} (дубль живого аккаунта)")
-                    else:
-                        print(f"  ✗ {handle} — DEAD LINK")
-                    fb_data["accounts"].append({
-                        "handle": handle,
-                        "url": item["url"],
-                        "format": fmt,
-                        "published": False,
-                        "broken_reason": status["reason"],
-                        "ads_library": None,
-                        "active_ads_count": None,
-                    })
-                    continue
-
-                # Display name из Playwright — то что Facebook показывает публично
-                display_name = status.get("display_name") or handle
-                page_id = status.get("page_id")
-
-                ads_urls = build_ads_library_urls(display_name, page_id=page_id)
-                ads_count = get_active_ads_count(display_name, page_id=page_id)
-                count = ads_count.get("count")
-
-                pid_hint = f" [page_id: {page_id}]" if page_id else " [keyword search]"
-                if count and count > 0:
-                    print(f"  ✓ {display_name} | ✅ {count} АКТИВНЫХ ОБЪЯВЛЕНИЙ{pid_hint}")
-                    print(f"    📢 {ads_urls['ALL']['active_only']}")
-                else:
-                    print(f"  ✓ {display_name} | ❌ РЕКЛАМА НЕ КРУТИТСЯ{pid_hint}")
-
-                fb_data["accounts"].append({
-                    "handle": handle,
-                    "display_name": display_name,
-                    "url": item["url"],
-                    "format": fmt,
-                    "published": True,
-                    "active_ads_count": count,
-                    "ads_library": ads_urls,
-                })
+            if count and count > 0:
+                print(f"  ✓ {display_name} | ✅ {count} АКТИВНЫХ ОБЪЯВЛЕНИЙ")
+                print(f"    📢 {ads_url}")
+                if partnership:
+                    print(f"    🤝 Partnership ads: ~{partnership_n}")
+                if n_texts:
+                    print(f"    📝 Текстов: {n_texts}")
+                if n_images:
+                    print(f"    🖼  Изображений: {n_images}")
+            else:
+                print(f"  ✓ {display_name} | ❌ РЕКЛАМА НЕ КРУТИТСЯ")
 
     except ImportError:
         print(f"  ⚠️  fb_page_id.py не найден")
