@@ -546,22 +546,27 @@ def _parse_ad_library_html(html: str) -> dict:
 
 
 def _download_ad_images(page, domain: str, max_images: int = 5) -> list:
-    """Скачивает первые N изображений из результатов Ad Library. Возвращает список путей."""
+    """Скачивает первые N реальных ad креативов (не аватары). Возвращает список путей."""
     import urllib.request
     from pathlib import Path
 
     img_dir = Path("scans") / domain / "fb_ads_images"
     img_dir.mkdir(parents=True, exist_ok=True)
 
-    # Собираем img src из ad карточек через JS
+    # Берём только большие изображения — реальные креативы, не аватары
     try:
         img_urls = page.evaluate("""
             () => {
                 const imgs = Array.from(document.querySelectorAll('img[src]'));
                 return imgs
+                    .filter(i => {
+                        const w = i.naturalWidth || i.width;
+                        const h = i.naturalHeight || i.height;
+                        return w >= 200 && h >= 200;
+                    })
                     .map(i => i.src)
                     .filter(s => s.includes('scontent') || s.includes('fbcdn'))
-                    .filter(s => !s.includes('emoji') && !s.includes('icon') && !s.includes('avatar'))
+                    .filter(s => !s.includes('emoji') && !s.includes('icon'))
                     .filter(s => s.includes('.jpg') || s.includes('.png') || s.includes('_n.'))
                     .slice(0, 20);
             }
@@ -570,17 +575,23 @@ def _download_ad_images(page, domain: str, max_images: int = 5) -> list:
         return []
 
     saved = []
-    for i, img_url in enumerate(img_urls[:max_images]):
+    idx = 1
+    for img_url in img_urls:
+        if idx > max_images:
+            break
         try:
-            ext = ".jpg"
-            if ".png" in img_url:
-                ext = ".png"
-            path = img_dir / f"ad_{i+1}{ext}"
+            ext = ".png" if ".png" in img_url else ".jpg"
+            path = img_dir / f"ad_{idx}{ext}"
             urllib.request.urlretrieve(img_url, path)
+            # Проверяем что скачали что-то нормального размера (> 5kb)
+            if path.stat().st_size < 5000:
+                path.unlink()
+                continue
             saved.append(str(path))
             print(f"      📷 Сохранено: {path.name}")
+            idx += 1
         except Exception as e:
-            print(f"      ⚠️  Не удалось скачать img {i+1}: {str(e)[:50]}")
+            print(f"      ⚠️  Не удалось скачать img: {str(e)[:50]}")
 
     return saved
 
