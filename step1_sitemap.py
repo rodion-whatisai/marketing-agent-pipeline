@@ -430,6 +430,59 @@ def ask_confirmation_smart(pages: list, limit: int) -> list:
 
 
 
+# ─── Language duplicate filter ────────────────────────────────────────────────
+
+LANG_PREFIXES = ("fr", "en", "de", "es", "it", "nl", "pt", "ru", "zh", "ja", "ko", "ar",
+                 "fr-ca", "fr-be", "en-ca", "en-gb", "en-us", "zh-cn", "zh-tw")
+
+def filter_lang_duplicates(urls: list) -> tuple:
+    """
+    Если сайт двуязычный (есть и /fr/... и /... без префикса) —
+    убираем все URL с языковым префиксом, оставляем только EN версию.
+    Возвращает (filtered_urls, removed_count, detected_lang_prefixes).
+    """
+    # Определяем какие языковые префиксы присутствуют
+    from urllib.parse import urlparse
+    paths = [urlparse(u).path.lower() for u in urls]
+
+    found_prefixes = set()
+    for path in paths:
+        for prefix in LANG_PREFIXES:
+            if path.startswith(f"/{prefix}/") or path == f"/{prefix}":
+                found_prefixes.add(prefix)
+
+    if not found_prefixes:
+        return urls, 0, set()
+
+    # Проверяем — есть ли EN (без префикса) версии тех же страниц
+    # Берём пути без префикса
+    paths_no_prefix = set()
+    for path in paths:
+        stripped = re.sub(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)', '', path)
+        if stripped != path:  # был префикс
+            paths_no_prefix.add(stripped)
+
+    # Есть ли EN аналоги? Считаем overlap
+    en_paths = {p for p in paths if not any(p.startswith(f"/{px}/") or p == f"/{px}" for px in LANG_PREFIXES)}
+    overlap = paths_no_prefix & en_paths
+
+    # Если overlap >= 30% — считаем что EN версия существует, убираем lang дубли
+    if not paths_no_prefix or len(overlap) / len(paths_no_prefix) < 0.3:
+        return urls, 0, set()
+
+    filtered = []
+    removed = 0
+    for u in urls:
+        path = urlparse(u).path.lower()
+        is_lang_url = any(path.startswith(f"/{px}/") or path == f"/{px}" for px in found_prefixes)
+        if is_lang_url:
+            removed += 1
+        else:
+            filtered.append(u)
+
+    return filtered, removed, found_prefixes
+
+
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
 def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
@@ -449,6 +502,13 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     urls = clean_urls(raw_urls, site_domain)
     print(f"  ✓ Источник: {source}")
     print(f"  ✓ Найдено URL: {len(urls)}")
+
+    # ── Фильтр языковых дублей ───────────────────────────────────
+    urls, lang_removed, lang_prefixes = filter_lang_duplicates(urls)
+    if lang_removed > 0:
+        print(f"\n🌐 Двуязычный сайт — убраны {lang_removed} дублей на [{', '.join(sorted(lang_prefixes))}]")
+        print(f"   Сканируем только EN версию. Результаты применимы к обеим версиям.")
+        print(f"   Осталось URL: {len(urls)}")
 
     # ── Соцсети + Facebook Ads Library ──────────────────────────
     print(f"\n🌐 Извлекаю соцсети и проверяю Facebook...")
