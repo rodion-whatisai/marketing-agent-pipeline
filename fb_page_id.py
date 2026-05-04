@@ -128,77 +128,100 @@ SKIP_FB_PATHS = {
 
 # ─── Сбор всех FB ссылок на сайте ────────────────────────────────────────────
 
-def find_all_fb_handles(base_url: str) -> list:
-    """Находит все уникальные Facebook аккаунты на сайте. Поддерживает все форматы URL."""
+def find_all_fb_handles(base_url: str, html: str = None) -> list:
+    """Находит все уникальные Facebook аккаунты на сайте. Поддерживает все форматы URL.
+
+    Если html передан — используем его (избегая повторного fetch в случае если
+    вызывающий уже fetched homepage через fetch_homepage).
+    """
     found = {}  # key → {handle, url, page_id}
 
-    try:
-        r = requests.get(base_url, headers=HEADERS, timeout=10)
-        html = r.text
+    if html is None:
+        try:
+            r = requests.get(base_url, headers=HEADERS, timeout=10)
+            html = r.text
+        except Exception as e:
+            print(f"  ⚠️  Ошибка при загрузке сайта: {e}")
+            return []
 
-        # Формат 1: facebook.com/vanityname (поддержка query/hash/sub-paths/локалей)
-        for handle in re.findall(
-            r'https?://(?:[a-z]{2}-[a-z]{2}\.|www\.|m\.|web\.)?facebook\.com/'
-            r'([a-zA-Z0-9._-]{3,})(?=[/?#"\'\s<>]|$)',
-            html
-        ):
-            handle = handle.strip("/").lower()
-            if handle in SKIP_FB_PATHS or len(handle) < 3:
-                continue
-            key = f"handle:{handle}"
-            if key not in found:
-                found[key] = {
-                    "handle": handle,
-                    "url": f"https://www.facebook.com/{handle}",
-                    "page_id": None,
-                    "format": "vanity",
-                }
+    # Формат 1: facebook.com/vanityname
+    # Поддержка локалей (de-de.), мобильного (m.), web (web.), www
+    # Lookahead — terminates at any URL boundary
+    for handle in re.findall(
+        r'https?://(?:[a-z]{2}-[a-z]{2}\.|www\.|m\.|web\.)?facebook\.com/'
+        r'([a-zA-Z0-9._-]{3,})(?=[/?#"\'\s<>]|$)',
+        html
+    ):
+        handle = handle.strip("/").lower()
+        if handle in SKIP_FB_PATHS or len(handle) < 3 or "?" in handle:
+            continue
+        key = f"handle:{handle}"
+        if key not in found:
+            found[key] = {
+                "handle": handle,
+                "url": f"https://www.facebook.com/{handle}",
+                "page_id": None,
+                "format": "vanity",
+            }
 
-        # Формат 2: facebook.com/people/Name/ID/
-        for name, page_id in re.findall(
-            r'facebook\.com/people/([^/"\']+)/(\d{10,})/?',
-            html
-        ):
-            key = f"people:{page_id}"
-            if key not in found:
-                found[key] = {
-                    "handle": name.lower().replace("-", "_"),
-                    "url": f"https://www.facebook.com/people/{name}/{page_id}/",
-                    "page_id": page_id,
-                    "format": "people",
-                    "display_name": name.replace("-", " "),
-                }
+    # Формат 2: facebook.com/people/Name/ID/
+    for name, page_id in re.findall(
+        r'facebook\.com/people/([^/"\']+)/(\d{10,})/?',
+        html
+    ):
+        key = f"people:{page_id}"
+        if key not in found:
+            found[key] = {
+                "handle": name.lower().replace("-", "_"),
+                "url": f"https://www.facebook.com/people/{name}/{page_id}/",
+                "page_id": page_id,
+                "format": "people",
+                "display_name": name.replace("-", " "),
+            }
 
-        # Формат 3: facebook.com/profile.php?id=ID
-        for page_id in re.findall(
-            r'facebook\.com/profile\.php\?id=(\d{10,})',
-            html
-        ):
-            key = f"profile:{page_id}"
-            if key not in found:
-                found[key] = {
-                    "handle": f"profile_{page_id}",
-                    "url": f"https://www.facebook.com/profile.php?id={page_id}",
-                    "page_id": page_id,
-                    "format": "profile",
-                }
+    # Формат 3: facebook.com/profile.php?id=ID
+    for page_id in re.findall(
+        r'facebook\.com/profile\.php\?id=(\d{10,})',
+        html
+    ):
+        key = f"profile:{page_id}"
+        if key not in found:
+            found[key] = {
+                "handle": f"profile_{page_id}",
+                "url": f"https://www.facebook.com/profile.php?id={page_id}",
+                "page_id": page_id,
+                "format": "profile",
+            }
 
-        # Формат 4: facebook.com/pages/Name/ID
-        for name, page_id in re.findall(
-            r'facebook\.com/pages/([^/"\']+)/(\d{10,})/?',
-            html
-        ):
-            key = f"pages:{page_id}"
-            if key not in found:
-                found[key] = {
-                    "handle": name.lower(),
-                    "url": f"https://www.facebook.com/pages/{name}/{page_id}/",
-                    "page_id": page_id,
-                    "format": "pages",
-                }
+    # Формат 4: facebook.com/pages/Name/ID
+    for name, page_id in re.findall(
+        r'facebook\.com/pages/([^/"\']+)/(\d{10,})/?',
+        html
+    ):
+        key = f"pages:{page_id}"
+        if key not in found:
+            found[key] = {
+                "handle": name.lower(),
+                "url": f"https://www.facebook.com/pages/{name}/{page_id}/",
+                "page_id": page_id,
+                "format": "pages",
+            }
 
-    except Exception as e:
-        print(f"  ⚠️  Ошибка при загрузке сайта: {e}")
+    # Формат 5: facebook.com/p/Name-with-dashes-NumericID/
+    # Новый "Public Page URL" формат FB. Слаг и ID разделены последним дефисом.
+    for name, page_id in re.findall(
+        r'facebook\.com/p/([A-Za-z0-9._-]+?)-(\d{10,})/?',
+        html
+    ):
+        key = f"p_path:{page_id}"
+        if key not in found:
+            found[key] = {
+                "handle": f"p/{name}-{page_id}",
+                "url": f"https://www.facebook.com/p/{name}-{page_id}/",
+                "page_id": page_id,
+                "format": "p_path",
+                "display_name": name.replace("-", " "),
+            }
 
     return list(found.values())
 
@@ -475,7 +498,18 @@ def get_page_id(handle: str) -> tuple:
 # ─── Ads Library URLs ─────────────────────────────────────────────────────────
 
 def build_ads_library_urls(display_name: str, countries: list = None, page_id: str = None) -> dict:
-    """Строит ссылки на Ads Library — keyword search по display name, country=ALL."""
+    """Строит ссылки на Ads Library — keyword search.
+
+    Даже если у нас есть page_id, мы НЕ используем view_all_page_id URL:
+    в нашей практике он часто возвращает 0 результатов (возможно, из-за того,
+    что playwright-extracted page_id не всегда соответствует тому что ждёт FB,
+    или FB throttlит unauthenticated view_all_page_id запросы).
+
+    Вместо этого — всегда keyword search, и результаты фильтруем пост-фактум
+    по snapshot.page_id (exact) или snapshot.page_name (fuzzy match на difflib).
+    См. _extract_ads_from_json. Параметр page_id здесь принимается для обратной
+    совместимости, но игнорируется в URL.
+    """
     keyword = display_name.strip().replace(" ", "%20")
     base = (
         f"https://www.facebook.com/ads/library/"
