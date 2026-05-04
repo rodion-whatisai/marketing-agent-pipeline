@@ -1,0 +1,296 @@
+"""
+Module 5: Чистый парсер модалки FB Ad Library → структурированный dict.
+БЕЗ браузера. Принимает HTML строку модалки (с раскрытыми dropdowns или нет).
+
+Парсит до 5 секций, каждая необязательная — некоторые объявления имеют только подмножество:
+  - meta: library_id, started_running, body, multiple_versions
+  - transparency: total_reach, demographics[], age_range, gender_target, country_targets
+  - disclaimer: location, website, advertiser, payer
+  - advertiser_meta: name, handle, followers, more_info
+  - additional_assets: links[], text_items[]
+
+Использование:
+    from fb_ad_modal_parse import parse_modal, detect_sections
+    sections = detect_sections(html)         # → ['Transparency by location', 'About the advertiser', ...]
+    data = parse_modal(html)                 # → {meta, transparency, disclaimer, advertiser, additional_assets}
+"""
+import re
+
+ALL_SECTION_LABELS = [
+    "Transparency by location",
+    "About the disclaimer",
+    "About the advertiser",
+    "Advertiser and payer",
+    "Additional assets from this ad",
+]
+
+
+# ─── Утилиты ────────────────────────────────────────────────────────────────
+
+def _strip(html: str) -> str:
+    """Убирает теги, схлопывает пробелы."""
+    t = re.sub(r"<[^>]+>", " ", html)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def detect_sections(html: str) -> list:
+    """Возвращает список секций которые присутствуют в DOM (по наличию heading-текста)."""
+    return [lbl for lbl in ALL_SECTION_LABELS if lbl in html]
+
+
+# ─── Meta (всегда присутствует) ─────────────────────────────────────────────
+
+def _parse_library_id(html: str) -> str:
+    m = re.search(r"Library ID:\s*(\d+)", html)
+    return m.group(1) if m else ""
+
+
+def _parse_started_running(html: str) -> str:
+    m = re.search(r"Started running on\s*([A-Za-z]+ \d+, \d{4})", html)
+    return m.group(1) if m else ""
+
+
+def _parse_multiple_versions(html: str) -> int:
+    m = re.search(r"(\d+)\s+of\s+(\d+)", html)
+    return int(m.group(2)) if m else 1
+
+
+def _parse_body(html: str) -> str:
+    """Текст самого объявления — первый <span> в pre-wrap."""
+    m = re.search(r'white-space:\s*pre-wrap[^>]*>\s*<span[^>]*>([^<]{5,2000})', html)
+    return m.group(1).strip() if m else ""
+
+
+def _parse_meta(html: str) -> dict:
+    return {
+        "library_id":          _parse_library_id(html),
+        "started_running":     _parse_started_running(html),
+        "multiple_versions":   _parse_multiple_versions(html),
+        "body":                _parse_body(html),
+    }
+
+
+# ─── Transparency by location ───────────────────────────────────────────────
+
+def _parse_transparency(html: str) -> dict:
+    out = {"total_reach": None, "demographics": [],
+           "age_range": "", "gender_target": "", "country_targets": []}
+
+    i = html.find("Transparency by location")
+    if i < 0:
+        return out
+    section = html[i:i + 100000]
+
+    # Total Reach — между "Reach" заголовком и "Reach by location, age and gender"
+    m = re.search(r"(?<![a-zA-Z])Reach(?![a-zA-Z]).{0,3000}?Reach by location",
+                   section, re.DOTALL)
+    if m:
+        nums = re.findall(r">([\d,]{2,15})<", m.group(0))
+        nums = [n for n in nums if "," in n or len(n) >= 3]
+        if nums:
+            try:
+                out["total_reach"] = int(nums[0].replace(",", ""))
+            except ValueError:
+                pass
+
+    # Демографическая таблица: Location | Age Range | Gender | Reach
+    j = section.find("Age Range")
+    if j > 0:
+        chunk = section[j - 100:j + 30000]
+        cells = re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", chunk, re.DOTALL)
+        clean = [_strip(c) for c in cells if c.strip()]
+        clean = [c for c in clean if c and len(c) < 100]
+        if len(clean) >= 8 and clean[0] == "Location":
+            for k in range(4, len(clean) - 3, 4):
+                row = clean[k:k + 4]
+                if len(row) == 4:
+                    try:
+                        reach = int(row[3].replace(",", ""))
+                    except ValueError:
+                        continue
+                    out["demographics"].append({
+                        "location": row[0],
+                        "age": row[1],
+                        "gender": row[2],
+                        "reach": reach,
+                    })
+                    if row[0] not in out["country_targets"]:
+                        out["country_targets"].append(row[0])
+
+    # Age range
+    m = re.search(r"(\d+-\d+\+?)\s+years old", section)
+    if m: out["age_range"] = m.group(1)
+
+    # Gender — All / Male / Female
+    m = re.search(r">Gender<.{0,500}?>(All|Male|Female|Men|Women)<",
+                   section, re.DOTALL)
+    if m: out["gender_target"] = m.group(1)
+    return out
+
+
+# ─── Disclaimer ─────────────────────────────────────────────────────────────
+
+def _parse_disclaimer(html: str) -> dict:
+    out = {"location": "", "website": "", "advertiser": "", "payer": ""}
+    i = html.find("About the disclaimer")
+    if i < 0:
+        return out
+    section = html[i:i + 8000]
+    text = _strip(section)
+
+    m = re.search(r"Location\s+([A-Z][A-Za-z ]{2,40}?)(?=\s+Website|\s+Advertiser|$)", text)
+    if m: out["location"] = m.group(1).strip()
+    m = re.search(r"Website\s+(https?://\S+)", text)
+    if m: out["website"] = m.group(1).rstrip("/")
+    m = re.search(r"Advertiser\s+([A-Z][A-Za-z0-9 .,&\-]{2,80}?)(?=\s+Payer|\s+About|$)", text)
+    if m: out["advertiser"] = m.group(1).strip()
+    m = re.search(r"Payer\s+([A-Z][A-Za-z0-9 .,&\-]{2,80}?)(?=\s+About|$)", text)
+    if m: out["payer"] = m.group(1).strip()
+    return out
+
+
+# ─── About the advertiser (page meta) ───────────────────────────────────────
+
+def _parse_followers(text: str):
+    """Парсит '15.3K followers' / '113 followers' / '1.2M followers' → int."""
+    # Берём первое явное число + suffix (K/M) ПЕРЕД словом 'followers'
+    m = re.search(r"([\d,]+(?:\.\d+)?[KkMm]?)\s+followers?", text)
+    if not m:
+        return None
+    v = m.group(1).replace(",", "")
+    try:
+        if v.endswith(("K", "k")):
+            return int(float(v[:-1]) * 1000)
+        if v.endswith(("M", "m")):
+            return int(float(v[:-1]) * 1_000_000)
+        return int(float(v))
+    except ValueError:
+        return None
+
+
+def _parse_advertiser_meta(html: str) -> dict:
+    out = {"name": "", "handle": "", "followers": None, "more_info": ""}
+    i = html.find("About the advertiser")
+    if i < 0:
+        return out
+    section = html[i:i + 5000]
+    text = _strip(section)
+
+    m = re.search(r"@([a-z0-9._]{3,40})", text)
+    if m: out["handle"] = m.group(1)
+    out["followers"] = _parse_followers(text)
+    m = re.search(r"About the advertiser\s+([A-Za-z0-9][A-Za-z0-9 .\-_]{1,60}?)\s+@", text)
+    if m: out["name"] = m.group(1).strip()
+    m = re.search(r"More info\s+(.{20,500}?)\s+(?:Advertiser and payer|About ads|$)", text)
+    if m: out["more_info"] = m.group(1).strip()
+    return out
+
+
+# ─── Advertiser & payer (юр.лицо плательщика) ───────────────────────────────
+
+def _parse_advertiser_and_payer(html: str) -> dict:
+    """Секция 'Advertiser and payer' — реальный плательщик (часто отличается от page name)."""
+    out = {"current_advertiser": "", "current_payer": ""}
+    i = html.find("Advertiser and payer")
+    if i < 0:
+        return out
+    section = html[i:i + 4000]
+    text = _strip(section)
+    m = re.search(r"Current\s+Advertiser\s+([A-Za-z0-9][A-Za-z0-9 .,&\-]{2,80}?)\s+Payer", text)
+    if m: out["current_advertiser"] = m.group(1).strip()
+    m = re.search(r"Payer\s+([A-Za-z0-9][A-Za-z0-9 .,&\-]{2,80}?)(?:\s+About ads|$)", text)
+    # Захватит payer из disclaimer тоже — берём ПОСЛЕДНЕЕ совпадение в этой секции
+    matches = re.findall(r"Payer\s+([A-Za-z0-9][A-Za-z0-9 .,&\-]{2,80}?)(?:\s+About ads|$)", text)
+    if matches: out["current_payer"] = matches[-1].strip()
+    return out
+
+
+# ─── Additional assets (lead-form structure) ────────────────────────────────
+
+def _parse_additional_assets(html: str) -> dict:
+    out = {"links": [], "text_items": []}
+    i = html.find("Additional assets from this ad")
+    if i < 0:
+        return out
+    section = html[i:i + 15000]
+
+    # Links: https-URL внутри секции (исключая FB-обёртки)
+    for url in re.findall(r"https?://[^\s\"'<>]+", section):
+        u = url.replace("&amp;", "&").rstrip(".,)")
+        if any(skip in u for skip in ["static.xx.fbcdn", "scontent.", "l.facebook.com/l.php"]):
+            continue
+        if u not in out["links"]:
+            out["links"].append(u)
+
+    # Text items
+    j = section.find("Text")
+    if j > 0:
+        text_block = section[j:j + 8000]
+        items = re.findall(r"<(?:li|span)[^>]*>([^<]{3,300})</(?:li|span)>", text_block)
+        for raw in items:
+            t = _strip(raw)
+            if (t and len(t) > 2 and t not in out["text_items"]
+                    and not t.startswith("http")):
+                out["text_items"].append(t)
+        out["text_items"] = out["text_items"][:30]
+    return out
+
+
+# ─── Главная функция ────────────────────────────────────────────────────────
+
+def parse_modal(html: str) -> dict:
+    """Полный парсинг модалки. Возвращает dict со всеми 5 секциями.
+    Секции которых нет в DOM — соответствующие поля будут пустые/None."""
+    return {
+        "sections_present":   detect_sections(html),
+        "meta":               _parse_meta(html),
+        "transparency":       _parse_transparency(html),
+        "disclaimer":         _parse_disclaimer(html),
+        "advertiser":         _parse_advertiser_meta(html),
+        "advertiser_payer":   _parse_advertiser_and_payer(html),
+        "additional_assets":  _parse_additional_assets(html),
+    }
+
+
+# ─── Smoke-тесты ────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    import sys, json
+    sys.stdout.reconfigure(encoding="utf-8")
+
+    test_files = [
+        ("Idgarages-Pro FR (5 секций)",
+         "scans/_explore/02_modal_expanded.html"),
+        ("Aerosus IT (3 секции)",
+         "scans/_explore/aerosus_modal.html"),
+    ]
+
+    for label, path in test_files:
+        try:
+            html = open(path, encoding="utf-8").read()
+        except FileNotFoundError:
+            print(f"⚠ {label}: файл не найден ({path})")
+            continue
+
+        print(f"\n{'='*70}")
+        print(f"TEST: {label}")
+        print(f"{'='*70}")
+        d = parse_modal(html)
+
+        print(f"sections_present ({len(d['sections_present'])}/5):")
+        for s in d["sections_present"]:
+            print(f"  ✓ {s}")
+        print()
+        m = d["meta"]
+        print(f"meta:    library_id={m['library_id']}, started={m['started_running']}, "
+              f"versions={m['multiple_versions']}, body={m['body'][:60]!r}")
+        t = d["transparency"]
+        print(f"transp:  reach={t['total_reach']}, demos={len(t['demographics'])}, "
+              f"countries={t['country_targets']}, age={t['age_range']!r}, gender={t['gender_target']!r}")
+        print(f"disclaim:{d['disclaimer']}")
+        a = d["advertiser"]
+        print(f"advert:  name={a['name']!r}, @{a['handle']}, followers={a['followers']}, "
+              f"info={a['more_info'][:60]!r}")
+        print(f"payer:   {d['advertiser_payer']}")
+        aa = d["additional_assets"]
+        print(f"assets:  links={len(aa['links'])}, text_items={len(aa['text_items'])}")

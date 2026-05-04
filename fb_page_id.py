@@ -136,13 +136,14 @@ def find_all_fb_handles(base_url: str) -> list:
         r = requests.get(base_url, headers=HEADERS, timeout=10)
         html = r.text
 
-        # Формат 1: facebook.com/vanityname
+        # Формат 1: facebook.com/vanityname (поддержка query/hash/sub-paths/локалей)
         for handle in re.findall(
-            r'https?://(?:www\.)?facebook\.com/([a-zA-Z0-9._-]+)/?(?:["\'\s]|$)',
+            r'https?://(?:[a-z]{2}-[a-z]{2}\.|www\.|m\.|web\.)?facebook\.com/'
+            r'([a-zA-Z0-9._-]{3,})(?=[/?#"\'\s<>]|$)',
             html
         ):
             handle = handle.strip("/").lower()
-            if handle in SKIP_FB_PATHS or len(handle) < 3 or "?" in handle:
+            if handle in SKIP_FB_PATHS or len(handle) < 3:
                 continue
             key = f"handle:{handle}"
             if key not in found:
@@ -486,8 +487,9 @@ def build_ads_library_urls(display_name: str, countries: list = None, page_id: s
     )
     return {
         "ALL": {
-            "active_only": base,
-            "all": base.replace("active_status=active", "active_status=all"),
+            "active_only":   base,
+            "all":           base.replace("active_status=active", "active_status=all"),
+            "inactive_only": base.replace("active_status=active", "active_status=inactive"),
         }
     }
 
@@ -545,12 +547,16 @@ def _parse_ad_library_html(html: str) -> dict:
     return result
 
 
-def _download_ad_images(page, domain: str, max_images: int = 5) -> list:
-    """Скачивает первые N реальных ad креативов (не аватары). Возвращает список путей."""
+def _download_ad_images(page, domain: str, max_images: int = 5,
+                         status_label: str = "") -> list:
+    """Скачивает первые N реальных ad креативов (не аватары). Возвращает список путей.
+    status_label: пустая строка / 'active' / 'inactive' — подпапка для разделения."""
     import urllib.request
     from pathlib import Path
 
     img_dir = Path("scans") / domain / "fb_ads_images"
+    if status_label:
+        img_dir = img_dir / status_label
     img_dir.mkdir(parents=True, exist_ok=True)
 
     # Берём только большие изображения — реальные креативы, не аватары
@@ -596,28 +602,89 @@ def _download_ad_images(page, domain: str, max_images: int = 5) -> list:
     return saved
 
 
-def get_active_ads_count(display_name: str, page_id: str = None,
-                         country: str = "ALL", fb_page_url: str = None,
-                         domain: str = "", download_images: bool = True) -> dict:
-    """
-    Проверяет рекламу по display name (keyword search).
-    Парсит: count, тексты объявлений, partnership флаг.
-    Скачивает первые 5 изображений.
-    """
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError:
-        return {"count": None, "error": "playwright not installed"}
-
+def _build_ad_library_url(display_name: str, country: str, status: str) -> str:
+    """status ∈ {'all','active','inactive'}"""
     keyword = display_name.strip().replace(" ", "%20")
-    url = (
+    return (
         f"https://www.facebook.com/ads/library/"
-        f"?active_status=active&ad_type=all&country={country}"
+        f"?active_status={status}&ad_type=all&country={country}"
         f"&is_targeted_country=false&media_type=all"
         f"&q={keyword}"
         f"&search_type=keyword_unordered"
         f"&sort_data[direction]=desc&sort_data[mode]=total_impressions"
     )
+
+
+def _scan_one_status(page, url: str, status_label: str, domain: str,
+                      display_name: str, download_images: bool) -> dict:
+    """Открывает URL, парсит HTML, скачивает картинки, сохраняет тексты.
+    status_label: 'all' / 'active' / 'inactive'."""
+    try:
+        page.goto(url, wait_until="networkidle", timeout=25000)
+        page.wait_for_timeout(3000)
+    except Exception:
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=15000)
+            page.wait_for_timeout(4000)
+        except Exception:
+            pass
+
+    html = page.content()
+    parsed = _parse_ad_library_html(html)
+    parsed["search_term"] = display_name
+    parsed["status_filter"] = status_label
+
+    # Скачиваем изображения только для active/inactive (не для all — он только для счётчика)
+    saved_images = []
+    if download_images and domain and status_label in ("active", "inactive"):
+        if parsed.get("count", 0) > 0:
+            print(f"      📷 Скачиваю изображения [{status_label}]...")
+            saved_images = _download_ad_images(page, domain, status_label=status_label)
+    parsed["saved_images"] = saved_images
+
+    # Сохраняем тексты с суффиксом
+    if domain and parsed.get("ad_texts") and status_label in ("active", "inactive"):
+        from pathlib import Path
+        texts_dir = Path("scans") / domain / "fb_ads_images"
+        texts_dir.mkdir(parents=True, exist_ok=True)
+        texts_path = texts_dir / f"ad_texts_{status_label}.txt"
+        with open(texts_path, "w", encoding="utf-8") as f:
+            f.write(f"Ad texts for: {display_name} [{status_label}]\n")
+            f.write(f"Total: {len(parsed['ad_texts'])}\n")
+            f.write("=" * 60 + "\n\n")
+            for i, text in enumerate(parsed["ad_texts"], 1):
+                f.write(f"[{i}]\n{text}\n\n")
+        print(f"      📄 Тексты [{status_label}]: {texts_path}")
+        parsed["saved_texts_path"] = str(texts_path)
+
+    return parsed
+
+
+def get_ads_data(display_name: str, page_id: str = None,
+                  country: str = "ALL", fb_page_url: str = None,
+                  domain: str = "", download_images: bool = True) -> dict:
+    """
+    3-проходный скан Ad Library (только LISTING — без deep-scan модалок):
+      1) active_status=all → есть ли что-то вообще
+      2) если есть — active_status=active
+      3) если total > active — active_status=inactive
+    Возвращает {total_ever, active, inactive, и back-compat поля}.
+
+    Deep-scan модалок (Reach/демография/disclaimer/advertiser/lead-form) живёт
+    в отдельном модуле — см. fb_scan.py (orchestrator) и Modules 3/4/5.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return {"total_ever": None, "error": "playwright not installed"}
+
+    result = {
+        "total_ever": None,
+        "active": None,
+        "inactive": None,
+        "search_term": display_name,
+        "country": country,
+    }
 
     try:
         with sync_playwright() as p:
@@ -629,51 +696,83 @@ def get_active_ads_count(display_name: str, page_id: str = None,
             )
             page = context.new_page()
 
-            try:
-                page.goto(url, wait_until="networkidle", timeout=25000)
-                page.wait_for_timeout(3000)
-            except Exception:
-                try:
-                    page.goto(url, wait_until="domcontentloaded", timeout=15000)
-                    page.wait_for_timeout(4000)
-                except Exception:
-                    pass
+            # ── Pass 1: total ever (active_status=all) ─────────────────
+            print(f"      🔎 Проход 1/3: все объявления (active+inactive)...")
+            url_all = _build_ad_library_url(display_name, country, "all")
+            all_data = _scan_one_status(page, url_all, "all", domain,
+                                         display_name, download_images=False)
+            total = all_data.get("count")
+            result["total_ever"] = total
 
-            html = page.content()
+            if not total or total == 0:
+                print(f"      ❌ Объявлений не найдено вообще")
+                browser.close()
+                return result
 
-            # Скачиваем изображения пока браузер открыт
-            saved_images = []
-            if download_images and domain:
-                print(f"      📷 Скачиваю изображения...")
-                saved_images = _download_ad_images(page, domain)
+            print(f"      📊 Всего объявлений (когда-либо): {total}")
+
+            # ── Pass 2: active only ────────────────────────────────────
+            print(f"      🔎 Проход 2/3: активные объявления...")
+            url_active = _build_ad_library_url(display_name, country, "active")
+            active_data = _scan_one_status(page, url_active, "active", domain,
+                                            display_name, download_images)
+            active_count = active_data.get("count", 0) or 0
+            if active_count > 0:
+                result["active"] = active_data
+                print(f"      ✅ Активных: {active_count}")
+            else:
+                print(f"      ➖ Активных нет (но есть в архиве)")
+
+            # ── Pass 3: inactive only (только если есть смысл) ────────
+            if total > active_count:
+                print(f"      🔎 Проход 3/3: неактивные объявления...")
+                url_inactive = _build_ad_library_url(display_name, country, "inactive")
+                inactive_data = _scan_one_status(page, url_inactive, "inactive", domain,
+                                                  display_name, download_images)
+                inactive_count = inactive_data.get("count", 0) or 0
+                if inactive_count > 0:
+                    result["inactive"] = inactive_data
+                    print(f"      📦 Неактивных: {inactive_count}")
+            else:
+                print(f"      ➖ Все объявления активны — inactive скан не нужен")
 
             browser.close()
 
-        parsed = _parse_ad_library_html(html)
-        parsed["saved_images"] = saved_images
-        parsed["search_term"] = display_name
-        parsed["country"] = country
+        # ── Back-compat: добавляем плоские поля чтобы старые консьюмеры работали ─
+        active = result.get("active") or {}
+        inactive = result.get("inactive") or {}
 
-        # Сохраняем тексты в отдельный файл
-        if domain and parsed.get("ad_texts"):
-            from pathlib import Path
-            texts_dir = Path("scans") / domain / "fb_ads_images"
-            texts_dir.mkdir(parents=True, exist_ok=True)
-            texts_path = texts_dir / "ad_texts.txt"
-            with open(texts_path, "w", encoding="utf-8") as f:
-                f.write(f"Ad texts for: {display_name}\n")
-                f.write(f"Total: {len(parsed['ad_texts'])}\n")
-                f.write("=" * 60 + "\n\n")
-                for i, text in enumerate(parsed["ad_texts"], 1):
-                    f.write(f"[{i}]\n{text}\n\n")
-            print(f"      📄 Тексты сохранены: {texts_path}")
-            parsed["saved_texts_path"] = str(texts_path)
+        # Тексты — объединение (active в приоритете)
+        combined_texts = list(active.get("ad_texts") or [])
+        for t in (inactive.get("ad_texts") or []):
+            if t not in combined_texts:
+                combined_texts.append(t)
 
-        return parsed
+        # Картинки — объединение (отдельные подпапки уже разделены)
+        combined_images = list(active.get("saved_images") or []) + \
+                          list(inactive.get("saved_images") or [])
+
+        # Partnership — OR / sum
+        partnership = bool(active.get("partnership_ads")) or bool(inactive.get("partnership_ads"))
+        partnership_n = (active.get("partnership_count") or 0) + (inactive.get("partnership_count") or 0)
+
+        result.update({
+            "count": active.get("count") or 0,            # back-compat: count = active count
+            "ad_texts": combined_texts,
+            "saved_images": combined_images,
+            "partnership_ads": partnership,
+            "partnership_count": partnership_n,
+        })
+
+        return result
 
     except Exception as e:
-        return {"count": None, "error": str(e)[:100],
+        return {"total_ever": None, "error": str(e)[:100],
                 "search_term": display_name, "country": country}
+
+
+# Back-compat alias — старые вызовы не сломаются
+get_active_ads_count = get_ads_data
 
 def run(target: str) -> dict:
     print(f"\n{'═' * 60}")
@@ -755,25 +854,33 @@ def run(target: str) -> dict:
 
         print(f"    🔢 Проверяю рекламу по имени '{display_name}'...")
         full_domain = urlparse(base_url).netloc if not is_handle else brand_name
-        ads_count = get_active_ads_count(display_name, country="ALL",
-                                         fb_page_url=fb_page_url, domain=full_domain)
+        ads_data = get_ads_data(display_name, country="ALL",
+                                 fb_page_url=fb_page_url, domain=full_domain)
 
-        count = ads_count.get("count")
-        ad_texts = ads_count.get("ad_texts", [])
-        partnership = ads_count.get("partnership_ads", False)
-        partnership_n = ads_count.get("partnership_count", 0)
-        saved_images = ads_count.get("saved_images", [])
+        total_ever     = ads_data.get("total_ever")
+        active_block   = ads_data.get("active")    # dict | None
+        inactive_block = ads_data.get("inactive")  # dict | None
+        # back-compat плоские поля (для step1_sitemap.py и старых консьюмеров)
+        count          = ads_data.get("count", 0)
+        ad_texts       = ads_data.get("ad_texts", [])
+        partnership    = ads_data.get("partnership_ads", False)
+        partnership_n  = ads_data.get("partnership_count", 0)
+        saved_images   = ads_data.get("saved_images", [])
 
-        if count is not None:
-            status_icon = "✅" if count > 0 else "❌"
-            print(f"    {status_icon} Активных объявлений: {'~' if count > 0 else ''}{count}")
-        else:
+        # ── Печать итогов по 3-х проходному скану ──────────────────────────
+        if total_ever is None:
             print(f"    ⚠️  Не удалось определить количество")
+        elif total_ever == 0:
+            print(f"    ❌ Объявлений нет (никогда не крутились)")
+        else:
+            active_n   = (active_block or {}).get("count", 0) or 0
+            inactive_n = (inactive_block or {}).get("count", 0) or 0
+            print(f"    📊 Всего: {total_ever}  |  ✅ активных: {active_n}  |  📦 архив: {inactive_n}")
 
         if partnership:
             print(f"    🤝 Partnership ads: да (~{partnership_n})")
         if ad_texts:
-            print(f"    📝 Текстов объявлений: {len(ad_texts)}")
+            print(f"    📝 Текстов объявлений (active+archive): {len(ad_texts)}")
         if saved_images:
             print(f"    🖼  Изображений скачано: {len(saved_images)}")
 
@@ -782,13 +889,18 @@ def run(target: str) -> dict:
             "display_name": display_name,
             "url": fb_page_url,
             "alive": True,
+            # NEW — 3-проходная структура
+            "total_ever":   total_ever,
+            "active":       active_block,
+            "inactive":     inactive_block,
+            # back-compat плоские поля
             "active_ads_count": count,
-            "partnership_ads": partnership,
+            "partnership_ads":  partnership,
             "partnership_count": partnership_n,
-            "ad_texts": ad_texts,
-            "saved_images": saved_images,
-            "ads_search_term": display_name,
-            "ads_library": ads_urls,
+            "ad_texts":         ad_texts,
+            "saved_images":     saved_images,
+            "ads_search_term":  display_name,
+            "ads_library":      ads_urls,
         })
 
         time.sleep(0.5)
