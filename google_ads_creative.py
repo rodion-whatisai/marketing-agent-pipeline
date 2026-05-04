@@ -439,6 +439,14 @@ def parse_creative(advertiser_id: str, creative_id: str,
             browser = p.chromium.launch(headless=not headed)
             ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
             page = ctx.new_page()
+            # Block heavy assets parser doesn't need (images / fonts / CSS / video).
+            # Keeps script + document + XHR — those drive /adframe hydration.
+            def _block_assets_sync(route):
+                if route.request.resource_type in ("image", "font", "stylesheet", "media"):
+                    route.abort()
+                else:
+                    route.continue_()
+            page.route("**/*", _block_assets_sync)
             page.goto(url, wait_until="domcontentloaded", timeout=30_000)
             try:
                 page.wait_for_selector('creative-details', timeout=15_000)
@@ -664,6 +672,12 @@ async def parse_creative_with_context(context, advertiser_id: str,
     page = None
     try:
         page = await context.new_page()
+        async def _block_assets_async(route):
+            if route.request.resource_type in ("image", "font", "stylesheet", "media"):
+                await route.abort()
+            else:
+                await route.continue_()
+        await page.route("**/*", _block_assets_async)
         await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
         try:
             await page.wait_for_selector('creative-details', timeout=15_000)
