@@ -448,15 +448,42 @@ def parse_creative(advertiser_id: str, creative_id: str,
                     route.continue_()
             page.route("**/*", _block_assets_sync)
             page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+            # Wait for either: iframe attached (real ad) OR error placeholder text
+            # ("Can't find advertiser" / "Can't find ad"). Whichever first.
+            # Saves ~30s on banned/missing ads, costs nothing for healthy ones.
             try:
-                page.wait_for_selector('creative-details', timeout=15_000)
+                page.wait_for_function(
+                    """() => {
+                        if (document.querySelector('iframe[src*="/adframe"]')) return true;
+                        if (document.querySelector('iframe[src*="sadbundle"]')) return true;
+                        const t = document.body && document.body.innerText || '';
+                        return t.indexOf("Can't find advertiser") !== -1
+                            || t.indexOf("Can't find ad") !== -1;
+                    }""",
+                    timeout=30_000,
+                )
             except Exception:
                 pass
-            # Iframe attach: 30s timeout (was 10s — too tight under concurrent load).
+            # Now check terminal cases first.
+            try:
+                body_text = page.evaluate("() => document.body.innerText || ''")
+                if "Can't find advertiser" in body_text:
+                    result["fetch_error"] = "advertiser_not_found"
+                    browser.close()
+                    return result
+                if "Can't find ad" in body_text:
+                    result["fetch_error"] = "ad_not_found"
+                    browser.close()
+                    return result
+            except Exception:
+                pass
+            # Real ad — locate the iframe handle (already attached by now).
+            # Two ad-iframe variants observed: /adframe (Display Ads) and sadbundle
+            # (Search Ads "SearchAdsViewerRenderingUi"). Both expose data-p attrs.
             iframe_handle = None
             try:
                 iframe_handle = page.wait_for_selector(
-                    'iframe[src*="/adframe"]', timeout=30_000
+                    'iframe[src*="/adframe"], iframe[src*="sadbundle"]', timeout=5_000
                 )
             except Exception:
                 pass
@@ -486,7 +513,7 @@ def parse_creative(advertiser_id: str, creative_id: str,
             result.update(meta)
 
             # Collect data-p from each /adframe iframe
-            ad_frames = [f for f in page.frames if "/adframe" in f.url]
+            ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
             result["iframe_count"] = len(ad_frames)
             if not ad_frames:
                 result["fetch_error"] = "iframe_missing"
@@ -680,13 +707,32 @@ async def parse_creative_with_context(context, advertiser_id: str,
         await page.route("**/*", _block_assets_async)
         await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
         try:
-            await page.wait_for_selector('creative-details', timeout=15_000)
+            await page.wait_for_function(
+                """() => {
+                    if (document.querySelector('iframe[src*="/adframe"]')) return true;
+                    if (document.querySelector('iframe[src*="sadbundle"]')) return true;
+                    const t = document.body && document.body.innerText || '';
+                    return t.indexOf("Can't find advertiser") !== -1
+                        || t.indexOf("Can't find ad") !== -1;
+                }""",
+                timeout=30_000,
+            )
+        except Exception:
+            pass
+        try:
+            body_text = await page.evaluate("() => document.body.innerText || ''")
+            if "Can't find advertiser" in body_text:
+                result["fetch_error"] = "advertiser_not_found"
+                return result
+            if "Can't find ad" in body_text:
+                result["fetch_error"] = "ad_not_found"
+                return result
         except Exception:
             pass
         iframe_handle = None
         try:
             iframe_handle = await page.wait_for_selector(
-                'iframe[src*="/adframe"]', timeout=30_000
+                'iframe[src*="/adframe"], iframe[src*="sadbundle"]', timeout=5_000
             )
         except Exception:
             pass
@@ -712,7 +758,7 @@ async def parse_creative_with_context(context, advertiser_id: str,
         meta = _parse_main_meta(main_html)
         result.update(meta)
 
-        ad_frames = [f for f in page.frames if "/adframe" in f.url]
+        ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
         result["iframe_count"] = len(ad_frames)
         if not ad_frames:
             result["fetch_error"] = "iframe_missing"

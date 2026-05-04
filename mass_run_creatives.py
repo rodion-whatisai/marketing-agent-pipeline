@@ -130,12 +130,73 @@ def filter_already_done(plan: list[tuple]) -> tuple[list[tuple], int]:
     return remaining, skipped
 
 
+# Errors worth retrying — race-prone failures, not "ad genuinely empty".
+RETRYABLE_ERRORS = ("iframe_missing", "TimeoutError")
+
+# Errors that are already final — don't promote them to "no_iframe_after_N_retries".
+TERMINAL_ERRORS = ("advertiser_not_found", "ad_not_found")
+
+
+MAX_RETRY_ATTEMPTS = 2  # after 2 failed retries, accept terminal "no_iframe_after_retries"
+
+
+def find_misses_to_retry(summary: list[dict],
+                          only_domains: set[str] | None) -> list[tuple]:
+    """Scan existing JSONs, return [(domain, advertiser_id, creative_id), ...]
+    for those whose fetch_error is in RETRYABLE_ERRORS *and* retry_attempts < MAX.
+    Used by --retry-misses mode."""
+    targets = []
+    for r in summary:
+        domain = r.get("domain")
+        if only_domains and domain not in only_domains:
+            continue
+        gc_dir = get_scan_dir(domain) / "google_creatives"
+        if not gc_dir.exists():
+            continue
+        for fp in gc_dir.glob("CR*.json"):
+            try:
+                d = json.loads(fp.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            err = d.get("fetch_error") or ""
+            if not any(token in err for token in RETRYABLE_ERRORS):
+                continue
+            attempts = d.get("retry_attempts", 0) or 0
+            if attempts >= MAX_RETRY_ATTEMPTS:
+                continue
+            ar = d.get("advertiser_id")
+            cr = d.get("creative_id")
+            if ar and cr:
+                targets.append((domain, ar, cr))
+    return targets
+
+
+def archive_misses_before_retry(targets: list[tuple], round_n: int) -> int:
+    """Move existing miss-JSONs to scans/_archive/<domain>/round_<N>/<cr>.json.
+    Trickster pattern — improvements are reversible if retry introduces regression."""
+    moved = 0
+    for domain, ar, cr in targets:
+        src = get_scan_dir(domain) / "google_creatives" / f"{cr}.json"
+        if not src.exists():
+            continue
+        dst_dir = SCANS_DIR / "_archive" / domain / f"round_{round_n}"
+        dst_dir.mkdir(parents=True, exist_ok=True)
+        # Don't actually move — copy content, then let the new run overwrite src.
+        # (If move-and-fail, we'd lose the JSON entirely. Copy-then-overwrite is safe.)
+        dst = dst_dir / f"{cr}.json"
+        dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+        moved += 1
+    return moved
+
+
 # ─── Worker pool ─────────────────────────────────────────────────────────────
 
 async def _process_creative(context, domain: str, advertiser_id: str,
                              creative_id: str, region: str,
-                             out_dir: Path, log_print) -> dict:
-    """Parse one creative + save JSON. Returns stat dict."""
+                             out_dir: Path, log_print,
+                             retry_round: int = 0) -> dict:
+    """Parse one creative + save JSON. Returns stat dict.
+    retry_round: 0 for primary run, 1+ for retry passes (carries forward retry_attempts)."""
     t0 = time.monotonic()
     try:
         parsed = await asyncio.wait_for(
@@ -151,12 +212,32 @@ async def _process_creative(context, domain: str, advertiser_id: str,
         }
     elapsed = time.monotonic() - t0
 
+    # Carry forward retry_attempts counter from existing JSON if present.
+    out_path = out_dir / f"{creative_id}.json"
+    prev_attempts = 0
+    if retry_round > 0 and out_path.exists():
+        try:
+            prev = json.loads(out_path.read_text(encoding="utf-8"))
+            prev_attempts = prev.get("retry_attempts", 0) or 0
+        except Exception:
+            pass
+
+    new_attempts = prev_attempts + (1 if retry_round > 0 else 0)
+    parsed["retry_attempts"] = new_attempts
+
+    # If still erroring after MAX retries — promote to terminal error,
+    # UNLESS error is already a recognised terminal kind (e.g. advertiser_not_found).
+    err = parsed.get("fetch_error")
+    if (err
+            and not any(t in err for t in TERMINAL_ERRORS)
+            and new_attempts >= MAX_RETRY_ATTEMPTS):
+        parsed["fetch_error"] = f"no_iframe_after_{new_attempts}_retries"
+
     parsed.setdefault("_meta", {})
     parsed["_meta"]["domain"] = domain
     parsed["_meta"]["fetched_at"] = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
     parsed["_meta"]["elapsed_s"] = round(elapsed, 2)
 
-    out_path = out_dir / f"{creative_id}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(parsed, ensure_ascii=False, indent=2),
                          encoding="utf-8")
@@ -176,7 +257,7 @@ async def _process_creative(context, domain: str, advertiser_id: str,
 
 
 async def _worker(worker_id: int, browser, queue: asyncio.Queue,
-                   region: str, stats: list, log_print):
+                   region: str, stats: list, log_print, retry_round: int = 0):
     """One worker — owns its own BrowserContext for the duration."""
     context = await browser.new_context(user_agent=HEADERS["User-Agent"])
     log_print(f"  [w{worker_id}] context ready")
@@ -189,7 +270,8 @@ async def _worker(worker_id: int, browser, queue: asyncio.Queue,
                 domain, ar, cr = item
                 out_dir = SCANS_DIR / domain / "google_creatives"
                 stat = await _process_creative(
-                    context, domain, ar, cr, region, out_dir, log_print
+                    context, domain, ar, cr, region, out_dir, log_print,
+                    retry_round=retry_round,
                 )
                 stats.append(stat)
                 jitter = random.uniform(*INTER_REQUEST_JITTER)
@@ -204,7 +286,7 @@ async def _worker(worker_id: int, browser, queue: asyncio.Queue,
 
 
 async def run_mass(plan: list[tuple], region: str, workers: int,
-                    headed: bool, log_print) -> list[dict]:
+                    headed: bool, log_print, retry_round: int = 0) -> list[dict]:
     """Запускает Chromium с N workers (= N contexts)."""
     from playwright.async_api import async_playwright
 
@@ -222,7 +304,8 @@ async def run_mass(plan: list[tuple], region: str, workers: int,
         try:
             tasks = [
                 asyncio.create_task(
-                    _worker(i + 1, browser, queue, region, stats, log_print)
+                    _worker(i + 1, browser, queue, region, stats, log_print,
+                            retry_round=retry_round)
                 )
                 for i in range(workers)
             ]
@@ -252,6 +335,10 @@ def main():
                     help="Limit total creatives processed (debug)")
     ap.add_argument("--no-resume", action="store_true",
                     help="Re-process even if google_creatives/<cr>.json exists")
+    ap.add_argument("--retry-misses", action="store_true",
+                    help="Re-process only creatives whose existing JSON has fetch_error in "
+                         "RETRYABLE_ERRORS (iframe_missing, TimeoutError). Caps workers=2 "
+                         "for stability. After MAX_RETRY_ATTEMPTS, error becomes terminal.")
     ap.add_argument("--seed", type=int, default=42, help="Sample shuffle seed")
     ap.add_argument("--headed", action="store_true")
     ap.add_argument("--dry-run", action="store_true",
@@ -265,26 +352,54 @@ def main():
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
 
     only_domains = set(args.domains) if args.domains else None
-    plan = build_full_plan(summary, only_domains=only_domains, seed=args.seed)
-    n_total_planned = len(plan)
+
+    # Two modes: primary mass run vs --retry-misses (re-process only failed JSONs).
+    if args.retry_misses:
+        # Cap workers in retry mode (low concurrency → less race).
+        if args.workers > 2:
+            print(f"[retry-misses] capping workers {args.workers}→2 for stability")
+            args.workers = 2
+        plan = find_misses_to_retry(summary, only_domains=only_domains)
+        n_total_planned = len(plan)
+        retry_round = 1
+        # Determine round number from existing JSONs (max retry_attempts seen + 1).
+        # Simple: round 1 if any candidate has retry_attempts==0, else round 2.
+        max_attempts = 0
+        for domain, ar, cr in plan:
+            fp = get_scan_dir(domain) / "google_creatives" / f"{cr}.json"
+            try:
+                d = json.loads(fp.read_text(encoding="utf-8"))
+                max_attempts = max(max_attempts, d.get("retry_attempts", 0) or 0)
+            except Exception:
+                pass
+        retry_round = max_attempts + 1
+        print(f"📋 Retry plan ({n_total_planned} creatives with retryable errors, round {retry_round}):")
+    else:
+        plan = build_full_plan(summary, only_domains=only_domains, seed=args.seed)
+        n_total_planned = len(plan)
+        retry_round = 0
+        print(f"📋 Plan ({n_total_planned} creatives across {len({d for d, _, _ in plan})} domains):")
 
     # Per-domain breakdown
     by_dom = {}
     for d, _, _ in plan:
         by_dom[d] = by_dom.get(d, 0) + 1
 
-    print(f"📋 Plan ({n_total_planned} creatives across {len(by_dom)} domains):")
-    for r in summary:
-        d = r.get("domain")
-        if only_domains and d not in only_domains:
-            continue
-        n_sample = by_dom.get(d, 0)
-        n_total = len(r.get("creatives") or [])
-        est = r.get("total_ads_estimate") or 0
-        print(f"     {d:30s} sample={n_sample:>4d}  collected={n_total:>4d}  total_est={est:>4d}")
+    if not args.retry_misses:
+        for r in summary:
+            d = r.get("domain")
+            if only_domains and d not in only_domains:
+                continue
+            n_sample = by_dom.get(d, 0)
+            n_total = len(r.get("creatives") or [])
+            est = r.get("total_ads_estimate") or 0
+            print(f"     {d:30s} sample={n_sample:>4d}  collected={n_total:>4d}  total_est={est:>4d}")
+    else:
+        for d in sorted(by_dom):
+            print(f"     {d:30s} misses={by_dom[d]:>4d}")
 
-    # Resume filter
-    if not args.no_resume:
+    # Resume filter — only in primary mode (retry mode targets are always re-processed)
+    if not args.no_resume and not args.retry_misses:
         plan, n_skipped = filter_already_done(plan)
         if n_skipped:
             print(f"\n⏭  Resume: skipping {n_skipped} already-done creatives")
@@ -293,7 +408,8 @@ def main():
         plan = plan[:args.limit]
         print(f"⚙  --limit {args.limit}: processing first {len(plan)} only")
 
-    print(f"\n→ {len(plan)} creatives queued, workers={args.workers}, region={args.region}")
+    print(f"\n→ {len(plan)} creatives queued, workers={args.workers}, region={args.region}"
+          + (f", retry_round={retry_round}" if retry_round else ""))
 
     if args.dry_run:
         print("(dry-run, exiting)")
@@ -303,10 +419,16 @@ def main():
         print("✅ Nothing to do (all already parsed)")
         return
 
+    # Archive miss-JSONs before retry overwrites them (Trickster pattern: keep a baseline)
+    if args.retry_misses:
+        n_archived = archive_misses_before_retry(plan, retry_round)
+        print(f"🗄  Archived {n_archived} miss-JSONs to scans/_archive/<domain>/round_{retry_round}/")
+
     # Set up log file
     SCANS_DIR.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_path = SCANS_DIR / f"_mass_run_{args.region.lower()}_{ts}.log"
+    log_tag = f"retry{retry_round}" if retry_round else "primary"
+    log_path = SCANS_DIR / f"_mass_run_{args.region.lower()}_{log_tag}_{ts}.log"
     log_f = log_path.open("w", encoding="utf-8")
 
     def log_print(msg: str):
@@ -316,7 +438,7 @@ def main():
         log_f.write(line + "\n")
         log_f.flush()
 
-    log_print(f"=== mass_run_creatives.py start ts={ts} ===")
+    log_print(f"=== mass_run_creatives.py start ts={ts} mode={log_tag} ===")
     log_print(f"workers={args.workers} region={args.region} total={len(plan)}")
 
     t_start = time.monotonic()
@@ -324,6 +446,7 @@ def main():
         stats = asyncio.run(run_mass(
             plan, region=args.region, workers=args.workers,
             headed=args.headed, log_print=log_print,
+            retry_round=retry_round,
         ))
     finally:
         elapsed = time.monotonic() - t_start
