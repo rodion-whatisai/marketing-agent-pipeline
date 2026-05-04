@@ -1,0 +1,345 @@
+"""
+TNC Google Ads Transparency Center — Mass Creative Parser (Sprint B)
+====================================================================
+Прогоняет parse_creative по всем sampled creatives используя N concurrent
+Playwright BrowserContext'ов в одном Chromium. Idempotent — пропускает уже
+сделанные creatives.
+
+Sample-cap formula:
+    n <= 100   → all
+    n  > 100   → 100 + (n - 100) // 2
+Cap считается от total_ads_estimate (то что Google заявил),
+sample = min(cap, len(collected_creatives)).
+
+Использование:
+    python mass_run_creatives.py                          # все 10 с дефолтным cap
+    python mass_run_creatives.py --workers 5
+    python mass_run_creatives.py --domains aerosus.fr points.fr
+    python mass_run_creatives.py --no-resume              # перепарсить всё
+    python mass_run_creatives.py --dry-run                # показать план без запуска
+    python mass_run_creatives.py --limit 20               # только первые 20 (для дебага)
+
+Output (per creative):
+    scans/<domain>/google_creatives/<creative_id>.json
+
+Aggregate logs:
+    scans/_mass_run_<region>_<timestamp>.log
+"""
+
+import sys
+import json
+import asyncio
+import argparse
+import random
+import time
+from pathlib import Path
+from datetime import datetime, timezone
+from collections import deque
+
+from utils import SCANS_DIR, get_scan_dir, HEADERS
+from google_ads_creative import parse_creative_with_context
+
+
+DEFAULT_REGION = "FR"
+DEFAULT_WORKERS = 4
+
+# Per-creative timeout (seconds). Если parse_creative_with_context зависает —
+# рубим, отмечаем fetch_error и идём дальше.
+CREATIVE_TIMEOUT = 60
+
+# Между parsings внутри одного worker — small jitter чтобы не молотить TC синхронно.
+INTER_REQUEST_JITTER = (0.3, 1.2)
+
+
+# ─── Sample selection ────────────────────────────────────────────────────────
+
+def cap_for_total(total: int | None) -> int:
+    """Sample-cap formula. None / 0 / negative → 0."""
+    if not total or total <= 0:
+        return 0
+    if total <= 100:
+        return total
+    return 100 + (total - 100) // 2
+
+
+def select_sample_for_domain(domain_record: dict, seed: int = 42) -> list[dict]:
+    """Возвращает список creatives для domain, отсэмплированных по cap formula.
+    Mixing strategy: round-robin по advertiser_id для diverse coverage,
+    потом random fill из остатка.
+    """
+    creatives = list(domain_record.get("creatives") or [])
+    if not creatives:
+        return []
+    total_est = domain_record.get("total_ads_estimate") or 0
+    cap_est = cap_for_total(total_est)
+    n_target = min(cap_est, len(creatives)) if cap_est else len(creatives)
+    if n_target >= len(creatives):
+        return creatives
+
+    # Group by advertiser
+    by_adv = {}
+    for c in creatives:
+        ar = c.get("advertiser_id") or "?"
+        by_adv.setdefault(ar, []).append(c)
+
+    rng = random.Random(seed)
+    for v in by_adv.values():
+        rng.shuffle(v)
+
+    # Round-robin pick
+    selected = []
+    queues = {k: deque(v) for k, v in by_adv.items()}
+    while len(selected) < n_target and any(queues.values()):
+        for ar in list(queues.keys()):
+            if not queues[ar]:
+                continue
+            selected.append(queues[ar].popleft())
+            if len(selected) >= n_target:
+                break
+    return selected
+
+
+def build_full_plan(summary: list[dict],
+                    only_domains: set[str] | None = None,
+                    seed: int = 42) -> list[tuple]:
+    """Возвращает список (domain, advertiser_id, creative_id) tuples для всего batch'a."""
+    plan = []
+    for r in summary:
+        domain = r.get("domain")
+        if only_domains and domain not in only_domains:
+            continue
+        sample = select_sample_for_domain(r, seed=seed)
+        for c in sample:
+            plan.append((domain, c["advertiser_id"], c["creative_id"]))
+    return plan
+
+
+def filter_already_done(plan: list[tuple]) -> tuple[list[tuple], int]:
+    """Удаляет creatives для которых уже есть scans/<domain>/google_creatives/<cr>.json.
+    Returns (remaining_plan, n_skipped)."""
+    remaining = []
+    skipped = 0
+    for item in plan:
+        domain, ar, cr = item
+        out_path = get_scan_dir(domain) / "google_creatives" / f"{cr}.json"
+        if out_path.exists():
+            skipped += 1
+            continue
+        remaining.append(item)
+    return remaining, skipped
+
+
+# ─── Worker pool ─────────────────────────────────────────────────────────────
+
+async def _process_creative(context, domain: str, advertiser_id: str,
+                             creative_id: str, region: str,
+                             out_dir: Path, log_print) -> dict:
+    """Parse one creative + save JSON. Returns stat dict."""
+    t0 = time.monotonic()
+    try:
+        parsed = await asyncio.wait_for(
+            parse_creative_with_context(context, advertiser_id, creative_id, region),
+            timeout=CREATIVE_TIMEOUT,
+        )
+    except asyncio.TimeoutError:
+        parsed = {
+            "advertiser_id": advertiser_id,
+            "creative_id": creative_id,
+            "region": region,
+            "fetch_error": f"TimeoutError: > {CREATIVE_TIMEOUT}s",
+        }
+    elapsed = time.monotonic() - t0
+
+    parsed.setdefault("_meta", {})
+    parsed["_meta"]["domain"] = domain
+    parsed["_meta"]["fetched_at"] = datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
+    parsed["_meta"]["elapsed_s"] = round(elapsed, 2)
+
+    out_path = out_dir / f"{creative_id}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(parsed, ensure_ascii=False, indent=2),
+                         encoding="utf-8")
+
+    err = parsed.get("fetch_error")
+    fmt = parsed.get("format") or "—"
+    rng = parsed.get("impressions_range_raw") or "—"
+    n_text = len(parsed.get("ad_text_candidates") or [])
+    if err:
+        log_print(f"  ❌ {domain:25s} {creative_id} ({elapsed:5.1f}s) ERR: {err}")
+    else:
+        log_print(f"  ✓ {domain:25s} {creative_id} ({elapsed:5.1f}s) "
+                  f"fmt={fmt:7s} rng={rng:10s} text={n_text}")
+
+    return {"domain": domain, "creative_id": creative_id,
+            "elapsed_s": elapsed, "ok": not err, "error": err}
+
+
+async def _worker(worker_id: int, browser, queue: asyncio.Queue,
+                   region: str, stats: list, log_print):
+    """One worker — owns its own BrowserContext for the duration."""
+    context = await browser.new_context(user_agent=HEADERS["User-Agent"])
+    log_print(f"  [w{worker_id}] context ready")
+    try:
+        while True:
+            item = await queue.get()
+            try:
+                if item is None:
+                    return
+                domain, ar, cr = item
+                out_dir = SCANS_DIR / domain / "google_creatives"
+                stat = await _process_creative(
+                    context, domain, ar, cr, region, out_dir, log_print
+                )
+                stats.append(stat)
+                jitter = random.uniform(*INTER_REQUEST_JITTER)
+                await asyncio.sleep(jitter)
+            finally:
+                queue.task_done()
+    finally:
+        try:
+            await context.close()
+        except Exception:
+            pass
+
+
+async def run_mass(plan: list[tuple], region: str, workers: int,
+                    headed: bool, log_print) -> list[dict]:
+    """Запускает Chromium с N workers (= N contexts)."""
+    from playwright.async_api import async_playwright
+
+    queue: asyncio.Queue = asyncio.Queue()
+    for item in plan:
+        await queue.put(item)
+    # Sentinels — workers exit when seen
+    for _ in range(workers):
+        await queue.put(None)
+
+    stats: list[dict] = []
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=not headed)
+        try:
+            tasks = [
+                asyncio.create_task(
+                    _worker(i + 1, browser, queue, region, stats, log_print)
+                )
+                for i in range(workers)
+            ]
+            await asyncio.gather(*tasks, return_exceptions=False)
+        finally:
+            try:
+                await browser.close()
+            except Exception:
+                pass
+
+    return stats
+
+
+# ─── CLI ─────────────────────────────────────────────────────────────────────
+
+def main():
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--summary",
+                    default=str(SCANS_DIR / "_domain_summary_fr.json"),
+                    help="Domain summary JSON (output of google_ads_domain.py --file ...)")
+    ap.add_argument("--region", default=DEFAULT_REGION)
+    ap.add_argument("--workers", type=int, default=DEFAULT_WORKERS,
+                    help="Concurrent browser contexts (default 4)")
+    ap.add_argument("--domains", nargs="+",
+                    help="Restrict to specific domains (else all in summary)")
+    ap.add_argument("--limit", type=int,
+                    help="Limit total creatives processed (debug)")
+    ap.add_argument("--no-resume", action="store_true",
+                    help="Re-process even if google_creatives/<cr>.json exists")
+    ap.add_argument("--seed", type=int, default=42, help="Sample shuffle seed")
+    ap.add_argument("--headed", action="store_true")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="Print plan and exit (no parsing)")
+    args = ap.parse_args()
+
+    summary_path = Path(args.summary)
+    if not summary_path.exists():
+        print(f"❌ summary not found: {summary_path}")
+        sys.exit(1)
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+    only_domains = set(args.domains) if args.domains else None
+    plan = build_full_plan(summary, only_domains=only_domains, seed=args.seed)
+    n_total_planned = len(plan)
+
+    # Per-domain breakdown
+    by_dom = {}
+    for d, _, _ in plan:
+        by_dom[d] = by_dom.get(d, 0) + 1
+
+    print(f"📋 Plan ({n_total_planned} creatives across {len(by_dom)} domains):")
+    for r in summary:
+        d = r.get("domain")
+        if only_domains and d not in only_domains:
+            continue
+        n_sample = by_dom.get(d, 0)
+        n_total = len(r.get("creatives") or [])
+        est = r.get("total_ads_estimate") or 0
+        print(f"     {d:30s} sample={n_sample:>4d}  collected={n_total:>4d}  total_est={est:>4d}")
+
+    # Resume filter
+    if not args.no_resume:
+        plan, n_skipped = filter_already_done(plan)
+        if n_skipped:
+            print(f"\n⏭  Resume: skipping {n_skipped} already-done creatives")
+
+    if args.limit:
+        plan = plan[:args.limit]
+        print(f"⚙  --limit {args.limit}: processing first {len(plan)} only")
+
+    print(f"\n→ {len(plan)} creatives queued, workers={args.workers}, region={args.region}")
+
+    if args.dry_run:
+        print("(dry-run, exiting)")
+        return
+
+    if not plan:
+        print("✅ Nothing to do (all already parsed)")
+        return
+
+    # Set up log file
+    SCANS_DIR.mkdir(parents=True, exist_ok=True)
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_path = SCANS_DIR / f"_mass_run_{args.region.lower()}_{ts}.log"
+    log_f = log_path.open("w", encoding="utf-8")
+
+    def log_print(msg: str):
+        ts2 = datetime.now().strftime("%H:%M:%S")
+        line = f"[{ts2}] {msg}"
+        print(line, flush=True)
+        log_f.write(line + "\n")
+        log_f.flush()
+
+    log_print(f"=== mass_run_creatives.py start ts={ts} ===")
+    log_print(f"workers={args.workers} region={args.region} total={len(plan)}")
+
+    t_start = time.monotonic()
+    try:
+        stats = asyncio.run(run_mass(
+            plan, region=args.region, workers=args.workers,
+            headed=args.headed, log_print=log_print,
+        ))
+    finally:
+        elapsed = time.monotonic() - t_start
+        log_f.close()
+
+    n_ok = sum(1 for s in stats if s.get("ok"))
+    n_err = len(stats) - n_ok
+    avg = sum(s["elapsed_s"] for s in stats) / max(len(stats), 1)
+    print(f"\n✅ done in {elapsed:.0f}s — {n_ok} ok / {n_err} err / {len(stats)} total"
+          f" (avg {avg:.1f}s per creative)")
+    print(f"   log: {log_path}")
+
+
+if __name__ == "__main__":
+    main()
