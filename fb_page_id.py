@@ -126,6 +126,64 @@ SKIP_FB_PATHS = {
 }
 
 
+# ─── Homepage fetch with WAF fallback ────────────────────────────────────────
+
+def fetch_homepage(base_url: str) -> tuple:
+    """
+    Пытается получить HTML домашней страницы. Сначала через requests (быстро),
+    если блок (403/error) — через headless Playwright (обходит Cloudflare/WAF).
+
+    Returns: (html, status_code, method, error)
+      method ∈ {"requests", "playwright", "blocked_by_waf"}
+    """
+    # Step 1: requests
+    try:
+        r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
+        if r.status_code < 400 and len(r.text) > 500:
+            return r.text, r.status_code, "requests", None
+        requests_status = r.status_code
+    except Exception as e:
+        requests_status = None
+        _ = str(e)[:100]  # not used but kept for symmetry
+
+    # Step 2: Playwright fallback
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return "", requests_status, "blocked_by_waf", "playwright not installed"
+
+    print(f"    🎭 requests blocked ({requests_status}) — пробую Playwright...")
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            context = browser.new_context(
+                user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                           "AppleWebKit/537.36 (KHTML, like Gecko) "
+                           "Chrome/120.0.0.0 Safari/537.36",
+                locale="en-US",
+                viewport={"width": 1440, "height": 900},
+            )
+            page = context.new_page()
+            try:
+                response = page.goto(base_url, wait_until="domcontentloaded", timeout=25000)
+                # Дать JS догидратиться / cookie popup появиться (они не мешают — FB-линка
+                # уже в footer HTML независимо от того, overlay ли popup поверх или нет)
+                page.wait_for_timeout(3000)
+                status = response.status if response else None
+                html = page.content()
+                browser.close()
+                # Отказ если status 4xx/5xx — даже если есть HTML, это скорее всего
+                # CF challenge page или error page, а не реальный контент сайта
+                if html and len(html) > 500 and (status is None or status < 400):
+                    return html, status, "playwright", None
+                return "", status, "blocked_by_waf", f"playwright got status {status}"
+            except Exception as e:
+                browser.close()
+                return "", requests_status, "blocked_by_waf", f"playwright error: {str(e)[:80]}"
+    except Exception as e:
+        return "", requests_status, "blocked_by_waf", f"playwright launch failed: {str(e)[:80]}"
+
+
 # ─── Сбор всех FB ссылок на сайте ────────────────────────────────────────────
 
 def find_all_fb_handles(base_url: str, html: str = None) -> list:
@@ -530,10 +588,247 @@ def build_ads_library_urls(display_name: str, countries: list = None, page_id: s
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
-def _parse_ad_library_html(html: str) -> dict:
-    """Парсит HTML страницы Ad Library — count, тексты, partnership флаг."""
+def _walk_for_key(obj, key):
+    """Рекурсивный обход dict/list — выдаёт все значения по заданному ключу."""
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k == key:
+                yield v
+            yield from _walk_for_key(v, key)
+    elif isinstance(obj, list):
+        for v in obj:
+            yield from _walk_for_key(v, key)
+
+
+def _normalize_ad_record(raw: dict) -> dict:
+    """Конвертит сырой GraphQL-ad record в плоский dict с нужными полями."""
+    if not isinstance(raw, dict):
+        return None
+    try:
+        s = raw.get("snapshot") or {}
+
+        # Primary image: snapshot.images[0] (IMAGE) или cards[0] (DCO/DPA).
+        # Prefer resized_image_url (обычно ~600px, 100-200KB, без watermark) —
+        # original_image_url даёт full-res (1-2 MB), раздувает отчёт.
+        # resized сохраняет качество для превью в отчёте.
+        image_url = None
+        images = s.get("images") or []
+        if images:
+            image_url = images[0].get("resized_image_url") or images[0].get("original_image_url")
+        if not image_url:
+            for card in (s.get("cards") or []):
+                image_url = card.get("resized_image_url") or card.get("original_image_url")
+                if image_url:
+                    break
+
+        # Video URL (HD приоритет). Заодно захватим video_preview_image_url как fallback image.
+        video_url = None
+        video_preview_image = None
+        for v in (s.get("videos") or []):
+            video_url = video_url or v.get("video_hd_url") or v.get("video_sd_url")
+            video_preview_image = video_preview_image or v.get("video_preview_image_url")
+            if video_url and video_preview_image:
+                break
+        if not video_url or not video_preview_image:
+            for card in (s.get("cards") or []):
+                video_url = video_url or card.get("video_hd_url") or card.get("video_sd_url")
+                video_preview_image = video_preview_image or card.get("video_preview_image_url")
+                if video_url and video_preview_image:
+                    break
+
+        # Если основной image_url пусто (VIDEO-only объявления) — используем preview кадр
+        if not image_url and video_preview_image:
+            image_url = video_preview_image
+
+        # Body text — у DCO top-level это шаблон "{{product.brand}}".
+        # Реальный рендеримый текст лежит в cards[i].body (может быть строкой или {text: ...}).
+        def _is_tpl(t):
+            return bool(t) and "{{" in t and "}}" in t
+
+        body_text = ((s.get("body") or {}).get("text") or "").strip()
+        if not body_text or _is_tpl(body_text):
+            for card in (s.get("cards") or []):
+                cb = card.get("body")
+                if isinstance(cb, dict):
+                    cb = cb.get("text")
+                cb = (cb or "").strip()
+                if cb and not _is_tpl(cb):
+                    body_text = cb
+                    break
+
+        # Title — тоже может быть шаблоном у DCO, fallback на cards
+        title = (s.get("title") or "").strip()
+        if not title or _is_tpl(title):
+            for card in (s.get("cards") or []):
+                ct = (card.get("title") or "").strip()
+                if ct and not _is_tpl(ct):
+                    title = ct
+                    break
+
+        lib_id = str(raw.get("ad_archive_id") or "")
+        if not lib_id:
+            return None
+
+        n_card_variants = len(s.get("cards") or [])
+
+        return {
+            "library_id":              lib_id,
+            "page_name":               raw.get("page_name") or s.get("page_name") or "",
+            "display_format":          s.get("display_format"),
+            "is_active":               raw.get("is_active"),
+            "start_date":              raw.get("start_date"),
+            "end_date":                raw.get("end_date"),
+            "platforms":               raw.get("publisher_platform") or [],
+            "branded_content":         s.get("branded_content"),
+            "title":                   title,
+            "body_text":               body_text,
+            "caption":                 s.get("caption") or "",
+            "link_description":        s.get("link_description") or "",
+            "link_url":                s.get("link_url") or "",
+            "cta_text":                s.get("cta_text") or "",
+            "cta_type":                s.get("cta_type") or "",
+            "image_url":               image_url,
+            "video_url":               video_url,
+            "page_profile_uri":        s.get("page_profile_uri") or "",
+            "page_profile_picture_url": s.get("page_profile_picture_url") or "",
+            "page_like_count":         s.get("page_like_count"),
+            "detail_url":              f"https://www.facebook.com/ads/library/?id={lib_id}",
+            "n_card_variants":         n_card_variants,   # сколько carousel-вариантов
+            # image_local заполнится позже в _download_ad_images
+            "image_local":             None,
+        }
+    except Exception:
+        return None
+
+
+def _extract_ads_from_json(html: str, limit: int = 10,
+                            target_page_id: str = None,
+                            target_name: str = None) -> dict:
+    """
+    Вытаскивает структурированные ad records из Relay JSON payloads в HTML.
+    FB Ads Library hydrate'ит страницу через GraphQL — данные доступны в
+    <script type="application/json">...</script> блоках.
+
+    Определяет mode по `ad_library_main.ad_library_page_info`:
+      - non-null → advertiser-filtered (page mode) — результат авторитетный, без фильтра
+      - null    → keyword search — шум возможен, нужен пост-фильтр
+
+    Post-filter (в keyword mode):
+      - target_page_id → точный match snapshot.page_id
+      - target_name    → fuzzy match (difflib >= 0.75) snapshot.page_name
+      - ни то ни то    → возвращаем как есть (unfiltered, 'keyword_raw')
+
+    Returns dict:
+      {
+        ads: [...],          # top-N matched ads
+        mode: 'page' | 'keyword_filtered_by_page_id' | 'keyword_filtered_by_name' | 'keyword_raw',
+        raw_total: int,      # search_results_connection.count (total FB returned)
+        matched_count: int,  # after post-filter (== raw_total for page mode)
+      }
+    """
+    all_ads = []
+    seen_ids = set()
+    page_mode_signal = None  # True если встретили ad_library_page_info != null
+    raw_total = 0
+
+    for m in re.finditer(
+        r'<script type="application/json"[^>]*>(.+?)</script>',
+        html, flags=re.DOTALL
+    ):
+        payload = m.group(1)
+        try:
+            doc = json.loads(payload)
+        except (json.JSONDecodeError, ValueError):
+            continue
+
+        # Mode signal: ad_library_page_info лежит рядом с ad_library_main (sibling),
+        # а не внутри него. Ищем напрямую по дереву.
+        if not page_mode_signal:
+            for pi in _walk_for_key(doc, "ad_library_page_info"):
+                if pi and isinstance(pi, dict) and pi.get("page_info"):
+                    page_mode_signal = True
+                    break
+
+        # Ads из search_results_connection (независимо от mode)
+        for conn in _walk_for_key(doc, "search_results_connection"):
+            if not isinstance(conn, dict):
+                continue
+            c = conn.get("count")
+            if isinstance(c, int) and c > raw_total:
+                raw_total = c
+
+            for edge in (conn.get("edges") or []):
+                node = (edge or {}).get("node") or {}
+                for raw_ad in (node.get("collated_results") or []):
+                    ad = _normalize_ad_record(raw_ad)
+                    if ad and ad["library_id"] not in seen_ids:
+                        seen_ids.add(ad["library_id"])
+                        # Временные поля для фильтрации — удалим перед возвратом
+                        s = raw_ad.get("snapshot") or {}
+                        ad["_snap_pid"] = str(s.get("page_id") or raw_ad.get("page_id") or "")
+                        ad["_snap_pname"] = s.get("page_name") or ""
+                        all_ads.append(ad)
+
+    # Mode detection + post-filter
+    # Inclusive: ad совпадает если ЛИБО page_id exact match ЛИБО fuzzy name match (или оба).
+    # page-mode URL (view_all_page_id) не используется → page_mode_signal обычно False.
+    if page_mode_signal is True:
+        mode = "page"
+        matched = all_ads
+        matched_count = raw_total
+    elif target_page_id or target_name:
+        from difflib import SequenceMatcher
+        def _norm(s): return (s or "").strip().lower()
+        tgt_pid = str(target_page_id) if target_page_id else None
+        tgt_name = _norm(target_name) if target_name else None
+
+        matched = []
+        for a in all_ads:
+            pid_hit = bool(tgt_pid and a["_snap_pid"] == tgt_pid)
+            name_hit = bool(tgt_name and
+                            SequenceMatcher(None, _norm(a["_snap_pname"]), tgt_name).ratio() >= 0.75)
+            if pid_hit or name_hit:
+                matched.append(a)
+
+        matched_count = len(matched)
+        if tgt_pid and tgt_name:
+            mode = "keyword_filtered_by_pid_or_name"
+        elif tgt_pid:
+            mode = "keyword_filtered_by_page_id"
+        else:
+            mode = "keyword_filtered_by_name"
+    else:
+        mode = "keyword_raw"
+        matched = all_ads
+        matched_count = len(matched)
+
+    trimmed = matched[:limit]
+    for a in trimmed:
+        a.pop("_snap_pid", None)
+        a.pop("_snap_pname", None)
+
+    return {
+        "ads": trimmed,
+        "mode": mode,
+        "raw_total": raw_total,
+        "matched_count": matched_count,
+    }
+
+
+def _parse_ad_library_html(html: str, limit: int = 10,
+                            target_page_id: str = None,
+                            target_name: str = None) -> dict:
+    """Парсит HTML страницы Ad Library. Возвращает count, structured_ads (post-filtered),
+    тексты, partnership флаг, ads_library_mode, raw_keyword_total.
+
+    Если передан target_page_id — фильтруем ads в keyword mode по нему.
+    Иначе — если передан target_name — fuzzy-match фильтр по page_name.
+    Если ни того ни другого — всё сырое.
+    """
     result = {"count": None, "status": "could_not_parse", "ad_texts": [],
-              "partnership_ads": False, "partnership_count": 0}
+              "partnership_ads": False, "partnership_count": 0,
+              "structured_ads": [], "ads_library_mode": "unknown",
+              "raw_keyword_total": 0}
 
     # Count
     json_count = re.search(
@@ -560,23 +855,59 @@ def _parse_ad_library_html(html: str) -> dict:
                 result["status"] = "no_active_ads"
                 result["method"] = "empty_signal"
 
-    # Ad texts
-    texts = re.findall(r'white-space: pre-wrap[^>]*><span>([^<]{10,600})', html)
-    seen = set()
-    unique_texts = []
-    for t in texts:
-        t = t.strip()
-        if t not in seen:
-            seen.add(t)
-            unique_texts.append(t)
-    result["ad_texts"] = unique_texts
+    # ── NEW: structured ads из Relay JSON ───────────────────────────
+    extracted = _extract_ads_from_json(
+        html, limit=limit,
+        target_page_id=target_page_id, target_name=target_name
+    )
+    structured_ads = extracted["ads"]
+    result["structured_ads"] = structured_ads
+    result["ads_library_mode"] = extracted["mode"]
+    result["raw_keyword_total"] = extracted["raw_total"]
 
-    # Partnership / branded content
-    partnership_count = len(re.findall(r'branded_content', html, re.IGNORECASE))
-    # branded_content appears ~3 times per ad card (menu item + label + data)
-    estimated = max(0, partnership_count // 3)
-    result["partnership_ads"] = estimated > 0
-    result["partnership_count"] = estimated
+    # Главное поле count — теперь это matched_count (после пост-фильтра),
+    # а raw_keyword_total хранит исходное число из FB на случай transparency
+    if extracted["mode"] == "page" or structured_ads or extracted["matched_count"] == 0:
+        result["count"] = extracted["matched_count"]
+        result["status"] = "active" if extracted["matched_count"] > 0 else "no_active_ads"
+        result["method"] = "json_" + extracted["mode"]
+
+    if structured_ads:
+        # Деривим плоский ad_texts список из отфильтрованных ads (backward compat)
+        seen = set()
+        unique_texts = []
+        for ad in structured_ads:
+            t = (ad.get("body_text") or "").strip()
+            if t and t not in seen:
+                seen.add(t)
+                unique_texts.append(t)
+        result["ad_texts"] = unique_texts
+        result["partnership_count"] = sum(1 for a in structured_ads if a.get("branded_content"))
+        result["partnership_ads"] = result["partnership_count"] > 0
+        result["extraction_method"] = "json"
+    elif extracted["raw_total"] == 0:
+        # JSON нашёл 0 ads вообще — fallback на regex (redundant, но на всякий случай)
+        texts = re.findall(r'white-space: pre-wrap[^>]*><span>([^<]{10,600})', html)
+        seen = set()
+        unique_texts = []
+        for t in texts:
+            t = t.strip()
+            if t not in seen:
+                seen.add(t)
+                unique_texts.append(t)
+        result["ad_texts"] = unique_texts
+        partnership_count = len(re.findall(r'branded_content', html, re.IGNORECASE))
+        estimated = max(0, partnership_count // 3)
+        result["partnership_ads"] = estimated > 0
+        result["partnership_count"] = estimated
+        result["extraction_method"] = "regex_fallback"
+    else:
+        # JSON нашёл raw ads, но пост-фильтр отсёк все → честные нули
+        # (не падаем в regex fallback — он считает шум от всех 109 advertiser'ов)
+        result["ad_texts"] = []
+        result["partnership_count"] = 0
+        result["partnership_ads"] = False
+        result["extraction_method"] = "json_all_filtered_out"
 
     return result
 
