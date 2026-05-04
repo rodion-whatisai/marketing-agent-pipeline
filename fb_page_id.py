@@ -912,10 +912,18 @@ def _parse_ad_library_html(html: str, limit: int = 10,
     return result
 
 
-def _download_ad_images(page, domain: str, max_images: int = 5,
+def _download_ad_images(domain: str, structured_ads: list,
                          status_label: str = "") -> list:
-    """Скачивает первые N реальных ad креативов (не аватары). Возвращает список путей.
-    status_label: пустая строка / 'active' / 'inactive' — подпапка для разделения."""
+    """Скачивает главную картинку каждого ad record'а (по image_url из structured_ads).
+    Имя файла: ad_{library_id}.jpg — для однозначной связи с текстом в fb.json.
+    status_label: '' / 'active' / 'inactive' — подпапка для разделения 3-pass scan'a.
+    Мутирует structured_ads: проставляет ad['image_local'] для HTML-репорта.
+    Возвращает список путей скачанных файлов.
+
+    NOTE: см. CLAUDE.md "Architectural backlog" — этот listing-side download
+    запланирован к удалению; картинки должны приходить из detail modal scan
+    (Step 5 fb_ad_modal_parse). Пока оставлено для совместимости.
+    """
     import urllib.request
     from pathlib import Path
 
@@ -924,45 +932,42 @@ def _download_ad_images(page, domain: str, max_images: int = 5,
         img_dir = img_dir / status_label
     img_dir.mkdir(parents=True, exist_ok=True)
 
-    # Берём только большие изображения — реальные креативы, не аватары
-    try:
-        img_urls = page.evaluate("""
-            () => {
-                const imgs = Array.from(document.querySelectorAll('img[src]'));
-                return imgs
-                    .filter(i => {
-                        const w = i.naturalWidth || i.width;
-                        const h = i.naturalHeight || i.height;
-                        return w >= 200 && h >= 200;
-                    })
-                    .map(i => i.src)
-                    .filter(s => s.includes('scontent') || s.includes('fbcdn'))
-                    .filter(s => !s.includes('emoji') && !s.includes('icon'))
-                    .filter(s => s.includes('.jpg') || s.includes('.png') || s.includes('_n.'))
-                    .slice(0, 20);
-            }
-        """)
-    except Exception:
-        return []
-
     saved = []
-    idx = 1
-    for img_url in img_urls:
-        if idx > max_images:
-            break
+    for ad in structured_ads:
+        lib_id = ad.get("library_id")
+        img_url = ad.get("image_url")
+        if not (lib_id and img_url):
+            continue
         try:
-            ext = ".png" if ".png" in img_url else ".jpg"
-            path = img_dir / f"ad_{idx}{ext}"
-            urllib.request.urlretrieve(img_url, path)
-            # Проверяем что скачали что-то нормального размера (> 5kb)
-            if path.stat().st_size < 5000:
-                path.unlink()
+            ext = ".png" if ".png" in img_url.split("?")[0].lower() else ".jpg"
+            filename = f"ad_{lib_id}{ext}"
+            path = img_dir / filename
+
+            req = urllib.request.Request(img_url, headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                              "AppleWebKit/537.36 (KHTML, like Gecko) "
+                              "Chrome/120.0.0.0 Safari/537.36"
+            })
+            with urllib.request.urlopen(req, timeout=15) as r:
+                data = r.read()
+
+            if len(data) < 5000:
+                # Удаляем stale файл с прошлого rerun'а если он был — иначе
+                # битый старый файл болтался бы рядом с обновлённым fb.json без
+                # image_local (несоответствие). См. rerun edge case в comments.
+                path.unlink(missing_ok=True)
+                print(f"      ⚠️  Слишком маленький файл для ad {lib_id}, skip")
                 continue
+
+            path.write_bytes(data)
+            # image_local — путь относительно scans/{domain}/, чтобы HTML репорт
+            # мог легко подставить через relative src
+            rel_dir = f"fb_ads_images/{status_label}/" if status_label else "fb_ads_images/"
+            ad["image_local"] = f"{rel_dir}{filename}"
             saved.append(str(path))
-            print(f"      📷 Сохранено: {path.name}")
-            idx += 1
+            print(f"      📷 Сохранено: {filename}")
         except Exception as e:
-            print(f"      ⚠️  Не удалось скачать img: {str(e)[:50]}")
+            print(f"      ⚠️  Не удалось скачать ad {lib_id}: {str(e)[:60]}")
 
     return saved
 
@@ -981,9 +986,15 @@ def _build_ad_library_url(display_name: str, country: str, status: str) -> str:
 
 
 def _scan_one_status(page, url: str, status_label: str, domain: str,
-                      display_name: str, download_images: bool) -> dict:
+                      display_name: str, download_images: bool,
+                      target_page_id: str = None,
+                      target_name: str = None) -> dict:
     """Открывает URL, парсит HTML, скачивает картинки, сохраняет тексты.
-    status_label: 'all' / 'active' / 'inactive'."""
+    status_label: 'all' / 'active' / 'inactive'.
+
+    target_page_id / target_name — фильтры для _parse_ad_library_html.
+    Если переданы — keyword search post-filter активен (по page_id exact OR fuzzy name).
+    Если None — keyword_raw mode (без фильтра, для backward-compat вызовов)."""
     try:
         page.goto(url, wait_until="networkidle", timeout=25000)
         page.wait_for_timeout(3000)
@@ -995,16 +1006,22 @@ def _scan_one_status(page, url: str, status_label: str, domain: str,
             pass
 
     html = page.content()
-    parsed = _parse_ad_library_html(html)
+    parsed = _parse_ad_library_html(html,
+                                     target_page_id=target_page_id,
+                                     target_name=target_name)
     parsed["search_term"] = display_name
     parsed["status_filter"] = status_label
 
     # Скачиваем изображения только для active/inactive (не для all — он только для счётчика)
+    # Источник URL'ов — structured_ads из _parse_ad_library_html, не DOM scrape.
     saved_images = []
     if download_images and domain and status_label in ("active", "inactive"):
-        if parsed.get("count", 0) > 0:
+        structured_ads = parsed.get("structured_ads") or []
+        if parsed.get("count", 0) > 0 and structured_ads:
             print(f"      📷 Скачиваю изображения [{status_label}]...")
-            saved_images = _download_ad_images(page, domain, status_label=status_label)
+            # Мутирует structured_ads — проставляет image_local
+            saved_images = _download_ad_images(domain, structured_ads,
+                                                status_label=status_label)
     parsed["saved_images"] = saved_images
 
     # Сохраняем тексты с суффиксом
@@ -1034,6 +1051,11 @@ def get_ads_data(display_name: str, page_id: str = None,
       2) если есть — active_status=active
       3) если total > active — active_status=inactive
     Возвращает {total_ever, active, inactive, и back-compat поля}.
+
+    Filter activation: page_id и display_name пробрасываются в каждый
+    _scan_one_status → _parse_ad_library_html → _extract_ads_from_json для
+    post-filter (page_id exact OR fuzzy name >= 0.75). Если page_id None —
+    останется только name-filter; если оба None — keyword_raw mode (шум).
 
     Deep-scan модалок (Reach/демография/disclaimer/advertiser/lead-form) живёт
     в отдельном модуле — см. fb_scan.py (orchestrator) и Modules 3/4/5.
@@ -1065,7 +1087,9 @@ def get_ads_data(display_name: str, page_id: str = None,
             print(f"      🔎 Проход 1/3: все объявления (active+inactive)...")
             url_all = _build_ad_library_url(display_name, country, "all")
             all_data = _scan_one_status(page, url_all, "all", domain,
-                                         display_name, download_images=False)
+                                         display_name, download_images=False,
+                                         target_page_id=page_id,
+                                         target_name=display_name)
             total = all_data.get("count")
             result["total_ever"] = total
 
@@ -1080,7 +1104,9 @@ def get_ads_data(display_name: str, page_id: str = None,
             print(f"      🔎 Проход 2/3: активные объявления...")
             url_active = _build_ad_library_url(display_name, country, "active")
             active_data = _scan_one_status(page, url_active, "active", domain,
-                                            display_name, download_images)
+                                            display_name, download_images,
+                                            target_page_id=page_id,
+                                            target_name=display_name)
             active_count = active_data.get("count", 0) or 0
             if active_count > 0:
                 result["active"] = active_data
@@ -1093,7 +1119,9 @@ def get_ads_data(display_name: str, page_id: str = None,
                 print(f"      🔎 Проход 3/3: неактивные объявления...")
                 url_inactive = _build_ad_library_url(display_name, country, "inactive")
                 inactive_data = _scan_one_status(page, url_inactive, "inactive", domain,
-                                                  display_name, download_images)
+                                                  display_name, download_images,
+                                                  target_page_id=page_id,
+                                                  target_name=display_name)
                 inactive_count = inactive_data.get("count", 0) or 0
                 if inactive_count > 0:
                     result["inactive"] = inactive_data
@@ -1121,12 +1149,29 @@ def get_ads_data(display_name: str, page_id: str = None,
         partnership = bool(active.get("partnership_ads")) or bool(inactive.get("partnership_ads"))
         partnership_n = (active.get("partnership_count") or 0) + (inactive.get("partnership_count") or 0)
 
+        # Combined structured_ads — active первыми, потом inactive (dedup by library_id).
+        # Нужно для generate_site_report.py / generate_batch_report.py — они ждут
+        # blissful-style flat schema на корне fb account record'a.
+        combined_structured = list(active.get("structured_ads") or [])
+        seen_ids = {a.get("library_id") for a in combined_structured if a.get("library_id")}
+        for a in (inactive.get("structured_ads") or []):
+            lib_id = a.get("library_id")
+            if lib_id and lib_id not in seen_ids:
+                combined_structured.append(a)
+                seen_ids.add(lib_id)
+
         result.update({
             "count": active.get("count") or 0,            # back-compat: count = active count
             "ad_texts": combined_texts,
             "saved_images": combined_images,
             "partnership_ads": partnership,
             "partnership_count": partnership_n,
+            # NEW flat fields (для generate_site_report / generate_batch_report):
+            "structured_ads":     combined_structured,
+            "ads_library_mode":   active.get("ads_library_mode") or inactive.get("ads_library_mode") or "unknown",
+            "raw_keyword_total":  max(active.get("raw_keyword_total") or 0,
+                                      inactive.get("raw_keyword_total") or 0),
+            "extraction_method":  active.get("extraction_method") or inactive.get("extraction_method") or "unknown",
         })
 
         return result
@@ -1159,13 +1204,23 @@ def run(target: str) -> dict:
         base_url = ("https://" + target if not target.startswith("http") else target).rstrip("/")
         brand_name = urlparse(base_url).netloc.split(".")[0]
 
-        _html, _headers = "", {}
-        try:
-            _r = requests.get(base_url, headers=HEADERS, timeout=10)
-            _html = _r.text
-            _headers = dict(_r.headers)
-        except Exception:
-            pass
+        # Fetch homepage: requests → Playwright fallback при 403/error.
+        # Playwright обходит Cloudflare/WAF и отдаёт тот же HTML что пользователь
+        # видит в браузере — вместе с FB-линкой в footer, даже если поверх висят
+        # cookie/geo popups (они не скрывают static HTML).
+        _html, _homepage_status, _fetch_method, _homepage_error = fetch_homepage(base_url)
+        if _fetch_method == "playwright":
+            print(f"    ✓ Homepage получен через Playwright (HTTP {_homepage_status})")
+
+        # Для country detection нужны headers — они есть только в requests-ответе.
+        # Если Playwright — оставляем пустыми, detect_site_country свалится на TLD.
+        _headers = {}
+        if _fetch_method == "requests":
+            try:
+                _r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
+                _headers = dict(_r.headers)
+            except Exception:
+                pass
 
         country_result = detect_site_country(urlparse(base_url).netloc, html=_html, response_headers=_headers)
         site_country = country_result["country"]
@@ -1173,11 +1228,102 @@ def run(target: str) -> dict:
 
         print(f"\n🌍 Страна сайта: {site_country}  (via {site_country_source})")
         print(f"\n🔍 Ищу Facebook аккаунты на {target}...")
-        handles = find_all_fb_handles(base_url)
+        # Передаём уже скачанный HTML — избегаем повторного fetch
+        handles = find_all_fb_handles(base_url, html=_html)
+
+        # Homepage blocked flag — триггер brand-name fallback только если оба способа
+        # (requests + Playwright) не смогли пробиться.
+        homepage_blocked = _fetch_method == "blocked_by_waf"
 
         if not handles:
-            print(f"  ❌ Facebook ссылки не найдены")
-            return {}
+            full_domain = urlparse(base_url).netloc
+            discovery_meta = {
+                "homepage_status":        _homepage_status,
+                "homepage_error":         _homepage_error,
+                "homepage_fetch_method":  _fetch_method,
+                "fallback_attempted":     False,
+                "fallback_keyword":       None,
+                "fallback_result":        None,
+            }
+
+            if homepage_blocked:
+                print(f"  ⚠️  Homepage заблокирован (status={_homepage_status}, err={_homepage_error})")
+                print(f"  🔄 Пробую brand-name fallback — поиск в Ads Library по '{brand_name}'...")
+                discovery_meta["fallback_attempted"] = True
+                discovery_meta["fallback_keyword"] = brand_name
+
+                ads_urls = build_ads_library_urls(brand_name)
+                # 3-pass scan по brand-keyword (без page_id — пост-фильтр по name)
+                ads_data = get_ads_data(brand_name, country="ALL", domain=full_domain)
+                fb_total = ads_data.get("total_ever") or 0
+
+                if fb_total > 0:
+                    active_block = ads_data.get("active") or {}
+                    inactive_block = ads_data.get("inactive")
+                    active_count = active_block.get("count", 0) or 0
+                    print(f"  ✅ Brand-fallback нашёл {fb_total} объявлений (всего; активных {active_count})")
+                    discovery_meta["fallback_result"] = f"found_{fb_total}_ads"
+                    virtual_account = {
+                        "handle":             None,
+                        "display_name":       brand_name,
+                        "url":                None,
+                        "page_id":            None,
+                        "alive":              True,
+                        # 3-pass структура
+                        "total_ever":         fb_total,
+                        "active":             active_block,
+                        "inactive":           inactive_block,
+                        # back-compat плоские поля
+                        "active_ads_count":   active_count,
+                        "partnership_ads":    ads_data.get("partnership_ads", False),
+                        "partnership_count":  ads_data.get("partnership_count", 0),
+                        "ad_texts":           ads_data.get("ad_texts", []),
+                        "saved_images":       ads_data.get("saved_images", []),
+                        "structured_ads":     ads_data.get("structured_ads", []),
+                        "ads_library_mode":   ads_data.get("ads_library_mode", "unknown"),
+                        "raw_keyword_total":  ads_data.get("raw_keyword_total", 0),
+                        "extraction_method":  ads_data.get("extraction_method", "unknown"),
+                        "ads_search_term":    brand_name,
+                        "ads_library":        ads_urls,
+                        "discovery_method":   "brand_keyword_fallback",
+                        "confidence_note":    "Homepage was blocked. These ads were found by "
+                                              "searching Ads Library with brand-name keyword and "
+                                              "then fuzzy-matching advertiser names. "
+                                              "Manual verification recommended.",
+                    }
+                    output = {
+                        "target":              target,
+                        "brand_name":          brand_name,
+                        "site_country":        site_country,
+                        "site_country_source": site_country_source,
+                        "accounts":            [virtual_account],
+                        "discovery_meta":      discovery_meta,
+                    }
+                    filename = scan_path(full_domain, "fb.json")
+                    with open(filename, "w", encoding="utf-8") as f:
+                        json.dump(output, f, indent=2, ensure_ascii=False)
+                    print(f"\n💾 Сохранено (via brand-fallback): {filename}")
+                    return output
+                else:
+                    print(f"  ❌ Brand-fallback: 0 ads по '{brand_name}'")
+                    discovery_meta["fallback_result"] = "no_ads_found"
+            else:
+                print(f"  ❌ Facebook ссылки не найдены (homepage статус {_homepage_status})")
+
+            # Save empty fb.json with discovery_meta so report can explain what happened
+            output = {
+                "target":              target,
+                "brand_name":          brand_name,
+                "site_country":        site_country,
+                "site_country_source": site_country_source,
+                "accounts":            [],
+                "discovery_meta":      discovery_meta,
+            }
+            filename = scan_path(full_domain, "fb.json")
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(output, f, indent=2, ensure_ascii=False)
+            print(f"\n💾 Сохранено (empty): {filename}")
+            return output
 
         print(f"  ✓ Найдено ссылок: {len(handles)}")
         handles = prioritize_handles(handles, brand_name)
@@ -1211,15 +1357,17 @@ def run(target: str) -> dict:
             continue
 
         display_name = status.get("display_name") or display
+        fb_page_id = status.get("page_id") or item.get("page_id")
 
-        print(f"    ✓ Published | Display name: {display_name}")
+        print(f"    ✓ Published | Display name: {display_name}"
+              + (f" | Page ID: {fb_page_id}" if fb_page_id else ""))
 
-        ads_urls = build_ads_library_urls(display_name)
+        ads_urls = build_ads_library_urls(display_name, page_id=fb_page_id)
         print(f"    📢 Ads Library: {ads_urls['ALL']['active_only']}")
 
         print(f"    🔢 Проверяю рекламу по имени '{display_name}'...")
         full_domain = urlparse(base_url).netloc if not is_handle else brand_name
-        ads_data = get_ads_data(display_name, country="ALL",
+        ads_data = get_ads_data(display_name, page_id=fb_page_id, country="ALL",
                                  fb_page_url=fb_page_url, domain=full_domain)
 
         total_ever     = ads_data.get("total_ever")
@@ -1242,6 +1390,20 @@ def run(target: str) -> dict:
             inactive_n = (inactive_block or {}).get("count", 0) or 0
             print(f"    📊 Всего: {total_ever}  |  ✅ активных: {active_n}  |  📦 архив: {inactive_n}")
 
+        # Mode/raw transparency — показывает как фильтровались keyword результаты
+        ads_lib_mode = ads_data.get("ads_library_mode")
+        raw_total = ads_data.get("raw_keyword_total")
+        if raw_total and raw_total != count:
+            mode_label = {
+                "page":                              "verified by page_id",
+                "keyword_filtered_by_pid_or_name":   "keyword + page_id+name filter",
+                "keyword_filtered_by_page_id":       "keyword + page_id filter",
+                "keyword_filtered_by_name":          "keyword + fuzzy name filter",
+                "keyword_raw":                       "keyword raw (unfiltered)",
+                "unknown":                           "unknown",
+            }.get(ads_lib_mode, ads_lib_mode)
+            print(f"    🔍 Filter mode: {mode_label} ({count} matched / {raw_total} raw)")
+
         if partnership:
             print(f"    🤝 Partnership ads: да (~{partnership_n})")
         if ad_texts:
@@ -1250,22 +1412,28 @@ def run(target: str) -> dict:
             print(f"    🖼  Изображений скачано: {len(saved_images)}")
 
         results.append({
-            "handle": handle,
-            "display_name": display_name,
-            "url": fb_page_url,
-            "alive": True,
-            # NEW — 3-проходная структура
-            "total_ever":   total_ever,
-            "active":       active_block,
-            "inactive":     inactive_block,
-            # back-compat плоские поля
-            "active_ads_count": count,
-            "partnership_ads":  partnership,
-            "partnership_count": partnership_n,
-            "ad_texts":         ad_texts,
-            "saved_images":     saved_images,
-            "ads_search_term":  display_name,
-            "ads_library":      ads_urls,
+            "handle":             handle,
+            "display_name":       display_name,
+            "url":                fb_page_url,
+            "page_id":            fb_page_id,
+            "alive":              True,
+            # 3-проходная структура
+            "total_ever":         total_ever,
+            "active":             active_block,
+            "inactive":           inactive_block,
+            # back-compat плоские поля + filter transparency
+            "active_ads_count":   count,
+            "partnership_ads":    partnership,
+            "partnership_count":  partnership_n,
+            "ad_texts":           ad_texts,
+            "saved_images":       saved_images,
+            "structured_ads":     ads_data.get("structured_ads", []),
+            "ads_library_mode":   ads_data.get("ads_library_mode", "unknown"),
+            "raw_keyword_total":  ads_data.get("raw_keyword_total", 0),
+            "extraction_method":  ads_data.get("extraction_method", "unknown"),
+            "ads_search_term":    display_name,
+            "ads_library":        ads_urls,
+            "discovery_method":   "homepage_link",
         })
 
         time.sleep(0.5)
