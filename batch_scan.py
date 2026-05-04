@@ -1,6 +1,7 @@
 """Batch driver: прогоняет fb_scan.py по списку доменов последовательно."""
 import sys, time
-sys.stdout.reconfigure(encoding="utf-8")
+from utils import setup_console
+setup_console()
 from fb_scan import scan_domain
 
 DOMAINS = [

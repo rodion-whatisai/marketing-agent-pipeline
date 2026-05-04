@@ -26,7 +26,8 @@ import requests
 from urllib.parse import urlparse, urljoin
 from pathlib import Path
 
-from utils import HEADERS, normalize_url
+from utils import HEADERS, normalize_url, setup_console
+setup_console()
 
 
 # Известные ложные срабатывания: GTM, Analytics, web frameworks, hosters, CMS.
@@ -561,12 +562,6 @@ def _print_result(r: dict):
 
 
 def main():
-    # Windows console: force UTF-8 для эмодзи / умляутов
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
-
     ap = argparse.ArgumentParser()
     ap.add_argument("target", nargs="?", help="Domain or URL")
     ap.add_argument("--file", help="File with one domain per line")

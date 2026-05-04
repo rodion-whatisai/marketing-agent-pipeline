@@ -256,7 +256,8 @@ def parse_modal(html: str) -> dict:
 
 if __name__ == "__main__":
     import sys, json
-    sys.stdout.reconfigure(encoding="utf-8")
+    from utils import setup_console
+    setup_console()
 
     test_files = [
         ("Idgarages-Pro FR (5 секций)",

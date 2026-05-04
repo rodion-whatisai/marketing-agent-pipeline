@@ -19,7 +19,8 @@ import argparse
 from pathlib import Path
 from urllib.parse import urlparse, quote
 
-from utils import HEADERS, get_scan_dir, SCANS_DIR
+from utils import HEADERS, get_scan_dir, SCANS_DIR, setup_console
+setup_console()
 
 
 TC_BASE = "https://adstransparency.google.com"
@@ -436,11 +437,6 @@ def _save_to_scan(r: dict):
 
 
 def main():
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
-
     ap = argparse.ArgumentParser()
     ap.add_argument("target", nargs="?")
     ap.add_argument("--file")

@@ -15,7 +15,8 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 
-from utils import SCANS_DIR
+from utils import SCANS_DIR, setup_console
+setup_console()
 from google_ads_creative import parse_creative
 
 
@@ -185,11 +186,6 @@ def select_sample(summary: list[dict], per_domain: int = 1) -> list[tuple]:
 
 
 def main():
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
-
     ap = argparse.ArgumentParser()
     ap.add_argument("--summary", default=str(SCANS_DIR / "_domain_summary_fr.json"))
     ap.add_argument("--sample-per-domain", type=int, default=1)

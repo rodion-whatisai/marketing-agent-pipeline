@@ -14,10 +14,8 @@ Standalone:
 import sys, json, html as htmllib, argparse, webbrowser
 from pathlib import Path
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8")
-except Exception:
-    pass
+from utils import setup_console
+setup_console()
 
 
 def _esc(s):

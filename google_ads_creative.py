@@ -19,7 +19,8 @@ import argparse
 from urllib.parse import urlparse
 from pathlib import Path
 
-from utils import HEADERS, scan_path
+from utils import HEADERS, scan_path, setup_console
+setup_console()
 
 
 TC_BASE = "https://adstransparency.google.com"
@@ -677,11 +678,6 @@ async def parse_creative_with_context(context, advertiser_id: str,
 # ─── CLI ─────────────────────────────────────────────────────────────────────
 
 def main():
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
-
     ap = argparse.ArgumentParser()
     ap.add_argument("advertiser_id")
     ap.add_argument("creative_id")

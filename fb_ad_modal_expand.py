@@ -20,10 +20,8 @@ import sys
 import argparse
 from pathlib import Path
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8")
-except Exception:
-    pass
+from utils import setup_console
+setup_console()
 
 # Импорты соседних шагов
 from fb_ad_modal_parse import detect_sections, ALL_SECTION_LABELS

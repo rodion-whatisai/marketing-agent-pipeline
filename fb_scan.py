@@ -20,10 +20,8 @@ import time
 import argparse
 from pathlib import Path
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8")
-except Exception:
-    pass
+from utils import setup_console
+setup_console()
 
 from fb_page_finder import find_brand_pages
 from fb_ads_listing import scrape_ads_listing

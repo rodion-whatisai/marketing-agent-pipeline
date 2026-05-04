@@ -19,10 +19,8 @@ import re
 import json
 import argparse
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8")
-except Exception:
-    pass
+from utils import setup_console
+setup_console()
 
 DEFAULT_TOP_N = 10
 

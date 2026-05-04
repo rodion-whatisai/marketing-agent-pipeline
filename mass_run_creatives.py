@@ -36,7 +36,8 @@ from pathlib import Path
 from datetime import datetime, timezone
 from collections import deque
 
-from utils import SCANS_DIR, get_scan_dir, HEADERS
+from utils import SCANS_DIR, get_scan_dir, HEADERS, setup_console
+setup_console()
 from google_ads_creative import parse_creative_with_context
 
 
@@ -238,11 +239,6 @@ async def run_mass(plan: list[tuple], region: str, workers: int,
 # ─── CLI ─────────────────────────────────────────────────────────────────────
 
 def main():
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except Exception:
-        pass
-
     ap = argparse.ArgumentParser()
     ap.add_argument("--summary",
                     default=str(SCANS_DIR / "_domain_summary_fr.json"),

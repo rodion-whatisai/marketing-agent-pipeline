@@ -37,12 +37,8 @@ from fb_page_id import (
     check_fb_page_alive_playwright,
     build_ads_library_urls,
 )
-from utils import HEADERS
-
-try:
-    sys.stdout.reconfigure(encoding="utf-8")
-except Exception:
-    pass
+from utils import HEADERS, setup_console
+setup_console()
 
 
 # ─── Главная функция ────────────────────────────────────────────────────────

@@ -43,6 +43,22 @@ def normalize_url(domain_or_url: str) -> str:
     return s
 
 
+# ─── Console encoding (Windows cp1252 fix) ────────────────────────────────────
+
+def setup_console() -> None:
+    """Reconfigure stdout/stderr to UTF-8 if not already.
+    Idempotent — повторный вызов безопасен. Фиксит UnicodeEncodeError на Windows
+    (cp1252) для emoji / box-drawing символов в print().
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            try:
+                if (getattr(stream, "encoding", "") or "").lower() != "utf-8":
+                    stream.reconfigure(encoding="utf-8")
+            except Exception:
+                pass
+
+
 # ─── Logging ──────────────────────────────────────────────────────────────────
 
 class TeeLogger:
@@ -93,6 +109,7 @@ class TeeLogger:
 
 def setup_logging(domain: str, step: str = "step1") -> Path:
     """Пишет лог каждого шага в отдельный файл: step1_log.txt, step2_log.txt, report_log.txt."""
+    setup_console()  # фикс cp1252 ДО захвата sys.stdout в TeeLogger
     d = _extract_domain(domain)
     log_path = scan_path(domain, f"{d}_{step}_log.txt")
     sys.stdout = TeeLogger(log_path)
