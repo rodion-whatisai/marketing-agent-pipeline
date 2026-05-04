@@ -21,7 +21,8 @@ from urllib.parse import urlparse
 import os
 from pathlib import Path
 
-from utils import get_scan_dir, scan_path, HEADERS
+from utils import get_scan_dir, scan_path, HEADERS, setup_console
+setup_console()
 
 
 
