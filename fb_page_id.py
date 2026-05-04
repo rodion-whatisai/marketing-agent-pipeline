@@ -867,8 +867,19 @@ def _parse_ad_library_html(html: str, limit: int = 10,
     result["raw_keyword_total"] = extracted["raw_total"]
 
     # Главное поле count — теперь это matched_count (после пост-фильтра),
-    # а raw_keyword_total хранит исходное число из FB на случай transparency
-    if extracted["mode"] == "page" or structured_ads or extracted["matched_count"] == 0:
+    # а raw_keyword_total хранит исходное число из FB на случай transparency.
+    #
+    # Override count ТОЛЬКО когда extraction действительно отработал. Если
+    # raw_total == 0 при том что regex выше нашёл count > 0 — это значит FB
+    # hydrate'ит data ВНЕ <script type="application/json"> блоков (новые
+    # версии UI), и наш _walk_for_key их не видит. В этом случае TRUST
+    # regex-derived count, не затираем в 0. Иначе теряем валидные ads.
+    extraction_succeeded = (
+        extracted["mode"] == "page"
+        or structured_ads
+        or extracted["raw_total"] > 0  # FB вернул ads, post-filter killed all (legitimate)
+    )
+    if extraction_succeeded:
         result["count"] = extracted["matched_count"]
         result["status"] = "active" if extracted["matched_count"] > 0 else "no_active_ads"
         result["method"] = "json_" + extracted["mode"]
