@@ -423,6 +423,8 @@ def parse_creative(advertiser_id: str, creative_id: str,
         "ad_image_urls": [],          # для has_image флага, не для exfiltration
         "has_image": False,
         "type_of_creative": "Site",   # default
+        # variations: "1 of N variations" marker; None if absent (single-variation ad).
+        "n_variations": None,
         # debug
         "iframe_count": 0,
         "iframe_data_p_count": 0,
@@ -442,11 +444,34 @@ def parse_creative(advertiser_id: str, creative_id: str,
                 page.wait_for_selector('creative-details', timeout=15_000)
             except Exception:
                 pass
+            # Iframe attach: 30s timeout (was 10s — too tight under concurrent load).
+            iframe_handle = None
             try:
-                page.wait_for_selector('iframe[src*="/adframe"]', timeout=10_000)
+                iframe_handle = page.wait_for_selector(
+                    'iframe[src*="/adframe"]', timeout=30_000
+                )
             except Exception:
                 pass
-            page.wait_for_timeout(3500)
+            # After attach, wait for the iframe's own load event — not page networkidle
+            # (TC long-polls/analytics dripping; networkidle is officially DISCOURAGED).
+            if iframe_handle is not None:
+                try:
+                    inner = iframe_handle.content_frame()
+                    if inner is not None:
+                        inner.wait_for_load_state("load", timeout=15_000)
+                except Exception:
+                    pass
+            page.wait_for_timeout(1500)
+
+            # Variations marker — "1 of 3 variations" → n_variations = 3
+            try:
+                n_var = page.evaluate(
+                    "() => { const m = document.body.innerText.match(/(\\d+)\\s+of\\s+(\\d+)\\s+variations/i); return m ? parseInt(m[2], 10) : null; }"
+                )
+                if isinstance(n_var, int):
+                    result["n_variations"] = n_var
+            except Exception:
+                pass
 
             main_html = page.content()
             meta = _parse_main_meta(main_html)
@@ -455,6 +480,8 @@ def parse_creative(advertiser_id: str, creative_id: str,
             # Collect data-p from each /adframe iframe
             ad_frames = [f for f in page.frames if "/adframe" in f.url]
             result["iframe_count"] = len(ad_frames)
+            if not ad_frames:
+                result["fetch_error"] = "iframe_missing"
 
             all_candidates = []
             all_filtered_out = []
@@ -615,6 +642,7 @@ def _empty_result(advertiser_id: str, creative_id: str, region: str) -> dict:
         "ad_image_urls": [],
         "has_image": False,
         "type_of_creative": "Site",
+        "n_variations": None,
         "iframe_count": 0,
         "iframe_data_p_count": 0,
         "fetch_error": None,
@@ -641,11 +669,30 @@ async def parse_creative_with_context(context, advertiser_id: str,
             await page.wait_for_selector('creative-details', timeout=15_000)
         except Exception:
             pass
+        iframe_handle = None
         try:
-            await page.wait_for_selector('iframe[src*="/adframe"]', timeout=10_000)
+            iframe_handle = await page.wait_for_selector(
+                'iframe[src*="/adframe"]', timeout=30_000
+            )
         except Exception:
             pass
-        await page.wait_for_timeout(3500)
+        if iframe_handle is not None:
+            try:
+                inner = await iframe_handle.content_frame()
+                if inner is not None:
+                    await inner.wait_for_load_state("load", timeout=15_000)
+            except Exception:
+                pass
+        await page.wait_for_timeout(1500)
+
+        try:
+            n_var = await page.evaluate(
+                "() => { const m = document.body.innerText.match(/(\\d+)\\s+of\\s+(\\d+)\\s+variations/i); return m ? parseInt(m[2], 10) : null; }"
+            )
+            if isinstance(n_var, int):
+                result["n_variations"] = n_var
+        except Exception:
+            pass
 
         main_html = await page.content()
         meta = _parse_main_meta(main_html)
@@ -653,6 +700,8 @@ async def parse_creative_with_context(context, advertiser_id: str,
 
         ad_frames = [f for f in page.frames if "/adframe" in f.url]
         result["iframe_count"] = len(ad_frames)
+        if not ad_frames:
+            result["fetch_error"] = "iframe_missing"
 
         iframe_htmls = []
         for fr in ad_frames:
