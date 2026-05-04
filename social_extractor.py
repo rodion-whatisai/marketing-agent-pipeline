@@ -17,44 +17,59 @@ from urllib.parse import urlparse
 # Ищем только в href="..." — не по всему тексту
 # Каждый паттерн возвращает полный URL
 
+# ─── Общая идея ──────────────────────────────────────────────────────────────
+# Каждый паттерн ловит URL платформы ВЕЗДЕ в HTML (не только в href).
+# Не требует закрывающую кавычку → пропускает query (?fbclid=...), hash (#...),
+# подстраницы (/posts/123). Граница пути — lookahead на [/?#"' пробел < > или конец].
+# Поддерживаем mobile/web/locale-субдомены (m.facebook.com, fr-fr.facebook.com).
+# Допускаем protocol-relative URL (//www.facebook.com/...).
+# Vanity-handle всегда матчится первым; multi-segment (pages/, people/) и
+# numeric (profile.php?id=) — отдельными паттернами с приоритетом через skip_paths.
+
+# Префикс субдомена FB — locale (xx-xx), www, m, web
+_FB_SUB = r'(?:[a-z]{2}-[a-z]{2}\.|www\.|m\.|web\.)?'
+# Граница после handle: следующий слэш / query / hash / кавычка / пробел / угол / конец
+_BOUNDARY = r'(?=[/?#"\'\s<>]|$)'
+
 PLATFORM_PATTERNS = {
 
     "facebook": {
         "patterns": [
-            # Стандартный vanity: facebook.com/PageName
-            r'href=["\']https?://(?:www\.)?facebook\.com/([a-zA-Z0-9][a-zA-Z0-9._-]{2,}/?)["\']',
-            # /people/Name/ID/
-            r'href=["\']https?://(?:www\.)?facebook\.com/people/([^/"\']+/\d+/?)["\']',
+            # Vanity: facebook.com/PageName (с любыми query/hash/субпутями после)
+            rf'(?:https?:)?//{_FB_SUB}facebook\.com/([a-zA-Z0-9][a-zA-Z0-9._-]{{2,}}){_BOUNDARY}',
+            # /people/Name/ID
+            rf'(?:https?:)?//{_FB_SUB}facebook\.com/people/([a-zA-Z0-9._-]+/\d+){_BOUNDARY}',
             # /profile.php?id=ID
-            r'href=["\']https?://(?:www\.)?facebook\.com/profile\.php\?id=(\d+)["\']',
+            rf'(?:https?:)?//{_FB_SUB}facebook\.com/profile\.php\?id=(\d+)',
             # /pages/Name/ID
-            r'href=["\']https?://(?:www\.)?facebook\.com/pages/([^/"\']+/\d+/?)["\']',
+            rf'(?:https?:)?//{_FB_SUB}facebook\.com/pages/([a-zA-Z0-9._-]+/\d+){_BOUNDARY}',
         ],
-        # Части пути которые не являются бизнес-страницами
+        # Системные пути, не являющиеся бизнес-страницами
         "skip_paths": {
             "sharer", "share", "tr", "dialog", "photo", "video",
             "events", "groups", "pages", "help", "privacy", "legal",
             "ads", "business", "policies", "about", "login", "watch",
             "marketplace", "gaming", "fundraisers", "messenger",
-            "hashtag", "notes", "reel", "story",
+            "hashtag", "notes", "reel", "story", "people",
+            "profile.php", "plugins", "v2.0", "tr.php",
         },
         "base_url": "https://www.facebook.com/",
     },
 
     "instagram": {
         "patterns": [
-            r'href=["\']https?://(?:www\.)?instagram\.com/(@?[a-zA-Z0-9._]{2,}/?)["\']',
+            rf'(?:https?:)?//(?:www\.)?instagram\.com/(@?[a-zA-Z0-9._]{{2,}}){_BOUNDARY}',
         ],
-        "skip_paths": {"p", "explore", "accounts", "legal", "about", "press"},
+        "skip_paths": {"p", "explore", "accounts", "legal", "about", "press", "reel", "stories"},
         "base_url": "https://www.instagram.com/",
     },
 
     "linkedin": {
         "patterns": [
-            # Компания — с возможным /about/ суффиксом
-            r'href=["\']https?://(?:www\.)?linkedin\.com/company/([a-zA-Z0-9._-]+)(?:/[^"\']*)?["\']',
+            # Компания
+            rf'(?:https?:)?//(?:[a-z]{{2}}\.)?(?:www\.)?linkedin\.com/company/([a-zA-Z0-9._-]+){_BOUNDARY}',
             # Персональный профиль
-            r'href=["\']https?://(?:www\.)?linkedin\.com/in/([a-zA-Z0-9._-]+)(?:/[^"\']*)?["\']',
+            rf'(?:https?:)?//(?:[a-z]{{2}}\.)?(?:www\.)?linkedin\.com/in/([a-zA-Z0-9._-]+){_BOUNDARY}',
         ],
         "skip_paths": {"legal", "help", "jobs", "learning", "pulse"},
         "base_url": "https://www.linkedin.com/",
@@ -63,7 +78,7 @@ PLATFORM_PATTERNS = {
 
     "tiktok": {
         "patterns": [
-            r'href=["\']https?://(?:www\.)?tiktok\.com/(@[a-zA-Z0-9._]{2,}/?)["\']',
+            rf'(?:https?:)?//(?:www\.)?tiktok\.com/(@[a-zA-Z0-9._]{{2,}}){_BOUNDARY}',
         ],
         "skip_paths": {"legal", "about", "business", "music", "discover"},
         "base_url": "https://www.tiktok.com/",
@@ -72,21 +87,21 @@ PLATFORM_PATTERNS = {
     "youtube": {
         "patterns": [
             # /channel/ID
-            r'href=["\']https?://(?:www\.)?youtube\.com/(channel/[a-zA-Z0-9_-]+/?)["\']',
+            rf'(?:https?:)?//(?:www\.)?youtube\.com/(channel/[a-zA-Z0-9_-]+){_BOUNDARY}',
             # /@handle
-            r'href=["\']https?://(?:www\.)?youtube\.com/(@[a-zA-Z0-9._-]+/?)["\']',
-            # /c/Name (старый формат)
-            r'href=["\']https?://(?:www\.)?youtube\.com/(c/[a-zA-Z0-9._-]+/?)["\']',
-            # /user/Name (очень старый)
-            r'href=["\']https?://(?:www\.)?youtube\.com/(user/[a-zA-Z0-9._-]+/?)["\']',
+            rf'(?:https?:)?//(?:www\.)?youtube\.com/(@[a-zA-Z0-9._-]+){_BOUNDARY}',
+            # /c/Name
+            rf'(?:https?:)?//(?:www\.)?youtube\.com/(c/[a-zA-Z0-9._-]+){_BOUNDARY}',
+            # /user/Name
+            rf'(?:https?:)?//(?:www\.)?youtube\.com/(user/[a-zA-Z0-9._-]+){_BOUNDARY}',
         ],
-        "skip_paths": {"watch", "playlist", "results", "feed", "legal", "about"},
+        "skip_paths": {"watch", "playlist", "results", "feed", "legal", "about", "shorts"},
         "base_url": "https://www.youtube.com/",
     },
 
     "twitter": {
         "patterns": [
-            r'href=["\']https?://(?:www\.)?(?:twitter|x)\.com/([a-zA-Z0-9_]{2,}/?)["\']',
+            rf'(?:https?:)?//(?:www\.)?(?:twitter|x)\.com/([a-zA-Z0-9_]{{2,}}){_BOUNDARY}',
         ],
         "skip_paths": {
             "intent", "share", "hashtag", "search", "i",
@@ -97,7 +112,7 @@ PLATFORM_PATTERNS = {
 
     "pinterest": {
         "patterns": [
-            r'href=["\']https?://(?:www\.)?pinterest\.com/([a-zA-Z0-9._-]+/?)["\']',
+            rf'(?:https?:)?//(?:[a-z]{{2}}\.)?pinterest\.com/([a-zA-Z0-9._-]+){_BOUNDARY}',
         ],
         "skip_paths": {"pin", "search", "explore", "news", "ideas"},
         "base_url": "https://www.pinterest.com/",
