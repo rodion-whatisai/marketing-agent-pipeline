@@ -70,6 +70,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     oks = []
     no_ctas = []
     no_tracking_pages = []
+    unverified_pages = []
     gtm_insights = {}
     gtm_platforms = set()
     all_tag_ids = []
@@ -184,9 +185,21 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             elif not has_tracking and expected_platforms:
                 result["status"] = "🚨 GAP"
                 gaps.append(result)
-            elif has_tracking and not has_conv and has_cta:
-                result["status"] = "🚨 GAP"
-                gaps.append(result)
+            elif has_tracking and not has_conv:
+                external = result.get("external_services", {})
+                has_serverside_scheduler = any(
+                    svc in external for svc in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")
+                )
+                if platform == "shopify" and has_serverside_scheduler:
+                    svc_names = [s for s in external if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
+                    result["status"] = f"⚠️ форма бронирования обнаружена ({', '.join(svc_names)}). Конверсионное событие при загрузке страницы не зафиксировано."
+                    unverified_pages.append(result)
+                elif has_cta:
+                    result["status"] = "🚨 GAP"
+                    gaps.append(result)
+                else:
+                    result["status"] = "➖ NO CTA"
+                    no_ctas.append(result)
             elif has_conv:
                 result["status"] = "✅ OK"
                 oks.append(result)
@@ -261,11 +274,16 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
 
         browser.close()
 
+    n_unverified = len(unverified_pages)
+    n_real_gaps  = len(gaps)
+
     print(f"\n{'═' * 65}")
     print(f"  РЕЗУЛЬТАТ")
     print(f"{'═' * 65}")
     print(f"  ✅ OK  (CTA + Events):           {len(oks)}")
-    print(f"  🚨 GAP (пиксель, нет конверсий): {len(gaps)}")
+    print(f"  🚨 GAP (пиксель, нет конверсий): {n_real_gaps}")
+    if n_unverified:
+        print(f"  ⚠️  Форма найдена, событие не зафиксировано: {n_unverified}")
     print(f"  ❌ NO TRACKING (пикселей нет):   {len(no_tracking_pages)}")
     print(f"  ➖ No CTA:                        {len(no_ctas)}")
 
@@ -282,10 +300,19 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     conv_external = {s: pg for s, pg in all_external.items() if s not in ANALYTICS_TOOLS}
     anal_external = {s: pg for s, pg in all_external.items() if s in ANALYTICS_TOOLS}
 
+    unverified_paths = {r["path"] for r in unverified_pages}
+
     if conv_external:
-        print(f"\n🔗 ВНЕШНИЕ СЕРВИСЫ — конверсии вне сайта (attribution потерян):")
+        # Не показываем Cal.com/Calendly для unverified страниц — там это ожидаемо
+        filtered_conv = {}
         for svc, pages in conv_external.items():
-            print(f"   {svc:<25} на: {', '.join(pages[:3])}")
+            filtered_pages = [p for p in pages if p not in unverified_paths]
+            if filtered_pages:
+                filtered_conv[svc] = filtered_pages
+        if filtered_conv:
+            print(f"\n🔗 ВНЕШНИЕ СЕРВИСЫ — конверсии вне сайта (attribution потерян):")
+            for svc, pages in filtered_conv.items():
+                print(f"   {svc:<25} на: {', '.join(pages[:3])}")
 
     if anal_external:
         print(f"\n📊 ПОВЕДЕНЧЕСКАЯ АНАЛИТИКА:")
@@ -313,6 +340,14 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             for ev in r.get("missing_events", []):
                 print(f"    {ev}: не зафиксирован при загрузке")
 
+    if unverified_pages:
+        print(f"\n⚠️  ФОРМЫ БРОНИРОВАНИЯ — событие не зафиксировано:")
+        for r in unverified_pages:
+            ext = list(r.get("external_services", {}).keys())
+            svc = [s for s in ext if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
+            print(f"\n  {r['path']}")
+            print(f"    {r['status']}")
+
     if oks:
         print(f"\n✅ OK — страницы с корректным tracking:")
         for r in oks:
@@ -336,11 +371,13 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         "oks": len(oks),
         "no_ctas": len(no_ctas),
         "no_tracking": len(no_tracking_pages),
+        "unverified": len(unverified_pages),
         "gtm_platforms": list(expected_platforms),
         "external_services": all_external,
         "gap_pages": gaps,
         "ok_pages": oks,
         "no_tracking_pages": no_tracking_pages,
+        "unverified_pages": unverified_pages,
         "all_pages": results,
     }
 
@@ -368,7 +405,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     _log_path = setup_logging(
-        json.load(open(args.step1_file)).get("base_url", "unknown"), step="step2"
+        json.load(open(args.step1_file, encoding="utf-8")).get("base_url", "unknown"), step="step2"
     )
     run(args.step1_file, max_priority=args.priority, only_url=args.url,
         debug_mode=args.debug, click_mode=args.click)

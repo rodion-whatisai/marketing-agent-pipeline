@@ -371,4 +371,17 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     else:
         result["status"] = "➖ NO CTA"
 
+    # Shopify + Cal.com/Calendly = вероятен server-side CAPI — GAP не подтверждён
+    if result["status"] == "🚨 GAP":
+        external = result.get("external_services", {})
+        has_serverside_scheduler = any(
+            svc in external for svc in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")
+        )
+        if has_serverside_scheduler:
+            result["status"] = "⚠️ возможен server-side tracking, GAP не подтверждён"
+            result["unverified_reason"] = (
+                "Cal.com/Calendly detected on Shopify — conversion likely tracked "
+                "via server-side CAPI, not visible to browser scan"
+            )
+
     return result

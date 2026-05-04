@@ -700,5 +700,15 @@
     ],
     "added": "2026-04-12",
     "source": "claude_approved"
+  },
+  "/politique-de-confidentialite": {
+    "type": "legal",
+    "priority": 5,
+    "description": "Learned from garage.suspenair.fr: /politique-de-confidentialite",
+    "examples": [
+      "https://garage.suspenair.fr/politique-de-confidentialite"
+    ],
+    "added": "2026-04-30",
+    "source": "claude_approved"
   }
 }

@@ -567,13 +567,16 @@ def print_report(data: dict, gtm_data: dict = None):
                 print(f"    ✗ {m}")
 
     # ── 4. GAP страницы ──────────────────────────────────────────
-    if gap_pages:
+    real_gap_pages = [p for p in gap_pages if "server-side tracking" not in p.get("status", "")]
+    unverified_pages = [p for p in gap_pages if "server-side tracking" in p.get("status", "")]
+
+    if real_gap_pages:
         print(f"\n{'─' * 65}")
         print(f"🚨 GAP СТРАНИЦЫ — CTA есть, событий нет")
         print(f"{'─' * 65}")
 
         gap_by_type = defaultdict(list)
-        for p in gap_pages:
+        for p in real_gap_pages:
             gap_by_type[p["page_type"]].append(p)
 
         type_order = ["lead_form", "booking_confirm", "quote", "checkout",
@@ -617,6 +620,20 @@ def print_report(data: dict, gtm_data: dict = None):
                 if missing:
                     for ev in missing:
                         print(f"      {ev}: не зафиксирован при загрузке")
+
+    if unverified_pages:
+        print(f"\n{'─' * 65}")
+        print(f"⚠️  ВОЗМОЖЕН SERVER-SIDE TRACKING — GAP не подтверждён")
+        print(f"{'─' * 65}")
+        print(f"   Страницы используют Cal.com/Calendly на Shopify.")
+        print(f"   Конверсия вероятно отслеживается через server-side CAPI —")
+        print(f"   браузерный скан не может это подтвердить или опровергнуть.")
+        for p in unverified_pages:
+            ext = list(p.get("external_services", {}).keys())
+            scheduler = [s for s in ext if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
+            print(f"\n    {p['path']}")
+            if scheduler:
+                print(f"      Сервис: {', '.join(scheduler)}")
 
     # ── 5. OK страницы ───────────────────────────────────────────
     if ok_pages:

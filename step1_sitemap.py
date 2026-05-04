@@ -108,14 +108,24 @@ def crawl_homepage_links(base_url: str) -> list:
         return []
 
 
+def _urls_belong_to_domain(urls: list, domain: str) -> bool:
+    """Проверяет что хотя бы один URL принадлежит нашему домену."""
+    if not urls:
+        return False
+    target = domain.lower()
+    return any(target in u.lower() for u in urls[:50])
+
+
 def get_sitemap_urls(base_url: str) -> tuple:
     """
     Умный поиск sitemap — 4 уровня:
     1. Стандартные пути
-    2. robots.txt
+    2. robots.txt (только если URL принадлежат нашему домену)
     3. Ссылки с 'sitemap' на главной
     4. Fallback — href с главной
     """
+    site_domain = urlparse(base_url).netloc
+
     standard_paths = [
         "/sitemap.xml", "/sitemap_index.xml", "/sitemap-index.xml",
         "/sitemap.xml.gz", "/wp-sitemap.xml", "/sitemap/", "/sitemap",
@@ -125,7 +135,7 @@ def get_sitemap_urls(base_url: str) -> tuple:
 
     for path in standard_paths:
         urls = try_fetch_sitemap(base_url + path)
-        if urls:
+        if urls and _urls_belong_to_domain(urls, site_domain):
             return urls, base_url + path
 
     try:
@@ -134,8 +144,10 @@ def get_sitemap_urls(base_url: str) -> tuple:
             sm_urls = re.findall(r'(?i)sitemap\s*:\s*(https?://\S+)', r.text)
             for sm_url in sm_urls:
                 urls = try_fetch_sitemap(sm_url)
-                if urls:
+                if urls and _urls_belong_to_domain(urls, site_domain):
                     return urls, f"robots.txt → {sm_url}"
+                elif urls:
+                    print(f"  ⚠️  robots.txt sitemap чужого домена ({sm_url}) — пропускаю")
     except Exception:
         pass
 
