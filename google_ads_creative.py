@@ -52,8 +52,16 @@ def _build_lookup_payload(advertiser_id: str, creative_id: str) -> str:
 
 
 def _extract_image_urls_from_api_body(body: str) -> list[str]:
-    """Pull simgad URLs out of GetCreativeById response (raw text scan, dedupe)."""
+    """Pull ad asset URLs out of GetCreativeById response. Two known asset types:
+       - simgad: image-baked Display Ads (text rendered into PNG)
+       - displayads-formats /ads/preview/content.js: Video Ads (JS-rendered preview)
+    Both are treated uniformly as 'ad asset URLs' — semantic split (image vs video)
+    is downstream concern. Raw text scan + dedupe preserving order."""
     urls = re.findall(r'https://tpc\.googlesyndication\.com/archive/simgad/\d+', body)
+    urls += re.findall(
+        r'https://displayads-formats\.googleusercontent\.com/ads/preview/content\.js[^"\s\'\\]*',
+        body,
+    )
     return list(dict.fromkeys(urls))  # dedupe preserving order
 
 
