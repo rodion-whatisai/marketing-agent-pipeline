@@ -516,14 +516,7 @@ def parse_creative(advertiser_id: str, creative_id: str,
             ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
             result["iframe_count"] = len(ad_frames)
             if not ad_frames:
-                # Distinguish "metadata-only" terminal state from race condition.
-                # If creative-details rendered (we have first_shown/format/etc) but no
-                # ad iframe ever attached — Google retains metadata for transparency
-                # but the ad content is suspended/archived/policy-actioned.
-                if result.get("first_shown") or result.get("format"):
-                    result["fetch_error"] = "ad_assets_unavailable"
-                else:
-                    result["fetch_error"] = "iframe_missing"
+                result["fetch_error"] = "iframe_missing"
 
             all_candidates = []
             all_filtered_out = []
@@ -768,10 +761,7 @@ async def parse_creative_with_context(context, advertiser_id: str,
         ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
         result["iframe_count"] = len(ad_frames)
         if not ad_frames:
-            if result.get("first_shown") or result.get("format"):
-                result["fetch_error"] = "ad_assets_unavailable"
-            else:
-                result["fetch_error"] = "iframe_missing"
+            result["fetch_error"] = "iframe_missing"
 
         iframe_htmls = []
         for fr in ad_frames:

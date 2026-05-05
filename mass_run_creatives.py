@@ -134,7 +134,7 @@ def filter_already_done(plan: list[tuple]) -> tuple[list[tuple], int]:
 RETRYABLE_ERRORS = ("iframe_missing", "TimeoutError")
 
 # Errors that are already final — don't promote them to "no_iframe_after_N_retries".
-TERMINAL_ERRORS = ("advertiser_not_found", "ad_not_found", "ad_assets_unavailable")
+TERMINAL_ERRORS = ("advertiser_not_found", "ad_not_found")
 
 
 MAX_RETRY_ATTEMPTS = 2  # after 2 failed retries, accept terminal "no_iframe_after_retries"
