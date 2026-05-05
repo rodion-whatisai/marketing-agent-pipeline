@@ -26,6 +26,36 @@ setup_console()
 TC_BASE = "https://adstransparency.google.com"
 DEFAULT_REGION = "FR"
 
+# Direct API endpoint discovered via HAR analysis (Path C, May 2026).
+# Used as fallback when iframe rendering doesn't yield an /adframe or sadbundle —
+# typically image-baked ads (text rendered into a single PNG inside the ad card).
+# The API returns metadata + image URL; it does NOT return ad text content
+# (that lives inside iframe data-p for /adframe / sadbundle, or inside pixels
+# for simgad image-baked ads — OCR territory, not API).
+_LOOKUP_API_URL = "https://adstransparency.google.com/anji/_/rpc/LookupService/GetCreativeById?authuser=0"
+_LOOKUP_API_JS = """async ({url, payload}) => {
+    const r = await fetch(url, {
+        method: 'POST',
+        headers: {'content-type': 'application/x-www-form-urlencoded', 'x-same-domain': '1'},
+        body: payload,
+        credentials: 'include',
+    });
+    return {status: r.status, body: await r.text()};
+}"""
+
+
+def _build_lookup_payload(advertiser_id: str, creative_id: str) -> str:
+    """f.req=<urlencoded JSON> — payload format observed in HAR."""
+    import urllib.parse
+    body = {"1": advertiser_id, "2": creative_id, "5": {"1": 1, "2": 0, "3": 2124}}
+    return "f.req=" + urllib.parse.quote(json.dumps(body, separators=(',', ':')))
+
+
+def _extract_image_urls_from_api_body(body: str) -> list[str]:
+    """Pull simgad URLs out of GetCreativeById response (raw text scan, dedupe)."""
+    urls = re.findall(r'https://tpc\.googlesyndication\.com/archive/simgad/\d+', body)
+    return list(dict.fromkeys(urls))  # dedupe preserving order
+
 
 # ─── Page DOM helpers ────────────────────────────────────────────────────────
 
@@ -464,15 +494,34 @@ def parse_creative(advertiser_id: str, creative_id: str,
                 )
             except Exception:
                 pass
-            # Now check terminal cases first.
+            # Page text shows terminal placeholder — but the API may still return
+            # creative data even when the public page says "Can't find advertiser"
+            # (advertiser-level visibility check ≠ creative-level data availability).
+            # Probe API first; only return terminal if API also has nothing.
             try:
                 body_text = page.evaluate("() => document.body.innerText || ''")
+                terminal_kind = None
                 if "Can't find advertiser" in body_text:
-                    result["fetch_error"] = "advertiser_not_found"
-                    browser.close()
-                    return result
-                if "Can't find ad" in body_text:
-                    result["fetch_error"] = "ad_not_found"
+                    terminal_kind = "advertiser_not_found"
+                elif "Can't find ad" in body_text:
+                    terminal_kind = "ad_not_found"
+                if terminal_kind:
+                    api_imgs = []
+                    try:
+                        payload = _build_lookup_payload(advertiser_id, creative_id)
+                        resp = page.evaluate(_LOOKUP_API_JS,
+                                              {"url": _LOOKUP_API_URL, "payload": payload})
+                        if resp and resp.get("status") == 200 and len(resp.get("body") or "") > 100:
+                            api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
+                    except Exception:
+                        pass
+                    if api_imgs:
+                        # Recovered via API — soft-terminal (image saved, text in pixels)
+                        result["ad_image_urls"] = api_imgs
+                        result["has_image"] = True
+                        result["fetch_error"] = "text_in_image"
+                    else:
+                        result["fetch_error"] = terminal_kind
                     browser.close()
                     return result
             except Exception:
@@ -516,7 +565,7 @@ def parse_creative(advertiser_id: str, creative_id: str,
             ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
             result["iframe_count"] = len(ad_frames)
             if not ad_frames:
-                result["fetch_error"] = "iframe_missing"
+                result["fetch_error"] = "iframe_missing"  # may be upgraded below
 
             all_candidates = []
             all_filtered_out = []
@@ -566,6 +615,22 @@ def parse_creative(advertiser_id: str, creative_id: str,
                         for img in _collect_image_urls(payload):
                             if img not in all_image_urls:
                                 all_image_urls.append(img)
+
+            # Fallback for image-baked ads: if iframe rendering yielded nothing,
+            # but main DOM has metadata, hit GetCreativeById API for the image URL.
+            # Sets has_image=True and fetch_error="text_in_image" (soft-terminal).
+            if not ad_frames and not all_image_urls and (result.get("first_shown") or result.get("format")):
+                try:
+                    payload = _build_lookup_payload(advertiser_id, creative_id)
+                    resp = page.evaluate(_LOOKUP_API_JS,
+                                          {"url": _LOOKUP_API_URL, "payload": payload})
+                    if resp and resp.get("status") == 200:
+                        api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
+                        if api_imgs:
+                            all_image_urls.extend(api_imgs)
+                            result["fetch_error"] = "text_in_image"
+                except Exception:
+                    pass
 
             result["ad_text_candidates"] = all_candidates
             result["ad_text_filtered_out"] = all_filtered_out
@@ -721,11 +786,27 @@ async def parse_creative_with_context(context, advertiser_id: str,
             pass
         try:
             body_text = await page.evaluate("() => document.body.innerText || ''")
+            terminal_kind = None
             if "Can't find advertiser" in body_text:
-                result["fetch_error"] = "advertiser_not_found"
-                return result
-            if "Can't find ad" in body_text:
-                result["fetch_error"] = "ad_not_found"
+                terminal_kind = "advertiser_not_found"
+            elif "Can't find ad" in body_text:
+                terminal_kind = "ad_not_found"
+            if terminal_kind:
+                api_imgs = []
+                try:
+                    payload = _build_lookup_payload(advertiser_id, creative_id)
+                    resp = await page.evaluate(_LOOKUP_API_JS,
+                                                {"url": _LOOKUP_API_URL, "payload": payload})
+                    if resp and resp.get("status") == 200 and len(resp.get("body") or "") > 100:
+                        api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
+                except Exception:
+                    pass
+                if api_imgs:
+                    result["ad_image_urls"] = api_imgs
+                    result["has_image"] = True
+                    result["fetch_error"] = "text_in_image"
+                else:
+                    result["fetch_error"] = terminal_kind
                 return result
         except Exception:
             pass
@@ -771,6 +852,24 @@ async def parse_creative_with_context(context, advertiser_id: str,
                 continue
 
         _process_iframes_into_result(result, iframe_htmls)
+
+        # API fallback for image-baked ads (no iframe but main DOM has metadata).
+        # See sync parse_creative for rationale.
+        if (not ad_frames and not result.get("ad_image_urls")
+                and (result.get("first_shown") or result.get("format"))):
+            try:
+                payload = _build_lookup_payload(advertiser_id, creative_id)
+                resp = await page.evaluate(_LOOKUP_API_JS,
+                                            {"url": _LOOKUP_API_URL, "payload": payload})
+                if resp and resp.get("status") == 200:
+                    api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
+                    if api_imgs:
+                        result["ad_image_urls"] = api_imgs
+                        result["has_image"] = True
+                        result["fetch_error"] = "text_in_image"
+            except Exception:
+                pass
+
         return result
 
     except Exception as e:
