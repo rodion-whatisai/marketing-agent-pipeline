@@ -2,6 +2,8 @@
 
 Usage:
     python make_creatives_table.py --domain suspenair.fr
+    python make_creatives_table.py --aggregate           # all domains, single CSV
+    python make_creatives_table.py --aggregate --out scans/_all_creatives.csv
 """
 import argparse
 import csv
@@ -11,6 +13,7 @@ from pathlib import Path
 from utils import SCANS_DIR
 
 COLUMNS = [
+    "domain",
     "creative_id",
     "advertiser_name",
     "advertiser_id",
@@ -30,6 +33,7 @@ COLUMNS = [
     "n_images",
     "n_variations",
     "ad_text",
+    "ad_image_urls",
     "targeting",
     "fetch_error",
     "ad_link",
@@ -44,7 +48,7 @@ TABLE_NOTE = (
 )
 
 
-def row_from_json(d: dict) -> dict:
+def row_from_json(d: dict, domain: str = "") -> dict:
     targeting = d.get("targeting_categories") or []
     targeting_str = " | ".join(
         f"{t.get('sign', '')}{t.get('name', '')}" for t in targeting
@@ -53,6 +57,7 @@ def row_from_json(d: dict) -> dict:
     ad_text_str = " | ".join(ad_texts)
     images = d.get("ad_image_urls") or []
     return {
+        "domain": domain or (d.get("_meta") or {}).get("domain", ""),
         "creative_id": d.get("creative_id", ""),
         "advertiser_name": d.get("advertiser_name", ""),
         "advertiser_id": d.get("advertiser_id", ""),
@@ -72,65 +77,103 @@ def row_from_json(d: dict) -> dict:
         "n_images": len(images),
         "n_variations": d.get("n_variations") if d.get("n_variations") is not None else "",
         "ad_text": ad_text_str,
+        "ad_image_urls": " | ".join(images),
         "targeting": targeting_str,
         "fetch_error": d.get("fetch_error") or "",
         "ad_link": d.get("ad_link", ""),
     }
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--domain", required=True)
-    ap.add_argument("--out", default=None, help="CSV output path (default: scans/<domain>/_creatives_table.csv)")
-    args = ap.parse_args()
-
-    src = SCANS_DIR / args.domain / "google_creatives"
-    if not src.exists():
-        raise SystemExit(f"No such dir: {src}")
-
-    files = sorted(src.glob("CR*.json"))
-    if not files:
-        raise SystemExit(f"No CR*.json in {src}")
-
-    out_path = Path(args.out) if args.out else (SCANS_DIR / args.domain / "_creatives_table.csv")
+def collect_rows(domains: list[str]) -> tuple[list[dict], int]:
+    """Read CR*.json from each domain dir, return (rows, n_parse_errors)."""
     rows = []
     n_err = 0
-    for fp in files:
-        try:
-            d = json.loads(fp.read_text(encoding="utf-8"))
-            rows.append(row_from_json(d))
-        except Exception as e:
-            n_err += 1
-            print(f"  ! skip {fp.name}: {e}")
+    for domain in domains:
+        src = SCANS_DIR / domain / "google_creatives"
+        if not src.exists():
+            continue
+        for fp in sorted(src.glob("CR*.json")):
+            try:
+                d = json.loads(fp.read_text(encoding="utf-8"))
+                rows.append(row_from_json(d, domain=domain))
+            except Exception as e:
+                n_err += 1
+                print(f"  ! skip {fp.name}: {e}")
+    return rows, n_err
 
-    rows.sort(key=lambda r: (r["advertiser_name"], r["creative_id"]))
 
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--domain", help="Single domain (e.g. suspenair.fr)")
+    ap.add_argument("--aggregate", action="store_true",
+                    help="All domains under scans/* with google_creatives/ subdir")
+    ap.add_argument("--out", default=None, help="CSV output path")
+    args = ap.parse_args()
+
+    if not args.domain and not args.aggregate:
+        raise SystemExit("Specify either --domain <name> or --aggregate")
+    if args.domain and args.aggregate:
+        raise SystemExit("--domain and --aggregate are mutually exclusive")
+
+    if args.domain:
+        domains = [args.domain]
+        default_out = SCANS_DIR / args.domain / "_creatives_table.csv"
+        source_label = f"scans/{args.domain}/google_creatives/*.json"
+    else:
+        # Auto-discover domains under scans/*/google_creatives/
+        domains = sorted([
+            p.parent.name for p in SCANS_DIR.glob("*/google_creatives")
+            if not p.parent.name.startswith("_") and p.is_dir()
+        ])
+        default_out = SCANS_DIR / "_all_creatives_table.csv"
+        source_label = f"scans/<{len(domains)} domains>/google_creatives/*.json"
+
+    rows, n_err = collect_rows(domains)
+    if not rows:
+        raise SystemExit(f"No CR*.json found in {len(domains)} domain(s)")
+
+    rows.sort(key=lambda r: (r["domain"] or "", r["advertiser_name"] or "", r["creative_id"] or ""))
+
+    out_path = Path(args.out) if args.out else default_out
     with out_path.open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS)
         w.writeheader()
         w.writerows(rows)
 
-    # Sidecar README with table note + summary stats (kept out of CSV to keep parser-friendly)
+    # Sidecar README + summary stats
     n_with_text = sum(1 for r in rows if r["ad_text"])
+    n_with_image = sum(1 for r in rows if r["ad_image_urls"])
     n_multivar = sum(1 for r in rows if r["n_variations"] not in ("", None))
+    n_text_in_image = sum(1 for r in rows if r["fetch_error"] == "text_in_image")
     n_iframe_missing = sum(1 for r in rows if r["fetch_error"] == "iframe_missing")
     fmts = {}
     for r in rows:
         fmts[r["format"] or "?"] = fmts.get(r["format"] or "?", 0) + 1
+    by_domain = {}
+    for r in rows:
+        by_domain[r["domain"]] = by_domain.get(r["domain"], 0) + 1
 
     readme_path = out_path.with_suffix(".README.txt")
     readme_lines = [
         TABLE_NOTE,
         "",
-        f"Source: scans/{args.domain}/google_creatives/*.json",
+        f"Source: {source_label}",
         f"Rows: {len(rows)} (one per creative_id, default variation only)",
-        f"Rows with ad_text: {n_with_text}/{len(rows)}",
-        f"Rows with n_variations > 1 (multi-variant, partial capture): {n_multivar}/{len(rows)}",
-        f"Rows with fetch_error=iframe_missing: {n_iframe_missing}/{len(rows)}",
+        f"  with ad_text:                {n_with_text} ({n_with_text/len(rows)*100:.1f}%)",
+        f"  with ad_image_urls:          {n_with_image} ({n_with_image/len(rows)*100:.1f}%)",
+        f"  multi-variant (partial):     {n_multivar}",
+        f"  text_in_image (OCR needed):  {n_text_in_image}",
+        f"  iframe_missing (residual):   {n_iframe_missing}",
+        "",
         "Format mix:",
     ]
     for fmt, n in sorted(fmts.items(), key=lambda x: -x[1]):
         readme_lines.append(f"  {fmt}: {n}")
+    if len(domains) > 1:
+        readme_lines.append("")
+        readme_lines.append("Per-domain breakdown:")
+        for d, n in sorted(by_domain.items(), key=lambda x: -x[1]):
+            readme_lines.append(f"  {d}: {n}")
     readme_path.write_text("\n".join(readme_lines) + "\n", encoding="utf-8")
 
     print(f"\n[OK] {len(rows)} rows -> {out_path}")
@@ -138,14 +181,14 @@ def main():
     if n_err:
         print(f"  ({n_err} JSON parse errors)")
 
-    advs = {}
-    for r in rows:
-        advs.setdefault(r["advertiser_name"], 0)
-        advs[r["advertiser_name"]] += 1
-    print("\nAdvertisers:")
-    for name, n in sorted(advs.items(), key=lambda x: -x[1]):
-        print(f"  {n:>4d}  {name}")
-    print(f"\nWith text: {n_with_text}/{len(rows)}  multi-variant: {n_multivar}/{len(rows)}  iframe_missing: {n_iframe_missing}/{len(rows)}")
+    print(f"\nWith text: {n_with_text}/{len(rows)}"
+          f"  with image: {n_with_image}/{len(rows)}"
+          f"  text_in_image: {n_text_in_image}"
+          f"  iframe_missing: {n_iframe_missing}")
+    if len(domains) > 1:
+        print(f"\nDomains: {len(by_domain)}")
+        for d, n in sorted(by_domain.items(), key=lambda x: -x[1]):
+            print(f"  {n:>4d}  {d}")
 
 
 if __name__ == "__main__":
