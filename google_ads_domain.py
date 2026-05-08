@@ -393,10 +393,22 @@ def _attempt_domain(page, domain: str, region: str, result: dict, verbose: bool 
     ]
     advertisers = list(seen_advertisers.values())
 
+    # Authoritative advertiser count — из advertiser_id'ов в creative href'ах,
+    # не из regex-extracted names. Покрывает случаи когда case-variant entities
+    # (e.g. "Car Keys To Go, LLC" vs "CAr Keys To Go, LLC" — оба Verified в TC,
+    # но distinct entities) теряются regex-парсером. Детали в backlog Bug #5.
+    unique_advertiser_ids = sorted({
+        info["advertiser_id"]
+        for info in seen_creatives.values()
+        if info.get("advertiser_id")
+    })
+
     result["url_used"] = url
     result["domain_clean"] = domain
     result["total_ads_estimate"] = total
     result["advertisers"] = advertisers
+    result["advertiser_ids_unique"] = unique_advertiser_ids
+    result["advertisers_by_id_count"] = len(unique_advertiser_ids)
     result["creatives"] = creatives
     result["expansion"] = expansion
 
