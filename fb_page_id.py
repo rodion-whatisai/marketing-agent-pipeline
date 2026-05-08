@@ -559,15 +559,14 @@ def get_page_id(handle: str) -> tuple:
 def build_ads_library_urls(display_name: str, countries: list = None, page_id: str = None) -> dict:
     """Строит ссылки на Ads Library — keyword search.
 
-    Даже если у нас есть page_id, мы НЕ используем view_all_page_id URL:
-    в нашей практике он часто возвращает 0 результатов (возможно, из-за того,
-    что playwright-extracted page_id не всегда соответствует тому что ждёт FB,
-    или FB throttlит unauthenticated view_all_page_id запросы).
+    page_id параметр принимается для back-compat (некоторые callers передают),
+    но НЕ используется в URL: view_all_page_id-режим был протестирован 2026-05-07
+    и подтверждён мёртвым для big brands даже в залогиненном браузере (KeyMe
+    Locksmiths: page-mode возвращает "No ads match" хотя у них реально 11+
+    активных ads, видимых в keyword search). Не возвращаемся к этой идее.
 
-    Вместо этого — всегда keyword search, и результаты фильтруем пост-фактум
-    по snapshot.page_id (exact) или snapshot.page_name (fuzzy match на difflib).
-    См. _extract_ads_from_json. Параметр page_id здесь принимается для обратной
-    совместимости, но игнорируется в URL.
+    Стратегия: keyword search → пост-фильтр по snapshot.page_id (exact) или
+    snapshot.page_name (fuzzy match >= 0.85). См. _extract_ads_from_json.
     """
     keyword = display_name.strip().replace(" ", "%20")
     base = (
@@ -716,8 +715,15 @@ def _extract_ads_from_json(html: str, limit: int = 10,
 
     Post-filter (в keyword mode):
       - target_page_id → точный match snapshot.page_id
-      - target_name    → fuzzy match (difflib >= 0.75) snapshot.page_name
+      - target_name    → fuzzy match (difflib >= 0.85) snapshot.page_name
       - ни то ни то    → возвращаем как есть (unfiltered, 'keyword_raw')
+
+    Threshold 0.85 (raised from 0.75 on 2026-05-07): difflib.SequenceMatcher
+    Ratcliff/Obershelp ratio даёт ровно 0.75 для пар вида "X Locksmiths"/"Y
+    Locksmiths" из-за общего суффикса (Grays Locksmiths UK прошёл фильтр для
+    KeyMe Locksmiths search и попал в key.me/fb.json — confirmed validation
+    bug). 0.85 блокирует такие пары, но пропускает legitimate variants
+    (Joy Locksmith vs Joy Locksmith LLC = 0.87).
 
     Returns dict:
       {
@@ -787,7 +793,7 @@ def _extract_ads_from_json(html: str, limit: int = 10,
         for a in all_ads:
             pid_hit = bool(tgt_pid and a["_snap_pid"] == tgt_pid)
             name_hit = bool(tgt_name and
-                            SequenceMatcher(None, _norm(a["_snap_pname"]), tgt_name).ratio() >= 0.75)
+                            SequenceMatcher(None, _norm(a["_snap_pname"]), tgt_name).ratio() >= 0.85)
             if pid_hit or name_hit:
                 matched.append(a)
 
@@ -985,7 +991,8 @@ def _download_ad_images(domain: str, structured_ads: list,
 
 
 def _build_ad_library_url(display_name: str, country: str, status: str) -> str:
-    """status ∈ {'all','active','inactive'}"""
+    """status ∈ {'all','active','inactive'}. Keyword search only — view_all_page_id
+    подтверждён мёртвым 2026-05-07, см. build_ads_library_urls."""
     keyword = display_name.strip().replace(" ", "%20")
     return (
         f"https://www.facebook.com/ads/library/"
@@ -1258,69 +1265,82 @@ def run(target: str) -> dict:
                 "fallback_result":        None,
             }
 
+            # Brand-keyword fallback запускаем ВСЕГДА когда handles пусто:
+            #   - WAF block (homepage не достали)
+            #   - Homepage 200 OK, но 0 FB ссылок в HTML (Carolinas franchise pattern,
+            #     Car Keys To Go: homepage не линкует city-specific FB pages, а FB
+            #     pages при этом существуют — Spartanburg / Rock Hill / Charlotte etc).
+            # Confidence-note меняется в зависимости от причины — отчёт разделяет.
             if homepage_blocked:
                 print(f"  ⚠️  Homepage заблокирован (status={_homepage_status}, err={_homepage_error})")
-                print(f"  🔄 Пробую brand-name fallback — поиск в Ads Library по '{brand_name}'...")
-                discovery_meta["fallback_attempted"] = True
-                discovery_meta["fallback_keyword"] = brand_name
-
-                ads_urls = build_ads_library_urls(brand_name)
-                # 3-pass scan по brand-keyword (без page_id — пост-фильтр по name)
-                ads_data = get_ads_data(brand_name, country="ALL", domain=full_domain)
-                fb_total = ads_data.get("total_ever") or 0
-
-                if fb_total > 0:
-                    active_block = ads_data.get("active") or {}
-                    inactive_block = ads_data.get("inactive")
-                    active_count = active_block.get("count", 0) or 0
-                    print(f"  ✅ Brand-fallback нашёл {fb_total} объявлений (всего; активных {active_count})")
-                    discovery_meta["fallback_result"] = f"found_{fb_total}_ads"
-                    virtual_account = {
-                        "handle":             None,
-                        "display_name":       brand_name,
-                        "url":                None,
-                        "page_id":            None,
-                        "alive":              True,
-                        # 3-pass структура
-                        "total_ever":         fb_total,
-                        "active":             active_block,
-                        "inactive":           inactive_block,
-                        # back-compat плоские поля
-                        "active_ads_count":   active_count,
-                        "partnership_ads":    ads_data.get("partnership_ads", False),
-                        "partnership_count":  ads_data.get("partnership_count", 0),
-                        "ad_texts":           ads_data.get("ad_texts", []),
-                        "saved_images":       ads_data.get("saved_images", []),
-                        "structured_ads":     ads_data.get("structured_ads", []),
-                        "ads_library_mode":   ads_data.get("ads_library_mode", "unknown"),
-                        "raw_keyword_total":  ads_data.get("raw_keyword_total", 0),
-                        "extraction_method":  ads_data.get("extraction_method", "unknown"),
-                        "ads_search_term":    brand_name,
-                        "ads_library":        ads_urls,
-                        "discovery_method":   "brand_keyword_fallback",
-                        "confidence_note":    "Homepage was blocked. These ads were found by "
-                                              "searching Ads Library with brand-name keyword and "
-                                              "then fuzzy-matching advertiser names. "
-                                              "Manual verification recommended.",
-                    }
-                    output = {
-                        "target":              target,
-                        "brand_name":          brand_name,
-                        "site_country":        site_country,
-                        "site_country_source": site_country_source,
-                        "accounts":            [virtual_account],
-                        "discovery_meta":      discovery_meta,
-                    }
-                    filename = scan_path(full_domain, "fb.json")
-                    with open(filename, "w", encoding="utf-8") as f:
-                        json.dump(output, f, indent=2, ensure_ascii=False)
-                    print(f"\n💾 Сохранено (via brand-fallback): {filename}")
-                    return output
-                else:
-                    print(f"  ❌ Brand-fallback: 0 ads по '{brand_name}'")
-                    discovery_meta["fallback_result"] = "no_ads_found"
+                confidence_note = ("Homepage was blocked. These ads were found by "
+                                   "searching Ads Library with brand-name keyword and "
+                                   "then fuzzy-matching advertiser names. "
+                                   "Manual verification recommended.")
             else:
-                print(f"  ❌ Facebook ссылки не найдены (homepage статус {_homepage_status})")
+                print(f"  ⚠️  Facebook ссылки не найдены на homepage (status {_homepage_status})")
+                confidence_note = ("Homepage returned 200 OK but contained no FB links. "
+                                   "These ads were found by brand-keyword search in Ads "
+                                   "Library and fuzzy-matched advertiser names. "
+                                   "Manual verification recommended (especially for franchise "
+                                   "brands with city-specific FB pages).")
+
+            print(f"  🔄 Пробую brand-name fallback — поиск в Ads Library по '{brand_name}'...")
+            discovery_meta["fallback_attempted"] = True
+            discovery_meta["fallback_keyword"] = brand_name
+
+            ads_urls = build_ads_library_urls(brand_name)
+            # 3-pass scan по brand-keyword (без page_id — пост-фильтр по name)
+            ads_data = get_ads_data(brand_name, country="ALL", domain=full_domain)
+            fb_total = ads_data.get("total_ever") or 0
+
+            if fb_total > 0:
+                active_block = ads_data.get("active") or {}
+                inactive_block = ads_data.get("inactive")
+                active_count = active_block.get("count", 0) or 0
+                print(f"  ✅ Brand-fallback нашёл {fb_total} объявлений (всего; активных {active_count})")
+                discovery_meta["fallback_result"] = f"found_{fb_total}_ads"
+                virtual_account = {
+                    "handle":             None,
+                    "display_name":       brand_name,
+                    "url":                None,
+                    "page_id":            None,
+                    "alive":              True,
+                    # 3-pass структура
+                    "total_ever":         fb_total,
+                    "active":             active_block,
+                    "inactive":           inactive_block,
+                    # back-compat плоские поля
+                    "active_ads_count":   active_count,
+                    "partnership_ads":    ads_data.get("partnership_ads", False),
+                    "partnership_count":  ads_data.get("partnership_count", 0),
+                    "ad_texts":           ads_data.get("ad_texts", []),
+                    "saved_images":       ads_data.get("saved_images", []),
+                    "structured_ads":     ads_data.get("structured_ads", []),
+                    "ads_library_mode":   ads_data.get("ads_library_mode", "unknown"),
+                    "raw_keyword_total":  ads_data.get("raw_keyword_total", 0),
+                    "extraction_method":  ads_data.get("extraction_method", "unknown"),
+                    "ads_search_term":    brand_name,
+                    "ads_library":        ads_urls,
+                    "discovery_method":   "brand_keyword_fallback",
+                    "confidence_note":    confidence_note,
+                }
+                output = {
+                    "target":              target,
+                    "brand_name":          brand_name,
+                    "site_country":        site_country,
+                    "site_country_source": site_country_source,
+                    "accounts":            [virtual_account],
+                    "discovery_meta":      discovery_meta,
+                }
+                filename = scan_path(full_domain, "fb.json")
+                with open(filename, "w", encoding="utf-8") as f:
+                    json.dump(output, f, indent=2, ensure_ascii=False)
+                print(f"\n💾 Сохранено (via brand-fallback): {filename}")
+                return output
+            else:
+                print(f"  ❌ Brand-fallback: 0 ads по '{brand_name}'")
+                discovery_meta["fallback_result"] = "no_ads_found"
 
             # Save empty fb.json with discovery_meta so report can explain what happened
             output = {

@@ -446,7 +446,10 @@
     "priority": 5,
     "description": "Learned from photographersmontreal.ca: /locations.kml",
     "examples": [
-      "https://www.photographersmontreal.ca/locations.kml"
+      "https://www.photographersmontreal.ca/locations.kml",
+      "https://flylock.com/locations",
+      "https://carkeystogo.com/locations",
+      "https://joylocksmith.com/locations"
     ],
     "added": "2026-04-12",
     "source": "claude_approved"
@@ -516,7 +519,9 @@
     "priority": 5,
     "description": "Manually classified from photographersmontreal.ca: /locations.kml",
     "examples": [
-      "https://www.photographersmontreal.ca/locations.kml"
+      "https://www.photographersmontreal.ca/locations.kml",
+      "https://flylock.com/locations.kml",
+      "https://carkeystogo.com/locations.kml"
     ],
     "added": "2026-04-12",
     "source": "manual"
