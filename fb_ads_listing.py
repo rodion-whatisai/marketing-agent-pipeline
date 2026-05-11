@@ -220,7 +220,7 @@ if __name__ == "__main__":
 
     # Если задан --display-name → строим URL'ы напрямую (без Step 1)
     if args.display_name:
-        from fb_page_id import build_ads_library_urls
+        from fb_ads_scraper import build_ads_library_urls
         urls = build_ads_library_urls(args.display_name)["ALL"]
         ads_urls = {"all": urls["all"], "active": urls["active_only"],
                     "inactive": urls["inactive_only"]}

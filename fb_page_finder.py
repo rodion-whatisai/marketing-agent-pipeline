@@ -29,14 +29,14 @@ import json
 import requests
 from urllib.parse import urlparse
 
-# Переиспользуем discovery-функции из старого fb_page_id (Step 1 = thin facade)
-from fb_page_id import (
+# Discovery (homepage → handle → page-alive) и Ads Library URL builder
+from fb_discovery import (
     detect_site_country,
     find_all_fb_handles,
     prioritize_handles,
     check_fb_page_alive_playwright,
-    build_ads_library_urls,
 )
+from fb_ads_scraper import build_ads_library_urls
 from utils import HEADERS, setup_console
 setup_console()
 
