@@ -2,7 +2,7 @@ import re
 import sys
 from collections import Counter
 from playwright.sync_api import sync_playwright
-from fb_page_id import PAGE_ID_PATTERNS
+from fb_discovery import PAGE_ID_PATTERNS
 
 handle = sys.argv[1] if len(sys.argv) > 1 else "TheBodyShopUK"
 print(f"Открываю facebook.com/{handle}...")
