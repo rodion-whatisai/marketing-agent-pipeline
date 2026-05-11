@@ -130,7 +130,8 @@ def _resolve_target_to_library_ids(target: str, top_n: int = 1) -> list:
     from fb_page_finder import find_brand_pages
     from fb_ads_listing import scrape_ads_listing
 
-    pages = find_brand_pages(target, verbose=False)
+    # find_delegate=False — листингу page_id не нужен, экономим Playwright
+    pages = find_brand_pages(target, verbose=False, find_delegate=False)
     alive = [p for p in pages if p.get("alive")]
     if not alive:
         print(f"  ❌ Step 1: нет живых FB страниц")

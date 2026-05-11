@@ -387,6 +387,9 @@ def find_delegate_page_id(fb_url: str) -> str | None:
       delegate_page.id в GraphQL response даёт мост между ними.
 
     Returns: Page ID (string) или None если delegate_page не найден.
+
+    # Tested: 2026-05-11 on redacted-prospect.example — profile 61500000000000 →
+    #   Page 1234567890123456 (redacted prospect, classic Page ID, verified).
     """
     try:
         from playwright.sync_api import sync_playwright

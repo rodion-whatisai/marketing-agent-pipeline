@@ -1,20 +1,25 @@
 """
 TNC — Facebook Ads Library Scraper
 ==================================
-Скрапит Facebook Ads Library через keyword search + пост-фильтр по page_id/name.
+Скрапит Facebook Ads Library. URL builder выбирает стратегию по типу page_id:
 
-Стратегия (см. CLAUDE.md):
-  - view_all_page_id-режим мёртв (2026-05-07 verified) — keyword search only.
-  - Шум фильтруется в _extract_ads_from_json по snapshot.page_id (exact) и
-    snapshot.page_name (fuzzy >= 0.85, поднят с 0.75 после false positive на
-    Grays Locksmiths vs KeyMe Locksmiths).
+  - Classic Page ID (16-значный 1xxx…, _is_classic_page_id) → view_all_page_id
+    URL (page-mode). Verified working: redacted prospect 1234567890123456 (2026-05-11).
+  - New-style ID (100063xxx / 61xxx) → keyword search + post-filter по
+    snapshot.page_id (exact) и snapshot.page_name (fuzzy >= 0.85).
+    view_all_page_id endpoint мёртв для new-style с 2026-05-07 (KeyMe Locksmiths).
+  - Без page_id → keyword search + fuzzy name filter.
+
+Post-filter threshold 0.85 поднят с 0.75 после false positive Grays Locksmiths
+vs KeyMe Locksmiths (общий суффикс давал 0.75).
 
 Содержит:
-  - build_ads_library_urls: URL builder
+  - _is_classic_page_id: классификатор Page ID (classic vs new-style)
+  - build_ads_library_urls: URL builder (active / all / inactive)
   - _walk_for_key / _normalize_ad_record / _extract_ads_from_json /
     _parse_ad_library_html: HTML/JSON парсинг
   - _download_ad_images: скачивание creative картинок
-  - _build_ad_library_url / _scan_one_status: per-status scan (active/inactive/all)
+  - _build_ad_library_url / _scan_one_status: per-status scan
   - get_ads_data: 3-проходный listing scan (orchestrator)
 
 Используется: fb_page_id.py (orchestrator), fb_ads_listing.py, fb_page_finder.py.
@@ -32,34 +37,51 @@ from utils import scan_path, setup_console
 setup_console()
 
 
+# ─── Page ID классификатор ────────────────────────────────────────────────────
+
+def _is_classic_page_id(page_id) -> bool:
+    """Classic FB Page ID — 13-17-значное число формата 1xxx…,
+    НЕ начинающееся с 100063 (new-style Page) или 61 (profile / new-style).
+
+    Зачем: view_all_page_id URL в Ad Library работает только для classic IDs.
+    Для new-style — endpoint deprecated, возвращает 0 даже залогиненному.
+    См. CLAUDE.md "view_all_page_id" + memory project_view_all_page_id_dead.
+
+    Тест-кейсы:
+      "1234567890123456" (redacted prospect, 16 цифр, prefix 1)  → True
+      "100063757071484"  (KeyMe, prefix 100063)             → False
+      "61500000000000"   (Aster profile, prefix 61)         → False
+      None / "" / "abc"                                      → False
+    """
+    if not page_id:
+        return False
+    pid = str(page_id).strip()
+    if not pid.isdigit():
+        return False
+    if pid.startswith("100063") or pid.startswith("61"):
+        return False
+    return 13 <= len(pid) <= 17 and pid[0] == "1"
+
+
 # ─── Ads Library URLs ─────────────────────────────────────────────────────────
 
-def build_ads_library_urls(display_name: str, countries: list = None, page_id: str = None) -> dict:
-    """Строит ссылки на Ads Library — keyword search.
+def build_ads_library_urls(display_name: str, countries: list = None,
+                            page_id: str = None) -> dict:
+    """Строит ссылки на Ad Library (active / all / inactive).
 
-    page_id параметр принимается для back-compat (некоторые callers передают),
-    но НЕ используется в URL: view_all_page_id-режим был протестирован 2026-05-07
-    и подтверждён мёртвым для big brands даже в залогиненном браузере (KeyMe
-    Locksmiths: page-mode возвращает "No ads match" хотя у них реально 11+
-    активных ads, видимых в keyword search). Не возвращаемся к этой идее.
+    Стратегия (см. _build_ad_library_url):
+      - page_id classic (16-значный 1xxx…) → view_all_page_id URL (page-mode).
+      - new-style / без page_id → keyword search + post-filter в
+        _extract_ads_from_json (snapshot.page_id exact OR fuzzy name >= 0.85).
 
-    Стратегия: keyword search → пост-фильтр по snapshot.page_id (exact) или
-    snapshot.page_name (fuzzy match >= 0.85). См. _extract_ads_from_json.
+    countries параметр для back-compat — игнорируется (всегда country=ALL,
+    фильтрация по странам идёт через site_country отдельно).
     """
-    keyword = display_name.strip().replace(" ", "%20")
-    base = (
-        f"https://www.facebook.com/ads/library/"
-        f"?active_status=active&ad_type=all&country=ALL"
-        f"&is_targeted_country=false&media_type=all"
-        f"&q={keyword}"
-        f"&search_type=keyword_unordered"
-        f"&sort_data[direction]=desc&sort_data[mode]=total_impressions"
-    )
     return {
         "ALL": {
-            "active_only":   base,
-            "all":           base.replace("active_status=active", "active_status=all"),
-            "inactive_only": base.replace("active_status=active", "active_status=inactive"),
+            "active_only":   _build_ad_library_url(display_name, "ALL", "active",   page_id=page_id),
+            "all":           _build_ad_library_url(display_name, "ALL", "all",      page_id=page_id),
+            "inactive_only": _build_ad_library_url(display_name, "ALL", "inactive", page_id=page_id),
         }
     }
 
@@ -468,9 +490,25 @@ def _download_ad_images(domain: str, structured_ads: list,
     return saved
 
 
-def _build_ad_library_url(display_name: str, country: str, status: str) -> str:
-    """status ∈ {'all','active','inactive'}. Keyword search only — view_all_page_id
-    подтверждён мёртвым 2026-05-07, см. build_ads_library_urls."""
+def _build_ad_library_url(display_name: str, country: str, status: str,
+                           page_id: str = None) -> str:
+    """status ∈ {'all','active','inactive'}.
+
+    Стратегия:
+      - Classic Page ID (см. _is_classic_page_id) → view_all_page_id URL
+        (page-mode, без шума, без post-filter). Verified: redacted prospect
+        1234567890123456.
+      - Иначе (new-style ID или None) → keyword search + post-filter в
+        _extract_ads_from_json. view_all_page_id для new-style мёртв
+        (CLAUDE.md, 2026-05-07).
+    """
+    if _is_classic_page_id(page_id):
+        return (
+            f"https://www.facebook.com/ads/library/"
+            f"?active_status={status}&ad_type=all&country={country}"
+            f"&view_all_page_id={page_id}"
+            f"&search_type=page&media_type=all"
+        )
     keyword = display_name.strip().replace(" ", "%20")
     return (
         f"https://www.facebook.com/ads/library/"
@@ -582,7 +620,7 @@ def get_ads_data(display_name: str, page_id: str = None,
 
             # ── Pass 1: total ever (active_status=all) ─────────────────
             print(f"      🔎 Проход 1/3: все объявления (active+inactive)...")
-            url_all = _build_ad_library_url(display_name, country, "all")
+            url_all = _build_ad_library_url(display_name, country, "all", page_id=page_id)
             all_data = _scan_one_status(page, url_all, "all", domain,
                                          display_name, download_images=False,
                                          target_page_id=page_id,
@@ -599,7 +637,7 @@ def get_ads_data(display_name: str, page_id: str = None,
 
             # ── Pass 2: active only ────────────────────────────────────
             print(f"      🔎 Проход 2/3: активные объявления...")
-            url_active = _build_ad_library_url(display_name, country, "active")
+            url_active = _build_ad_library_url(display_name, country, "active", page_id=page_id)
             active_data = _scan_one_status(page, url_active, "active", domain,
                                             display_name, download_images,
                                             target_page_id=page_id,
@@ -614,7 +652,7 @@ def get_ads_data(display_name: str, page_id: str = None,
             # ── Pass 3: inactive only (только если есть смысл) ────────
             if total > active_count:
                 print(f"      🔎 Проход 3/3: неактивные объявления...")
-                url_inactive = _build_ad_library_url(display_name, country, "inactive")
+                url_inactive = _build_ad_library_url(display_name, country, "inactive", page_id=page_id)
                 inactive_data = _scan_one_status(page, url_inactive, "inactive", domain,
                                                   display_name, download_images,
                                                   target_page_id=page_id,
