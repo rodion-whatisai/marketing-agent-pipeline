@@ -86,8 +86,10 @@ def scan_domain(domain: str, top_n: int = 5, verbose: bool = True) -> dict:
     t_start = time.time()
 
     # ── Step 1 ─────────────────────────────────────────────────────────
+    # find_delegate=False — Pipeline B работает через display_name, page_id
+    # не используется на этом этапе. Экономит ~15 сек/handle на Playwright.
     print(f"\n→ STEP 1: find FB pages")
-    pages = find_brand_pages(domain, verbose=verbose)
+    pages = find_brand_pages(domain, verbose=verbose, find_delegate=False)
     summary["step1_pages"] = pages
     alive = [p for p in pages if p.get("alive")]
     if not alive:

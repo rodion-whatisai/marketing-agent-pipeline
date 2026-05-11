@@ -228,7 +228,8 @@ if __name__ == "__main__":
     else:
         # Сначала Step 1
         from fb_page_finder import find_brand_pages
-        pages = find_brand_pages(args.target, verbose=False)
+        # find_delegate=False — listing работает через display_name, экономим Playwright
+        pages = find_brand_pages(args.target, verbose=False, find_delegate=False)
         alive = [p for p in pages if p.get("alive")]
         if not alive:
             print(f"❌ Нет живых FB страниц для {args.target}")
