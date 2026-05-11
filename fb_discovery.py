@@ -1,17 +1,20 @@
 """
 TNC — Facebook Discovery
 ========================
-Homepage → FB handle → page-alive → page_id pipeline.
+Homepage → FB handles → classification → Page ID pipeline.
 
 Отвечает за discovery brand'a в Facebook'е:
 - detect_site_country: страна сайта (header → lang-attr → TLD)
 - fetch_homepage: HTTP fetch с Playwright fallback при WAF
-- find_all_fb_handles: 5 форматов FB URL в HTML
-- prioritize_handles: сортировка handle'ов по приоритету
-- check_fb_page_alive / check_fb_page_alive_playwright: проверка живости + display_name + page_id
-- get_page_id_requests / get_page_id_playwright / get_page_id: разные методы получения числового ID
+- find_all_fb_handles: 4 формата FB URL в HTML + классификация id_type
+  (page / profile / unknown — определяет можно ли доверять числовому ID в URL)
+- prioritize_handles: сортировка handle'ов (id_type=page приоритетнее всего)
+- check_fb_page_alive_playwright: alive check + display_name (через Playwright)
+- find_delegate_page_id: extraction Page ID из profile/vanity через delegate_page
+  в GraphQL response (мост profile → Page, для случаев когда на сайте линкуется
+  личный профиль владельца, а реклама крутится с отдельной Page)
 
-Используется: fb_page_id.py (orchestrator), fb_page_finder.py, debug_fb_id.py.
+Используется: fb_page_id.py (orchestrator), fb_page_finder.py.
 """
 
 import re
@@ -95,28 +98,13 @@ COUNTRY_SUFFIXES = [
     "ie", "za", "ng", "ke", "ph", "id", "th", "vn", "my",
 ]
 
-# Паттерны для числового Page ID
-PAGE_ID_PATTERNS = [
-    # Самый надёжный — userID рядом с userVanity (это точно page/profile ID)
-    r'"userID"\s*:\s*"(\d{10,})".*?"userVanity"',
-    r'"pageID"\s*:\s*"(\d{10,})"',
-    r'"page_id"\s*:\s*"(\d{10,})"',
-    r'"ownerId"\s*:\s*"(\d{10,})"',
-    r'"profileID"\s*:\s*"(\d{10,})"',
-    r'"userID"\s*:\s*"(\d{10,})"',
-    r'fb://profile/(\d{10,})',
-    r'content="fb://page/(\d{10,})"',
-    r'entity_id=(\d{10,})',
-    r'"entityID"\s*:\s*"(\d{10,})"',
-    r'"nid"\s*:\s*(\d{10,})',
-    r'"id"\s*:\s*"(\d{10,})"',
-]
-
 SKIP_FB_PATHS = {
     "sharer", "share", "tr", "dialog", "plugins", "photo", "video",
     "events", "groups", "pages", "help", "privacy", "legal", "ads",
     "business", "policies", "about", "login", "watch", "marketplace",
     "gaming", "fundraisers", "messenger",
+    # Служебные path'ы для других форматов (parsятся отдельно по своим regex)
+    "profile.php", "profile", "people", "p",
 }
 
 
@@ -185,8 +173,17 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
 
     Если html передан — используем его (избегая повторного fetch в случае если
     вызывающий уже fetched homepage через fetch_homepage).
+
+    Каждый найденный handle получает поле id_type:
+      - "page"    — числовой ID в URL гарантированно Page ID (формат /pages/)
+      - "profile" — числовой ID в URL это profile ID (НЕ Page, рекламы быть не может)
+      - "unknown" — числового ID нет, тип определим только открыв страницу (vanity)
+
+    Для id_type="page" поле page_id содержит готовый Page ID.
+    Для id_type="profile" поле page_id=None, числовой ID лежит в profile_id.
+    Для id_type="unknown" оба поля None.
     """
-    found = {}  # key → {handle, url, page_id}
+    found = {}  # key → {handle, url, page_id, profile_id, id_type, format, ...}
 
     if html is None:
         try:
@@ -196,7 +193,7 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
             print(f"  ⚠️  Ошибка при загрузке сайта: {e}")
             return []
 
-    # Формат 1: facebook.com/vanityname
+    # Формат 1: facebook.com/vanityname  →  id_type=unknown (числа в URL нет)
     # Поддержка локалей (de-de.), мобильного (m.), web (web.), www
     # Lookahead — terminates at any URL boundary
     for handle in re.findall(
@@ -213,39 +210,45 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
                 "handle": handle,
                 "url": f"https://www.facebook.com/{handle}",
                 "page_id": None,
+                "profile_id": None,
+                "id_type": "unknown",
                 "format": "vanity",
             }
 
-    # Формат 2: facebook.com/people/Name/ID/
-    for name, page_id in re.findall(
+    # Формат 2: facebook.com/people/Name/ID/  →  id_type=profile (это НЕ Page)
+    for name, profile_id in re.findall(
         r'facebook\.com/people/([^/"\']+)/(\d{10,})/?',
         html
     ):
-        key = f"people:{page_id}"
+        key = f"people:{profile_id}"
         if key not in found:
             found[key] = {
                 "handle": name.lower().replace("-", "_"),
-                "url": f"https://www.facebook.com/people/{name}/{page_id}/",
-                "page_id": page_id,
+                "url": f"https://www.facebook.com/people/{name}/{profile_id}/",
+                "page_id": None,
+                "profile_id": profile_id,
+                "id_type": "profile",
                 "format": "people",
                 "display_name": name.replace("-", " "),
             }
 
-    # Формат 3: facebook.com/profile.php?id=ID
-    for page_id in re.findall(
+    # Формат 3: facebook.com/profile.php?id=ID  →  id_type=profile (это НЕ Page)
+    for profile_id in re.findall(
         r'facebook\.com/profile\.php\?id=(\d{10,})',
         html
     ):
-        key = f"profile:{page_id}"
+        key = f"profile:{profile_id}"
         if key not in found:
             found[key] = {
-                "handle": f"profile_{page_id}",
-                "url": f"https://www.facebook.com/profile.php?id={page_id}",
-                "page_id": page_id,
+                "handle": f"profile_{profile_id}",
+                "url": f"https://www.facebook.com/profile.php?id={profile_id}",
+                "page_id": None,
+                "profile_id": profile_id,
+                "id_type": "profile",
                 "format": "profile",
             }
 
-    # Формат 4: facebook.com/pages/Name/ID
+    # Формат 4: facebook.com/pages/Name/ID  →  id_type=page (это РЕАЛЬНО Page ID)
     for name, page_id in re.findall(
         r'facebook\.com/pages/([^/"\']+)/(\d{10,})/?',
         html
@@ -256,23 +259,9 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
                 "handle": name.lower(),
                 "url": f"https://www.facebook.com/pages/{name}/{page_id}/",
                 "page_id": page_id,
+                "profile_id": None,
+                "id_type": "page",
                 "format": "pages",
-            }
-
-    # Формат 5: facebook.com/p/Name-with-dashes-NumericID/
-    # Новый "Public Page URL" формат FB. Слаг и ID разделены последним дефисом.
-    for name, page_id in re.findall(
-        r'facebook\.com/p/([A-Za-z0-9._-]+?)-(\d{10,})/?',
-        html
-    ):
-        key = f"p_path:{page_id}"
-        if key not in found:
-            found[key] = {
-                "handle": f"p/{name}-{page_id}",
-                "url": f"https://www.facebook.com/p/{name}-{page_id}/",
-                "page_id": page_id,
-                "format": "p_path",
-                "display_name": name.replace("-", " "),
             }
 
     return list(found.values())
@@ -281,67 +270,54 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
 
 def prioritize_handles(handles: list, brand_name: str) -> list:
     """
-    Сортирует handle по приоритету:
-    1. Точное совпадение с брендом
-    2. Содержит название бренда, нет региональных суффиксов
-    3. Региональные аккаунты
+    Сортирует handles по составному ключу (id_type tier, brand match tier).
+
+    Первый приоритет — id_type:
+      0. page    — числовой ID гарантированно Page ID (готовый, в Ads Library сразу)
+      1. unknown — vanity, числа в URL нет (может быть Page или profile — открываем)
+      2. profile — числовой ID это profile (точно НЕ Page, рекламы быть не может,
+                   но потенциально через delegate_page.id можно найти связанный Page)
+
+    Второй приоритет — match с brand_name (как раньше):
+      0. Точное совпадение handle с brand
+      1. Содержит brand, нет региональных суффиксов
+      2. Содержит brand + регион (canada, uk, ...)
+      3. Всё остальное
     """
     brand = brand_name.lower().replace("-", "").replace(".", "")
+    id_type_tier = {"page": 0, "unknown": 1, "profile": 2}
 
     def score(item):
         h = item["handle"].lower().replace("-", "").replace(".", "")
-        # Точное совпадение
+        # Brand match score (как было)
         if h == brand:
-            return 0
-        # Содержит бренд, нет суффиксов
-        if brand in h:
+            brand_score = 0
+        elif brand in h:
             has_suffix = any(h.endswith(s) or h.startswith(s) for s in COUNTRY_SUFFIXES)
-            return 1 if not has_suffix else 2
-        return 3
+            brand_score = 1 if not has_suffix else 2
+        else:
+            brand_score = 3
+
+        # id_type получает абсолютный приоритет — сначала сортируем по нему,
+        # внутри tier'а — по brand match
+        return (id_type_tier.get(item.get("id_type", "unknown"), 1), brand_score)
 
     return sorted(handles, key=score)
 
 
-# ─── Проверка живой/битой ссылки ──────────────────────────────────────────────
-
-def check_fb_page_alive(handle: str) -> dict:
-    """Проверяет существует ли Facebook страница."""
-    url = f"https://www.facebook.com/{handle}"
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True)
-        html = r.text
-
-        # Признаки битой страницы — только системные сообщения, не контент постов
-        dead_signals = [
-            "this page isn't available",
-            "the link you followed may be broken",
-            "this page has been removed",
-            "sorry, this page isn't available",
-        ]
-
-        html_lower = html.lower()
-        for signal in dead_signals:
-            if signal in html_lower:
-                return {"alive": False, "reason": signal}
-
-        # Если редирект на login — страница защищена но существует
-        if "login" in r.url and r.url != url:
-            return {"alive": True, "reason": "redirected_to_login"}
-
-        # Статус 404
-        if r.status_code == 404:
-            return {"alive": False, "reason": "404"}
-
-        return {"alive": True, "reason": "ok"}
-
-    except Exception as e:
-        return {"alive": False, "reason": str(e)[:50]}
-
-
-# ─── Получение Page ID ────────────────────────────────────────────────────────
+# ─── Проверка живой/битой ссылки + display_name ─────────────────────────────
 
 def check_fb_page_alive_playwright(handle: str) -> dict:
-    """Проверяет страницу через браузер. Заодно вытаскивает display name и page_id."""
+    """
+    Открывает страницу facebook.com/{handle} в headless Chromium и за один проход:
+      - alive: жива ли страница (нет ли dead signals в HTML)
+      - display_name: имя страницы из <title> / <h1>
+
+    Используется и для готового Page ID (Ветка A: /pages/Name/{ID}/), и
+    для verification после delegate_page extraction (Ветка B step 2).
+
+    Returns: {"alive": bool, "reason": str, "display_name": str | None}
+    """
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -353,26 +329,6 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
             )
             page = context.new_page()
 
-            # Собираем page_id из network responses
-            page_ids_found = []
-
-            def on_response(response):
-                try:
-                    if "facebook.com" in response.url and response.status == 200:
-                        ct = response.headers.get("content-type", "")
-                        if any(t in ct for t in ["json", "javascript", "html"]):
-                            body = response.body().decode("utf-8", errors="ignore")
-                            for pattern in PAGE_ID_PATTERNS:
-                                for m in re.findall(pattern, body):
-                                    # findall может вернуть tuple если есть группы
-                                    m = m[0] if isinstance(m, tuple) else m
-                                    if len(m) >= 10:
-                                        page_ids_found.append(m)
-                except Exception:
-                    pass
-
-            page.on("response", on_response)
-
             try:
                 page.goto(f"https://www.facebook.com/{handle}",
                          wait_until="domcontentloaded", timeout=15000)
@@ -382,17 +338,9 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
 
             html_raw = page.content()
             html = html_raw.lower()
-
-            # Ищем page_id в финальном HTML тоже
-            for pattern in PAGE_ID_PATTERNS:
-                for m in re.findall(pattern, html_raw):
-                    m = m[0] if isinstance(m, tuple) else m
-                    if len(m) >= 10:
-                        page_ids_found.append(m)
-
             browser.close()
 
-            # Вытаскиваем display name
+            # Display name из <title> / <h1>
             display_name = None
             title_m = re.search(r"<title>([^|<]+)", html_raw)
             if title_m:
@@ -404,12 +352,7 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
                 if h1_m:
                     display_name = h1_m.group(1).strip()
 
-            # Берём самый частый page_id
-            page_id = None
-            if page_ids_found:
-                from collections import Counter
-                page_id = Counter(page_ids_found).most_common(1)[0][0]
-
+            # Alive check — dead signals в HTML
             dead_signals = [
                 "this page isn't available",
                 "the link you followed may be broken",
@@ -418,55 +361,49 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
             ]
             for signal in dead_signals:
                 if signal in html:
-                    return {"alive": False, "reason": f"playwright: {signal[:40]}"}
+                    return {"alive": False, "reason": f"playwright: {signal[:40]}",
+                            "display_name": display_name}
 
-            return {"alive": True, "reason": "playwright_ok", "display_name": display_name, "page_id": page_id}
+            return {"alive": True, "reason": "playwright_ok", "display_name": display_name}
     except Exception:
-        return {"alive": True, "reason": "playwright_failed_assuming_alive", "display_name": None, "page_id": None}
+        return {"alive": True, "reason": "playwright_failed_assuming_alive",
+                "display_name": None}
 
 
-def get_page_id_requests(handle: str) -> str | None:
-    """Пробует получить Page ID через requests (быстро)."""
-    # Graph API без токена
-    try:
-        r = requests.get(
-            f"https://graph.facebook.com/{handle}?fields=id,name",
-            headers=HEADERS, timeout=8
-        )
-        if r.status_code == 200:
-            data = r.json()
-            if "id" in data and len(data["id"]) >= 10:
-                return data["id"]
-    except Exception:
-        pass
+# ─── Поиск Page ID через delegate_page (мост profile → Page) ────────────────
 
-    # mbasic
-    try:
-        r = requests.get(
-            f"https://mbasic.facebook.com/{handle}",
-            headers=HEADERS, timeout=10
-        )
-        html = r.text
-        for pattern in PAGE_ID_PATTERNS:
-            matches = re.findall(pattern, html)
-            if matches:
-                from collections import Counter
-                counts = Counter(matches)
-                best = counts.most_common(1)[0][0]
-                if len(best) >= 10:
-                    return best
-    except Exception:
-        pass
+def find_delegate_page_id(fb_url: str) -> str | None:
+    """
+    Открывает FB-страницу (profile/vanity) и ищет связанный Page ID через
+    'delegate_page' паттерн в GraphQL response body.
 
-    return None
+    Зачем: личный профиль владельца бизнеса может быть админом отдельной Page
+    (где крутится реклама). FB GraphQL preloader response возвращает связь
+    profile → delegate_page → id.
 
+    Пример (redacted-prospect.example):
+      На сайте ссылка на /profile.php?id=61500000000000 (личный профиль).
+      Реклама крутится с Page 1234567890123456.
+      delegate_page.id в GraphQL response даёт мост между ними.
 
-def get_page_id_playwright(handle: str) -> str | None:
-    """Открывает Facebook через браузер и ищет Page ID."""
+    Returns: Page ID (string) или None если delegate_page не найден.
+    """
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         return None
+
+    delegate_ids = []
+
+    # GraphQL response'ы FB содержат `delegate_page` объект для profile'ов
+    # которые являются админами Page. Несколько вариантов кодировки —
+    # пробуем все основные.
+    delegate_patterns = [
+        r'"delegate_page"\s*:\s*\{\s*"id"\s*:\s*"(\d{10,})"',
+        r'"delegate_page"\s*:\s*\{[^{}]*?"id"\s*:\s*"(\d{10,})"',
+        r'"delegate_page_id"\s*:\s*"(\d{10,})"',
+        r'"delegate_page\.id"\s*:\s*"(\d{10,})"',
+    ]
 
     try:
         with sync_playwright() as p:
@@ -477,71 +414,56 @@ def get_page_id_playwright(handle: str) -> str | None:
                 locale="en-US",
             )
             page = context.new_page()
-            page_ids = []
 
             def on_response(response):
                 try:
-                    if "facebook.com" in response.url and response.status == 200:
-                        ct = response.headers.get("content-type", "")
-                        if any(t in ct for t in ["json", "javascript", "html"]):
-                            try:
-                                body = response.body().decode("utf-8", errors="ignore")
-                                for pattern in PAGE_ID_PATTERNS:
-                                    for m in re.findall(pattern, body):
-                                        if len(m) >= 10:
-                                            page_ids.append(m)
-                            except Exception:
-                                pass
+                    if "facebook.com" not in response.url:
+                        return
+                    if response.status != 200:
+                        return
+                    ct = response.headers.get("content-type", "")
+                    if not any(t in ct for t in ["json", "javascript", "html"]):
+                        return
+                    body = response.body().decode("utf-8", errors="ignore")
+                    for pattern in delegate_patterns:
+                        for m in re.findall(pattern, body):
+                            if len(m) >= 10:
+                                delegate_ids.append(m)
                 except Exception:
                     pass
 
             page.on("response", on_response)
 
             try:
-                page.goto(f"https://www.facebook.com/{handle}",
-                         wait_until="networkidle", timeout=20000)
+                page.goto(fb_url, wait_until="networkidle", timeout=20000)
                 page.wait_for_timeout(2000)
             except Exception:
                 try:
-                    page.goto(f"https://www.facebook.com/{handle}",
-                             wait_until="domcontentloaded", timeout=10000)
-                    page.wait_for_timeout(2000)
+                    page.goto(fb_url, wait_until="domcontentloaded", timeout=10000)
+                    page.wait_for_timeout(3000)
                 except Exception:
                     pass
 
-            # Финальный HTML
+            # Финальный HTML — иногда delegate_page лежит в inline scripts
             try:
                 html = page.content()
-                for pattern in PAGE_ID_PATTERNS:
+                for pattern in delegate_patterns:
                     for m in re.findall(pattern, html):
                         if len(m) >= 10:
-                            page_ids.append(m)
+                            delegate_ids.append(m)
             except Exception:
                 pass
 
             browser.close()
+    except Exception as e:
+        print(f"    ⚠️  delegate_page extraction failed: {str(e)[:80]}")
+        return None
 
-            if page_ids:
-                from collections import Counter
-                counts = Counter(page_ids)
-                return counts.most_common(1)[0][0]
+    if not delegate_ids:
+        return None
 
-    except Exception:
-        pass
-
-    return None
-
-
-def get_page_id(handle: str) -> tuple:
-    """Пробует все методы, возвращает (page_id, method)."""
-    # Быстрые методы сначала
-    pid = get_page_id_requests(handle)
-    if pid:
-        return pid, "requests"
-
-    # Playwright как fallback
-    pid = get_page_id_playwright(handle)
-    if pid:
-        return pid, "playwright"
-
-    return None, None
+    from collections import Counter
+    counts = Counter(delegate_ids)
+    best_id, hits = counts.most_common(1)[0]
+    print(f"    🔗 delegate_page.id найден: {best_id} (встретился {hits} раз)")
+    return best_id

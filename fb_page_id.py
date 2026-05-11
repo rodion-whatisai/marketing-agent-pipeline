@@ -5,8 +5,16 @@ Thin orchestrator. Discovery логика — в fb_discovery.py,
 Ads Library scraping — в fb_ads_scraper.py.
 
 Pipeline:
-  fetch_homepage → find_all_fb_handles → prioritize_handles
-  → для каждого handle: check_fb_page_alive_playwright → get_ads_data
+  fetch_homepage
+  → find_all_fb_handles (классификация id_type: page / profile / unknown)
+  → prioritize_handles (id_type=page приоритетнее всего)
+  → для каждого handle:
+       Ветка A (id_type=page):
+         alive check + display_name → get_ads_data
+       Ветка B (id_type=profile/unknown):
+         find_delegate_page_id (мост profile→Page через GraphQL)
+         → alive check delegate Page + display_name
+         → get_ads_data
   → сохраняем scans/{domain}/fb.json
 
 Brand-keyword fallback: если на homepage 0 FB ссылок (или WAF block),
@@ -27,13 +35,14 @@ from urllib.parse import urlparse
 from utils import scan_path, HEADERS, setup_console
 setup_console()
 
-# Discovery: homepage → handles → page-alive
+# Discovery: homepage → handles → page-alive → delegate
 from fb_discovery import (
     detect_site_country,
     fetch_homepage,
     find_all_fb_handles,
     prioritize_handles,
     check_fb_page_alive_playwright,
+    find_delegate_page_id,
 )
 
 # Ads Library scraping
@@ -207,32 +216,52 @@ def run(target: str) -> dict:
     for item in handles:
         handle = item["handle"]
         fmt = item.get("format", "vanity")
+        id_type = item.get("id_type", "unknown")
         display = item.get("display_name", f"@{handle}")
         fb_page_url = item["url"]
-        print(f"\n  {display} [{fmt}]")
+        print(f"\n  {display} [format={fmt} / id_type={id_type}]")
 
-        if fmt in ("people", "profile", "pages"):
-            status = check_fb_page_alive_playwright(item["url"].replace("https://www.facebook.com/", ""))
+        # ─── Получение Page ID (Шаг 5 pipeline) ──────────────────────────
+        if id_type == "page":
+            # Ветка A: Page ID готов из URL (/pages/Name/{ID}/)
+            fb_page_id = item["page_id"]
+            print(f"    📎 Page ID из URL: {fb_page_id} — открываю Page для alive check")
+            status = check_fb_page_alive_playwright(fb_page_id)
         else:
-            status = check_fb_page_alive_playwright(handle)
+            # Ветка B: id_type ∈ {profile, unknown} — ищем delegate_page.id
+            print(f"    🔍 id_type={id_type} — ищу delegate_page.id на {fb_page_url}")
+            fb_page_id = find_delegate_page_id(fb_page_url)
+            if not fb_page_id:
+                print(f"    ⚠️  delegate_page.id не найден — Page для этого handle нет")
+                results.append({
+                    "handle": handle,
+                    "url": fb_page_url,
+                    "alive": False,
+                    "published": False,
+                    "broken_reason": "no_delegate_page_id",
+                    "page_id": None,
+                    "ads_library": None,
+                })
+                continue
+            # Открываем delegate Page для alive check + display_name
+            print(f"    📎 Delegate Page ID: {fb_page_id} — открываю Page для alive check")
+            status = check_fb_page_alive_playwright(fb_page_id)
 
         if not status["alive"]:
-            print(f"    ✗ DEAD LINK — {status['reason']}")
+            print(f"    ✗ Page DEAD — {status['reason']}")
             results.append({
                 "handle": handle,
                 "url": fb_page_url,
+                "alive": False,
                 "published": False,
                 "broken_reason": status["reason"],
-                "page_id": None,
+                "page_id": fb_page_id,
                 "ads_library": None,
             })
             continue
 
         display_name = status.get("display_name") or display
-        fb_page_id = status.get("page_id") or item.get("page_id")
-
-        print(f"    ✓ Published | Display name: {display_name}"
-              + (f" | Page ID: {fb_page_id}" if fb_page_id else ""))
+        print(f"    ✓ Page alive | Display name: {display_name} | Page ID: {fb_page_id}")
 
         ads_urls = build_ads_library_urls(display_name, page_id=fb_page_id)
         print(f"    📢 Ads Library: {ads_urls['ALL']['active_only']}")
