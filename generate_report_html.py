@@ -629,7 +629,7 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
       На этих страницах не обнаружено ни одного tracking пикселя. Attribution отсутствует полностью.
     </p>
     {"".join(
-      f\'<div class="ok-row"><span class="ok-path">{r.get("path","")}</span><span class="ok-events" style="color:var(--red,#e05)">Пикселей не найдено</span></div>\'
+      f'<div class="ok-row"><span class="ok-path">{r.get("path","")}</span><span class="ok-events" style="color:var(--red,#e05)">Пикселей не найдено</span></div>'
       for r in data.get("no_tracking_pages", [])
     )}
   </div>

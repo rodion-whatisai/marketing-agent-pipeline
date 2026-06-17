@@ -8,10 +8,11 @@ Webflow, Squarespace, Wix, кастомные сайты, и т.д.
 from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services
 )
+from .wordpress_scanner import _detect_cta_elements as _fallback_cta_detector
 
 
 def scan_page(page, url: str, page_type: str, expect_events: list,
-              cta_detector_fn, platform: str = "unknown") -> dict:
+              cta_detector_fn=None, platform: str = "unknown") -> dict:
 
     pixel_events     = {}
     all_html_parts   = []
@@ -47,7 +48,10 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     except Exception:
         main_html = ""
 
-    cta_elements = cta_detector_fn(page, platform=platform)
+    if cta_detector_fn is not None:
+        cta_elements = cta_detector_fn(page, platform=platform)
+    else:
+        cta_elements = _fallback_cta_detector(page)
 
     page.remove_listener("request", on_request_extended)
     page.remove_listener("response", on_response)
