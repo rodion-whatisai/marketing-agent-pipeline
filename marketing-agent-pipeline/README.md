@@ -12,7 +12,7 @@
 
 *[2–4 lines. Agents for judgment, Python for the ironclad. Anything expressible as a
 deterministic rule — math, limits, reconciliations — is written once in code and
-tested once, so it can be trusted. The agent (token-based, non-deterministic) is left
+tested, so it can be trusted. The agent (token-based, non-deterministic) is left
 only with what no rule can express. This breaks the "who checks the checker" regress:
 the verifier of a high-risk action is deterministic code, not another agent.]*
 
