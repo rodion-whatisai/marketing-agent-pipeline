@@ -13,6 +13,9 @@
 > **SCOPE: только PERFORMANCE-кампании** (оптимизация на purchases / conversions). Не
 > awareness, не reach, не engagement. Всё ниже — про результат = продажа.
 
+> **Концептуальный скелет движка** (типы · Meta-заглушки · сигналы · решение + JSON audit,
+> гоняется на стабах, не live) — [`engine/`](engine/).
+
 ## Что эта стадия потребляет и выдаёт
 
 **Вход:** портфель ad sets кампании с метриками (`spend, CPA, ROAS, purchases, CTR, CVR,
@@ -174,6 +177,22 @@ target CPA ~$30. Каждый ad set — отдельная история (winn
 | **TOTAL** | **$14 780** spend · **412** purch | — | blended **CPA $35.9** · **ROAS 1.67** · budget **$1 930/д** |
 
 `*` D = 0.43 занижен лагом атрибуции — после дотока подрастёт (ровно его кейс).
+
+## Скетч движка — `engine/`
+
+Концептуальный Python-скелет policy-движка — [engine/](engine/): типы (`schema.py`) · Meta-API
+**заглушки** с реальными эндпоинтами (`meta_api.py`) · детерминированные сигналы (`signals.py`) ·
+решение + JSON audit (`policy.py`). Гоняется на стабах (`python engine/policy.py`), **не на
+live-аккаунте** — честно скетч, не прод.
+
+Воплощает принцип **«Python переваривает → агент ест готовые сигналы»** (LLM сырьё читают плохо)
+и закрывает все 9 критериев теста ревьюера (delayed attribution · premature-kill defense ·
+creative/site/offer/stock · budget conservation · campaign delivery · audit · human gate ·
+agent-vs-code · mock-history).
+
+Демо на ad set «D» (по reach выгорел, но backend-конверсии не дозрели + диссонанс CTR/CVR) →
+policy **не рубит вслепую**, а отдаёт `send_to_human` (blocked_by `attribution_lag, site_or_offer`).
+Защита от premature kill — в действии.
 
 ## Кольцо к 01
 
