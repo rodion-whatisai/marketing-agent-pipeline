@@ -399,6 +399,7 @@ def print_report(data: dict, gtm_data: dict = None):
     all_pages = data.get("all_pages", data.get("gap_pages", []))
     gap_pages  = data.get("gap_pages", [])
     ok_pages   = data.get("ok_pages", [])
+    unverified_pages_data = data.get("unverified_pages", [])
     base_url   = data.get("base_url", "")
 
     total   = data.get("scanned", len(all_pages))
@@ -566,9 +567,25 @@ def print_report(data: dict, gtm_data: dict = None):
             for m in missing:
                 print(f"    ✗ {m}")
 
+    # ── Дубли пикселей (жёлтая зона) ─────────────────────────────
+    dup_pages = [p for p in all_pages if p.get("duplicate_pixels")]
+    if dup_pages:
+        print(f"\n{'─' * 65}")
+        print(f"⚠️  ДУБЛИРУЮЩИЕ ПИКСЕЛИ — возможен двойной счёт событий")
+        print(f"{'─' * 65}")
+        print(f"   Найдено >1 ID одной платформы. Частая причина искажённого ROAS.")
+        print(f"   Проверить вручную (легитимный случай: пиксель агентства + пиксель клиента).")
+        for p in dup_pages:
+            for plat in p["duplicate_pixels"]:
+                ids = p.get("pixel_ids", {}).get(plat, [])
+                print(f"    {p['path']}  →  {plat}: {', '.join(ids)}")
+
     # ── 4. GAP страницы ──────────────────────────────────────────
-    real_gap_pages = [p for p in gap_pages if "server-side tracking" not in p.get("status", "")]
-    unverified_pages = [p for p in gap_pages if "server-side tracking" in p.get("status", "")]
+    # gap_pages из step2 — уже только реальные GAP; unverified лежат отдельной корзиной
+    real_gap_pages = gap_pages
+    unverified_pages = unverified_pages_data + [
+        p for p in gap_pages if "server-side tracking" in p.get("status", "")
+    ]
 
     if real_gap_pages:
         print(f"\n{'─' * 65}")
@@ -623,15 +640,23 @@ def print_report(data: dict, gtm_data: dict = None):
 
     if unverified_pages:
         print(f"\n{'─' * 65}")
-        print(f"⚠️  ВОЗМОЖЕН SERVER-SIDE TRACKING — GAP не подтверждён")
+        print(f"⚠️  НЕ ПОДТВЕРЖДЕНО — пиксель есть, событие не зафиксировано")
         print(f"{'─' * 65}")
-        print(f"   Страницы используют Cal.com/Calendly на Shopify.")
-        print(f"   Конверсия вероятно отслеживается через server-side CAPI —")
-        print(f"   браузерный скан не может это подтвердить или опровергнуть.")
+        print(f"   Браузерный скан не может подтвердить ИЛИ опровергнуть срабатывание.")
         for p in unverified_pages:
+            print(f"\n    {p['path']}")
+            print(f"      {p.get('status', '')}")
+            pids = p.get("pixel_ids", {})
+            if pids:
+                ids_str = " | ".join(f"{plat}: {', '.join(ids)}" for plat, ids in pids.items())
+                print(f"      Пиксели по ID: {ids_str}")
+            if p.get("duplicate_pixels"):
+                print(f"      ⚠️  ДУБЛЬ: {', '.join(p['duplicate_pixels'])} — >1 ID, возможен двойной счёт")
+            reason = p.get("unverified_reason", "")
+            if reason:
+                print(f"      Причина: {reason}")
             ext = list(p.get("external_services", {}).keys())
             scheduler = [s for s in ext if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
-            print(f"\n    {p['path']}")
             if scheduler:
                 print(f"      Сервис: {', '.join(scheduler)}")
 

@@ -124,6 +124,8 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     gap_pages   = data.get("gap_pages", [])
     ok_pages    = data.get("ok_pages", [])
     all_pages   = data.get("all_pages", [])
+    unverified_pages = data.get("unverified_pages", [])
+    dup_pages   = [p for p in all_pages if p.get("duplicate_pixels")]
 
     # GTM info
     gtm_ids = list(gtm_data.keys()) if gtm_data else []
@@ -293,6 +295,34 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
             <div class="gap-section-title">{section_label}</div>
             {items_html}
         </div>"""
+
+    # ── Unverified: пиксель есть, событие не подтверждено ──────────
+    unverified_items = ""
+    for r in unverified_pages:
+        u_path = r.get("path", "")
+        u_name = "Главная страница" if u_path == "/" else u_path
+        u_pids = r.get("pixel_ids", {})
+        u_ids_str = " &nbsp;|&nbsp; ".join(f"{plat}: {', '.join(ids)}" for plat, ids in u_pids.items()) if u_pids else "—"
+        u_reason = r.get("unverified_reason") or r.get("status", "")
+        u_dup = ""
+        if r.get("duplicate_pixels"):
+            u_dupnames = ", ".join(r["duplicate_pixels"])
+            u_dup = f'<div class="ev-missing" style="color:#d9a300">Дубль: {u_dupnames} — возможен двойной счёт</div>'
+        unverified_items += f"""
+        <div class="gap-card" style="border-left:3px solid #d9a300">
+            <div class="gap-card-path">{u_name}</div>
+            <div class="gap-card-row"><span class="gc-label">Пиксели по ID</span><span class="gc-val">{u_ids_str}</span></div>
+            {u_dup}
+            <div class="gap-card-row"><span class="gc-label dim">Статус</span><span class="gc-val dim">{u_reason}</span></div>
+        </div>"""
+
+    # ── Дубли пикселей (site-level) ────────────────────────────────
+    dup_rows_html = ""
+    for p in dup_pages:
+        for plat in p.get("duplicate_pixels", []):
+            ids = p.get("pixel_ids", {}).get(plat, [])
+            ids_join = ", ".join(ids)
+            dup_rows_html += f'<div class="ext-row"><div class="ext-svc">{plat}</div><div class="ext-note">{p.get("path", "")} — {len(ids)} ID: {ids_join}</div></div>'
 
     # ── Внешние сервисы ────────────────────────────────────────────
     ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory"}
@@ -618,6 +648,30 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
   <div class="section">
     <div class="section-title">Страницы с пробелами — конверсионные события не зафиксированы при загрузке</div>
     {gap_sections_html}
+  </div>
+  '''}
+
+  <!-- Unverified: пиксель есть, событие не подтверждено -->
+  {"" if not unverified_pages else f'''
+  <div class="section">
+    <div class="section-title">⚠️ Пиксель установлен — срабатывание не подтверждено браузером</div>
+    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
+      Пиксель найден по ID, но конверсионное событие не зафиксировано в headless-скане
+      (Meta-beacon в автоматическом браузере подавляется). Требуется проверка в обычном браузере — это не означает поломку.
+    </p>
+    {unverified_items}
+  </div>
+  '''}
+
+  <!-- Дубли пикселей -->
+  {"" if not dup_pages else f'''
+  <div class="section">
+    <div class="section-title">⚠️ Дублирующие пиксели — возможен двойной счёт</div>
+    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
+      Найдено более одного ID одной платформы. Частая причина искажённого ROAS.
+      Проверить вручную (легитимный случай: пиксель агентства + пиксель клиента).
+    </p>
+    {dup_rows_html}
   </div>
   '''}
 

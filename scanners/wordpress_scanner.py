@@ -273,6 +273,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
               platform: str = "wordpress") -> dict:
 
     pixel_events     = {}
+    pixel_ids        = {}
     all_html_parts   = []
     web_pixel_urls   = []
     web_pixel_bodies = {}
@@ -281,7 +282,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     from .base_scanner import make_listeners, PIXEL_RULES
 
     on_request_base, on_response = make_listeners(
-        pixel_events, web_pixel_urls, web_pixel_bodies, all_html_parts
+        pixel_events, web_pixel_urls, web_pixel_bodies, all_html_parts, pixel_ids
     )
 
     def on_request(request):
@@ -378,6 +379,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
         web_pixel_urls=web_pixel_urls,
         web_pixel_bodies=web_pixel_bodies,
         all_html_parts=all_html_parts,
+        pixel_ids=pixel_ids,
     )
 
     result["external_services"] = detect_external_services(combined_html, request_urls_all)

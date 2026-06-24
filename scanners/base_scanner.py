@@ -12,25 +12,32 @@ from page_classifier import classify_page_content
 
 PIXEL_RULES = {
     "Meta": {
-        "domains": ["facebook.com/tr", "connect.facebook.net/en_US/fbevents"],
+        "domains": ["facebook.com/tr", "connect.facebook.net/en_US/fbevents",
+                    "connect.facebook.net/signals/config"],
         "event_param": "ev",
+        "id_param": "id",                              # facebook.com/tr?id=<id>
+        "id_path_re": r"/signals/config/(\d{6,})",     # SDK config — летит даже в headless
     },
     "Google Analytics": {
         "domains": ["analytics.google.com/g/collect", "google-analytics.com/collect"],
         "event_param": "en",
+        "id_param": "tid",                             # ?tid=G-XXXX
     },
     "Google Ads": {
         "domains": ["googleadservices.com/pagead/conversion",
                     "google.com/pagead/1p-conversion"],
         "event_param": None,
+        "id_path_re": r"/conversion/(\d{6,})",         # /pagead/conversion/<id>/
     },
     "Bing/Microsoft": {
         "domains": ["bat.bing.com/action", "bat.bing.com/p/action"],
         "event_param": "ea",
+        "id_param": "ti",                              # ?ti=<id>
     },
     "LinkedIn": {
         "domains": ["px.ads.linkedin.com", "snap.licdn.com"],
         "event_param": "conversionId",
+        "id_param": "pid",                             # ?pid=<id>
     },
     "TikTok": {
         "domains": ["analytics.tiktok.com/api/v2/pixel"],
@@ -124,6 +131,28 @@ def get_event_from_url(url: str, platform: str) -> str:
     return "fired"
 
 
+def get_pixel_id_from_url(url: str, platform: str) -> str:
+    """Достаёт ID пикселя/счётчика из tracking-URL. '' если нет.
+    Path-regex (Meta SDK config, Google Ads) ловит ID даже когда beacon
+    события подавлён — например Meta в headless."""
+    rule = PIXEL_RULES.get(platform, {})
+    try:
+        parsed = urlparse(url)
+        id_re = rule.get("id_path_re")
+        if id_re:
+            m = re.search(id_re, parsed.path)
+            if m:
+                return m.group(1)
+        ip = rule.get("id_param")
+        if ip:
+            params = parse_qs(parsed.query)
+            if ip in params and params[ip][0]:
+                return params[ip][0]
+    except Exception:
+        pass
+    return ""
+
+
 def is_conversion_event(platform: str, event: str) -> bool:
     return any(c.lower() in event.lower() for c in CONVERSION_EVENTS_TIER1.get(platform, []))
 
@@ -161,8 +190,10 @@ def detect_external_services(html: str, requests_urls: list = None) -> dict:
 # ─── Network listeners ────────────────────────────────────────────────────────
 
 def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: dict,
-                   all_html_parts: list):
+                   all_html_parts: list, pixel_ids: dict = None):
     """Returns (on_request, on_response) closures that populate shared dicts."""
+    if pixel_ids is None:
+        pixel_ids = {}
 
     def on_request(request):
         req_url = request.url
@@ -181,6 +212,12 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
                     }
                     if not any(e["event"] == event for e in pixel_events[platform]):
                         pixel_events[platform].append(entry)
+                    # Собираем ID пикселя — для presence (headless) и детекта дублей
+                    pid = get_pixel_id_from_url(req_url, platform)
+                    if pid:
+                        pixel_ids.setdefault(platform, [])
+                        if pid not in pixel_ids[platform]:
+                            pixel_ids[platform].append(pid)
                     break
 
     def on_response(response):
@@ -210,6 +247,7 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
                    web_pixel_urls: list = None,
                    web_pixel_bodies: dict = None,
                    all_html_parts: list = None,
+                   pixel_ids: dict = None,
                    extra_html: str = "") -> dict:
     """
     Core scan logic shared by all platform scanners.
@@ -219,6 +257,7 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
     web_pixel_urls  = web_pixel_urls  or []
     web_pixel_bodies= web_pixel_bodies or {}
     all_html_parts  = all_html_parts  or []
+    pixel_ids       = pixel_ids       or {}
 
     if extra_html:
         all_html_parts.append(extra_html)
@@ -278,6 +317,8 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
             for plat, events in pixel_events.items()
             if any(not e["is_noise"] for e in events)
         },
+        "pixel_ids": {p: ids for p, ids in pixel_ids.items() if ids},
+        "duplicate_pixels": [p for p, ids in pixel_ids.items() if len(ids) >= 2],
         "external_services": external_services,
         "content_analysis": content_analysis,
         "errors": [],
