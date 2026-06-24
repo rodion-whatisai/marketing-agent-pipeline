@@ -46,9 +46,21 @@ def fetch_daily_reach(adset_id: str, days: int = 15) -> list:
 
 
 def fetch_adset_config(adset_id: str) -> AdSetConfig:
-    """Real: GET /{adset_id}?fields=targeting,optimization_goal,bid_strategy,..."""
+    """
+    Real: GET /{adset_id}?fields=bid_strategy,bid_amount,optimization_goal,
+          attribution_spec,targeting,is_advantage_audience,... +
+          GET /{campaign_id}?fields=budget_optimization (CBO/ABO).
+    Читаем то, ЧЕМ управляем: Advantage+, CBO/ABO, bid strategy, cost cap / ROAS goal,
+    событие оптимизации, окно атрибуции, плейсменты.
+    """
     # STUB
-    return AdSetConfig(True, True, ["facebook_feed", "instagram_feed"], False, [])
+    return AdSetConfig(
+        advantage_plus=True, budget_optimization="CBO", bid_strategy="cost_cap",
+        cost_cap=28.0, roas_goal=0.0, optimization_event="purchase",
+        attribution_setting="7d_click_1d_view",
+        placements=["facebook_feed", "instagram_feed", "instagram_reels"],
+        expand_reach=True,
+    )
 
 
 def fetch_campaign(campaign_id: str) -> CampaignState:

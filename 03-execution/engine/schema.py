@@ -45,11 +45,27 @@ class ReachSnapshot:
 
 @dataclass
 class AdSetConfig:
-    advantage_targeting: bool
-    expand_reach: bool
+    """ЧЕМ управляем — читаем из Meta (в правила заводим пока частично)."""
+    advantage_plus: bool          # Advantage+ audience / campaign
+    budget_optimization: str      # "CBO" | "ABO"
+    bid_strategy: str             # "lowest_cost" | "cost_cap" | "roas_goal" | "bid_cap"
+    cost_cap: float               # 0 если не задан
+    roas_goal: float              # 0 если не задан
+    optimization_event: str       # "purchase" | "add_to_cart" | ...
+    attribution_setting: str      # "7d_click_1d_view" | "1d_click" | ...
     placements: list
-    expand_excluded_placements: bool
-    bid_rules: list
+    expand_reach: bool
+
+
+@dataclass
+class Rule:
+    """Правило в конструкторе: кандидат → тест → промоут в постоянную Python-иерархию."""
+    id: str
+    name: str
+    status: str        # "candidate" | "testing" | "promoted"
+    applies_to: str    # "campaign" | "ad_set" | "ad"
+    success_case: str  # как меряем, что правило сработало
+    validated_by: str  # "python" | "human" | "—"
 
 
 @dataclass
