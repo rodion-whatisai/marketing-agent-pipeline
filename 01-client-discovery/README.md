@@ -45,7 +45,7 @@ Client discovery — это **поиск по сигналам и паттерн
 ## Граница код / агент
 
 Во всём discovery агент (Claude Haiku) работает **ровно в одной точке** —
-[`page_classifier.py`](../../page_classifier.py), и только на тех URL, которые
+[`page_classifier.py`](engine/page_classifier.py), и только на тех URL, которые
 детерминированная лестница не распознала.
 
 | Часть | Код или агент | Почему |
@@ -72,9 +72,9 @@ def classify_urls(urls, platform=""):
     clf["method"] = "claude"               # видно: это решил агент, а не правило
 ```
 
-→ живой код: [`classify_urls`](../../page_classifier.py#L458) (лестница) ·
-[`_get_expect_events`](../../page_classifier.py#L423) (огораживание агента) ·
-[`FAST_RULES`](../../page_classifier.py#L139) (детерминированные паттерны).
+→ живой код: [`classify_urls`](engine/page_classifier.py#L458) (лестница) ·
+[`_get_expect_events`](engine/page_classifier.py#L423) (огораживание агента) ·
+[`FAST_RULES`](engine/page_classifier.py#L139) (детерминированные паттерны).
 
 Агент решает только *тип* (ярлык). Что с этим типом делать — какие конверсионные события
 на нём положено увидеть — навешивает детерминированный словарь `_get_expect_events`
@@ -89,8 +89,8 @@ def classify_urls(urls, platform=""):
 
 ## Инженерные решения — и как мы к ним пришли
 
-**Накопительная база паттернов ([`patterns.json`](../../patterns.json) + интерактивный
-[`learn.py`](../../learn.py)).** Прогонов будет очень много (тысячи сайтов), а чистый
+**Накопительная база паттернов ([`patterns.json`](engine/patterns.json) + интерактивный
+[`learn.py`](engine/learn.py)).** Прогонов будет очень много (тысячи сайтов), а чистый
 LLM-классификатор жрёт токены на каждом URL. База паттернов пополняется через ручной
 апрув: каждый URL, пойманный `patterns.json`/regex — это URL, за который не платишь
 Claude. Отмели чисто-regex (не тянет семантику незнакомых slug'ов) и чисто-LLM (дорого на
@@ -101,17 +101,17 @@ Claude. Отмели чисто-regex (не тянет семантику нез
 имени бренда → простой поиск по ID → комбинация с keyword-строкой → перебор вариаций
 имени. Каждый шаг — ручной инспект HTML / network / элементов, чтобы вычленить ровно
 нужный сигнал (счётчик активных объявлений). Отсюда в коде
-([`fb_ads_scraper.py`](../../fb_ads_scraper.py)): routing classic-vs-new-style Page ID
+([`fb_ads_scraper.py`](engine/fb_ads_scraper.py)): routing classic-vs-new-style Page ID
 (для разных типов ID живы разные эндпоинты), keyword-fallback с fuzzy-match по имени,
 пост-фильтр шума.
 
-**Google Transparency Center** ([`google_ads_domain.py`](../../google_ads_domain.py) +
-[`google_ads_creative.py`](../../google_ads_creative.py))**.** Логичное продолжение FB —
+**Google Transparency Center** ([`google_ads_domain.py`](engine/google_ads_domain.py) +
+[`google_ads_creative.py`](engine/google_ads_creative.py))**.** Логичное продолжение FB —
 TC отдаёт результат чище и понятнее. Та же модель (домен → рекламодатели → креативы),
 отлаженная на FB, переносится. *Next step:* добавить открытую базу объявлений ЕС (которую
 ЕС обязал Google публиковать) как доп-источник для Европы.
 
-**Симуляция журнея ([`clicker.py`](../../clicker.py)).** Пассивный скан не ловит события,
+**Симуляция журнея ([`clicker.py`](engine/clicker.py)).** Пассивный скан не ловит события,
 которые стреляют только по действию пользователя. Задача — проверить, можно ли
 «прокликать» воронку до конверсионного события (`AddToCart` / `InitiateCheckout`),
 **останавливаясь до реальной оплаты**. Для каждой страницы вручную выяснялось: какой
@@ -138,16 +138,16 @@ gap там, где не можем проверить.
 
 Поэтому *что вообще можно заявить* решает детерминированный **стек честности**, встроенный
 в отчёт — код, а не усмотрение агента. Семь механизмов, дословно из
-[`generate_site_report.py`](../../generate_site_report.py) /
-[`generate_batch_report.py`](../../generate_batch_report.py):
+[`generate_site_report.py`](engine/generate_site_report.py) /
+[`generate_batch_report.py`](engine/generate_batch_report.py):
 
-1. **Датированный снапшот** ([дата из mtime файла данных](../../generate_site_report.py#L750)):
+1. **Датированный снапшот** ([дата из mtime файла данных](engine/generate_site_report.py#L750)):
    > *Snapshot date: 2026-06-24 … Data was captured at this moment from Facebook Ads
    > Library … Ads Library is live … advertisers may have added new ads or ended running
    > ones since this report was generated.*
 
 2. **Метка авторитетности самого числа** —
-   [режим поиска прописан словами](../../generate_site_report.py#L554):
+   [режим поиска прописан словами](engine/generate_site_report.py#L554):
    > `page` → *Advertiser-filtered (authoritative — FB filtered by page_id)*
    > `keyword_filtered_by_name` → *fuzzy filter on advertiser name (lower confidence)*
    > `keyword_raw` → *Keyword search, unfiltered (may include unrelated ads)*
@@ -163,7 +163,7 @@ gap там, где не можем проверить.
    > *Platform — {confidence} confidence · Language — detected via {source} · Country —
    > detected via {source}*
 
-6. **Честный WAF-out-of-scope** ([batch-отчёт](../../generate_batch_report.py#L649)):
+6. **Честный WAF-out-of-scope** ([batch-отчёт](engine/generate_batch_report.py#L649)):
    > *…we mark the site as `blocked_by_waf` and recommend manual verification. We do not
    > use stealth plugins, residential proxies, or captcha solvers — these are explicitly
    > out of scope.*
@@ -206,7 +206,7 @@ discovery-аналог kill switch: на языке operating model — **trust 
 ## Evidence — реальные прогоны
 
 Три реальных скана, **как есть** (не превью). Отчёты сгенерены тулзой
-([`generate_site_report.py`](../../generate_site_report.py)) из захваченных `fb.json`;
+([`generate_site_report.py`](engine/generate_site_report.py)) из захваченных `fb.json`;
 креативы встроены в HTML (base64, файл self-contained — открывается локально, ничего не
 подгружает). Разный масштаб рекламодателя:
 
