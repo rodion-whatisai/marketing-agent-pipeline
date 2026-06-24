@@ -189,9 +189,9 @@ live-аккаунте** — скетч, не прод.
 creative/site/offer/stock · budget conservation · campaign delivery · audit · human gate ·
 agent-vs-code · mock-history).
 
-Демо на ad set «D» (по reach выгорел, но backend-конверсии не дозрели + диссонанс CTR/CVR) →
-policy **не рубит вслепую**, а отдаёт `send_to_human` (blocked_by `attribution_lag, site_or_offer`).
-Защита от premature kill — в действии.
+Прогон по 5 ad set (gate 1 невиновность → gate 2 learning → gate 3 эффективность):
+A→`scale`, B→`send_to_human` (креатив), C→`hold` (learning), D→`send_to_human` (сканер 01 →
+сайт/сток), E→`send_to_human` (усталость креатива). `test_policy.py` пинит эти исходы.
 
 ## Кольцо к 01
 

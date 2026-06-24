@@ -1,0 +1,10 @@
+# Стадия 01 (сканер) — рабочий код в 01-client-discovery/engine/
+playwright>=1.40
+requests>=2.31
+anthropic>=0.39
+
+# Тесты
+pytest>=8.0
+
+# Примечание: 03-execution/engine — концептуальный движок, чистый stdlib (dataclasses, json),
+# отдельных зависимостей не требует.

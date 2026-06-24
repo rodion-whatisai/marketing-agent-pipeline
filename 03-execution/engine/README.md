@@ -1,55 +1,71 @@
 # 03 · engine — policy sketch (КОНЦЕПТУАЛЬНЫЙ СКЕЛЕТ, не live)
 
-> **Это не рабочий движок уровня [01/engine](../../01-client-discovery/engine/).** Это
-> концептуальный скелет execution-policy: видно входы, сигналы, решение и audit — но Meta
-> API здесь **заглушки**, к реальному аккаунту не подключено. Спроектировано, не
-> built-в-проде. Гоняется только на стабах.
+> **Это не рабочий движок уровня [01/engine](../../01-client-discovery/engine/).** Скелет
+> execution-policy: видно входы, сигналы, решение и audit — но Meta API здесь **заглушки**,
+> к реальному аккаунту не подключено. Спроектировано, не built-в-проде. Гоняется на стабах.
 
 ## Поток
 
 ```
-датасет из кабинета
+портфель ad set из кабинета
    → Meta API (заглушки): insights · daily reach · config · campaign      meta_api.py
    → Python переваривает в сигналы (verdict'ы)                            signals.py
-   → policy: ОДНО действие + JSON audit                                   policy.py
+   → policy: ОДНО действие + маршрут (python / human) + JSON audit        policy.py
 ```
 
-**Ключевой принцип:** LLM сырые данные читают плохо → Python отдаёт агенту уже **переваренные
-сигналы**, не сырые числа. Где «судит» агент — помечено `agent_hook` (сейчас детерминированный
-fallback). **Агент никогда не удаляет** — максимум `pause_candidate`.
+**Ключевой принцип:** LLM сырые данные читают плохо → Python отдаёт агенту **переваренные
+сигналы**, не сырые числа. **Агент никогда не удаляет** — максимум `pause_candidate`.
+
+## Порядок гейтов (`policy.decide`)
+
+1. **Невиновность.** Атрибуция не дозрела → `hold` (wait, авто). Сайт-диссонанс (CTR↑/CVR↓)
+   или сток → **сначала прогон сканером 01** → если подтвердил → `send_to_human`.
+2. **Learning.** `learning` → `hold` (не трогаем).
+3. **Эффективность.** CPA ≤ target + utility ≥ 1 + бюджет выбирается → `scale` +20%. Плохой
+   (CPA > target) → диагностика: CTR↓/CVR ок → креатив → `send_to_human`; выгорел по reach →
+   `pause_candidate`.
+
+Сигналы с малыми данными гасятся (confidence) — фреш-learner не уходит к человеку по шуму.
 
 ## Файлы
 
-- **`schema.py`** — типизированные входы/выходы: `AdSet` (Meta + backend поля), `ReachSnapshot`,
-  `AdSetConfig`, `CampaignState`, `Decision`, `AuditRecord`. *(закрывает критику «no typed schemas»)*
-- **`meta_api.py`** — **заглушки** с реальными эндпоинтами Meta Marketing API в докстрингах
-  (видно, откуда и что тянули бы).
-- **`signals.py`** — чистые детерминированные сигналы: **инкрементальный reach (не cumulative!)**
-  + детект выгорания, «проверка невиновности» (атрибуция · сайт · оффер · сток), пейсинг кампании.
-- **`policy.py`** — решение из пяти + reconcile: `scale / hold / pause_candidate / send_to_human /
-  do_nothing / reconcile_plan_vs_fact` + JSON audit. `python policy.py` — демо на стабах.
+- **`schema.py`** — типы: `AdSet` (Meta + backend + `spend_5d`), `ReachSnapshot`, `Config`,
+  `CampaignState`, `Decision`, `AuditRecord`. *(закрывает «no typed schemas»)*
+- **`meta_api.py`** — заглушки; `fetch_portfolio()` = 5 ad set; реальные эндпоинты в докстрингах.
+- **`signals.py`** — детерминированные сигналы: **инкрементальный reach (не cumulative)** +
+  выгорание, **диссонанс с направлением** (site / creative, гасится при малых данных),
+  utility-коэффициент, budget-utilization, attribution, offer, `site_scan_stub` (стадия 01).
+- **`policy.py`** — `decide()` (3 гейта) → одно действие + маршрут + JSON audit; `run_portfolio()`.
+- **`test_policy.py`** — pytest, пинит 5 исходов (чтобы багфиксы не регрессировали).
 
-## Запуск демо (на заглушках)
+## Запуск
 
 ```
 cd 03-execution/engine
-python policy.py
+python policy.py        # лог решений по 5 ad set
+python -m pytest -q     # 6 проверок  (нужен: pip install pytest)
 ```
 
-На примере ad set «D» (по reach выгорел, но backend-конверсии выше Meta + диссонанс CTR/CVR)
-policy **не рубит вслепую** — отдаёт `send_to_human`, потому что «проверка невиновности»
-(атрибуция + сайт/оффер) блокирует kill. Это и есть защита от premature kill.
+## Лог демо (5 ad set)
+
+| ad set | действие | маршрут | почему |
+|---|---|---|---|
+| **A** winner | `scale` +20% | python-resolver | CPA $20 ≤ target, utility 1.79, бюджет выбирается |
+| **B** bleeding | `send_to_human` | human | CTR↓ / CVR ок → креатив (новые / выключить low-CTR) |
+| **C** learning | `hold` | python (auto) | learning — не трогаем |
+| **D** attribution | `send_to_human` | сканер 01 → human | сайт/сток подтверждён сканером |
+| **E** fatigue | `send_to_human` | human | CTR↓ / CVR ок → креатив (усталость) |
 
 ## Их 9 критериев → где в коде
 
-| Критерий ревьюера | Файл / функция |
+| Критерий ревьюера | Где |
 |---|---|
-| delayed attribution | `signals.attribution_check` |
-| premature-kill defense | `signals.innocence_check` |
-| bad creative vs site vs offer vs stock | `dissonance_signal` · `offer_signal` · `anchor_in_stock` |
-| budget conservation | `policy.build_audit` (+20% cap, иначе не трогаем) |
-| campaign-level delivery | `signals.campaign_pacing` |
-| decision logging | `AuditRecord` (JSON) |
-| human gate | `decide` → `send_to_human` + `required_approval` |
-| где агент судит vs код | `agent_hook_explain` (тонко) vs всё остальное (код) |
-| testing on mock history | демо на стабах + снэпшоты reach |
+| delayed attribution | `signals.attribution_signal` → gate 1 (wait) |
+| premature-kill defense | gate 1 невиновность + гашение сигналов по данным |
+| creative vs site vs offer vs stock | `dissonance_signal` (направление) · `offer_signal` · `site_scan_stub` |
+| budget conservation | `budget_signal` + `+20%` cap в `build_audit` |
+| campaign-level delivery | `CampaignState` target; кампанийный форкаст — в [../README](../README.md) |
+| decision logging | `AuditRecord` (JSON), `route` |
+| human gate | `decide` → `send_to_human` / `required_approval` |
+| где агент судит vs код | всё детерминированно; агент-хук тонкий (формулировка «почему») |
+| testing on mock history | `test_policy.py` + reach-снэпшоты |

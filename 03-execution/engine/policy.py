@@ -1,9 +1,12 @@
 """
-03 · Execution — policy: переваренные сигналы → ОДНО действие + JSON audit.
+03 · Execution — policy: сигналы → ОДНО действие + маршрут (Python-resolver / human).
 
-Граница: решение — детерминированное правило (этот код). Где «судит» агент — помечено
-agent_hook (сейчас детерминированный fallback). Агент НИКОГДА не удаляет: максимум
-pause_candidate. Демо гоняется на заглушках (`python policy.py`), не на live-аккаунте.
+Порядок гейтов (зафиксирован):
+  Gate 1 — невиновность  (атрибуция / сайт-диссонанс / сток; сайт-сток → сначала сканер 01)
+  Gate 2 — learning      (learning → hold)
+  Gate 3 — эффективность (scale эффективных при выбираемом бюджете; плохие → диагностика)
+
+Агент НИКОГДА не удаляет: максимум pause_candidate. Демо на заглушках (`python policy.py`).
 """
 from __future__ import annotations
 import json
@@ -13,70 +16,95 @@ import meta_api
 import signals
 
 
-def agent_hook_explain(sigs: dict) -> str:
-    """[АГЕНТ-ХУК] человекочитаемое «почему» для аудита/человека.
-    Сейчас — детерминированный fallback; в проде здесь LLM на ГОТОВЫХ сигналах, не на сырье."""
-    return "; ".join(s.verdict for s in sigs.values())
+def decide(a: AdSet, sigs: dict, c: CampaignState):
+    """Возвращает (Decision, trace, route)."""
+    trace = []
+
+    # ── Gate 1 — невиновность ─────────────────────────────────────────────
+    if sigs["dissonance"].value == "site" or not a.anchor_in_stock:
+        trace.append("g1: подозрение сайт/сток → прогон сканером 01")
+        scan = signals.site_scan_stub(a)
+        if scan["oos"] or scan["site_problem"]:
+            return (Decision(a.id, "send_to_human",
+                             "сайт/сток подтверждён сканером 01 → ручной разбор"),
+                    trace, "human")
+    if sigs["attribution"].value == "immature":
+        trace.append("g1: атрибуция не дозрела")
+        return (Decision(a.id, "hold", "attribution не дозрело — wait, не судим свежий спенд"),
+                trace, "python (auto-wait)")
+    trace.append("g1: невиновность чиста")
+
+    # ── Gate 2 — learning ─────────────────────────────────────────────────
+    if a.learning_status == "learning":
+        trace.append("g2: learning")
+        return (Decision(a.id, "hold", "learning phase — не трогаем (правка сбросит learning)"),
+                trace, "python (auto-hold)")
+    trace.append("g2: не learning")
+
+    # ── Gate 3 — эффективность ────────────────────────────────────────────
+    if (a.cpa <= c.kpi_cpa_target and sigs["utility"].value >= 1.0
+            and sigs["budget"].value == "выбирает"):
+        return (Decision(a.id, "scale",
+                         f"CPA ${a.cpa:.0f} ≤ target, utility {sigs['utility'].value}, "
+                         f"бюджет выбирается → +20%"),
+                trace, "python-resolver (авто в пределах cap)")
+    if a.cpa > c.kpi_cpa_target:
+        trace.append("g3: CPA выше target → диагностика причины")
+        if sigs["dissonance"].value == "creative":
+            return (Decision(a.id, "send_to_human",
+                             "CTR↓ / CVR ок → проблема креатива: новые / выключить low-CTR объявление"),
+                    trace, "human")
+        if sigs["saturation"].value == "выгорел":
+            return (Decision(a.id, "pause_candidate",
+                             "выгорел по reach, чинить нечего → кандидат на паузу"),
+                    trace, "human (approval)")
+    return (Decision(a.id, "do_nothing", "сигналов на действие нет"), trace, "python (no-op)")
 
 
-def decide(a: AdSet, c: CampaignState, sigs: dict) -> tuple[Decision, list]:
-    """Сверху вниз: сначала состояние кампании и невиновность, потом сам ad set. Одно действие."""
-    blockers = signals.innocence_check(sigs, a.anchor_in_stock)
-    pacing = sigs["campaign_pacing"].value
-    saturated = sigs["saturation"].value < 0.05
-
-    if blockers:
-        action = "send_to_human"
-        why = f"kill заблокирован проверкой невиновности: {', '.join(blockers)} → ручной разбор"
-    elif saturated:
-        action = "pause_candidate"
-        why = "выгорел (новый охват иссяк), внешних причин нет → кандидат на паузу (не delete)"
-    elif a.cpa < c.kpi_cpa_target and a.roas >= 1.0:
-        action = "scale"
-        why = "эффективен и в KPI → поднять бюджет ≤20%/шаг"
-    elif a.learning_status == "learning":
-        action = "hold"
-        why = "learning phase — не трогаем"
-    elif pacing == "behind_over_cost":
-        action = "reconcile_plan_vs_fact"
-        why = "кампания не доставит в KPI → разговор план-vs-факт по позициям медиаплана"
-    else:
-        action = "do_nothing"
-        why = "в графике, сигналов на действие нет"
-
-    return Decision(a.id, action, why), blockers
-
-
-def build_audit(a: AdSet, d: Decision, sigs: dict, blockers: list) -> AuditRecord:
-    requires_human = d.action in ("send_to_human", "pause_candidate") or a.budget_day >= 500
-    delta = 1.2 if d.action == "scale" else 1.0   # +20% при scale, иначе бюджет не трогаем
+def build_audit(a: AdSet, d: Decision, sigs: dict, route: str) -> AuditRecord:
+    delta = 1.2 if d.action == "scale" else 1.0
     return AuditRecord(
         adset_id=a.id,
         signals=[{"name": s.name, "value": s.value, "verdict": s.verdict} for s in sigs.values()],
         rule_fired=d.rationale,
-        confidence=0.8 if not blockers else 0.5,
-        blocked_by=blockers,
-        required_approval=requires_human,
+        confidence=0.8,
+        blocked_by=[] if d.action != "send_to_human" else [d.rationale],
+        required_approval=("human" in route),
         budget_before=a.budget_day,
         budget_after=round(a.budget_day * delta, 2),
-        rollback_state={"budget_day": a.budget_day, "status": "active"},  # храним прежнее → откат
+        rollback_state={"budget_day": a.budget_day, "status": "active"},
     )
 
 
-def run_on_stub(adset_id: str = "adset_D", campaign_id: str = "camp_1") -> dict:
-    """Демо НА ЗАГЛУШКАХ (не live): Meta-стабы → digest → decide → audit."""
-    a = meta_api.fetch_insights(adset_id)
-    cfg = meta_api.fetch_adset_config(adset_id)
-    snaps = meta_api.fetch_daily_reach(adset_id)
-    c = meta_api.fetch_campaign(campaign_id)
-    # медианы по портфелю — в проде из всех ad sets кампании; здесь фикс для демо
-    sigs = signals.digest(a, cfg, snaps, c, ctr_median=1.9, cvr_median=2.4)
-    d, blockers = decide(a, c, sigs)
-    audit = build_audit(a, d, sigs, blockers)
-    return {"decision": asdict(d), "audit": asdict(audit)}
+def run_portfolio() -> list:
+    """Прогон по всем ad set'ам портфеля (на заглушках). Возвращает решения + trace + audit."""
+    port = meta_api.fetch_portfolio()
+    c = meta_api.fetch_campaign("camp_1")
+    total_spend = sum(a.spend for a in port)
+    total_purch = sum(a.purchases for a in port)
+    ctr_med = signals.median([a.ctr for a in port])
+    cvr_med = signals.median([a.cvr for a in port])
+
+    out = []
+    for a in port:
+        snaps = meta_api.fetch_daily_reach(a.id)
+        sigs = signals.digest(a, snaps, ctr_med, cvr_med, total_spend, total_purch)
+        d, trace, route = decide(a, sigs, c)
+        out.append({
+            "adset": a.name,
+            "action": d.action,
+            "route": route,
+            "rationale": d.rationale,
+            "trace": trace,
+            "audit": asdict(build_audit(a, d, sigs, route)),
+        })
+    return out
 
 
 if __name__ == "__main__":
     import sys
-    sys.stdout.reconfigure(encoding="utf-8")   # Windows cp1252 → UTF-8 для кириллицы/стрелок
-    print(json.dumps(run_on_stub(), ensure_ascii=False, indent=2))
+    sys.stdout.reconfigure(encoding="utf-8")
+    for r in run_portfolio():
+        print(f"\n=== {r['adset']} → {r['action'].upper()}  [{r['route']}]")
+        print("   путь:", " · ".join(r["trace"]))
+        print("   почему:", r["rationale"])
