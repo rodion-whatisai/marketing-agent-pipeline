@@ -1,20 +1,20 @@
 # 05 — Integration
 
-> Wire the stages into one flow that can run end-to-end or block-by-block — with the
-> three discovery agents able to run in parallel after the sitemap step.
+> Связать стадии в один поток, который запускается целиком или по блокам — с тремя
+> discovery-агентами, способными идти параллельно после шага sitemap.
 
-> **Status:** sketch (Step 2). Described at altitude. Prose in Step 4.
+> **Статус:** конспект (Шаг 2). Описано обзорно. Текст на Шаге 4.
 
-## What this stage does
+## Что делает эта стадия
 
-*[Short. The orchestration: stages as composable steps; run the whole pipeline or a
-single block; parallelism where the work is independent.]*
+*[Коротко. Оркестрация: стадии как составные шаги; запустить весь конвейер или один блок;
+параллельность там, где работа независима.]*
 
-## Code / agent boundary — where the line runs
+## Граница код / агент — где проходит линия
 
-*[Orchestration, sequencing, retries, rollback are deterministic; the agents sit inside
-the steps. Handoffs are products dropped into the environment, not chatter.]*
+*[Оркестрация, последовательность, ретраи, откат — детерминированы; агенты сидят внутри
+шагов. Передачи — это продукты, положенные в среду, не болтовня.]*
 
-## Human gate
+## Человеческий гейт
 
-*[Where a human can check or skip between stages.]*
+*[Где человек может проверить или пропустить между стадиями.]*

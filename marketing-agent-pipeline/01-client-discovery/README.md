@@ -1,69 +1,79 @@
 # 01 — Client Discovery
 
-> Find and qualify a prospect from hard, verifiable signals — does it spend on ads, and
-> is its tracking broken — and fix those into ground-truth facts you can walk in with.
+> Найти и квалифицировать клиента по жёстким проверяемым сигналам — тратит ли он на
+> рекламу и сломан ли у него трекинг — и зафиксировать это в железобетонные факты, с
+> которыми можно зайти.
 
-> **Status:** skeleton (Step 2). This block is the exemplar; its section format is the
-> template every other block follows. Prose filled in Step 3.
+> **Статус:** скелет (Шаг 2). Этот блок — эталон; формат его секций повторяет каждый
+> следующий блок. Текст наполняется на Шаге 3.
 
-## What this stage produces
+## Что эта стадия потребляет и выдаёт
 
-*[The output = ground-truth facts that justify approaching a prospect. Python here is
-the source of truth for every downstream agent: signal → validation → ironclad fact.]*
+*[Вход: домен / популяция сайтов. Выход: железобетонные факты, оправдывающие заход к
+клиенту. Python здесь — источник правды для всех агентов ниже по конвейеру:
+сигнал → валидация → железобетонный факт.]*
 
-## The lead thesis
+## Lead thesis — история лида
 
-*[Find businesses that just started running Meta ads but are tracking them wrong, in a
-size band worth pitching → tier-1 lead. The qualifier is a tunable numeric rule (e.g.
-an active-ads-per-country/month cutoff). Re-aim the whole tool at a different client
-profile by changing the rule — not by changing the code's judgment. (The cutoff itself
-is illustrative — not yet shipped; the shipped part is producing the hard number.)]*
+*[В общем: это поиск по сигналам и паттернам, перенастраиваемый числом. В приведённом
+примере: мелкие-мелкие бизнесы, только севшие на Meta, но с битым трекингом → tier-1
+лид. Финальный текст — на Шаге 3 (черновик согласован).]*
 
-## Code / agent boundary
+## Граница код / агент
 
-*[The heart of this block. What is 100% deterministic Python (ironclad) and why. The
-single point in all of discovery where an agent (Claude Haiku) is used — URL meaning —
-and how it is fenced on both sides: a deterministic ladder in front of it, a
-deterministic event-mapping behind it, a provenance stamp on every result.]*
+*[Сердце блока. Что 100% детерминированный Python (железобетон) и почему. Единственная
+точка во всём discovery, где работает агент (Claude Haiku) — смысл URL — и как она
+огорожена с обеих сторон: детерминированная лестница перед ним, детерминированный
+маппинг событий за ним, провенанс-штамп на каждом результате.]*
 
-| Part | Code or agent | Why |
+> **Сноска:** чтобы покрыть больше кейсов, где-то понадобятся ещё агенты — но логика их
+> подчинения та же (узкая задача, огорожен детерминированным кодом, продукт →
+> следующему, человеческий гейт). Не «навсегда один агент», а «сколько угодно агентов
+> под той же дисциплиной».
+
+| Часть | Код или агент | Почему |
 |---|---|---|
-| *[sitemap, platform, pixel/event capture, FB & Google ad detection, fuzzy match, reporting]* | deterministic Python | *[verifiable, repeatable, cheap]* |
-| *[URL semantic type — only the leftover the rule-ladder can't catch]* | agent (Haiku) | *[judgment, not a rule]* |
-| *[expected tracking events for a type; lead qualification]* | deterministic Python | *[fenced after / around the agent]* |
+| *[sitemap, платформа, перехват пиксель-событий, детект FB и Google рекламы, fuzzy-match, отчёт]* | детерминированный Python | *[проверяемо, повторяемо, дёшево]* |
+| *[смысл-тип URL — только остаток, который лестница правил не поймала]* | агент (Haiku) | *[суждение, не правило]* |
+| *[ожидаемые события для типа; квалификация лида]* | детерминированный Python | *[огорожено после / вокруг агента]* |
 
-## Engineering decisions — and how we got here
+## Инженерные решения — и как мы к ним пришли
 
-*[Per non-trivial decision: what the problem was → why this way → what was rejected.
-Sourced from the author's notes, not invented. Stubs to fill in Step 3:]*
+*[По каждому нетривиальному решению: в чём была проблема → почему так → что отмели. Из
+заметок автора, не выдумано. Стабы для Шага 3:]*
 
-- *[Accumulating pattern base (`patterns.json` + interactive `learn.py`): not regex-only,
-  not LLM-only — token cost at scale across very many runs.]*
-- *[Facebook Ads Library strategy: reached by iteration — brand-name search → ID search →
-  keyword-string combination → trying variations; hence classic-vs-new-style ID routing
-  and fuzzy fallback.]*
-- *[Google Transparency Center: logical continuation of FB (cleaner results). Next step:
-  the EU-mandated open ad database as an extra European source.]*
-- *[Journey simulation (`clicker`): click through to the conversion event, stopping short
-  of real payment; per-site-builder mapping of which element fires which event.]*
-- *[`unverified` bucket: don't call a gap what you can't verify (booking tools → flag for
-  manual review, not a false "they have a gap").]*
-- *[WAF: honest "couldn't reach it → manual verification recommended"; solutions out of
-  scope, stated plainly.]*
+- *[Накопительная база паттернов (`patterns.json` + интерактивный `learn.py`): не только
+  regex, не только LLM — стоимость токенов на масштабе, прогонов очень много.]*
+- *[Стратегия Facebook Ads Library: пришли итерацией — поиск по правильному имени бренда
+  → по ID → комбинация с keyword-строкой → перебор вариаций; отсюда routing
+  classic-vs-new-style ID и fuzzy-fallback.]*
+- *[Google Transparency Center: логичное продолжение FB (результат чище). Next step:
+  открытая база объявлений ЕС как доп-источник для Европы.]*
+- *[Симуляция журнея (`clicker`): прокликать до конверсионного события, не доводя до
+  реальной оплаты; per-site-builder маппинг — какой элемент какое событие стреляет.]*
+- *[Bucket `unverified`: не называть gap'ом то, что не можешь проверить
+  (booking-инструменты → пометка на ручную проверку, а не ложное «у них дыра»).]*
+- *[WAF: честное «не достучались → manual verification recommended»; решения out of
+  scope, сказано прямо.]*
 
-## Guardrails & data integrity
+## Guardrails и целостность данных
 
-*[Provenance on every fact (`method=`, `source=`, `*_mode`, fetch-error taxonomy). Tuned
-thresholds (0.85, raised from 0.75 after a real false positive). Safe degradation under
-failure. Page-status taxonomy that never mixes (OK / GAP / NO TRACKING / No CTA). A
-high-risk action (form submit) refused by a code rule, not by the agent.]*
+*[High-risk action на этой стадии = неверный / перезаявленный факт уходит в аутрич
+(самый большой риск стадии — обосраться с аутричом). Защита — детерминированный «стек
+честности» из 7 механизмов, дословно из кода отчётов, со ВСЕМИ реальными отчётами,
+показанными как есть (не превью) и прокомментированными: датированный снапшот, метка
+авторитетности числа, раскрытие шума (raw vs matched), warning при низкой уверенности,
+провенанс на каждом факте, честный WAF-out-of-scope, ссылка «проверь сам» на источник.
+Факт покидает стадию только с прицепленными «когда это было верно» и «как добыто».
+Статусы не смешиваются (OK / GAP / NO TRACKING / No CTA).]*
 
-## Decision flow
+## Decision flow — линейка решений
 
-See [decision-flow.md](decision-flow.md) — signal → validation → ironclad fact → gate.
+См. [decision-flow.md](decision-flow.md) — сигнал → валидация → железобетонный факт → гейт.
 
-## Evidence (real runs)
+## Evidence — реальные прогоны
 
-*[Three real scans, shown as-is — large (many ads) / medium (a few) / smallest non-zero
-— with their logs and outputs, so the result is concrete. Runs locally on the author's
-machine; shown here as artifacts. Short, clean code excerpts illustrate the boundary.]*
+*[Три реальных скана, как есть — большой (много объявлений) / средний (немного) / самый
+маленький не-ноль — с их логами и реальными отчётами (показать сами отчёты, не превью).
+Крутится локально на машине автора; здесь приложены как артефакты. Короткие чистые
+выдержки кода иллюстрируют границу.]*

@@ -1,15 +1,15 @@
-# Planning — decision flow
+# Planning — линейка принятия решений
 
-*[Mermaid diagram, filled in Step 4. Same simple left-to-right style as 01:
-brief → decomposition → Python-check vs agent-judgment → gate.]*
+*[Mermaid-диаграмма, наполняется на Шаге 4. Тот же простой стиль слева-направо, что в 01:
+бриф → декомпозиция → Python-проверка vs агентское суждение → гейт.]*
 
 ```mermaid
-%% placeholder — replaced in Step 4
+%% placeholder — заменяется на Шаге 4
 flowchart LR
-  A[ground-truth facts] --> B[decompose brief]
-  B --> C{Python-checkable?}
-  C -->|yes| D[deterministic check]
-  C -->|no| E[agent judgment]
-  D --> F{human gate / skip}
+  A[железобетонные факты] --> B[декомпозиция брифа]
+  B --> C{Python-проверяемо?}
+  C -->|да| D[детерминированная проверка]
+  C -->|нет| E[суждение агента]
+  D --> F{человеческий гейт / skip}
   E --> F
 ```

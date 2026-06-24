@@ -1,48 +1,51 @@
 # Marketing Agent Pipeline
 
-> An advertising agency rebuilt as a pipeline of single-task agents: each agent does
-> one narrow job and hands a finished product to the next. Not a swarm of agents
-> talking to each other — a factory line of departments, where a human can check or
-> skip at every handoff.
+> Рекламное агентство, пересобранное как конвейер одно-задачных агентов: каждый агент
+> делает одну узкую работу и передаёт готовый продукт следующему. Не рой агентов,
+> болтающих между собой, — заводская линия департаментов, где на каждой передаче
+> человек может проверить или пропустить.
 
-> **Status:** skeleton (Step 2). Section prose is filled in Step 3. Bracketed italics
-> mark what goes where.
+> **Статус:** скелет (Шаг 2). Текст секций наполняется на Шаге 3. Курсив в скобках —
+> пометка, что куда ляжет.
 
-## The credo
+## Кредо
 
-*[2–4 lines. Agents for judgment, Python for the ironclad. Anything expressible as a
-deterministic rule — math, limits, reconciliations — is written once in code and
-tested, so it can be trusted. The agent (token-based, non-deterministic) is left
-only with what no rule can express. This breaks the "who checks the checker" regress:
-the verifier of a high-risk action is deterministic code, not another agent.]*
+**Агенты — для суждения, Python — для железобетона.**
 
-## Why this shape
+Всё, что выразимо детерминированным правилом — математика, лимиты, сверки — пишется в
+коде один раз и закрывается тестами: правило детерминированно, поэтому ему можно
+доверять. Агент недетерминированный (работает на токенах), и его надёжность **одним
+удачным прогоном не доказывается** — её меряют повторами и разбросом: не раз и не два, а
+десятки прогонов. Поэтому проверять высокорисковое действие должен детерминированный
+код, а не ещё один агент — иначе регрессия «кто проверяет проверщика» бесконечна.
 
-*[Short. Why not a swarm of chatty agents — coordination is where multi-agent systems
-break, and this has to be built, not researched. Why high-risk verification cannot be
-delegated to a second agent.]*
+## Почему такая форма
 
-## The pipeline
+*[Коротко. Почему не рой болтающих агентов — координация это место, где мультиагентные
+системы ломаются, а нам надо строить, а не исследовать. Почему верификацию
+высокорискового действия нельзя отдать второму агенту.]*
 
-*[One line per stage. 01 is the only stage with real, shipped code and is worked
-deeply; 02 sets the template; 03–05 are sketched at altitude.]*
+## Конвейер
 
-| Stage | What it does | Depth here |
+*[Одна строка на стадию. 01 — единственная стадия с реальным рабочим кодом, проработана
+глубоко; 02 задаёт шаблон; 03–05 даны конспективно.]*
+
+| Стадия | Что делает | Глубина здесь |
 |---|---|---|
-| **01 — Client discovery** | *[find + qualify prospects from hard, verifiable signals]* | deep — real shipped code |
-| **02 — Planning** | *[decompose a brief into Python-checkable vs agent-judgment parts]* | template |
-| **03 — Execution** | *[move budget / launch — where money and kill / don't-kill policy live]* | sketch |
-| **04 — Reporting** | *[turn results into segments and cohorts, not averages]* | sketch |
-| **05 — Integration** | *[wire the stages into one runnable, partly-parallel flow]* | sketch |
+| **01 — Client discovery** | *[найти и квалифицировать клиента по жёстким проверяемым сигналам]* | глубоко — реальный код |
+| **02 — Planning** | *[разложить бриф на Python-проверяемое и агентское]* | шаблон |
+| **03 — Execution** | *[двигать бюджет / запускать — тут живут деньги и политика «убивать / не убивать»]* | конспект |
+| **04 — Reporting** | *[результаты в сегменты и когорты, не в средние]* | конспект |
+| **05 — Integration** | *[собрать стадии в один запускаемый, частично параллельный поток]* | конспект |
 
-## The trust ladder
+## Лестница доверия
 
-*[How an agent earns the right to act: backtest on history → shadow mode →
-human-in-the-loop → limited autonomy with auto-rollback. Money and "kill / don't kill"
-decisions appear only at the execution stage (03), as explicit, auditable policy.]*
+*[Как агент зарабатывает право действовать: бэктест на истории → теневой режим →
+human-in-the-loop → ограниченная автономия с автооткатом. Деньги и решения «убивать /
+не убивать» появляются только на стадии execution (03), как явная аудируемая политика.]*
 
-## How to read this repo
+## Как читать этот репозиторий
 
-*[Start at 01 — it carries the real code and the fully-told decisions. Then the root
-boundary idea repeats in every stage: deterministic code = ironclad, agent = judgment,
-human = gate. 03–05 are intentionally short.]*
+*[Начни с 01 — там реальный код и полностью рассказанные решения. Дальше идея границы
+повторяется в каждой стадии: детерминированный код = железобетон, агент = суждение,
+человек = гейт. 03–05 намеренно короткие.]*

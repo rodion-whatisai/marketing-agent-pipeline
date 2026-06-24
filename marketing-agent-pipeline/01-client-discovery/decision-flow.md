@@ -1,14 +1,15 @@
-# Client discovery — decision flow
+# Client discovery — линейка принятия решений
 
-*[Mermaid diagram, filled in Step 3. Keep it a simple left-to-right ladder:
-signal → validation → ironclad fact → gate. No deep nesting. GitHub renders Mermaid
-natively — nothing to install.]*
+*[Mermaid-диаграмма, наполняется на Шаге 3. Держать простой лестницей слева-направо:
+сигнал → валидация → железобетонный факт → гейт. Без глубокой вложенности. Со сноской,
+что флоу может разрастись агентами. GitHub рендерит Mermaid нативно — ставить ничего не
+нужно.]*
 
 ```mermaid
-%% placeholder — replaced in Step 3
+%% placeholder — заменяется на Шаге 3
 flowchart LR
-  A[domain] --> B[signal]
-  B --> C[validation]
-  C --> D[ironclad fact]
-  D --> E{human gate / skip}
+  A[домен] --> B[сигнал]
+  B --> C[валидация]
+  C --> D[железобетонный факт]
+  D --> E{человеческий гейт / skip}
 ```

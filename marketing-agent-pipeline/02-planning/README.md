@@ -1,29 +1,29 @@
 # 02 — Planning
 
-> Turn a prospect's ground-truth facts into a plan — and split that plan into what a
-> deterministic Python check can decide vs what needs an agent's judgment.
+> Превратить железобетонные факты клиента в план — и разложить план на то, что может
+> решить детерминированная Python-проверка, и то, что требует суждения агента.
 
-> **Status:** skeleton (Step 2). Same section format as 01. Prose filled in Step 4.
+> **Статус:** скелет (Шаг 2). Тот же формат секций, что в 01. Текст наполняется на Шаге 4.
 
-## What this stage produces
+## Что эта стадия потребляет и выдаёт
 
-*[The decomposition: a brief → tasks, each tagged "Python-checkable" or "agent-judgment".
-Content comes from the author.]*
+*[Вход: железобетонные факты клиента. Выход: декомпозиция — бриф → задачи, каждая
+помечена «Python-проверяемая» или «агентское суждение». Содержание — от автора.]*
 
-## Code / agent boundary
+## Граница код / агент
 
-*[Which planning steps are deterministic checks (budgets sum, limits hold, constraints
-satisfied) vs which are judgment (creative angle, audience hypothesis). Table, same
-shape as 01.]*
+*[Какие шаги планирования — детерминированные проверки (бюджет сходится, лимиты держатся,
+ограничения выполнены) vs какие — суждение (креативный угол, гипотеза аудитории).
+Таблица, та же форма, что в 01.]*
 
-## Engineering decisions — and how we got here
+## Инженерные решения — и как мы к ним пришли
 
-*[Stubs, filled from the author's input in Step 4.]*
+*[Стабы, наполняются из ввода автора на Шаге 4.]*
 
-## Guardrails & data integrity
+## Guardrails и целостность данных
 
-*[What a deterministic check gates before the plan moves downstream.]*
+*[Что детерминированная проверка гейтит, прежде чем план уйдёт ниже по конвейеру.]*
 
-## Decision flow
+## Decision flow — линейка решений
 
-See [decision-flow.md](decision-flow.md).
+См. [decision-flow.md](decision-flow.md).

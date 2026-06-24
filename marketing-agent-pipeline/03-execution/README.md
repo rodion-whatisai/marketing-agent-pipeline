@@ -1,21 +1,24 @@
 # 03 — Execution
 
-> Launch and move budget. This is the stage where money lives — and where "kill /
-> don't kill" is an explicit, auditable policy rather than an agent's discretion.
+> Запуск и движение бюджета. Это стадия, где живут деньги — и где «убивать / не убивать»
+> это явная аудируемая политика, а не усмотрение агента.
 
-> **Status:** sketch (Step 2). Described at altitude, not deeply worked. Plurio's own
-> execution is strong; this block does not try to surprise there. Prose in Step 4.
+> **Статус:** конспект (Шаг 2). Описано обзорно, без глубокой проработки — эта стадия у
+> зрелых платформ обычно сильна, здесь не пытаюсь удивить. Текст на Шаге 4.
 
-## What this stage does
+## Что делает эта стадия
 
-*[Short. The execution department: budget moves, bid/launch actions.]*
+*[Коротко. Департамент исполнения: движения бюджета, действия по ставкам / запуску.]*
 
-## Code / agent boundary — where the line runs
+## Граница код / агент — где проходит линия
 
-*[High-risk actions (live bid/budget changes) execute deterministically under a human
-gate. The agent proposes; a deterministic guard disposes — e.g. a budget overrun is
-compared in code and soft-gated (extra justification) or hard-blocked (N× over).]*
+*[Высокорисковые действия (живая правка ставок / бюджета) исполняются детерминированно
+под человеческим гейтом. Агент предлагает; детерминированный гард располагает —
+например, превышение бюджета сравнивается в коде и мягко гейтится (требует доп.
+обоснования) или жёстко блокируется (при превышении в N раз). Это и есть guardrail /
+kill switch, реализованный в коде.]*
 
-## Human gate
+## Человеческий гейт
 
-*[What must pass a human or a deterministic guard before real money moves.]*
+*[Что должно пройти человека или детерминированный гард, прежде чем двинутся реальные
+деньги.]*
