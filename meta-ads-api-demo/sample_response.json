@@ -1,0 +1,712 @@
+{
+  "_comment": "ПРИМЕР ответа Meta (level=adset, time_increment=1). Данные = 5 кейсов A-E из 03-execution, по дням. Числа Meta отдаёт строками; purchases/cpa/roas лежат в массивах actions/cost_per_action_type/purchase_roas.",
+  "data": [
+    {
+      "date_start": "2026-06-19",
+      "date_stop": "2026-06-19",
+      "adset_name": "A · winner",
+      "impressions": "42857",
+      "clicks": "1200",
+      "spend": "600.00",
+      "ctr": "2.800009",
+      "cpm": "14.000047",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "30"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "20.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "3.0000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-20",
+      "date_stop": "2026-06-20",
+      "adset_name": "A · winner",
+      "impressions": "42857",
+      "clicks": "1200",
+      "spend": "600.00",
+      "ctr": "2.800009",
+      "cpm": "14.000047",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "30"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "20.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "3.0000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-21",
+      "date_stop": "2026-06-21",
+      "adset_name": "A · winner",
+      "impressions": "41429",
+      "clicks": "1160",
+      "spend": "580.00",
+      "ctr": "2.799971",
+      "cpm": "13.999855",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "29"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "20.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "3.0000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-22",
+      "date_stop": "2026-06-22",
+      "adset_name": "A · winner",
+      "impressions": "42857",
+      "clicks": "1200",
+      "spend": "600.00",
+      "ctr": "2.800009",
+      "cpm": "14.000047",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "30"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "20.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "3.0000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-23",
+      "date_stop": "2026-06-23",
+      "adset_name": "A · winner",
+      "impressions": "42857",
+      "clicks": "1200",
+      "spend": "600.00",
+      "ctr": "2.800009",
+      "cpm": "14.000047",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "30"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "20.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "3.0000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-19",
+      "date_stop": "2026-06-19",
+      "adset_name": "B · bleeding",
+      "impressions": "15000",
+      "clicks": "135",
+      "spend": "300.00",
+      "ctr": "0.900000",
+      "cpm": "20.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "100.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.6600"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-20",
+      "date_stop": "2026-06-20",
+      "adset_name": "B · bleeding",
+      "impressions": "15000",
+      "clicks": "135",
+      "spend": "300.00",
+      "ctr": "0.900000",
+      "cpm": "20.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "100.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.6600"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-21",
+      "date_stop": "2026-06-21",
+      "adset_name": "B · bleeding",
+      "impressions": "15000",
+      "clicks": "135",
+      "spend": "300.00",
+      "ctr": "0.900000",
+      "cpm": "20.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "100.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.6600"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-22",
+      "date_stop": "2026-06-22",
+      "adset_name": "B · bleeding",
+      "impressions": "14500",
+      "clicks": "130",
+      "spend": "290.00",
+      "ctr": "0.896552",
+      "cpm": "20.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "96.67"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.6600"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-23",
+      "date_stop": "2026-06-23",
+      "adset_name": "B · bleeding",
+      "impressions": "15000",
+      "clicks": "135",
+      "spend": "300.00",
+      "ctr": "0.900000",
+      "cpm": "20.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "100.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.6600"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-19",
+      "date_stop": "2026-06-19",
+      "adset_name": "C · learning",
+      "impressions": "2500",
+      "clicks": "48",
+      "spend": "40.00",
+      "ctr": "1.920000",
+      "cpm": "16.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "1"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "40.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.2800"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-20",
+      "date_stop": "2026-06-20",
+      "adset_name": "C · learning",
+      "impressions": "3750",
+      "clicks": "71",
+      "spend": "60.00",
+      "ctr": "1.893333",
+      "cpm": "16.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "1"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "60.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.2800"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-21",
+      "date_stop": "2026-06-21",
+      "adset_name": "C · learning",
+      "impressions": "5000",
+      "clicks": "95",
+      "spend": "80.00",
+      "ctr": "1.900000",
+      "cpm": "16.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "2"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "40.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.2800"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-22",
+      "date_stop": "2026-06-22",
+      "adset_name": "C · learning",
+      "impressions": "5000",
+      "clicks": "95",
+      "spend": "80.00",
+      "ctr": "1.900000",
+      "cpm": "16.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "2"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "40.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.2800"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-23",
+      "date_stop": "2026-06-23",
+      "adset_name": "C · learning",
+      "impressions": "1250",
+      "clicks": "24",
+      "spend": "20.00",
+      "ctr": "1.920000",
+      "cpm": "16.000000",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "0"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "0.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.2800"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-19",
+      "date_stop": "2026-06-19",
+      "adset_name": "D · attribution_trap",
+      "impressions": "15385",
+      "clicks": "338",
+      "spend": "200.00",
+      "ctr": "2.196945",
+      "cpm": "12.999675",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "2"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "100.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.7200"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-20",
+      "date_stop": "2026-06-20",
+      "adset_name": "D · attribution_trap",
+      "impressions": "19231",
+      "clicks": "423",
+      "spend": "250.00",
+      "ctr": "2.199574",
+      "cpm": "12.999844",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "83.33"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.7200"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-21",
+      "date_stop": "2026-06-21",
+      "adset_name": "D · attribution_trap",
+      "impressions": "19231",
+      "clicks": "423",
+      "spend": "250.00",
+      "ctr": "2.199574",
+      "cpm": "12.999844",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "3"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "83.33"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.7200"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-22",
+      "date_stop": "2026-06-22",
+      "adset_name": "D · attribution_trap",
+      "impressions": "30769",
+      "clicks": "677",
+      "spend": "400.00",
+      "ctr": "2.200267",
+      "cpm": "13.000098",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "5"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "80.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.7200"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-23",
+      "date_stop": "2026-06-23",
+      "adset_name": "D · attribution_trap",
+      "impressions": "30769",
+      "clicks": "677",
+      "spend": "400.00",
+      "ctr": "2.200267",
+      "cpm": "13.000098",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "5"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "80.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "0.7200"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-19",
+      "date_stop": "2026-06-19",
+      "adset_name": "E · creative_fatigue",
+      "impressions": "29167",
+      "clicks": "321",
+      "spend": "700.00",
+      "ctr": "1.100559",
+      "cpm": "23.999726",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "18"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "38.89"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.5000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-20",
+      "date_stop": "2026-06-20",
+      "adset_name": "E · creative_fatigue",
+      "impressions": "29167",
+      "clicks": "321",
+      "spend": "700.00",
+      "ctr": "1.100559",
+      "cpm": "23.999726",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "18"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "38.89"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.5000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-21",
+      "date_stop": "2026-06-21",
+      "adset_name": "E · creative_fatigue",
+      "impressions": "28333",
+      "clicks": "312",
+      "spend": "680.00",
+      "ctr": "1.101189",
+      "cpm": "24.000282",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "17"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "40.00"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.5000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-22",
+      "date_stop": "2026-06-22",
+      "adset_name": "E · creative_fatigue",
+      "impressions": "29167",
+      "clicks": "321",
+      "spend": "700.00",
+      "ctr": "1.100559",
+      "cpm": "23.999726",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "18"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "38.89"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.5000"
+        }
+      ]
+    },
+    {
+      "date_start": "2026-06-23",
+      "date_stop": "2026-06-23",
+      "adset_name": "E · creative_fatigue",
+      "impressions": "29167",
+      "clicks": "321",
+      "spend": "700.00",
+      "ctr": "1.100559",
+      "cpm": "23.999726",
+      "actions": [
+        {
+          "action_type": "purchase",
+          "value": "18"
+        }
+      ],
+      "cost_per_action_type": [
+        {
+          "action_type": "purchase",
+          "value": "38.89"
+        }
+      ],
+      "purchase_roas": [
+        {
+          "action_type": "omni_purchase",
+          "value": "1.5000"
+        }
+      ]
+    }
+  ],
+  "paging": {
+    "cursors": {
+      "before": "MAZDZDdjZAZA",
+      "after": "MjUZD3Rnci0Z"
+    },
+    "next": "https://graph.facebook.com/v25.0/act_1234567890/insights?level=adset&fields=date_start%2Cdate_stop%2Cadset_name%2Cimpressions%2Cclicks%2Cspend%2Cctr%2Ccpm%2Cactions%2Ccost_per_action_type%2Cpurchase_roas&time_increment=1&limit=100&after=MjUZD3Rnci0Z&access_token=REDACTED"
+  }
+}
