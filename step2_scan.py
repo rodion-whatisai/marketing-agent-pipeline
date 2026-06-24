@@ -172,7 +172,8 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
 
             has_any_pixel  = bool(result["pixel_events"])
             has_shopify_px = bool(result.get("shopify_pixel_platforms"))
-            has_tracking   = has_any_pixel or has_shopify_px
+            has_pixel_id   = bool(result.get("pixel_ids"))          # пиксель пойман по ID (presence — работает в headless)
+            has_tracking   = has_any_pixel or has_shopify_px or has_pixel_id
             has_conv       = bool(result["conversion_events_found"])
             has_cta        = bool(result.get("cta_elements")) or result.get("has_iframe_form", False)
             cta_elements   = result.get("cta_elements", [])
@@ -190,7 +191,19 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 has_serverside_scheduler = any(
                     svc in external for svc in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")
                 )
-                if platform == "shopify" and has_serverside_scheduler:
+                # Пиксель пойман по ID, но НИ одного события — типично для Meta в headless
+                # (beacon подавлён). Не врём «сломано»: пиксель есть, срабатывание не проверяемо.
+                pixel_present_no_events = has_pixel_id and not has_any_pixel and not has_shopify_px
+                if pixel_present_no_events:
+                    ids_str = "; ".join(f"{p}: {', '.join(ids)}" for p, ids in result.get("pixel_ids", {}).items())
+                    result["status"] = "⚠️ пиксель установлен, событие в headless не проверено"
+                    result["unverified_reason"] = (
+                        f"Пиксель(и) обнаружен(ы) по ID ({ids_str}), но конверсионных событий "
+                        f"в headless-скане не зафиксировано (Meta-beacon в headless подавляется — "
+                        f"типичный случай). Требуется headed-проверка срабатывания."
+                    )
+                    unverified_pages.append(result)
+                elif platform == "shopify" and has_serverside_scheduler:
                     svc_names = [s for s in external if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
                     result["status"] = f"⚠️ форма бронирования обнаружена ({', '.join(svc_names)}). Конверсионное событие при загрузке страницы не зафиксировано."
                     unverified_pages.append(result)
@@ -247,6 +260,13 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             if len(plat_parts) > 3:
                 print(f"                 {'   '.join(plat_parts[3:])}")
             print()
+
+            # Пиксели, пойманные по ID (presence) + предупреждение о дублях (жёлтая зона)
+            if result.get("pixel_ids"):
+                ids_str = " | ".join(f"{p}: {', '.join(ids)}" for p, ids in result["pixel_ids"].items())
+                print(f"  🔵 Пиксели по ID: {ids_str}")
+            if result.get("duplicate_pixels"):
+                print(f"  ⚠️  ДУБЛЬ ПИКСЕЛЯ: {', '.join(result['duplicate_pixels'])} — найдено >1 ID одной платформы. Возможна дублирующая установка → двойной счёт событий. Проверить вручную.")
 
             fired_events = [(ev, plat) for plat, info in active_platforms.items()
                             for ev in info["events"] + info["noise"]]
