@@ -21,9 +21,9 @@
 1. **Невиновность.** Атрибуция не дозрела → `hold` (wait, авто). Сайт-диссонанс (CTR↑/CVR↓)
    или сток → **сначала прогон сканером 01** → если подтвердил → `send_to_human`.
 2. **Learning.** `learning` → `hold` (не трогаем).
-3. **Эффективность.** CPA ≤ target + utility ≥ 1 + бюджет выбирается → `scale` +20%. Плохой
-   (CPA > target) → диагностика: CTR↓/CVR ок → креатив → `send_to_human`; выгорел по reach →
-   `pause_candidate`.
+3. **Эффективность.** CPA ≤ target + utility ≥ 1 + бюджет выбирается → `scale` +20% (reserved-гард:
+   при **CBO/Advantage+** ad-set scale подавляется → campaign-level). Плохой (CPA > target) →
+   диагностика: CTR↓/CVR ок → креатив → `send_to_human`; выгорел по reach → `pause_candidate`.
 
 Сигналы с малыми данными гасятся (confidence) — фреш-learner не уходит к человеку по шуму.
 
@@ -43,7 +43,7 @@
 ```
 cd 03-execution/engine
 python policy.py        # лог решений по 5 ad set
-python -m pytest -q     # 6 проверок  (нужен: pip install pytest)
+python -m pytest -q     # 8 проверок  (нужен: pip install pytest)
 ```
 
 ## Лог демо (5 ad set)
@@ -53,7 +53,7 @@ python -m pytest -q     # 6 проверок  (нужен: pip install pytest)
 | **A** winner | `scale` +20% | python-resolver | CPA $20 ≤ target, utility 1.79, бюджет выбирается |
 | **B** bleeding | `send_to_human` | human | CTR↓ / CVR ок → креатив (новые / выключить low-CTR) |
 | **C** learning | `hold` | python (auto) | learning — не трогаем |
-| **D** attribution | `send_to_human` | сканер 01 → human | сайт/сток подтверждён сканером |
+| **D** attribution | `hold` | python (auto-wait) | атрибуция не дозрела → wait (не судим свежий спенд) |
 | **E** fatigue | `send_to_human` | human | CTR↓ / CVR ок → креатив (усталость) |
 
 ## Их 9 критериев → где в коде

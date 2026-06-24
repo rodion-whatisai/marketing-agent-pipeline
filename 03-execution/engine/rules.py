@@ -12,6 +12,14 @@
 import meta_api
 from schema import Rule
 
+RESERVED = [   # ОБЯЗАТЕЛЬНЫЕ гард-правила: всегда включены, не кандидаты, не отключаются и
+               # не «промоутятся» — это инварианты движка, проверяются кодом всегда.
+    Rule("cbo_no_adset_budget",
+         "CBO / Advantage+ → бюджет двигаем на уровне КАМПАНИИ, не ad set", "reserved", "campaign",
+         "не трогали ad-set-бюджет там, где им управляет CBO (Meta перераспределит сама)",
+         "python"),
+]
+
 # Что ЧИТАЕМ на входе (данные есть — комбинируем пока частично). См. meta_api.fetch_adset_config.
 INTAKE_FIELDS = [
     "Advantage+ (вкл/выкл)", "CBO / ABO", "bid strategy (lowest_cost / cost_cap / roas_goal)",
@@ -56,6 +64,9 @@ if __name__ == "__main__":
     print("ЧИТАЕМ про ad set:", " · ".join(INTAKE_FIELDS))
     print(f"  пример конфига: Advantage+={cfg.advantage_plus} · {cfg.budget_optimization} · "
           f"bid={cfg.bid_strategy} · cost_cap=${cfg.cost_cap:.0f} · окно={cfg.attribution_setting}")
+    print(f"\nReserved (обязательные инварианты, всегда вкл): {len(RESERVED)}")
+    for r in RESERVED:
+        print(f"  ⛔ {r.name} [{r.applies_to}] — {r.success_case}")
     print(f"\nПОСТОЯННЫЕ правила в иерархии (policy.decide): {len(PROMOTED)}")
     for r in PROMOTED:
         print(f"  ✓ {r.name} [{r.applies_to}] · валид: {r.validated_by}")

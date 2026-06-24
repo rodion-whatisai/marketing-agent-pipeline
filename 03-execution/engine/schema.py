@@ -78,6 +78,7 @@ class CampaignState:
     actual_result: int
     days_elapsed: int
     days_total: int
+    budget_mode: str = "ABO"   # "ABO" (бюджет на ad set) | "CBO"/Advantage+ (на кампании)
 
 
 @dataclass

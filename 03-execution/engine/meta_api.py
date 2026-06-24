@@ -64,6 +64,7 @@ def fetch_adset_config(adset_id: str) -> AdSetConfig:
 
 
 def fetch_campaign(campaign_id: str) -> CampaignState:
-    """Real: GET /{campaign_id}?fields=daily_budget,... + /insights. План — из стадии 02."""
-    # STUB
-    return CampaignState("camp_1", 30.0, 60000, 2000, 14780, 412, 8, 30)
+    """Real: GET /{campaign_id}?fields=daily_budget,budget_optimization,... + /insights. План — из 02."""
+    # STUB. budget_mode=ABO → бюджет на уровне ad set (scale ad-set применим).
+    # При CBO/Advantage+ reserved-гард в policy подавил бы ad-set scale (бюджет на кампании).
+    return CampaignState("camp_1", 30.0, 60000, 2000, 14780, 412, 8, 30, budget_mode="ABO")

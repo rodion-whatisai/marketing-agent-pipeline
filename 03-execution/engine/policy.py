@@ -21,6 +21,14 @@ def decide(a: AdSet, sigs: dict, c: CampaignState):
     trace = []
 
     # ── Gate 1 — невиновность ─────────────────────────────────────────────
+    # Атрибуция ПЕРВОЙ: незрелое окно даёт CVR↓, который иначе ложно читается как
+    # «проблема сайта» и уводит в site-скан до того, как мы вообще узнали правду.
+    # Кейс D (ловушка атрибуции) обязан холдиться здесь, а не идти в сайт-диссонанс.
+    if sigs["attribution"].value == "immature":
+        trace.append("g1: атрибуция не дозрела → wait (до site-диагностики не доходим)")
+        return (Decision(a.id, "hold", "attribution не дозрело — wait, не судим свежий спенд"),
+                trace, "python (auto-wait)")
+    # Только при ЗРЕЛОМ окне мягкий сайт-диссонанс (CTR↑/CVR↓) или сток → скан 01.
     if sigs["dissonance"].value == "site" or not a.anchor_in_stock:
         trace.append("g1: подозрение сайт/сток → прогон сканером 01")
         scan = signals.site_scan_stub(a)
@@ -28,10 +36,6 @@ def decide(a: AdSet, sigs: dict, c: CampaignState):
             return (Decision(a.id, "send_to_human",
                              "сайт/сток подтверждён сканером 01 → ручной разбор"),
                     trace, "human")
-    if sigs["attribution"].value == "immature":
-        trace.append("g1: атрибуция не дозрела")
-        return (Decision(a.id, "hold", "attribution не дозрело — wait, не судим свежий спенд"),
-                trace, "python (auto-wait)")
     trace.append("g1: невиновность чиста")
 
     # ── Gate 2 — learning ─────────────────────────────────────────────────
@@ -44,6 +48,14 @@ def decide(a: AdSet, sigs: dict, c: CampaignState):
     # ── Gate 3 — эффективность ────────────────────────────────────────────
     if (a.cpa <= c.kpi_cpa_target and sigs["utility"].value >= 1.0
             and sigs["budget"].value == "выбирает"):
+        # RESERVED-гард (обязательный, rules.RESERVED): при CBO/Advantage+ бюджет живёт
+        # на УРОВНЕ КАМПАНИИ — двигать бюджет ad set бесполезно (Meta перераспределит сама).
+        # Scale ad-set-бюджета применим только при ABO.
+        if getattr(c, "budget_mode", "ABO") == "CBO":
+            return (Decision(a.id, "send_to_human",
+                             "эффективен, но кампания на CBO → бюджет двигаем на уровне "
+                             "кампании, ad-set scale неприменим"),
+                    trace, "human (campaign-level)")
         return (Decision(a.id, "scale",
                          f"CPA ${a.cpa:.0f} ≤ target, utility {sigs['utility'].value}, "
                          f"бюджет выбирается → +20%"),
