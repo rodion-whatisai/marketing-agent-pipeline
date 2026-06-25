@@ -1,0 +1,64 @@
+{
+  "streams": {
+    "performance": {
+      "handler": "engine/policy.py",
+      "what": "CPA · ROAS · корзина · scale/kill/hold"
+    },
+    "lead_gen": {
+      "handler": "attention-needed/attention_needed.py",
+      "what": "CPL vs бенчмарк города · триаж AttentionNeeded"
+    },
+    "out_of_scope": {
+      "handler": "—",
+      "what": "не performance и не lead-gen — execution не трогает"
+    },
+    "unknown": {
+      "handler": "—",
+      "what": "objective не распознан — в очередь человеку"
+    }
+  },
+  "routed": [
+    {
+      "campaign": "Ecomm_Store_Purchases_Q3",
+      "objective": "OUTCOME_SALES",
+      "stream": "performance",
+      "handler": "engine/policy.py"
+    },
+    {
+      "campaign": "Photo_Studio_Leads_7cities",
+      "objective": "OUTCOME_LEADS",
+      "stream": "lead_gen",
+      "handler": "attention-needed/attention_needed.py"
+    },
+    {
+      "campaign": "Legacy_Conversions_Catalog",
+      "objective": "CONVERSIONS",
+      "stream": "performance",
+      "handler": "engine/policy.py"
+    },
+    {
+      "campaign": "Legacy_LeadGen_Form",
+      "objective": "LEAD_GENERATION",
+      "stream": "lead_gen",
+      "handler": "attention-needed/attention_needed.py"
+    },
+    {
+      "campaign": "Brand_Awareness_Launch",
+      "objective": "OUTCOME_AWARENESS",
+      "stream": "out_of_scope",
+      "handler": "—"
+    },
+    {
+      "campaign": "Reels_Engagement_Boost",
+      "objective": "OUTCOME_ENGAGEMENT",
+      "stream": "out_of_scope",
+      "handler": "—"
+    },
+    {
+      "campaign": "Mystery_Objective",
+      "objective": "OUTCOME_WHATEVER",
+      "stream": "unknown",
+      "handler": "—"
+    }
+  ]
+}
