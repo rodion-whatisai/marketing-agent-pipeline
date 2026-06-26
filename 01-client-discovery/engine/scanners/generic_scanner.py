@@ -9,10 +9,13 @@ from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services
 )
 from .wordpress_scanner import _detect_cta_elements as _fallback_cta_detector
+from log import log_debug, log_warn
 
 
 def scan_page(page, url: str, page_type: str, expect_events: list,
               cta_detector_fn=None, platform: str = "unknown") -> dict:
+
+    log_debug(f"scan_page: start url={url} page_type={page_type} platform={platform}")
 
     pixel_events     = {}
     pixel_ids        = {}
@@ -31,34 +34,46 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     page.on("request", on_request_extended)
     page.on("response", on_response)
+    log_debug(f"scan_page: listeners attached, navigating to {url}")
 
     errors = []
     try:
+        log_debug(f"scan_page: goto attempt 1 (timeout=20000) url={url}")
         page.goto(url, wait_until="domcontentloaded", timeout=20000)
         page.wait_for_timeout(1500)
     except Exception as e:
+        log_debug(f"scan_page: goto attempt 1 failed, retrying ({url}): {e}")
         try:
+            log_debug(f"scan_page: goto attempt 2 (timeout=10000) url={url}")
             page.goto(url, wait_until="domcontentloaded", timeout=10000)
             page.wait_for_timeout(1000)
         except Exception as e2:
+            log_warn(f"scan_page: navigation failed for {url}: {str(e2)[:100]}")
             errors.append(str(e2)[:100])
 
     try:
+        log_debug(f"scan_page: capturing page content for {url}")
         main_html = page.content()
         all_html_parts.append(main_html)
-    except Exception:
+    except Exception as e:
+        log_debug(f"scan_page: page.content() failed for {url}: {e}")
         main_html = ""
 
     if cta_detector_fn is not None:
+        log_debug(f"scan_page: using provided cta_detector_fn for {url}")
         cta_elements = cta_detector_fn(page, platform=platform)
     else:
+        log_debug(f"scan_page: no cta_detector_fn, using fallback CTA detector for {url}")
         cta_elements = _fallback_cta_detector(page)
+    log_debug(f"scan_page: detected {len(cta_elements)} CTA element(s) for {url}")
 
     page.remove_listener("request", on_request_extended)
     page.remove_listener("response", on_response)
+    log_debug(f"scan_page: listeners removed, {len(request_urls_all)} requests captured for {url}")
 
     combined_html = "\n".join(all_html_parts)
 
+    log_debug(f"scan_page: running base_scan_page for {url}")
     result = base_scan_page(
         page, url, page_type, expect_events,
         platform=platform,
@@ -81,10 +96,14 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     has_conv = bool(result["conversion_events_found"])
 
     if has_conv:
+        log_debug(f"scan_page: {url} → status OK (conversion event found)")
         result["status"] = "✅ OK"
     elif has_cta:
+        log_debug(f"scan_page: {url} → status GAP (CTA present, no conversion event)")
         result["status"] = "🚨 GAP"
     else:
+        log_debug(f"scan_page: {url} → status NO CTA")
         result["status"] = "➖ NO CTA"
 
+    log_debug(f"scan_page: done url={url} status={result['status']}")
     return result

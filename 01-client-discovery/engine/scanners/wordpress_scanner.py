@@ -13,6 +13,7 @@ WordPress Scanner
 from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services
 )
+from log import log_info, log_debug
 
 # Internal WordPress analytics — не рекламные пиксели
 WORDPRESS_NOISE_DOMAINS = ["pixel.wp.com"]
@@ -227,50 +228,63 @@ def _detect_iframe_forms(page) -> tuple[bool, list]:
     Ищет cross-origin iframe формы на странице.
     Возвращает (has_iframe_form, [список провайдеров]).
     """
+    log_debug("_detect_iframe_forms: start — ищем cross-origin iframe формы")
     try:
         iframes = page.query_selector_all("iframe")
+        log_debug(f"_detect_iframe_forms: найдено iframe на странице: {len(iframes)}")
         found = []
         for iframe in iframes:
             src = iframe.get_attribute("src") or ""
             for provider in IFRAME_FORM_PROVIDERS:
                 if provider in src:
-                    found.append(provider.split(".")[0])  # "jotform", "typeform" etc.
+                    label = provider.split(".")[0]  # "jotform", "typeform" etc.
+                    log_debug(f"_detect_iframe_forms: матч провайдера '{provider}' в src → {label}")
+                    found.append(label)
                     break
+        log_debug(f"_detect_iframe_forms: итог has_iframe_form={bool(found)}, провайдеры={found}")
         return bool(found), found
-    except Exception:
+    except Exception as e:
+        log_debug(f"_detect_iframe_forms: исключение при опросе iframe: {e}")
         return False, []
 
 
 def _detect_cta_elements(page) -> list:
     """JS-based CTA detection для WordPress."""
+    log_debug("_detect_cta_elements: start — запускаем _WP_CTA_JS через page.evaluate")
     try:
         result = page.evaluate(_WP_CTA_JS)
         ctas = result.get("ctas", [])
         debug = result.get("debug", {})
+        log_debug(f"_detect_cta_elements: получено ctas={len(ctas)}, mainZone={debug.get('mainZone')}, totalCandidates={debug.get('totalCandidates', 0)}")
 
         if not ctas:
             main_zone = debug.get("mainZone")
             total = debug.get("totalCandidates", 0)
             rejected = debug.get("rejected", [])
+            log_debug(f"_detect_cta_elements: ctas пуст — ветка диагностики отклонённых (total={total}, rejected={len(rejected)})")
             if total > 0:
-                print(f"       ℹ️  CTA: 0 после фильтрации (кандидатов: {total}, main: {main_zone})")
+                log_info(f"       CTA: 0 после фильтрации (кандидатов: {total}, main: {main_zone})")
                 for r in rejected[:5]:
                     reason = r.get("reason", "?")
                     text = r.get("text", "")
                     if reason == "isInNoise":
-                        print(f"         ✗ [{reason}] '{text}' → предок: {r.get('ancestor')}")
+                        log_debug(f"         ✗ [{reason}] '{text}' → предок: {r.get('ancestor')}")
                     elif reason == "notVisible":
-                        print(f"         ✗ [{reason}] '{text}' → display:{r.get('display')} vis:{r.get('visibility')} op:{r.get('opacity')} w:{r.get('w')} h:{r.get('h')}")
+                        log_debug(f"         ✗ [{reason}] '{text}' → display:{r.get('display')} vis:{r.get('visibility')} op:{r.get('opacity')} w:{r.get('w')} h:{r.get('h')}")
                     else:
-                        print(f"         ✗ [{reason}] '{text}'")
+                        log_debug(f"         ✗ [{reason}] '{text}'")
 
+        log_debug(f"_detect_cta_elements: возвращаем top-8 текстов CTA (всего {len(ctas)})")
         return [c["text"] for c in ctas][:8]
     except Exception as e:
+        log_debug(f"_detect_cta_elements: исключение при evaluate/parse CTA: {e}")
         return []
 
 
 def scan_page(page, url: str, page_type: str, expect_events: list,
               platform: str = "wordpress") -> dict:
+
+    log_debug(f"scan_page: start url={url} page_type={page_type} platform={platform} expect_events={expect_events}")
 
     pixel_events     = {}
     pixel_ids        = {}
@@ -289,6 +303,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
         req_url = request.url
         # Фильтруем WordPress internal pixels
         if any(d in req_url for d in WORDPRESS_NOISE_DOMAINS):
+            log_debug(f"on_request: пропускаем WordPress internal pixel — {req_url}")
             return
         request_urls_all.append(req_url)
         on_request_base(request)
@@ -299,6 +314,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     errors = []
 
     # Jotform postMessage listener — вешаем ДО загрузки страницы
+    log_debug("scan_page: вешаем Jotform/Typeform postMessage listener (до goto)")
     try:
         page.evaluate("""
             window.__tnc_iframe_submitted = false;
@@ -323,20 +339,24 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
                 }
             });
         """)
-    except Exception:
-        pass
+    except Exception as e:
+        log_debug(f"scan_page: не удалось повесить postMessage listener: {e}")
 
+    log_debug(f"scan_page: goto {url} (попытка 1, timeout=20000)")
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=20000)
         page.wait_for_timeout(2500)
     except Exception as e:
+        log_debug(f"scan_page: goto попытка 1 не удалась ({e}) — повтор с timeout=10000")
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=10000)
             page.wait_for_timeout(1500)
         except Exception as e2:
+            log_debug(f"scan_page: goto попытка 2 тоже не удалась: {e2}")
             errors.append(str(e2)[:100])
 
     # Scroll — запускаем lazy-load Elementor виджетов и WPForms
+    log_debug("scan_page: scroll-проход (lazy-load Elementor/WPForms)")
     try:
         page.evaluate("window.scrollTo(0, document.body.scrollHeight * 0.3)")
         page.wait_for_timeout(400)
@@ -346,19 +366,23 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
         page.wait_for_timeout(600)
         page.evaluate("window.scrollTo(0, 0)")
         page.wait_for_timeout(300)
-    except Exception:
-        pass
+    except Exception as e:
+        log_debug(f"scan_page: scroll-проход прерван исключением: {e}")
 
     # Ждём WPForms submit кнопку если есть WPForms на странице
+    log_debug("scan_page: ждём .wpforms-submit (timeout=2000)")
     try:
         page.wait_for_selector(".wpforms-submit", timeout=2000)
-    except Exception:
-        pass
+        log_debug("scan_page: .wpforms-submit найден — WPForms присутствует")
+    except Exception as e:
+        log_debug(f"scan_page: .wpforms-submit не появился (нет WPForms или timeout): {e}")
 
     try:
         main_html = page.content()
         all_html_parts.append(main_html)
-    except Exception:
+        log_debug(f"scan_page: page.content() получен, длина HTML={len(main_html)}")
+    except Exception as e:
+        log_debug(f"scan_page: page.content() упал — main_html='' : {e}")
         main_html = ""
 
     # Detect iframe forms
@@ -366,6 +390,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     # CTA detection
     cta_elements = _detect_cta_elements(page)
+    log_debug(f"scan_page: CTA detection → {len(cta_elements)} текстов; iframe_forms={iframe_providers}")
 
     page.remove_listener("request", on_request)
     page.remove_listener("response", on_response)
@@ -400,12 +425,17 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     has_cta = result["has_cta"]
     has_conv = bool(result["conversion_events_found"])
+    log_debug(f"scan_page: статус-решение — has_cta={has_cta}, has_conv={has_conv}")
 
     if has_conv:
+        log_debug("scan_page: ветка has_conv → статус ✅ OK")
         result["status"] = "✅ OK"
     elif has_cta:
+        log_debug("scan_page: ветка has_cta (без conv) → статус 🚨 GAP")
         result["status"] = "🚨 GAP"
     else:
+        log_debug("scan_page: нет CTA и нет conv → статус ➖ NO CTA")
         result["status"] = "➖ NO CTA"
 
+    log_debug(f"scan_page: done url={url} → status={result['status']}")
     return result

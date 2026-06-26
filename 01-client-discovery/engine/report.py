@@ -18,6 +18,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from utils import get_scan_dir, scan_path
+from log import log_warn, log_error, log_debug
 
 
 
@@ -55,8 +56,11 @@ NOISE_EVENTS = {
 
 
 def load(path: str) -> dict:
+    log_debug(f"load: start path={path}")
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+    log_debug(f"load: loaded {len(data)} top-level keys from {path}")
+    return data
 
 
 def is_standard_conversion(platform: str, event: str) -> bool:
@@ -87,6 +91,7 @@ def analyze_platform_data(all_pages: list) -> dict:
     - кастомные события
     - шум
     """
+    log_debug(f"analyze_platform_data: start pages={len(all_pages)}")
     platforms = {}
 
     for page in all_pages:
@@ -129,6 +134,7 @@ def analyze_platform_data(all_pages: list) -> dict:
         platforms[p]["standard_conversions"] = sorted(platforms[p]["standard_conversions"])
         platforms[p]["custom_events"] = sorted(platforms[p]["custom_events"])
 
+    log_debug(f"analyze_platform_data: done platforms={list(platforms.keys())}")
     return platforms
 
 
@@ -136,6 +142,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
     """
     Строит рекомендации динамически на основе реальных данных.
     """
+    log_debug(f"build_recommendations: start base_url={base_url} platforms={list(platforms.keys())} gaps={len(gap_pages)}")
     recs = []
     domain = urlparse(base_url).netloc
 
@@ -151,8 +158,10 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
         custom = meta["custom_events"]
         coverage = meta["pages_fired"]
         total = meta["total_pages"]
+        log_debug(f"build_recommendations: Meta std_conv={std_conv} custom={custom} coverage={coverage}/{total}")
 
         if not std_conv and not custom:
+            log_debug("build_recommendations: Meta — пиксель грузится, событий нет (priority 1)")
             recs.append({
                 "priority": 1,
                 "platform": "Meta Pixel",
@@ -162,6 +171,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
                 "action": _suggest_meta_events(gap_by_type),
             })
         elif not std_conv and custom:
+            log_debug("build_recommendations: Meta — только кастомные события (priority 2)")
             recs.append({
                 "priority": 2,
                 "platform": "Meta Pixel",
@@ -174,6 +184,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
             # Есть конверсии — смотрим чего не хватает
             missing = [e for e in ["Purchase", "Lead", "InitiateCheckout", "ViewContent"]
                       if not any(e.lower() in s.lower() for s in std_conv)]
+            log_debug(f"build_recommendations: Meta — есть конверсии, missing={missing}")
             if missing:
                 recs.append({
                     "priority": 3,
@@ -188,6 +199,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
     gtm_ga_events = (gtm or {}).get("gtm_conversion_events", {}).get("GA4", [])
     gtm_has_ga = "Google Analytics GA4" in (gtm or {}).get("all_platforms", [])
     gtm_has_sgtm = (gtm or {}).get("has_sgtm", False)
+    log_debug(f"build_recommendations: GA present={bool(ga)} gtm_has_ga={gtm_has_ga} gtm_ga_events={gtm_ga_events} sgtm={gtm_has_sgtm}")
 
     if ga:
         std_conv = ga["standard_conversions"]
@@ -241,6 +253,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
     gads = platforms.get("Google Ads", {})
     gtm_has_gads = "Google Ads" in (gtm or {}).get("all_platforms", [])
     gtm_gads_id = (gtm or {}).get("all_ids", {}).get("Google Ads", [])
+    log_debug(f"build_recommendations: Google Ads present={bool(gads)} gtm_has_gads={gtm_has_gads} gads_id={gtm_gads_id}")
 
     if gads:
         if not gads["standard_conversions"]:
@@ -301,6 +314,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
     # ── Gap страницы с высоким приоритетом ───────────────────────
     critical_gaps = [p for p in gap_pages
                      if p["page_type"] in ("booking_confirm", "checkout", "quote", "lead_form")]
+    log_debug(f"build_recommendations: critical_gaps={len(critical_gaps)}")
     if critical_gaps:
         paths = [p["path"] for p in critical_gaps[:3]]
         recs.append({
@@ -311,6 +325,7 @@ def build_recommendations(platforms: dict, gap_pages: list, base_url: str, gtm: 
             "action": "Приоритет №1: добавить события на эти страницы",
         })
 
+    log_debug(f"build_recommendations: done recs={len(recs)}")
     return sorted(recs, key=lambda x: x["priority"])
 
 
@@ -360,15 +375,19 @@ PLATFORM_ICONS = {
 def load_gtm_data(domain: str) -> dict:
     """Пробует загрузить GTM данные для домена."""
     import os
+    log_debug(f"load_gtm_data: start domain={domain}")
     gtm_file = f"gtm_{domain}.json"
     if os.path.exists(gtm_file):
+        log_debug(f"load_gtm_data: найден {gtm_file}")
         with open(gtm_file, "r", encoding="utf-8") as f:
             return json.load(f)
+    log_debug(f"load_gtm_data: {gtm_file} нет — пусто")
     return {}
 
 
 def merge_gtm_insights(gtm_data: dict) -> dict:
     """Извлекает ключевые инсайты из GTM данных."""
+    log_debug(f"merge_gtm_insights: start containers={list(gtm_data.keys())}")
     insights = {
         "containers": [],
         "all_platforms": set(),
@@ -392,10 +411,12 @@ def merge_gtm_insights(gtm_data: dict) -> dict:
         if "CAPI hints" in problems:
             insights["has_capi"] = True
     insights["all_platforms"] = list(insights["all_platforms"])
+    log_debug(f"merge_gtm_insights: done platforms={insights['all_platforms']} sgtm={insights['has_sgtm']} capi={insights['has_capi']}")
     return insights
 
 
 def print_report(data: dict, gtm_data: dict = None):
+    log_debug(f"print_report: start base_url={data.get('base_url', '')} gtm_data_passed={gtm_data is not None}")
     all_pages = data.get("all_pages", data.get("gap_pages", []))
     gap_pages  = data.get("gap_pages", [])
     ok_pages   = data.get("ok_pages", [])
@@ -418,6 +439,7 @@ def print_report(data: dict, gtm_data: dict = None):
     # NO TRACKING — особый случай
     no_tracking = data.get("no_tracking", 0)
     is_no_tracking = no_tracking > 0 and not platforms and not gtm
+    log_debug(f"print_report: total={total} gaps={n_gaps} oks={n_oks} nocta={n_nocta} is_no_tracking={is_no_tracking}")
 
     print(f"\n{'═' * 65}")
     print(f"  TRACKING AUDIT REPORT")
@@ -708,7 +730,7 @@ if __name__ == "__main__":
         log.set_level("DEBUG")
         sys.argv = [a for a in sys.argv if a != "--debug"]  # убрать из позиционных
     if len(sys.argv) < 2:
-        print("Usage: python report.py step2_<domain>.json [gtm_<domain>.json] [--debug]")
+        log_error("Usage: python report.py step2_<domain>.json [gtm_<domain>.json] [--debug]")
         sys.exit(1)
 
     data = load(sys.argv[1])
@@ -738,7 +760,7 @@ if __name__ == "__main__":
         from generate_report_html import run as generate_html_report
         generate_html_report(sys.argv[1])
     except Exception as e:
-        print(f"  ⚠️  HTML репорт не сгенерирован: {e}")
+        log_warn(f"HTML репорт не сгенерирован: {e}")
 
     # Хинт — общий лог
     _d3 = urlparse(data.get("base_url", "")).netloc

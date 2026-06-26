@@ -21,6 +21,7 @@ from utils import get_scan_dir, scan_path
 
 
 from utils import HEADERS
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
 
 
 # ─── Поиск GTM ID ─────────────────────────────────────────────────────────────
@@ -33,14 +34,18 @@ def find_gtm_ids(base_url: str) -> list:
     G-         = GA4 Measurement ID (прямой тег, без GTM)
     AW-        = Google Ads (прямой тег)
     """
+    log_debug(f"find_gtm_ids: start base_url={base_url}")
     ids = set()
     try:
+        log_debug(f"find_gtm_ids: GET {base_url} (timeout=15)")
         r = requests.get(base_url, headers=HEADERS, timeout=15)
         html = r.text
+        log_debug(f"find_gtm_ids: status={r.status_code} html_len={len(html)}")
 
         # GTM-XXXXX и GT-XXXXX — контейнеры
         for f in re.findall(r'(?:GTM|GT)-[A-Z0-9]+', html):
             if re.match(r'^(?:GTM|GT)-[A-Z0-9]{4,}$', f):
+                log_debug(f"find_gtm_ids: matched GTM/GT container id={f}")
                 ids.add(f)
 
         # G-XXXXXXX — GA4 Measurement ID (прямой gtag.js)
@@ -49,14 +54,19 @@ def find_gtm_ids(base_url: str) -> list:
         for f in re.findall(r'(?<=["\' ])(G-[A-Z0-9]{6,12})(?=["\' ])', html):
             # Фильтруем CSS/JS переменные — реальный ID не содержит только буквы
             if re.search(r'[0-9]', f):  # должна быть хотя бы одна цифра
+                log_debug(f"find_gtm_ids: matched GA4 id={f}")
                 ids.add(f)
+            else:
+                log_debug(f"find_gtm_ids: skipped G- candidate (no digit) id={f}")
 
         # AW-XXXXXXXXX — Google Ads Conversion ID (прямой gtag.js)
         for f in re.findall(r'AW-[0-9]{7,}', html):
+            log_debug(f"find_gtm_ids: matched Google Ads id={f}")
             ids.add(f)
 
     except Exception as e:
-        print(f"  ⚠️ Ошибка при загрузке сайта: {e}")
+        log_warn(f"Ошибка при загрузке сайта: {e}")
+    log_debug(f"find_gtm_ids: done, found {len(ids)} ids")
     return list(ids)
 
 
@@ -66,10 +76,12 @@ def find_tag_ids_in_page(page) -> list:
     Смотрит в window.dataLayer, document.scripts и window объект.
     Используется в Step 2 вместо requests-based find_gtm_ids().
     """
+    log_debug("find_tag_ids_in_page: start (Playwright page)")
     import re as _re
     ids = set()
     try:
         # Достаём всё что есть в DOM — скрипты + dataLayer
+        log_debug("find_tag_ids_in_page: evaluating DOM scripts + dataLayer")
         js_result = page.evaluate("""
         () => {
             const texts = [];
@@ -92,20 +104,26 @@ def find_tag_ids_in_page(page) -> list:
 
         # GTM-XXXXX и GT-XXXXX
         for f in _re.findall(r'(?:GTM|GT)-[A-Z0-9]{4,}', js_result):
+            log_debug(f"find_tag_ids_in_page: matched GTM/GT container id={f}")
             ids.add(f)
 
         # G-XXXXXXX (GA4) — требуем цифру
         for f in _re.findall(r'G-[A-Z0-9]{6,12}', js_result):
             if _re.search(r'[0-9]', f):
+                log_debug(f"find_tag_ids_in_page: matched GA4 id={f}")
                 ids.add(f)
+            else:
+                log_debug(f"find_tag_ids_in_page: skipped G- candidate (no digit) id={f}")
 
         # AW-XXXXXXXXX (Google Ads)
         for f in _re.findall(r'AW-[0-9]{7,}', js_result):
+            log_debug(f"find_tag_ids_in_page: matched Google Ads id={f}")
             ids.add(f)
 
     except Exception as e:
-        pass
+        log_debug(f"find_tag_ids_in_page: page.evaluate failed: {e}")
 
+    log_debug(f"find_tag_ids_in_page: done, found {len(ids)} ids")
     return list(ids)
 
 
@@ -116,14 +134,17 @@ def download_gtm_container(gtm_id: str) -> dict | None:
     Скачивает GTM контейнер и извлекает JSON конфигурацию.
     GTM публично отдаёт контейнер по стандартному URL.
     """
+    log_debug(f"download_gtm_container: start gtm_id={gtm_id}")
     url = f"https://www.googletagmanager.com/gtm.js?id={gtm_id}"
     try:
+        log_debug(f"download_gtm_container: GET {url} (timeout=15)")
         r = requests.get(url, headers=HEADERS, timeout=15)
         if r.status_code != 200:
-            print(f"  ❌ GTM вернул статус {r.status_code}")
+            log_error(f"GTM вернул статус {r.status_code}")
             return None
 
         js = r.text
+        log_debug(f"download_gtm_container: status=200 js_len={len(js)}")
 
         # GTM прячет конфигурацию в переменную data внутри JS
         # Ищем JSON объект с ключами "resource" или "version"
@@ -135,34 +156,42 @@ def download_gtm_container(gtm_id: str) -> dict | None:
 
         for pattern in patterns:
             matches = re.findall(pattern, js, re.DOTALL)
+            log_debug(f"download_gtm_container: pattern matched {len(matches)} candidates")
             for match in matches:
                 try:
                     # Пробуем распарсить как JSON
                     obj = json.loads(match)
                     if "resource" in obj or "entities" in obj or "macros" in obj:
+                        log_debug("download_gtm_container: parsed config JSON via primary patterns")
                         return obj
-                except Exception:
+                except Exception as e:
+                    log_debug(f"download_gtm_container: candidate JSON parse failed: {e}")
                     continue
 
         # Более агрессивный поиск — ищем большой JSON объект
         # GTM обычно содержит macros, rules, tags
+        log_debug("download_gtm_container: primary patterns missed, trying aggressive big-JSON search")
         big_json = re.findall(
             r'\{["\']?(?:resource|macros|rules|tags|version)["\']?\s*:.*?\}(?=\s*[;,\n])',
             js, re.DOTALL
         )
+        log_debug(f"download_gtm_container: big-JSON search found {len(big_json)} candidates")
         for candidate in big_json:
             try:
                 obj = json.loads(candidate)
                 if any(k in obj for k in ["macros", "rules", "tags", "resource"]):
+                    log_debug("download_gtm_container: parsed config JSON via big-JSON search")
                     return obj
-            except Exception:
+            except Exception as e:
+                log_debug(f"download_gtm_container: big-JSON candidate parse failed: {e}")
                 continue
 
         # Fallback — возвращаем сырой JS для анализа паттернами
+        log_debug("download_gtm_container: no structured JSON parsed, returning raw_js fallback")
         return {"raw_js": js, "gtm_id": gtm_id}
 
     except Exception as e:
-        print(f"  ❌ Ошибка загрузки контейнера: {e}")
+        log_error(f"Ошибка загрузки контейнера: {e}")
         return None
 
 
@@ -292,6 +321,7 @@ PROBLEM_PATTERNS = {
 
 def analyze_js(js: str) -> dict:
     """Анализирует GTM JS на наличие платформ, событий, проблем."""
+    log_debug(f"analyze_js: start js_len={len(js)}")
     results = {
         "platforms_found": {},
         "ids_found": {},
@@ -308,6 +338,7 @@ def analyze_js(js: str) -> dict:
             if re.search(pattern, js, re.IGNORECASE):
                 hits.append(pattern)
         if hits:
+            log_debug(f"analyze_js: platform detected {platform} ({len(hits)} signature hits)")
             results["platforms_found"][platform] = True
 
     # ── IDs ──────────────────────────────────────────────────────
@@ -324,6 +355,7 @@ def analyze_js(js: str) -> dict:
         found = re.findall(pattern, js)
         if found:
             unique = list(set(found))
+            log_debug(f"analyze_js: ids_found[{name}] = {unique}")
             results["ids_found"][name] = unique
 
     # ── Конверсионные события ────────────────────────────────────
@@ -335,11 +367,13 @@ def analyze_js(js: str) -> dict:
                     found_events.append(event_name)
                     break
         if found_events:
+            log_debug(f"analyze_js: conversion_events[{platform}] = {found_events}")
             results["conversion_events"][platform] = found_events
 
     # ── Проблемы ─────────────────────────────────────────────────
     for problem, pattern in PROBLEM_PATTERNS.items():
         if re.search(pattern, js, re.IGNORECASE):
+            log_debug(f"analyze_js: problem detected {problem}")
             results["problems"][problem] = True
 
     # ── DataLayer events ─────────────────────────────────────────
@@ -348,6 +382,7 @@ def analyze_js(js: str) -> dict:
         js
     )
     results["dataLayer_events"] = list(set(dl_events))
+    log_debug(f"analyze_js: dataLayer_events count={len(results['dataLayer_events'])}")
 
     # ── Страницы конверсий ───────────────────────────────────────
     conv_pages = re.findall(
@@ -355,11 +390,14 @@ def analyze_js(js: str) -> dict:
         js, re.IGNORECASE
     )
     results["conversion_pages"] = list(set(conv_pages))[:10]
+    log_debug(f"analyze_js: conversion_pages count={len(results['conversion_pages'])}")
 
+    log_debug("analyze_js: done")
     return results
 
 
 def print_analysis(gtm_id: str, analysis: dict, base_url: str = ""):
+    log_debug(f"print_analysis: rendering report for gtm_id={gtm_id} base_url={base_url}")
     print(f"\n{'═' * 65}")
     print(f"  GTM CONTAINER ANALYSIS")
     if base_url:
@@ -427,42 +465,46 @@ def print_analysis(gtm_id: str, analysis: dict, base_url: str = ""):
 
 
 def run(target: str) -> dict:
+    log_debug(f"run: start target={target}")
     # Определяем — это домен или GTM ID
     if target.startswith("GTM-"):
+        log_debug("run: target looks like a GTM container ID, skipping site search")
         gtm_ids = [target]
         base_url = ""
         domain = target
     else:
         base_url = ("https://" + target if not target.startswith("http") else target).rstrip("/")
         domain = urlparse(base_url).netloc
+        log_debug(f"run: target is a domain, base_url={base_url} domain={domain}")
 
         print(f"\n{'═' * 65}")
         print(f"  TNC Pipeline — GTM Analyzer")
         print(f"  Target: {base_url}")
         print(f"{'═' * 65}")
 
-        print(f"\n🔍 Ищу GTM ID на сайте...")
+        log_step("Ищу GTM ID на сайте...", emoji="🔍")
         gtm_ids = find_gtm_ids(base_url)
 
         if not gtm_ids:
-            print(f"  ❌ GTM ID не найден на сайте")
+            log_error("GTM ID не найден на сайте")
             print(f"  Попробуй передать ID напрямую: python gtm_analyzer.py GTM-XXXXXX")
             return {}
 
-        print(f"  ✓ Найдено: {', '.join(gtm_ids)}")
+        log_success(f"Найдено: {', '.join(gtm_ids)}")
 
     all_results = {}
 
     for gtm_id in gtm_ids:
-        print(f"\n📦 Загружаю контейнер {gtm_id}...")
+        log_step(f"Загружаю контейнер {gtm_id}...", emoji="📦")
         container = download_gtm_container(gtm_id)
 
         if not container:
-            print(f"  ❌ Не удалось загрузить контейнер {gtm_id}")
+            log_error(f"Не удалось загрузить контейнер {gtm_id}")
             continue
 
         # Получаем JS для анализа
         js_text = container.get("raw_js", json.dumps(container))
+        log_debug(f"run: analyzing js for {gtm_id} (js_len={len(js_text)})")
         analysis = analyze_js(js_text)
         all_results[gtm_id] = analysis
 
@@ -471,10 +513,12 @@ def run(target: str) -> dict:
     # Сохраняем
     if all_results:
         filename = scan_path(domain, "gtm.json")
+        log_debug(f"run: writing {len(all_results)} container result(s) to {filename}")
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(all_results, f, indent=2, ensure_ascii=False)
-        print(f"💾 Сохранено: {filename}")
+        log_success(f"Сохранено: {filename}", emoji="💾")
 
+    log_debug(f"run: done, {len(all_results)} container(s) analyzed")
     return all_results
 
 

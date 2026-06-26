@@ -7,6 +7,7 @@ import re
 from urllib.parse import urlparse, parse_qs
 
 from page_classifier import classify_page_content
+from log import log_debug
 
 # ─── Pixel rules ──────────────────────────────────────────────────────────────
 
@@ -119,15 +120,18 @@ ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory", "Lucky Orange"}
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def get_event_from_url(url: str, platform: str) -> str:
+    log_debug(f"get_event_from_url: start platform={platform} url={url}")
     try:
         parsed = urlparse(url)
         params = parse_qs(parsed.query)
         rule = PIXEL_RULES.get(platform, {})
         ep = rule.get("event_param")
         if ep and ep in params:
+            log_debug(f"get_event_from_url: {platform} event_param '{ep}' -> '{params[ep][0]}'")
             return params[ep][0]
-    except Exception:
-        pass
+        log_debug(f"get_event_from_url: {platform} no event_param match (ep={ep}) -> 'fired'")
+    except Exception as e:
+        log_debug(f"get_event_from_url: parse failed for {url}: {e}")
     return "fired"
 
 
@@ -135,6 +139,7 @@ def get_pixel_id_from_url(url: str, platform: str) -> str:
     """Достаёт ID пикселя/счётчика из tracking-URL. '' если нет.
     Path-regex (Meta SDK config, Google Ads) ловит ID даже когда beacon
     события подавлён — например Meta в headless."""
+    log_debug(f"get_pixel_id_from_url: start platform={platform} url={url}")
     rule = PIXEL_RULES.get(platform, {})
     try:
         parsed = urlparse(url)
@@ -142,14 +147,17 @@ def get_pixel_id_from_url(url: str, platform: str) -> str:
         if id_re:
             m = re.search(id_re, parsed.path)
             if m:
+                log_debug(f"get_pixel_id_from_url: {platform} id via path-regex -> '{m.group(1)}'")
                 return m.group(1)
         ip = rule.get("id_param")
         if ip:
             params = parse_qs(parsed.query)
             if ip in params and params[ip][0]:
+                log_debug(f"get_pixel_id_from_url: {platform} id via query-param '{ip}' -> '{params[ip][0]}'")
                 return params[ip][0]
-    except Exception:
-        pass
+        log_debug(f"get_pixel_id_from_url: {platform} no id found")
+    except Exception as e:
+        log_debug(f"get_pixel_id_from_url: parse failed for {url}: {e}")
     return ""
 
 
@@ -166,13 +174,16 @@ def is_noise_event(platform: str, event: str) -> bool:
 
 
 def detect_external_services(html: str, requests_urls: list = None) -> dict:
+    log_debug(f"detect_external_services: start html_len={len(html)} n_requests={len(requests_urls) if requests_urls else 0}")
     found = {}
     html_lower = html.lower()
     for service, domains in EXTERNAL_SERVICES.items():
         if service in NETWORK_ONLY_SERVICES:
+            log_debug(f"detect_external_services: skip {service} (network-only) in HTML pass")
             continue
         for domain in domains:
             if domain in html_lower:
+                log_debug(f"detect_external_services: {service} matched in HTML via '{domain}'")
                 found[service] = {"detected_via": "html", "domain": domain}
                 break
     if requests_urls:
@@ -182,8 +193,10 @@ def detect_external_services(html: str, requests_urls: list = None) -> dict:
                 if service not in found:
                     for domain in domains:
                         if domain in req_lower:
+                            log_debug(f"detect_external_services: {service} matched in network via '{domain}'")
                             found[service] = {"detected_via": "network", "domain": domain}
                             break
+    log_debug(f"detect_external_services: done, found {len(found)} service(s): {sorted(found)}")
     return found
 
 
@@ -198,10 +211,12 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
     def on_request(request):
         req_url = request.url
         if "/web-pixels" in req_url:
+            log_debug(f"on_request: web-pixels asset captured url={req_url}")
             web_pixel_urls.append(req_url)
         for platform, rules in PIXEL_RULES.items():
             for domain in rules["domains"]:
                 if domain in req_url:
+                    log_debug(f"on_request: {platform} pixel request matched domain '{domain}' url={req_url}")
                     event = get_event_from_url(req_url, platform)
                     pixel_events.setdefault(platform, [])
                     entry = {
@@ -210,13 +225,16 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
                         "is_partial": is_partial_event(platform, event),
                         "is_noise": is_noise_event(platform, event),
                     }
+                    log_debug(f"on_request: {platform} event='{event}' conversion={entry['is_conversion']} partial={entry['is_partial']} noise={entry['is_noise']}")
                     if not any(e["event"] == event for e in pixel_events[platform]):
+                        log_debug(f"on_request: {platform} new event '{event}' recorded")
                         pixel_events[platform].append(entry)
                     # Собираем ID пикселя — для presence (headless) и детекта дублей
                     pid = get_pixel_id_from_url(req_url, platform)
                     if pid:
                         pixel_ids.setdefault(platform, [])
                         if pid not in pixel_ids[platform]:
+                            log_debug(f"on_request: {platform} new pixel id '{pid}' recorded")
                             pixel_ids[platform].append(pid)
                     break
 
@@ -230,11 +248,12 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
                     text = body.decode("utf-8", errors="ignore")
                     all_html_parts.append(text)
                     if "/web-pixels" in url:
+                        log_debug(f"on_response: web-pixels body captured url={url} len={len(text)}")
                         web_pixel_bodies[url] = text
-                except Exception:
-                    pass
-        except Exception:
-            pass
+                except Exception as e:
+                    log_debug(f"on_response: body read/decode failed url={url}: {e}")
+        except Exception as e:
+            log_debug(f"on_response: header access failed: {e}")
 
     return on_request, on_response
 
@@ -253,6 +272,7 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
     Core scan logic shared by all platform scanners.
     Callers attach listeners before calling this, or pass pre-populated dicts.
     """
+    log_debug(f"base_scan_page: start url={url} page_type={page_type} platform={platform} expect_events={expect_events}")
     pixel_events    = pixel_events    or {}
     web_pixel_urls  = web_pixel_urls  or []
     web_pixel_bodies= web_pixel_bodies or {}
@@ -260,9 +280,11 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
     pixel_ids       = pixel_ids       or {}
 
     if extra_html:
+        log_debug(f"base_scan_page: appending extra_html len={len(extra_html)}")
         all_html_parts.append(extra_html)
 
     combined_html = "\n".join(all_html_parts)
+    log_debug(f"base_scan_page: combined_html len={len(combined_html)} from {len(all_html_parts)} part(s); classifying content")
     content_analysis = classify_page_content(combined_html, page)
 
     # Build request URL list for network-only service detection
@@ -278,12 +300,15 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
     for plat, events in pixel_events.items():
         for ev in events:
             if ev["is_conversion"]:
+                log_debug(f"base_scan_page: conversion event {plat}:{ev['event']}")
                 conversion_events_found.append(f"{plat}:{ev['event']}")
                 noise_only = False
             elif ev.get("is_partial"):
+                log_debug(f"base_scan_page: partial event {plat}:{ev['event']}")
                 partial_events_found.append(f"{plat}:{ev['event']}")
                 noise_only = False
             elif not ev["is_noise"]:
+                log_debug(f"base_scan_page: non-noise event {plat}:{ev['event']} (clears noise_only)")
                 noise_only = False
 
     missing_events = []
@@ -294,13 +319,16 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
                 found = True
                 break
         if not found:
+            log_debug(f"base_scan_page: expected event '{expected}' not found")
             missing_events.append(expected)
 
     has_conv = len(conversion_events_found) > 0
 
     if has_conv:
+        log_debug(f"base_scan_page: status OK — {len(conversion_events_found)} conversion event(s): {conversion_events_found}")
         status = "✅ OK"
     else:
+        log_debug(f"base_scan_page: status GAP — no conversion events (partial={partial_events_found}, noise_only={noise_only})")
         status = "🚨 GAP"
 
     return {

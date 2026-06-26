@@ -20,6 +20,8 @@ TNC Pipeline — Popup & Consent Handler
     popup_result = handle_popups(page, verbose=True)
 """
 
+from log import log_success, log_debug
+
 
 # ─── Accept ALL cookies selectors ────────────────────────────────────────────
 
@@ -114,6 +116,7 @@ def handle_popups(page, verbose: bool = False) -> dict:
             "wait_after_ms": int
         }
     """
+    log_debug(f"handle_popups: start verbose={verbose}")
     result = {
         "geo_modal": "not_found",
         "cookie_consent": "not_found",
@@ -121,78 +124,99 @@ def handle_popups(page, verbose: bool = False) -> dict:
     }
 
     # 1. Гео-модал — закрываем крестиком / "No thanks"
+    log_debug("handle_popups: step 1 — пробуем закрыть гео-модал")
     if _close_geo_modal(page, verbose):
         result["geo_modal"] = "closed"
+        log_debug("handle_popups: гео-модал закрыт, ждём 400ms")
         page.wait_for_timeout(400)
+    else:
+        log_debug("handle_popups: гео-модал не найден")
 
     # 2. Cookie consent — принимаем всё
+    log_debug("handle_popups: step 2 — пробуем принять все куки")
     if _accept_all_cookies(page, verbose):
         result["cookie_consent"] = "accepted_all"
         # Ждём загрузки тегов которые были заблокированы CMP
         # Google Ads на thebodyshop появляется через ~5s после consent
+        log_debug("handle_popups: куки приняты, ждём 5000ms на загрузку тегов")
         page.wait_for_timeout(5000)
         result["wait_after_ms"] = 5000
+    else:
+        log_debug("handle_popups: cookie consent не найден")
 
+    log_debug(f"handle_popups: done result={result}")
     return result
 
 
 def _close_geo_modal(page, verbose: bool) -> bool:
     """Закрывает гео-модал. Возвращает True если закрыл."""
+    log_debug("_close_geo_modal: start")
 
     # По селекторам
     for sel in GEO_CLOSE_SELECTORS:
+        log_debug(f"_close_geo_modal: пробуем селектор [{sel}]")
         try:
             el = page.locator(sel).first
             if el.is_visible(timeout=300):
+                log_debug(f"_close_geo_modal: селектор виден, кликаем [{sel}]")
                 el.click(timeout=1000)
                 if verbose:
-                    print(f"       🌍 Гео-модал закрыт [{sel}]")
+                    log_success(f"       Гео-модал закрыт [{sel}]", emoji="🌍")
                 return True
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"_close_geo_modal: селектор [{sel}] не сработал: {e}")
 
     # По тексту — ищем кнопки dismiss внутри модала
     for text in GEO_DISMISS_TEXTS:
+        log_debug(f"_close_geo_modal: пробуем текст кнопки '{text}'")
         try:
             btn = page.get_by_role("button", name=text, exact=False).first
             if btn.is_visible(timeout=200):
                 # Проверяем что это не основной CTA страницы
                 # Гео-модал обычно выше или в overlay
+                log_debug(f"_close_geo_modal: кнопка '{text}' видна, кликаем")
                 btn.click(timeout=1000)
                 if verbose:
-                    print(f"       🌍 Гео-модал закрыт по тексту: '{text}'")
+                    log_success(f"       Гео-модал закрыт по тексту: '{text}'", emoji="🌍")
                 return True
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"_close_geo_modal: текст '{text}' не сработал: {e}")
 
+    log_debug("_close_geo_modal: гео-модал не найден")
     return False
 
 
 def _accept_all_cookies(page, verbose: bool) -> bool:
     """Принимает все куки. Возвращает True если кликнул."""
+    log_debug("_accept_all_cookies: start")
 
     # По селекторам (быстрый путь)
     for sel in ACCEPT_ALL_SELECTORS:
+        log_debug(f"_accept_all_cookies: пробуем селектор [{sel}]")
         try:
             el = page.locator(sel).first
             if el.is_visible(timeout=500):
+                log_debug(f"_accept_all_cookies: селектор виден, кликаем [{sel}]")
                 el.click(timeout=1000)
                 if verbose:
-                    print(f"       🍪 Куки приняты [{sel}]")
+                    log_success(f"       Куки приняты [{sel}]", emoji="🍪")
                 return True
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"_accept_all_cookies: селектор [{sel}] не сработал: {e}")
 
     # По тексту кнопок
     for text in ACCEPT_ALL_TEXTS:
+        log_debug(f"_accept_all_cookies: пробуем текст кнопки '{text}'")
         try:
             btn = page.get_by_role("button", name=text, exact=False).first
             if btn.is_visible(timeout=300):
+                log_debug(f"_accept_all_cookies: кнопка '{text}' видна, кликаем")
                 btn.click(timeout=1000)
                 if verbose:
-                    print(f"       🍪 Куки приняты по тексту: '{text}'")
+                    log_success(f"       Куки приняты по тексту: '{text}'", emoji="🍪")
                 return True
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"_accept_all_cookies: текст '{text}' не сработал: {e}")
 
+    log_debug("_accept_all_cookies: cookie consent не найден")
     return False

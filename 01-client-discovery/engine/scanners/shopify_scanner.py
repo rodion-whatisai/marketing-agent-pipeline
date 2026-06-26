@@ -10,6 +10,7 @@ from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services,
     PIXEL_RULES
 )
+from log import log_debug
 
 SHOPIFY_PIXEL_PLATFORMS = {
     "550306007":  "Meta",
@@ -233,15 +234,18 @@ _SHOPIFY_CTA_JS = """
 
 
 def detect_shopify_pixel_platforms(web_pixel_urls: list, web_pixel_bodies: dict = None) -> list:
+    log_debug(f"detect_shopify_pixel_platforms: start urls={len(web_pixel_urls)} bodies={len(web_pixel_bodies or {})}")
     found = set()
     bodies = web_pixel_bodies or {}
     for url in web_pixel_urls:
         for app_id, platform in SHOPIFY_PIXEL_PLATFORMS.items():
             if app_id in url:
+                log_debug(f"detect_shopify_pixel_platforms: app_id {app_id} → {platform} (url={url[:80]})")
                 found.add(platform)
         url_lower = url.lower()
         for keyword, platform in SHOPIFY_PIXEL_NAMES.items():
             if keyword in url_lower:
+                log_debug(f"detect_shopify_pixel_platforms: keyword '{keyword}' → {platform} (url={url[:80]})")
                 found.add(platform)
         body = bodies.get(url, "")
         if body:
@@ -257,38 +261,45 @@ def detect_shopify_pixel_platforms(web_pixel_urls: list, web_pixel_bodies: dict 
                 found.add("Bing/Microsoft")
             if "snap.com" in body or "snapchat" in body.lower():
                 found.add("Snapchat")
+    log_debug(f"detect_shopify_pixel_platforms: result={sorted(found)}")
     return list(found)
 
 
 def _detect_cta_elements(page) -> list:
+    log_debug("_detect_cta_elements: start")
     try:
         result = page.evaluate(_SHOPIFY_CTA_JS)
         ctas = result.get("ctas", [])
         debug = result.get("debug", {})
+        log_debug(f"_detect_cta_elements: evaluate вернул ctas={len(ctas)}")
         if not ctas:
             total = debug.get("totalCandidates", 0)
             rejected = debug.get("rejected", [])
             main_zone = debug.get("mainZone")
             if total > 0:
-                print(f"       ℹ️  CTA: 0 после фильтрации (кандидатов: {total}, main: {main_zone})")
+                log_debug(f"CTA: 0 после фильтрации (кандидатов: {total}, main: {main_zone})")
                 for r in rejected[:5]:
                     reason = r.get("reason", "?")
                     text = r.get("text", "")
                     if reason == "isInNoise":
-                        print(f"         ✗ [{reason}] '{text}' → предок: {r.get('ancestor')}")
+                        log_debug(f"✗ [{reason}] '{text}' → предок: {r.get('ancestor')}")
                     elif reason == "notVisible":
-                        print(f"         ✗ [{reason}] '{text}' → display:{r.get('display')} vis:{r.get('visibility')} op:{r.get('opacity')} w:{r.get('w')} h:{r.get('h')}")
+                        log_debug(f"✗ [{reason}] '{text}' → display:{r.get('display')} vis:{r.get('visibility')} op:{r.get('opacity')} w:{r.get('w')} h:{r.get('h')}")
                     else:
-                        print(f"         ✗ [{reason}] '{text}'")
+                        log_debug(f"✗ [{reason}] '{text}'")
         in_main = [c["text"] for c in ctas if c.get("inMain")]
         not_in_main = [c["text"] for c in ctas if not c.get("inMain")]
+        log_debug(f"_detect_cta_elements: in_main={len(in_main)} not_in_main={len(not_in_main)}")
         return (in_main + not_in_main)[:8]
-    except Exception:
+    except Exception as e:
+        log_debug(f"_detect_cta_elements: evaluate failed: {e}")
         return []
 
 
 def scan_page(page, url: str, page_type: str, expect_events: list,
               platform: str = "shopify") -> dict:
+
+    log_debug(f"scan_page: start url={url} page_type={page_type} platform={platform}")
 
     pixel_events     = {}
     pixel_ids        = {}
@@ -310,28 +321,37 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     errors = []
     try:
+        log_debug(f"scan_page: goto (try1, 20s) url={url}")
         page.goto(url, wait_until="domcontentloaded", timeout=20000)
         page.wait_for_timeout(3000)
     except Exception as e:
+        log_debug(f"scan_page: goto try1 failed: {e} — retry 10s")
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=10000)
             page.wait_for_timeout(2000)
         except Exception as e2:
+            log_debug(f"scan_page: goto try2 failed: {e2}")
             errors.append(str(e2)[:100])
 
     try:
         main_html = page.content()
         all_html_parts.append(main_html)
-    except Exception:
+        log_debug(f"scan_page: page.content() ok len={len(main_html)}")
+    except Exception as e:
+        log_debug(f"scan_page: page.content() failed: {e}")
         main_html = ""
 
     combined_html = "\n".join(all_html_parts)
+    log_debug(f"scan_page: combined_html len={len(combined_html)} web_pixel_urls={len(web_pixel_urls)}")
 
     shopify_pixel_platforms = []
     if web_pixel_urls:
         shopify_pixel_platforms = detect_shopify_pixel_platforms(web_pixel_urls, web_pixel_bodies)
+    else:
+        log_debug("scan_page: web_pixel_urls пуст — пропускаю detect_shopify_pixel_platforms")
     if "Meta" not in shopify_pixel_platforms:
         if re.search(r'fbevents\.js|facebook\.net/en_US|"pixelId"\s*:\s*"\d{10,}"', combined_html):
+            log_debug("scan_page: Meta найден по HTML regex (fbevents/facebook.net/pixelId)")
             shopify_pixel_platforms.append("Meta")
     for sp in shopify_pixel_platforms:
         if sp not in pixel_events:
@@ -365,12 +385,16 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     has_cta = result["has_cta"]
     has_conv = bool(result["conversion_events_found"])
+    log_debug(f"scan_page: status-decision has_cta={has_cta} has_conv={has_conv}")
 
     if has_conv:
+        log_debug("scan_page: → ✅ OK (conversion event найден)")
         result["status"] = "✅ OK"
     elif has_cta:
+        log_debug("scan_page: → 🚨 GAP (CTA есть, conversion нет)")
         result["status"] = "🚨 GAP"
     else:
+        log_debug("scan_page: → ➖ NO CTA")
         result["status"] = "➖ NO CTA"
 
     # Shopify + Cal.com/Calendly = вероятен server-side CAPI — GAP не подтверждён
@@ -380,10 +404,12 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
             svc in external for svc in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")
         )
         if has_serverside_scheduler:
+            log_debug("scan_page: GAP пересмотрен → server-side scheduler найден (Cal.com/Calendly/Acuity/HubSpot)")
             result["status"] = "⚠️ возможен server-side tracking, GAP не подтверждён"
             result["unverified_reason"] = (
                 "Cal.com/Calendly detected on Shopify — conversion likely tracked "
                 "via server-side CAPI, not visible to browser scan"
             )
 
+    log_debug(f"scan_page: done url={url} status={result['status']}")
     return result

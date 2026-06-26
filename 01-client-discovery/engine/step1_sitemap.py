@@ -21,12 +21,13 @@ try:
     import requests
     from xml.etree import ElementTree as ET
 except ImportError:
-    print("❌ Установи: pip install requests")
+    print("❌ Установи: pip install requests")  # log не импортирован если requests упал — оставляем print
     sys.exit(1)
 
 from page_classifier import classify_url, get_page_priority_label, save_pattern, load_patterns
 from platform_detector import detect_platform, print_platform_result, classify_shopify_page
 from utils import get_scan_dir, scan_path, TeeLogger, setup_logging, HEADERS, safe_get, normalize_url, detect_site_language
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
 
 
 DEFAULT_LIMIT = 65
@@ -39,6 +40,7 @@ def looks_like_sitemap_content(text: str) -> bool:
 
 
 def fetch_urls_from_xml(xml_text: str) -> list:
+    log_debug(f"fetch_urls_from_xml: start len={len(xml_text)}")
     urls = []
     try:
         root = ET.fromstring(xml_text)
@@ -47,55 +49,72 @@ def fetch_urls_from_xml(xml_text: str) -> list:
             u = loc.text.strip() if loc.text else ""
             if u:
                 urls.append(u)
-    except ET.ParseError:
+        log_debug(f"fetch_urls_from_xml: ET-парсинг ок, найдено {len(urls)} loc")
+    except ET.ParseError as e:
+        log_debug(f"fetch_urls_from_xml: ET.ParseError ({e}) — fallback на regex")
         urls = re.findall(r'<loc>\s*(https?://[^\s<]+)\s*</loc>', xml_text)
+        log_debug(f"fetch_urls_from_xml: regex fallback нашёл {len(urls)} loc")
     return urls
 
 
 def expand_sitemap_index(urls: list) -> list:
+    log_debug(f"expand_sitemap_index: start, {len(urls)} входных URL")
     expanded = []
     for u in urls:
         if re.search(r'sitemap', u, re.IGNORECASE) or u.endswith(".xml"):
+            log_debug(f"expand_sitemap_index: похоже на вложенный sitemap → {u}")
             try:
                 r = requests.get(u, headers=HEADERS, timeout=10)
                 if r.status_code == 200 and looks_like_sitemap_content(r.text):
                     sub = fetch_urls_from_xml(r.text)
+                    log_debug(f"expand_sitemap_index: {u} раскрыт в {len(sub)} под-URL")
                     for su in sub:
                         if re.search(r'sitemap', su, re.IGNORECASE) or su.endswith(".xml"):
+                            log_debug(f"expand_sitemap_index: второй уровень sitemap → {su}")
                             try:
                                 r2 = requests.get(su, headers=HEADERS, timeout=10)
                                 if r2.status_code == 200:
                                     expanded.extend(fetch_urls_from_xml(r2.text))
-                            except Exception:
-                                pass
+                            except Exception as e:
+                                log_debug(f"expand_sitemap_index: fetch второго уровня {su} упал: {e}")
                         else:
                             expanded.append(su)
                     continue
-            except Exception:
-                pass
+                else:
+                    log_debug(f"expand_sitemap_index: {u} статус={r.status_code} или не sitemap-контент")
+            except Exception as e:
+                log_debug(f"expand_sitemap_index: fetch {u} упал: {e}")
         expanded.append(u)
+    log_debug(f"expand_sitemap_index: итого {len(expanded)} URL")
     return expanded
 
 
 def try_fetch_sitemap(url: str) -> list:
+    log_debug(f"try_fetch_sitemap: пробую {url}")
     try:
         r = requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True)
         if r.status_code != 200:
+            log_debug(f"try_fetch_sitemap: {url} статус={r.status_code} — пусто")
             return []
         if not looks_like_sitemap_content(r.text):
+            log_debug(f"try_fetch_sitemap: {url} не похоже на sitemap-контент — пусто")
             return []
         urls = fetch_urls_from_xml(r.text)
         urls = expand_sitemap_index(urls)
+        log_debug(f"try_fetch_sitemap: {url} дал {len(urls)} URL")
         return urls
-    except Exception:
+    except Exception as e:
+        log_debug(f"try_fetch_sitemap: {url} упал: {e}")
         return []
 
 
 def crawl_homepage_links(base_url: str) -> list:
+    log_debug(f"crawl_homepage_links: start url={base_url}")
     try:
         r = requests.get(base_url, headers=HEADERS, timeout=10)
         domain = urlparse(base_url).netloc
         hrefs = re.findall(r'href=["\']([^"\'#]+)["\']', r.text)
+        log_debug(f"crawl_homepage_links: найдено {len(hrefs)} href на главной")
         urls = set()
         for h in hrefs:
             h = h.split("?")[0].split("#")[0]
@@ -103,8 +122,10 @@ def crawl_homepage_links(base_url: str) -> list:
                 urls.add(urljoin(base_url, h))
             elif domain in h:
                 urls.add(h)
+        log_debug(f"crawl_homepage_links: отфильтровано {len(urls)} внутренних URL")
         return list(urls)
-    except Exception:
+    except Exception as e:
+        log_debug(f"crawl_homepage_links: {base_url} упал: {e}")
         return []
 
 
@@ -125,6 +146,7 @@ def get_sitemap_urls(base_url: str) -> tuple:
     4. Fallback — href с главной
     """
     site_domain = urlparse(base_url).netloc
+    log_debug(f"get_sitemap_urls: start base_url={base_url} domain={site_domain}")
 
     standard_paths = [
         "/sitemap.xml", "/sitemap_index.xml", "/sitemap-index.xml",
@@ -133,24 +155,32 @@ def get_sitemap_urls(base_url: str) -> tuple:
         "/post-sitemap.xml",
     ]
 
+    log_debug("get_sitemap_urls: уровень 1 — стандартные пути")
     for path in standard_paths:
         urls = try_fetch_sitemap(base_url + path)
         if urls and _urls_belong_to_domain(urls, site_domain):
+            log_debug(f"get_sitemap_urls: найдено через стандартный путь {path}")
             return urls, base_url + path
 
+    log_debug("get_sitemap_urls: уровень 2 — robots.txt")
     try:
         r = requests.get(f"{base_url}/robots.txt", headers=HEADERS, timeout=10)
         if r.status_code == 200:
             sm_urls = re.findall(r'(?i)sitemap\s*:\s*(https?://\S+)', r.text)
+            log_debug(f"get_sitemap_urls: robots.txt дал {len(sm_urls)} sitemap-ссылок")
             for sm_url in sm_urls:
                 urls = try_fetch_sitemap(sm_url)
                 if urls and _urls_belong_to_domain(urls, site_domain):
+                    log_debug(f"get_sitemap_urls: найдено через robots.txt → {sm_url}")
                     return urls, f"robots.txt → {sm_url}"
                 elif urls:
-                    print(f"  ⚠️  robots.txt sitemap чужого домена ({sm_url}) — пропускаю")
-    except Exception:
-        pass
+                    log_warn(f"robots.txt sitemap чужого домена ({sm_url}) — пропускаю")
+        else:
+            log_debug(f"get_sitemap_urls: robots.txt статус={r.status_code}")
+    except Exception as e:
+        log_debug(f"get_sitemap_urls: уровень 2 (robots.txt) упал: {e}")
 
+    log_debug("get_sitemap_urls: уровень 3 — ссылки с 'sitemap' на главной")
     try:
         r = requests.get(base_url, headers=HEADERS, timeout=10)
         all_hrefs = re.findall(r'(?:href|src)=["\']([^"\']+)["\']', r.text)
@@ -165,13 +195,16 @@ def get_sitemap_urls(base_url: str) -> tuple:
                 candidates.add(link.split("?")[0])
             elif link.startswith("/"):
                 candidates.add(base_url + link.split("?")[0])
+        log_debug(f"get_sitemap_urls: уровень 3 нашёл {len(candidates)} кандидатов")
         for candidate in sorted(candidates):
             urls = try_fetch_sitemap(candidate)
             if urls:
+                log_debug(f"get_sitemap_urls: найдено через discovery → {candidate}")
                 return urls, f"discovered → {candidate}"
-    except Exception:
-        pass
+    except Exception as e:
+        log_debug(f"get_sitemap_urls: уровень 3 (discovery) упал: {e}")
 
+    log_debug("get_sitemap_urls: уровень 4 — fallback homepage crawl")
     urls = crawl_homepage_links(base_url)
     return urls, "homepage crawl (fallback)"
 
@@ -184,9 +217,11 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
     которых нет в sitemap И не покрыты классификатором.
     Возвращает по одному примеру каждого нового паттерна.
     """
+    log_debug(f"discover_url_patterns: start base_url={base_url} domain={domain} known={len(known_urls)}")
     try:
         from playwright.sync_api import sync_playwright
-    except ImportError:
+    except ImportError as e:
+        log_debug(f"discover_url_patterns: playwright не установлен ({e}) — пропускаю discovery")
         return []
 
     # Паттерны уже известные из sitemap
@@ -198,11 +233,12 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
             known_patterns.add("/" + "/".join(parts[:2]))
         elif len(parts) == 1:
             known_patterns.add("/" + parts[0])
+    log_debug(f"discover_url_patterns: {len(known_patterns)} известных паттернов из sitemap")
 
     discovered = []
     seen_patterns = set()  # паттерны которые уже добавили
 
-    print(f"  🔍 Pattern discovery: открываю браузер...")
+    log_step("Pattern discovery: открываю браузер...", emoji="🔍")
 
     def process_link(link: str) -> bool:
         """Обрабатывает одну ссылку. Возвращает True если добавлен новый паттерн."""
@@ -224,6 +260,7 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
 
         # Уже знаем этот паттерн
         if pattern in known_patterns or pattern in seen_patterns:
+            log_debug(f"process_link: паттерн {pattern} уже известен — пропуск")
             return False
 
         # Проверяем структурный паттерн через classifier
@@ -231,10 +268,12 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
         pattern_url = f"https://{domain}{pattern}"
         test_result = classify_url(pattern_url)
         if test_result["type"] != "general":
+            log_debug(f"process_link: паттерн {pattern} распознан классификатором как {test_result['type']} — не новый")
             seen_patterns.add(pattern)
             return False
 
         # Новый паттерн которого классификатор не знает
+        log_debug(f"process_link: НОВЫЙ паттерн {pattern} ← {link}")
         seen_patterns.add(pattern)
         discovered.append({
             "url": link,
@@ -258,19 +297,23 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
 
         explored = set()
 
+        log_debug(f"discover_url_patterns: исследую до 5 страниц из {len(pages_to_explore)} кандидатов")
         for explore_url in pages_to_explore[:5]:
             if explore_url in explored:
                 continue
             explored.add(explore_url)
+            log_debug(f"discover_url_patterns: открываю {explore_url}")
 
             try:
                 page.goto(explore_url, wait_until="networkidle", timeout=20000)
                 page.wait_for_timeout(2000)
-            except Exception:
+            except Exception as e:
+                log_debug(f"discover_url_patterns: networkidle goto {explore_url} упал ({e}) — пробую domcontentloaded")
                 try:
                     page.goto(explore_url, wait_until="domcontentloaded", timeout=10000)
                     page.wait_for_timeout(1500)
-                except Exception:
+                except Exception as e2:
+                    log_debug(f"discover_url_patterns: domcontentloaded goto {explore_url} тоже упал ({e2}) — пропуск")
                     continue
 
             # Собираем ссылки + скролл
@@ -286,21 +329,24 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
                             .slice(0, 300)
                     """)
                     all_links.update(links)
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"discover_url_patterns: сбор ссылок на scroll={scroll_pos} упал: {e}")
 
+            log_debug(f"discover_url_patterns: {explore_url} → {len(all_links)} ссылок собрано")
             for link in all_links:
                 if process_link(link):
-                    print(f"    ✨ Новый паттерн: {discovered[-1]['pattern']} → {link[:60]}")
+                    log_success(f"Новый паттерн: {discovered[-1]['pattern']} → {link[:60]}", emoji="✨")
 
         browser.close()
 
+    log_debug(f"discover_url_patterns: итого {len(discovered)} новых паттернов")
     return discovered
 
 
 # ─── Фильтрация и классификация ──────────────────────────────────────────────
 
 def clean_urls(urls: list, domain: str) -> list:
+    log_debug(f"clean_urls: start {len(urls)} URL, domain={domain}")
     skip_ext = {".jpg", ".jpeg", ".png", ".gif", ".svg", ".pdf", ".zip",
                 ".css", ".js", ".ico", ".webp", ".mp4", ".xml", ".gz",
                 ".woff", ".woff2", ".ttf", ".eot"}
@@ -324,12 +370,14 @@ def clean_urls(urls: list, domain: str) -> list:
             continue
         seen.add(u_lower)
         clean.append(u)
+    log_debug(f"clean_urls: {len(urls)} → {len(clean)} после фильтра/дедупа")
     return clean
 
 
 def classify_all(urls: list, site_context: str = "", show_progress: bool = True, platform: str = "") -> list:
     from page_classifier import classify_urls
-    
+
+    log_debug(f"classify_all: start {len(urls)} URL, platform={platform!r}")
     # Дедуплицируем по path
     seen_paths = set()
     unique_urls = []
@@ -338,6 +386,7 @@ def classify_all(urls: list, site_context: str = "", show_progress: bool = True,
         if path not in seen_paths:
             seen_paths.add(path)
             unique_urls.append(url)
+    log_debug(f"classify_all: {len(urls)} → {len(unique_urls)} уникальных по path")
 
     # Классифицируем батчем — передаём платформу чтобы slug rules шли до Claude
     results_raw = classify_urls(unique_urls, site_context=site_context, show_progress=show_progress, platform=platform)
@@ -378,6 +427,7 @@ TYPE_LABELS = {
 
 
 def print_classified_list(classified: list, show_all: bool = False):
+    log_debug(f"print_classified_list: {len(classified)} элементов, show_all={show_all}")
     by_type = {}
     for item in classified:
         by_type.setdefault(item["type"], []).append(item)
@@ -420,7 +470,7 @@ def print_classified_list(classified: list, show_all: bool = False):
 def ask_confirmation_smart(pages: list, limit: int) -> list:
     """Всегда спрашивает подтверждение. Показывает варианты."""
     n = len(pages)
-    print(f"\n⚠️  К сканированию: {n} страниц")
+    log_warn(f"К сканированию: {n} страниц")
     print(f"\n   Варианты:")
     print(f"   [1] Сканировать все {n} страниц — рекомендуется")
     if n > 10:
@@ -455,6 +505,7 @@ def filter_lang_duplicates(urls: list) -> tuple:
     """
     # Определяем какие языковые префиксы присутствуют
     from urllib.parse import urlparse
+    log_debug(f"filter_lang_duplicates: start {len(urls)} URL")
     paths = [urlparse(u).path.lower() for u in urls]
 
     found_prefixes = set()
@@ -464,7 +515,9 @@ def filter_lang_duplicates(urls: list) -> tuple:
                 found_prefixes.add(prefix)
 
     if not found_prefixes:
+        log_debug("filter_lang_duplicates: языковых префиксов не найдено — сайт одноязычный")
         return urls, 0, set()
+    log_debug(f"filter_lang_duplicates: найдены префиксы {sorted(found_prefixes)}")
 
     # Проверяем — есть ли EN (без префикса) версии тех же страниц
     # Берём пути без префикса
@@ -480,7 +533,9 @@ def filter_lang_duplicates(urls: list) -> tuple:
 
     # Если overlap >= 30% — считаем что EN версия существует, убираем lang дубли
     if not paths_no_prefix or len(overlap) / len(paths_no_prefix) < 0.3:
+        log_debug(f"filter_lang_duplicates: overlap {len(overlap)}/{len(paths_no_prefix) or 0} < 30% — не убираем дубли")
         return urls, 0, set()
+    log_debug(f"filter_lang_duplicates: overlap {len(overlap)}/{len(paths_no_prefix)} >= 30% — убираем lang-дубли")
 
     filtered = []
     removed = 0
@@ -502,29 +557,28 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
 
     base_url = ("https://" + domain if not domain.startswith("http") else domain).rstrip("/")
     site_domain = urlparse(base_url).netloc
+    log_debug(f"run: start domain={domain} base_url={base_url} limit={limit} force_all={force_all} skip_discovery={skip_discovery}")
 
-    print(f"\n{'═' * 65}")
-    print(f"  TNC Pipeline — Step 1: Sitemap")
-    print(f"  Target: {base_url}")
-    print(f"{'═' * 65}")
+    log_header("TNC Pipeline — Step 1: Sitemap")
+    log_info(f"Target: {base_url}")
 
     # ── Шаг 1: sitemap ───────────────────────────────────────────
-    print(f"\n📋 Fetching sitemap...")
+    log_step("Fetching sitemap...", emoji="📋")
     raw_urls, source = get_sitemap_urls(base_url)
     urls = clean_urls(raw_urls, site_domain)
-    print(f"  ✓ Источник: {source}")
-    print(f"  ✓ Найдено URL: {len(urls)}")
+    log_success(f"Источник: {source}")
+    log_success(f"Найдено URL: {len(urls)}")
 
     # ── Фильтр языковых дублей ───────────────────────────────────
     urls, lang_removed, lang_prefixes = filter_lang_duplicates(urls)
     if lang_removed > 0:
-        print(f"\n🌐 Двуязычный сайт — убраны {lang_removed} дублей на [{', '.join(sorted(lang_prefixes))}]")
-        print(f"   Сканируем только EN версию. Результаты применимы к обеим версиям.")
-        print(f"   Осталось URL: {len(urls)}")
+        log_step(f"Двуязычный сайт — убраны {lang_removed} дублей на [{', '.join(sorted(lang_prefixes))}]", emoji="🌐")
+        log_info(f"Сканируем только EN версию. Результаты применимы к обеим версиям.")
+        log_info(f"Осталось URL: {len(urls)}")
 
     # ── Соцсети + Facebook Ads Library ──────────────────────────
-    print(f"\n🌐 Извлекаю соцсети и проверяю Facebook...")
-    
+    log_step("Извлекаю соцсети и проверяю Facebook...", emoji="🌐")
+
     _homepage_html = ""
     _homepage_headers = {}
     try:
@@ -533,10 +587,12 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
         _r = _req.get(base_url, headers=HEADERS, timeout=10)
         _homepage_html = _r.text
         _homepage_headers = dict(_r.headers)
+        log_debug(f"run: homepage fetch ок, статус={_r.status_code}, html len={len(_homepage_html)}")
         socials_raw = extract_socials(_homepage_html, site_domain)
+        log_debug(f"run: extract_socials вернул {len(socials_raw)} платформ")
     except Exception as e:
         socials_raw = {}
-        print(f"  ⚠️  Ошибка парсинга соцсетей: {e}")
+        log_warn(f"Ошибка парсинга соцсетей: {e}")
 
     # Старый формат для совместимости с остальным кодом
     social = {}
@@ -546,23 +602,26 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
             item = socials_raw[platform]
             social[platform] = item["url"]
             if item.get("uncertain"):
-                print(f"  ⚠️  {platform:<12} {item['url']}  ← НЕ УВЕРЕН (не совпадает с брендом)")
+                log_warn(f"{platform:<12} {item['url']}  ← НЕ УВЕРЕН (не совпадает с брендом)")
             else:
-                print(f"  ✓ {platform:<12} {item['url']}")
+                log_success(f"{platform:<12} {item['url']}")
             found_any = True
 
     if not found_any:
-        print(f"  ℹ️  Соцсети не найдены на сайте")
+        log_info(f"Соцсети не найдены на сайте")
 
     # Facebook — полная проверка через fb_page_id модуль
     fb_data = {"accounts": []}
     try:
         from fb_page_id import run as fb_run
+        log_debug(f"run: вызываю fb_page_id.run({base_url})")
         fb_result = fb_run(base_url)
         fb_data = fb_result if fb_result else {"accounts": []}
+        log_debug(f"run: fb_page_id вернул {len(fb_data.get('accounts', []))} аккаунтов")
 
         for acc in fb_data.get("accounts", []):
             if not acc.get("alive"):
+                log_debug(f"run: FB-аккаунт {acc.get('handle')} не alive — пропуск")
                 continue
             display_name = acc.get("display_name", acc.get("handle"))
             count = acc.get("active_ads_count")
@@ -573,35 +632,38 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
             n_images = len(acc.get("saved_images", []))
 
             if count and count > 0:
-                print(f"  ✓ {display_name} | ✅ {count} АКТИВНЫХ ОБЪЯВЛЕНИЙ")
-                print(f"    📢 {ads_url}")
+                log_success(f"{display_name} | ✅ {count} АКТИВНЫХ ОБЪЯВЛЕНИЙ")
+                log_info(f"{ads_url}", emoji="📢")
                 if partnership:
-                    print(f"    🤝 Partnership ads: ~{partnership_n}")
+                    log_info(f"Partnership ads: ~{partnership_n}", emoji="🤝")
                 if n_texts:
-                    print(f"    📝 Текстов: {n_texts}")
+                    log_info(f"Текстов: {n_texts}", emoji="📝")
                 if n_images:
-                    print(f"    🖼  Изображений: {n_images}")
+                    log_info(f"Изображений: {n_images}", emoji="🖼")
             else:
-                print(f"  ✓ {display_name} | ❌ РЕКЛАМА НЕ КРУТИТСЯ")
+                log_success(f"{display_name} | ❌ РЕКЛАМА НЕ КРУТИТСЯ")
 
     except ImportError:
-        print(f"  ⚠️  fb_page_id.py не найден")
+        log_warn(f"fb_page_id.py не найден")
 
     social["facebook_accounts"] = fb_data
 
     # ── Platform Detection ──────────────────────────────────────
-    print(f"\n🏗  Platform Detection...")
+    log_step("Platform Detection...", emoji="🏗")
     platform_result = detect_platform(_homepage_html, _homepage_headers, urls)
+    log_debug(f"run: detect_platform → {platform_result.get('platform')}")
     print_platform_result(platform_result)
 
     # ── Language Detection ──────────────────────────────────────
     lang_result = detect_site_language(_homepage_html, _homepage_headers)
-    lang_emoji = "✅" if lang_result["is_english"] else "⚠️ "
-    print(f"\n🌐 Язык сайта: {lang_emoji} {lang_result['lang'].upper()} (via {lang_result['source']})")
-    if not lang_result["is_english"]:
-        print(f"   ⚠️  Сайт не на английском языке.")
-        print(f"      CTA-детектор (regex) и classify_page_content работают только для EN.")
-        print(f"      Кнопки могут не распознаться. Результаты step2 менее надёжны.")
+    log_debug(f"run: detect_site_language → lang={lang_result['lang']} is_english={lang_result['is_english']} source={lang_result['source']}")
+    if lang_result["is_english"]:
+        log_success(f"Язык сайта: {lang_result['lang'].upper()} (via {lang_result['source']})", emoji="🌐")
+    else:
+        log_warn(f"Язык сайта: {lang_result['lang'].upper()} (via {lang_result['source']})")
+        log_warn(f"Сайт не на английском языке.")
+        log_info(f"CTA-детектор (regex) и classify_page_content работают только для EN.")
+        log_info(f"Кнопки могут не распознаться. Результаты step2 менее надёжны.")
 
     # ── Шаг 2: pattern discovery если мало POI ───────────────────
     discovered_items = []
@@ -615,9 +677,10 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
             "fallback" in source or
             len(urls) < 20
         )
+        log_debug(f"run: pre-check POI={len(poi_check)} urls={len(urls)} source={source!r} → should_discover={should_discover}")
 
         if should_discover:
-            print(f"\n🔍 Мало POI ({len(poi_check)}) или ненадёжный источник — запускаю Pattern Discovery...")
+            log_step(f"Мало POI ({len(poi_check)}) или ненадёжный источник — запускаю Pattern Discovery...", emoji="🔍")
             discovered = discover_url_patterns(base_url, site_domain, urls)
 
             if discovered:
@@ -632,9 +695,9 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
                     if struct not in seen_patterns:
                         seen_patterns.add(struct)
                         unique_discovered.append(item)
-                        print(f"    ✨ Новый паттерн: {struct} → {item['url'][:60]}")
+                        log_success(f"Новый паттерн: {struct} → {item['url'][:60]}", emoji="✨")
 
-                print(f"  ✓ Найдено новых паттернов: {len(unique_discovered)}")
+                log_success(f"Найдено новых паттернов: {len(unique_discovered)}")
                 existing = set(urls)
                 for item in unique_discovered:
                     if item["url"] not in existing:
@@ -642,13 +705,17 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
                         existing.add(item["url"])
                         discovered_items.append(item)
             else:
-                print(f"  ℹ️  Новых паттернов не обнаружено")
+                log_info(f"Новых паттернов не обнаружено")
+    else:
+        log_debug("run: skip_discovery=True — pattern discovery пропущен")
 
     # ── Шаг 3: классифицируем ────────────────────────────────────
+    log_step("Классификация страниц...", emoji="🏷")
     classified = classify_all(urls, show_progress=False, platform=platform_result.get("platform", ""))
 
     # ── Platform-aware reclassification ─────────────────────────
     if platform_result["platform"] == "shopify":
+        log_debug("run: shopify — применяю platform-aware reclassification к /pages/")
         for item in classified:
             path = item.get("path", "")
             if not path.startswith("/pages/"):
@@ -667,6 +734,7 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
                 slug = path.replace("/pages/", "").lstrip("/").split("/")[0]
                 reclassified = classify_shopify_page(slug)
                 if reclassified is not None:
+                    log_debug(f"run: shopify reclass {path}: {current_type} → {reclassified['type']} (slug={slug})")
                     item["type"] = reclassified["type"]
                     item["priority"] = reclassified["priority"]
                     item["method"] = reclassified["method"]
@@ -685,13 +753,13 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     n_claude   = sum(1 for x in classified if x.get("method") == "claude")
     n_disc     = len(discovered_items)
 
-    print(f"\n📊 Итог классификации:")
-    print(f"   Страниц из sitemap:       {len(urls) - n_disc}")
+    log_step("Итог классификации:", emoji="📊")
+    log_info(f"Страниц из sitemap:       {len(urls) - n_disc}")
     if n_disc:
-        print(f"   Страниц из discovery:     {n_disc}")
-    print(f"   Опознано через Regex:     {n_regex}")
+        log_info(f"Страниц из discovery:     {n_disc}")
+    log_info(f"Опознано через Regex:     {n_regex}")
     if n_claude:
-        print(f"   Опознано через Claude AI: {n_claude}")
+        log_info(f"Опознано через Claude AI: {n_claude}")
 
     poi_list = [x for x in classified if x["priority"] <= 2]
     print_classified_list(classified, show_all=show_all_in_list)
@@ -721,21 +789,23 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     poi_deduped = smart_deduplicate(poi_list)
     saved = len(poi_list) - len(poi_deduped)
     if saved > 0:
-        print(f"\n🔧 Дедупликация: {len(poi_list)} → {len(poi_deduped)} страниц (убрано {saved} дублей паттернов)")
+        log_step(f"Дедупликация: {len(poi_list)} → {len(poi_deduped)} страниц (убрано {saved} дублей паттернов)", emoji="🔧")
 
     # Потом лимит и подтверждение
     if force_all:
+        log_debug(f"run: force_all=True — берём все {len(poi_deduped)} страниц")
         to_scan = poi_deduped
     elif len(poi_deduped) <= limit:
         to_scan = poi_deduped
-        print(f"\n✅ {len(poi_deduped)} страниц к сканированию")
+        log_success(f"{len(poi_deduped)} страниц к сканированию")
     else:
-        print(f"\n⚠️  {len(poi_deduped)} страниц после дедупликации (лимит: {limit})")
+        log_warn(f"{len(poi_deduped)} страниц после дедупликации (лимит: {limit})")
         print(f"\n   Варианты:")
         print(f"   [1] Сканировать все {len(poi_deduped)} страниц — рекомендуется")
         print(f"   [2] Первые {limit} страниц")
         print(f"   [3] Ввести своё число")
         choice = input("\n   Выбор [1/2/3]: ").strip()
+        log_debug(f"run: лимит-выбор пользователя = {choice!r}")
         if choice == "1":
             to_scan = poi_deduped
         elif choice == "2":
@@ -744,12 +814,13 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
             try:
                 n = int(input("   Сколько страниц: ").strip())
                 to_scan = poi_deduped[:n]
-            except ValueError:
+            except ValueError as e:
+                log_debug(f"run: невалидное число ({e}) — fallback на лимит {limit}")
                 to_scan = poi_deduped[:limit]
         else:
             to_scan = poi_deduped
 
-    print(f"\n📌 К сканированию: {len(to_scan)} страниц")
+    log_step(f"К сканированию: {len(to_scan)} страниц", emoji="📌")
 
     # ── Сохраняем ────────────────────────────────────────────────
     output = {
@@ -769,7 +840,7 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     filename = scan_path(site_domain, f"{site_domain}_step1.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    print(f"💾 Сохранено: {filename}")
+    log_success(f"Сохранено: {filename}", emoji="💾")
 
     # ── Интерактивное обучение ────────────────────────────────────
     try:
@@ -777,14 +848,12 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
         print_classification_report(classified, site_domain)
         interactive_learn(classified, site_domain)
     except ImportError:
-        print(f"\n  ℹ️  learn.py не найден — пропускаем обучение")
+        log_info(f"learn.py не найден — пропускаем обучение")
 
     # ── Следующий шаг — в самом конце ────────────────────────────
     step1_file = scan_path(site_domain, f"{site_domain}_step1.json")
-    print(f"\n{'═' * 65}")
-    print(f"  💡 Следующий шаг:")
-    print(f"     python step2_scan.py {step1_file}")
-    print(f"{'═' * 65}\n")
+    log_header("💡 Следующий шаг")
+    log_info(f"python step2_scan.py {step1_file}")
 
     return output
 
@@ -811,4 +880,4 @@ if __name__ == "__main__":
         show_all_in_list=args.show_all, skip_discovery=args.no_discovery)
 
     # Сообщение пишется в лог и в консоль
-    print(f"\n📝 Лог: {_log_path}")
+    log_info(f"Лог: {_log_path}", emoji="📝")

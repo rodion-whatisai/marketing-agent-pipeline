@@ -17,6 +17,8 @@ import time
 import requests
 from urllib.parse import urlparse
 
+from log import log_info, log_warn, log_error, log_debug, log_success
+
 # ─── Конфигурация ─────────────────────────────────────────────────────────────
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -33,11 +35,15 @@ def load_patterns() -> dict:
     """Загружает patterns.json, кэширует в память."""
     global _PATTERNS_CACHE
     if _PATTERNS_CACHE is not None:
+        log_debug("load_patterns: cache hit")
         return _PATTERNS_CACHE
+    log_debug(f"load_patterns: загружаю {_PATTERNS_FILE}")
     try:
         with open(_PATTERNS_FILE, "r", encoding="utf-8") as f:
             _PATTERNS_CACHE = json.load(f)
-    except FileNotFoundError:
+        log_debug(f"load_patterns: загружено {len(_PATTERNS_CACHE)} паттернов")
+    except FileNotFoundError as e:
+        log_debug(f"load_patterns: файл не найден, пустая база: {e}")
         _PATTERNS_CACHE = {}
     return _PATTERNS_CACHE
 
@@ -69,6 +75,7 @@ def save_pattern(pattern: str, page_type: str, priority: int,
 
 def patterns_classify(path: str, full_url: str = "") -> dict | None:
     """Ищет совпадение пути в patterns.json."""
+    log_debug(f"patterns_classify: start path={path}")
     patterns = load_patterns()
     # Нормализуем — убираем расширение .html/.php и trailing slash
     path_lower = path.lower().rstrip("/")
@@ -78,6 +85,7 @@ def patterns_classify(path: str, full_url: str = "") -> dict | None:
     for check_path in [path_lower, path_no_ext]:
         if check_path in patterns:
             p = patterns[check_path]
+            log_debug(f"patterns_classify: точное совпадение {check_path} → {p['type']} (слой patterns.json)")
             if full_url and full_url not in p.get("examples", []):
                 save_pattern(check_path, p["type"], p["priority"],
                             p["description"], full_url, "auto")
@@ -92,6 +100,7 @@ def patterns_classify(path: str, full_url: str = "") -> dict | None:
     first_seg = "/" + path_no_ext.lstrip("/").split("/")[0] if path_no_ext else ""
     if first_seg and first_seg != path_no_ext and first_seg in patterns:
         p = patterns[first_seg]
+        log_debug(f"patterns_classify: совпадение по первому сегменту {first_seg} → {p['type']} (слой patterns.json)")
         return {
             "type": p["type"],
             "priority": p["priority"],
@@ -99,6 +108,7 @@ def patterns_classify(path: str, full_url: str = "") -> dict | None:
             "description": p.get("description", ""),
         }
 
+    log_debug(f"patterns_classify: нет совпадения в patterns.json для {path}")
     return None
 
 # ─── Типы страниц ─────────────────────────────────────────────────────────────
@@ -168,15 +178,20 @@ FAST_RULES = [
 
 
 def fast_classify(path: str, full_url: str = "") -> dict | None:
+    log_debug(f"fast_classify: start path={path}")
     path_lower = path.lower()
 
     # 0. Normalize language prefix — strip /fr/, /en/, /de/, /es/, /zh-cn/ etc.
     #    Only strips if there's a following segment (lookahead (?=/)) so /fr alone is untouched.
-    path_lower = re.sub(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)', '', path_lower)
+    normalized = re.sub(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)', '', path_lower)
+    if normalized != path_lower:
+        log_debug(f"fast_classify: язык-префикс снят {path_lower} → {normalized}")
+    path_lower = normalized
 
     # 1. patterns.json — наша накопленная база знаний
     p = patterns_classify(path_lower, full_url)
     if p:
+        log_debug(f"fast_classify: слой patterns.json сработал для {path_lower} → {p['type']}")
         p["expect_events"] = _get_expect_events(p["type"])
         return p
 
@@ -184,12 +199,14 @@ def fast_classify(path: str, full_url: str = "") -> dict | None:
     for priority, page_type, patterns in FAST_RULES:
         for pattern in patterns:
             if re.search(pattern, path_lower):
+                log_debug(f"fast_classify: слой regex сработал для {path_lower} → {page_type} (pattern {pattern})")
                 return {
                     "type": page_type,
                     "priority": priority,
                     "method": "regex",
                     "matched_pattern": pattern,
                 }
+    log_debug(f"fast_classify: ни patterns.json, ни regex не распознали {path_lower} → нужен Claude")
     return None
 
 
@@ -366,11 +383,14 @@ Return JSON array with exactly {len(urls)} objects in same order:
 
 
 def classify_batch_api(urls: list, site_context: str = "") -> list:
+    log_debug(f"classify_batch_api: start {len(urls)} URL site_context={site_context!r}")
     if not ANTHROPIC_API_KEY:
+        log_debug("classify_batch_api: ANTHROPIC_API_KEY не задан → fallback general (слой Claude пропущен)")
         return [{"type": "general", "priority": 5, "method": "no_api_key"} for _ in urls]
 
     try:
         for attempt in range(3):
+            log_debug(f"classify_batch_api: POST к Anthropic, попытка {attempt+1}/3")
             response = requests.post(
                 "https://api.anthropic.com/v1/messages",
                 headers={
@@ -386,37 +406,40 @@ def classify_batch_api(urls: list, site_context: str = "") -> list:
                 },
                 timeout=30,
             )
+            log_debug(f"classify_batch_api: HTTP {response.status_code}")
 
             if response.status_code == 429:
                 wait = 15 * (attempt + 1)
-                print(f"  ⏳ Rate limit — жду {wait}с...")
+                log_warn(f"⏳ Rate limit — жду {wait}с...")
                 time.sleep(wait)
                 continue
 
             if response.status_code != 200:
-                print(f"  ⚠️  API {response.status_code}: {response.text[:80]}")
+                log_warn(f"API {response.status_code}: {response.text[:80]}")
                 return [{"type": "general", "priority": 5, "method": "api_error"} for _ in urls]
 
             break
         else:
-            print(f"  ⚠️  Rate limit после 3 попыток — пропускаю батч")
+            log_warn(f"Rate limit после 3 попыток — пропускаю батч")
             return [{"type": "general", "priority": 5, "method": "rate_limited"} for _ in urls]
 
         text = response.json()["content"][0]["text"].strip()
         if text.startswith("```"):
+            log_debug("classify_batch_api: снимаю markdown-обёртку ```")
             text = re.sub(r"```json?\n?", "", text).replace("```", "").strip()
 
         results = json.loads(text)
+        log_debug(f"classify_batch_api: распарсил {len(results)} классификаций от Claude")
         for r in results:
             r["method"] = "claude"
             r.setdefault("expect_events", _get_expect_events(r.get("type", "general")))
         return results
 
     except json.JSONDecodeError as e:
-        print(f"  ⚠️  JSON parse error: {e}")
+        log_warn(f"JSON parse error: {e}")
         return [{"type": "general", "priority": 5, "method": "parse_error"} for _ in urls]
     except Exception as e:
-        print(f"  ⚠️  API error: {e}")
+        log_warn(f"API error: {e}")
         return [{"type": "general", "priority": 5, "method": "exception"} for _ in urls]
 
 
@@ -439,15 +462,18 @@ def _get_expect_events(page_type: str) -> list:
 
 def classify_url(url: str, site_context: str = "") -> dict:
     """Классифицирует один URL."""
+    log_debug(f"classify_url: start url={url}")
     path = urlparse(url).path if "://" in url else url
     path = path or "/"
 
     fast = fast_classify(path, full_url=url)
     if fast:
+        log_debug(f"classify_url: распознано локально (слой {fast.get('method')}) → {fast['type']}")
         fast["description"] = fast.get("description") or fast["type"].replace("_", " ").title()
         fast["expect_events"] = _get_expect_events(fast["type"])
         return fast
 
+    log_debug(f"classify_url: локально не распознано → слой Claude для {path}")
     results = classify_batch_api([path], site_context)
     result = results[0] if results else {"type": "general", "priority": 5}
     result["description"] = result.get("type", "general").replace("_", " ").title()
@@ -461,16 +487,19 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
     """
     from platform_detector import classify_shopify_page
 
+    log_debug(f"classify_urls: start {len(urls)} URL platform={platform!r} show_progress={show_progress}")
     results = [{"type": "general", "priority": 5, "method": "unprocessed"} for _ in urls]
     ai_needed = []
 
     for i, url in enumerate(urls):
         path = urlparse(url).path if "://" in url else url
         path = path or "/"
+        log_debug(f"classify_urls: [{i}] url={url} path={path}")
 
         # 1. Regex + patterns
         fast = fast_classify(path, full_url=url)
         if fast:
+            log_debug(f"classify_urls: [{i}] локальный слой ({fast.get('method')}) → {fast['type']}")
             fast.update({
                 "url": url, "path": path,
                 "description": fast["type"].replace("_", " ").title(),
@@ -482,8 +511,10 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
         # 2. Shopify slug rules — до Claude, бесплатно
         if platform == "shopify" and path.startswith("/pages/"):
             slug = path.replace("/pages/", "").lstrip("/").split("/")[0]
+            log_debug(f"classify_urls: [{i}] Shopify slug-слой, slug={slug}")
             slug_result = classify_shopify_page(slug)
             if slug_result is not None:
+                log_debug(f"classify_urls: [{i}] Shopify slug-слой сработал → {slug_result['type']}")
                 slug_result.update({
                     "url": url, "path": path,
                     "description": slug_result["type"].replace("_", " ").title(),
@@ -493,6 +524,7 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
                 continue
 
         # 3. Claude — только то что не распознали выше
+        log_debug(f"classify_urls: [{i}] не распознано локально → откладываю в ai_needed")
         ai_needed.append((i, path, url))
 
     if show_progress:
@@ -503,18 +535,18 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
         def ts():
             return datetime.datetime.now().strftime("%H:%M:%S")
 
-        print(f"  [{ts()}] Классификация завершена:")
-        print(f"  [{ts()}]   ⚡ Regex/patterns : {regex_count} URL")
+        log_info(f"[{ts()}] Классификация завершена:")
+        log_info(f"[{ts()}]   ⚡ Regex/patterns : {regex_count} URL")
         if slug_count:
-            print(f"  [{ts()}]   🏪 Slug rules    : {slug_count} URL (Shopify /pages/*)")
+            log_info(f"[{ts()}]   🏪 Slug rules    : {slug_count} URL (Shopify /pages/*)")
         if ai_needed:
-            print(f"  [{ts()}]   🤖 Claude нужен  : {len(ai_needed)} URL → отправляем батч...")
+            log_info(f"[{ts()}]   🤖 Claude нужен  : {len(ai_needed)} URL → отправляем батч...")
         else:
-            print(f"  [{ts()}]   ✅ Claude не нужен — всё распознано локально")
+            log_success(f"[{ts()}]   Claude не нужен — всё распознано локально")
 
     if ai_needed:
         if not ANTHROPIC_API_KEY:
-            print(f"  ⚠️  ANTHROPIC_API_KEY не задан — {len(ai_needed)} URL → general")
+            log_warn(f"ANTHROPIC_API_KEY не задан — {len(ai_needed)} URL → general")
             for orig_idx, path, url in ai_needed:
                 results[orig_idx] = {
                     "type": "general", "priority": 5,
@@ -530,21 +562,22 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
             for batch_start in range(0, len(ai_needed), BATCH_SIZE):
                 batch = ai_needed[batch_start:batch_start + BATCH_SIZE]
                 paths = [p for _, p, _ in batch]
+                log_debug(f"classify_urls: батч Claude #{batch_start+1}, {len(batch)} URL")
 
                 t_start = datetime.datetime.now()
                 if show_progress:
                     batch_end = batch_start + len(batch)
-                    print(f"  [{ts()}] 🤖 Claude ← {len(batch)} URL (#{batch_start+1}–{batch_end}):")
+                    log_info(f"[{ts()}] 🤖 Claude ← {len(batch)} URL (#{batch_start+1}–{batch_end}):")
                     for _, p, _ in batch:
-                        print(f"  [{ts()}]      {p}")
+                        log_info(f"[{ts()}]      {p}")
 
                 classifications = classify_batch_api(paths, site_context)
 
                 elapsed = (datetime.datetime.now() - t_start).total_seconds()
                 if show_progress:
-                    print(f"  [{ts()}] 🤖 Claude → ответил за {elapsed:.1f}s:")
+                    log_info(f"[{ts()}] 🤖 Claude → ответил за {elapsed:.1f}s:")
                     for (_, path, _), clf in zip(batch, classifications):
-                        print(f"  [{ts()}]      {path} → {clf.get('type','?')} (priority {clf.get('priority','?')})")
+                        log_info(f"[{ts()}]      {path} → {clf.get('type','?')} (priority {clf.get('priority','?')})")
 
                 for (orig_idx, path, url), clf in zip(batch, classifications):
                     clf.update({
@@ -567,6 +600,7 @@ def get_page_priority_label(priority: int) -> str:
 
 def classify_page_content(html: str, page=None) -> dict:
     """Анализирует HTML страницы на наличие CTA элементов."""
+    log_debug(f"classify_page_content: start html_len={len(html)} page={'yes' if page else 'no'}")
     CTA_HIGH = [
         r"book\s+now", r"reserve\s+now", r"rent\s+now", r"buy\s+now",
         r"add\s+to\s+cart", r"add\s+to\s+bag", r"checkout", r"pay\s+now",
@@ -599,10 +633,10 @@ def classify_page_content(html: str, page=None) -> dict:
                     text = btn.inner_text(timeout=500).strip()
                     if text and len(text) < 60:
                         interactive_elements.append(text)
-                except Exception:
-                    pass
-        except Exception:
-            pass
+                except Exception as e:
+                    log_debug(f"classify_page_content: не прочитал текст кнопки: {e}")
+        except Exception as e:
+            log_debug(f"classify_page_content: не собрал form/button DOM: {e}")
 
     is_poi = bool(high or form or forms_count > 0)
     reasons = []

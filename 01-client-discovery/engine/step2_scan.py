@@ -22,39 +22,44 @@ from popup_handler import handle_popups
 from utils import get_scan_dir, scan_path, setup_logging, HEADERS
 from scanners import get_scanner
 from scanners.base_scanner import ANALYTICS_TOOLS
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
 
 
 def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         debug_mode: bool = False, click_mode: bool = False, headed: bool = False):
+    log_debug(f"run: start step1_file={step1_file} max_priority={max_priority} only_url={only_url} click_mode={click_mode} headed={headed}")
     try:
         with open(step1_file, "r", encoding="utf-8") as f:
             step1 = json.load(f)
     except Exception as e:
-        print(f"❌ Не могу открыть {step1_file}: {e}")
+        log_error(f"Не могу открыть {step1_file}: {e}")
         sys.exit(1)
 
     base_url = step1["base_url"]
     domain = urlparse(base_url).netloc
     platform = step1.get("platform", {}).get("platform", "unknown")
+    log_debug(f"run: base_url={base_url} domain={domain} platform={platform}")
 
     to_scan_raw = step1.get("to_scan", step1.get("classified", []))
     to_scan = [p for p in to_scan_raw if p.get("priority", 5) <= max_priority]
+    log_debug(f"run: to_scan_raw={len(to_scan_raw)} → filtered by priority≤{max_priority} → {len(to_scan)} pages")
     if only_url:
         exact = [p for p in to_scan if p.get("path", "") == only_url]
         to_scan = exact if exact else [p for p in to_scan if only_url in p.get("url", "")]
+        log_debug(f"run: only_url={only_url} → {'exact match' if exact else 'substring match'} → {len(to_scan)} pages")
         if not to_scan:
-            print(f"❌ Страница '{only_url}' не найдена в step1.json")
+            log_error(f"Страница '{only_url}' не найдена в step1.json")
             return
 
-    print(f"\n{'═' * 65}")
-    print(f"  TNC Pipeline — Step 2: Page Scanner")
+    log_header("TNC Pipeline — Step 2: Page Scanner")
     print(f"  Target:   {base_url}")
     print(f"  Platform: {platform.upper()}")
     print(f"  Priority: ≤ {max_priority} ({get_page_priority_label(max_priority)})")
     print(f"  Pages:    {len(to_scan)}")
-    print(f"{'═' * 65}\n")
+    print()
 
     scanner = get_scanner(platform)
+    log_debug(f"run: scanner resolved for platform={platform}")
 
     GTM_TO_SCAN = {
         "Meta Pixel": "Meta",
@@ -76,8 +81,9 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     all_tag_ids = []
 
     if headed:
-        print("🪟 Режим: headed (видимый браузер) — GTM-теги и Meta-beacon стреляют как в реальном браузере")
+        log_info("Режим: headed (видимый браузер) — GTM-теги и Meta-beacon стреляют как в реальном браузере", emoji="🪟")
     with sync_playwright() as p:
+        log_debug(f"run: launching chromium headless={not headed}")
         browser = p.chromium.launch(headless=not headed)
         context = browser.new_context(
             user_agent=HEADERS["User-Agent"],
@@ -85,24 +91,26 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         )
         page = context.new_page()
 
-        print(f"🌐 Открываем {base_url}...")
+        log_step(f"Открываем {base_url}...", emoji="🌐")
         try:
             page.goto(base_url, wait_until="domcontentloaded", timeout=25000)
             page.wait_for_timeout(3500)
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"run: goto/wait для {base_url} не удался (продолжаем): {e}")
 
-        print("🍪 Проверяем consent и гео-баннеры...")
+        log_step("Проверяем consent и гео-баннеры...", emoji="🍪")
         try:
             popup_result = handle_popups(page)
+            log_debug(f"run: handle_popups result={popup_result}")
             if popup_result.get("cookie_consent") != "not_found":
                 print(f"  ✓ Consent: {popup_result.get('cookie_consent')}")
             else:
                 print("  ℹ️  Баннеров не обнаружено")
-        except Exception:
+        except Exception as e:
+            log_debug(f"run: handle_popups не удался: {e}")
             print("  ℹ️  Баннеров не обнаружено")
 
-        print("🔍 Поиск тегов (GTM / GA4 / Google Ads)...")
+        log_step("Поиск тегов (GTM / GA4 / Google Ads)...", emoji="🔍")
         try:
             from gtm_analyzer import find_tag_ids_in_page, \
                 download_gtm_container, analyze_js
@@ -111,43 +119,52 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             direct_ga4_ids = [x for x in all_found_ids if x.startswith("G-")]
             direct_ads_ids = [x for x in all_found_ids if x.startswith("AW-")]
             all_tag_ids = all_found_ids
+            log_debug(f"run: find_tag_ids → all={all_found_ids} gtm={gtm_container_ids} ga4={direct_ga4_ids} ads={direct_ads_ids}")
 
             if gtm_container_ids:
-                print(f"  ✓ Google Tag Manager: {', '.join(gtm_container_ids)}")
+                log_success(f"Google Tag Manager: {', '.join(gtm_container_ids)}", emoji="✓")
                 for gtm_id in gtm_container_ids:
+                    log_debug(f"run: download_gtm_container {gtm_id}")
                     container = download_gtm_container(gtm_id)
                     if container:
                         js_text = container.get("raw_js", json.dumps(container))
                         analysis = analyze_js(js_text)
                         gtm_insights[gtm_id] = analysis
+                        log_debug(f"run: GTM {gtm_id} analyze_js → platforms={list(analysis.get('platforms_found', {}).keys())}")
                         for plat in analysis.get("platforms_found", {}):
                             gtm_platforms.add(plat)
+                    else:
+                        log_debug(f"run: GTM {gtm_id} контейнер не скачался")
                 if gtm_platforms:
-                    print(f"  ✓ Платформы в GTM: {', '.join(sorted(gtm_platforms))}")
+                    log_success(f"Платформы в GTM: {', '.join(sorted(gtm_platforms))}", emoji="✓")
                 gtm_file = scan_path(domain, "gtm.json")
                 with open(gtm_file, "w", encoding="utf-8") as f:
                     json.dump(gtm_insights, f, indent=2, ensure_ascii=False)
+                log_debug(f"run: gtm insights сохранены в {gtm_file}")
             if direct_ga4_ids:
-                print(f"  ✓ GA4 (прямой тег): {', '.join(direct_ga4_ids)}")
+                log_success(f"GA4 (прямой тег): {', '.join(direct_ga4_ids)}", emoji="✓")
                 gtm_platforms.add("Google Analytics GA4")
             if direct_ads_ids:
-                print(f"  ✓ Google Ads (прямой тег): {', '.join(direct_ads_ids)}")
+                log_success(f"Google Ads (прямой тег): {', '.join(direct_ads_ids)}", emoji="✓")
                 gtm_platforms.add("Google Ads")
             if not all_tag_ids:
-                print(f"  ℹ️  Теги Google не найдены — смотрим network напрямую")
+                log_info("Теги Google не найдены — смотрим network напрямую")
         except Exception as e:
-            print(f"  ⚠️  Поиск тегов не удался: {e}")
+            log_warn(f"Поиск тегов не удался: {e}")
 
         expected_platforms = {GTM_TO_SCAN.get(p_name, p_name) for p_name in gtm_platforms}
+        log_debug(f"run: expected_platforms={expected_platforms}")
 
         for i, item in enumerate(to_scan, 1):
             url = item["url"]
             path = item["path"]
             ptype = item["type"]
             expect = item.get("expect_events", [])
+            log_debug(f"run: [{i}/{len(to_scan)}] scan url={url} type={ptype} expect={expect}")
 
             result = scanner(page, url, ptype, expect, platform=platform)
             result["gtm_expected_platforms"] = list(expected_platforms)
+            log_debug(f"run: [{i}] scanner вернул pixel_events={list(result.get('pixel_events', {}).keys())} conv={result.get('conversion_events_found')} cta={len(result.get('cta_elements', []))}")
 
             if click_mode:
                 try:
@@ -155,9 +172,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     if ptype in CLICKABLE_TYPES:
                         import datetime as _dtc
                         _tsc = _dtc.datetime.now().strftime("%H:%M:%S")
-                        print(f"  [{_tsc}] 🖱  Clicker: {ptype}...")
+                        log_info(f"[{_tsc}] Clicker: {ptype}...", emoji="🖱")
                         click_result = click_page(page, url, ptype, platform=platform, debug=debug_mode)
                         result["click_result"] = click_result
+                        log_debug(f"run: [{i}] click_result clicked={click_result.get('clicked')} conv={click_result.get('conversion_events')} error={click_result.get('error')}")
                         for ev in click_result.get("conversion_events", []):
                             if ev not in result["conversion_events_found"]:
                                 result["conversion_events_found"].append(ev)
@@ -167,8 +185,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                             print(f"       ➖ Кликнули, событий нет")
                         if click_result.get("error"):
                             print(f"       ⚠️  {click_result['error']}")
+                    else:
+                        log_debug(f"run: [{i}] click_mode пропущен — type={ptype} не в CLICKABLE_TYPES")
                 except Exception as e:
-                    print(f"  ⚠️  Clicker error: {e}")
+                    log_warn(f"Clicker error: {e}")
 
             results.append(result)
 
@@ -182,12 +202,15 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             pixel_events_r = result["pixel_events"]
             shopify_plats  = result.get("shopify_pixel_platforms", [])
 
+            log_debug(f"run: [{i}] classify has_tracking={has_tracking} has_conv={has_conv} has_cta={has_cta} pixel_id={has_pixel_id} expected={bool(expected_platforms)}")
             if not has_tracking and not expected_platforms:
                 result["status"] = "❌ NO TRACKING"
                 no_tracking_pages.append(result)
+                log_debug(f"run: [{i}] → NO TRACKING (нет пикселей и нет ожидаемых платформ)")
             elif not has_tracking and expected_platforms:
                 result["status"] = "🚨 GAP"
                 gaps.append(result)
+                log_debug(f"run: [{i}] → GAP (ожидались платформы из GTM, но трекинг не пойман)")
             elif has_tracking and not has_conv:
                 external = result.get("external_services", {})
                 has_serverside_scheduler = any(
@@ -205,22 +228,28 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                         f"типичный случай). Требуется headed-проверка срабатывания."
                     )
                     unverified_pages.append(result)
+                    log_debug(f"run: [{i}] → unverified (пиксель по ID, событий нет — headless beacon подавлён)")
                 elif platform == "shopify" and has_serverside_scheduler:
                     svc_names = [s for s in external if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
                     result["status"] = f"⚠️ форма бронирования обнаружена ({', '.join(svc_names)}). Конверсионное событие при загрузке страницы не зафиксировано."
                     unverified_pages.append(result)
+                    log_debug(f"run: [{i}] → unverified (shopify + scheduler {svc_names})")
                 elif has_cta:
                     result["status"] = "🚨 GAP"
                     gaps.append(result)
+                    log_debug(f"run: [{i}] → GAP (трекинг есть, CTA есть, конверсий нет)")
                 else:
                     result["status"] = "➖ NO CTA"
                     no_ctas.append(result)
+                    log_debug(f"run: [{i}] → NO CTA (трекинг есть, но ни CTA ни конверсий)")
             elif has_conv:
                 result["status"] = "✅ OK"
                 oks.append(result)
+                log_debug(f"run: [{i}] → OK (конверсионные события зафиксированы)")
             else:
                 result["status"] = "➖ NO CTA"
                 no_ctas.append(result)
+                log_debug(f"run: [{i}] → NO CTA (fallthrough)")
 
             import datetime as _dt
             _ts = _dt.datetime.now().strftime("%H:%M:%S")
@@ -298,10 +327,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
 
     n_unverified = len(unverified_pages)
     n_real_gaps  = len(gaps)
+    log_debug(f"run: итоги — ok={len(oks)} gaps={n_real_gaps} unverified={n_unverified} no_tracking={len(no_tracking_pages)} no_cta={len(no_ctas)}")
 
-    print(f"\n{'═' * 65}")
-    print(f"  РЕЗУЛЬТАТ")
-    print(f"{'═' * 65}")
+    print()
+    log_header("РЕЗУЛЬТАТ")
     print(f"  ✅ OK  (CTA + Events):           {len(oks)}")
     print(f"  🚨 GAP (пиксель, нет конверсий): {n_real_gaps}")
     if n_unverified:
@@ -406,13 +435,14 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     filename = scan_path(domain, f"{domain}_step2.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
-    print(f"\n💾 Сохранено: {filename}")
+    print()
+    log_success(f"Сохранено: {filename}", emoji="💾")
 
     step2_file = scan_path(domain, f"{domain}_step2.json")
-    print(f"\n{'═' * 65}")
-    print(f"  💡 Следующий шаг:")
+    print()
+    log_header("💡 Следующий шаг:")
     print(f"     python report.py {step2_file}")
-    print(f"{'═' * 65}\n")
+    print()
 
     return output
 
@@ -437,4 +467,5 @@ if __name__ == "__main__":
     )
     run(args.step1_file, max_priority=args.priority, only_url=args.url,
         debug_mode=args.debug, click_mode=args.click, headed=args.headed)
-    print(f"\n📝 Лог: {_log_path}")
+    print()
+    log_info(f"Лог: {_log_path}", emoji="📝")

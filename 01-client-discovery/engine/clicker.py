@@ -26,6 +26,7 @@ import datetime
 from urllib.parse import urlparse, parse_qs
 
 from utils import HEADERS
+from log import log_debug, log_step, log_header
 
 
 # ─── Типы страниц которые кликаем ────────────────────────────────────────────
@@ -103,7 +104,7 @@ def make_pixel_listener(pixel_events: dict, debug: bool = False):
         # Shopify web-pixels — логируем в debug
         if "/web-pixels" in req_url and debug:
             ts = datetime.datetime.now().strftime("%H:%M:%S")
-            print(f"       [{ts}] 🔷 [web-pixel] {req_url[:80]}")
+            log_debug(f"       [{ts}] 🔷 [web-pixel] {req_url[:80]}")
 
         for platform, rules in PIXEL_RULES.items():
             for domain in rules["domains"]:
@@ -122,7 +123,7 @@ def make_pixel_listener(pixel_events: dict, debug: bool = False):
                     if debug:
                         flag = "🎯" if entry["is_conversion"] else ("🔸" if entry["is_partial"] else "·")
                         ts = datetime.datetime.now().strftime("%H:%M:%S")
-                        print(f"       [{ts}] {flag} [click→{platform}] {event}")
+                        log_debug(f"       [{ts}] {flag} [click→{platform}] {event}")
                     break
 
     return on_request
@@ -135,35 +136,38 @@ def find_add_to_cart(page, debug: bool = False) -> str | None:
     Ищет кнопку Add to Cart на product page.
     Возвращает selector или None если не нашёл.
     """
+    log_debug(f"find_add_to_cart: start, CSS selectors={len(ADD_TO_CART_SELECTORS)}, text patterns={len(ADD_TO_CART_TEXTS)}")
     # 1. По CSS селекторам
     for sel in ADD_TO_CART_SELECTORS:
+        log_debug(f"find_add_to_cart: пробуем CSS selector [{sel}]")
         try:
             el = page.locator(sel).first
             if el.is_visible(timeout=500):
                 if debug:
-                    print(f"       🛒 Add to Cart найден: [{sel}]")
+                    log_debug(f"       🛒 Add to Cart найден: [{sel}]")
                 return sel
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"find_add_to_cart: CSS selector [{sel}] miss: {e}")
 
     # 2. По тексту — ищем все кнопки с нужным текстом, берём первую visible
     for text in ADD_TO_CART_TEXTS:
+        log_debug(f"find_add_to_cart: пробуем текст '{text}'")
         try:
             buttons = page.get_by_role("button", name=text, exact=False).all()
             for btn in buttons:
                 try:
                     if btn.is_visible(timeout=200):
                         if debug:
-                            print(f"       🛒 Add to Cart по тексту: '{text}'")
+                            log_debug(f"       🛒 Add to Cart по тексту: '{text}'")
                         # Возвращаем через evaluate чтобы получить стабильный selector
                         return f"button-text:{text}"
-                except Exception:
-                    pass
-        except Exception:
-            pass
+                except Exception as e:
+                    log_debug(f"find_add_to_cart: button visibility check miss '{text}': {e}")
+        except Exception as e:
+            log_debug(f"find_add_to_cart: текст '{text}' miss: {e}")
 
     if debug:
-        print(f"       ⚠️  Add to Cart не найден")
+        log_debug(f"       Add to Cart не найден")
     return None
 
 
@@ -172,24 +176,28 @@ def find_first_product_link(page, debug: bool = False) -> str | None:
     Ищет ссылку на первый продукт в листинге.
     Возвращает href или None.
     """
+    log_debug(f"find_first_product_link: start, product card selectors={len(PRODUCT_CARD_SELECTORS)}")
     for sel in PRODUCT_CARD_SELECTORS:
+        log_debug(f"find_first_product_link: пробуем selector [{sel}]")
         try:
             links = page.locator(sel).all()
+            log_debug(f"find_first_product_link: [{sel}] нашёл {len(links)} ссылок, проверяем первые 5")
             for link in links[:5]:
                 href = link.get_attribute("href")
                 if href and "/products/" in href:
                     # Строим полный URL
                     if href.startswith("/"):
+                        log_debug(f"find_first_product_link: относительный href, достраиваем абсолютный URL")
                         base = page.url.split("/")[0] + "//" + page.url.split("/")[2]
                         href = base + href
                     if debug:
-                        print(f"       🔗 Первый продукт: {href[:80]}")
+                        log_debug(f"       🔗 Первый продукт: {href[:80]}")
                     return href
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"find_first_product_link: selector [{sel}] miss: {e}")
 
     if debug:
-        print(f"       ⚠️  Ссылка на продукт не найдена")
+        log_debug(f"       Ссылка на продукт не найдена")
     return None
 
 
@@ -217,6 +225,7 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
             "error": str | None,
         }
     """
+    log_debug(f"click_page: start url={url} page_type={page_type} platform={platform}")
     result = {
         "clicked": False,
         "action": None,
@@ -229,41 +238,47 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
     # Проверяем что тип поддерживается
     if page_type not in CLICKABLE_TYPES:
         reason = SKIP_TYPES.get(page_type, "не поддерживается")
+        log_debug(f"click_page: тип '{page_type}' не в CLICKABLE_TYPES → skip ({reason})")
         result["error"] = f"skip: {reason}"
         if debug:
-            print(f"       ⏭  Клик пропущен ({reason})")
+            log_debug(f"       Клик пропущен ({reason})")
         return result
 
     ts = datetime.datetime.now().strftime("%H:%M:%S")
     if debug:
-        print(f"       [{ts}] 🖱  Начинаем клики для {page_type}...")
+        log_debug(f"       [{ts}] 🖱  Начинаем клики для {page_type}...")
 
     # Подключаем listener на page И на context (web-pixels идут через context)
     pixel_events = {}
     listener = make_pixel_listener(pixel_events, debug=debug)
     page.on("request", listener)
+    log_debug("click_page: pixel listener подключён к page")
     try:
         page.context.on("request", listener)
-    except Exception:
-        pass
+        log_debug("click_page: pixel listener подключён к context")
+    except Exception as e:
+        log_debug(f"click_page: не удалось подключить listener к context: {e}")
 
     try:
         if page_type == "product":
+            log_debug("click_page: ветка product → _click_product_page")
             result = _click_product_page(page, url, pixel_events, result, debug)
 
         elif page_type in ("search_results", "homepage"):
+            log_debug("click_page: ветка listing → _click_listing_page")
             result = _click_listing_page(page, url, pixel_events, result, debug)
 
     except Exception as e:
         result["error"] = str(e)[:100]
-        if debug:
-            print(f"       ❌ Ошибка клика: {e}")
+        log_debug(f"Ошибка клика: {e}")  # было `if debug: print` — debug-only видимость сохранена
     finally:
         page.remove_listener("request", listener)
+        log_debug("click_page: pixel listener отключён от page")
         try:
             page.context.remove_listener("request", listener)
-        except Exception:
-            pass
+            log_debug("click_page: pixel listener отключён от context")
+        except Exception as e:
+            log_debug(f"click_page: не удалось отключить listener от context: {e}")
 
     # Собираем конверсионные события
     for platform, events in pixel_events.items():
@@ -277,6 +292,7 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
         if any(not e["is_noise"] for e in evts)
     }
 
+    log_debug(f"click_page: done clicked={result['clicked']} conversions={result['conversion_events']} error={result['error']}")
     return result
 
 
@@ -284,71 +300,86 @@ def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug:
     """Кликает Add to Cart на product page."""
     from popup_handler import handle_popups
 
+    log_debug(f"_click_product_page: start url={url}")
     # Закрываем баннеры и consent (могут появиться на новой странице)
     popup_result = handle_popups(page, verbose=debug)
+    log_debug(f"_click_product_page: handle_popups → cookie_consent={popup_result.get('cookie_consent')}")
 
     # Если consent был принят — ждём дольше пока теги загрузятся и страница перерисуется
     if popup_result["cookie_consent"] == "accepted_all":
         wait_ms = popup_result.get("wait_after_ms", 5000)
+        log_debug(f"_click_product_page: consent accepted, ждём {wait_ms}ms пока теги загрузятся")
         if debug:
-            print(f"       ⏳ Ждём {wait_ms}ms после consent...")
+            log_debug(f"       ⏳ Ждём {wait_ms}ms после consent...")
         page.wait_for_timeout(wait_ms)
     else:
+        log_debug("_click_product_page: consent не accepted, короткое ожидание 500ms")
         page.wait_for_timeout(500)
 
     atc_selector = find_add_to_cart(page, debug=debug)
 
     if not atc_selector:
+        log_debug("_click_product_page: Add to Cart не найден → error=add_to_cart_not_found")
         result["error"] = "add_to_cart_not_found"
         return result
+    log_debug(f"_click_product_page: Add to Cart selector={atc_selector}")
 
     try:
         # Получаем элемент в зависимости от типа selector
         if atc_selector.startswith("button-text:"):
+            log_debug("_click_product_page: selector типа button-text, ищем видимую кнопку по тексту")
             text = atc_selector.replace("button-text:", "")
             buttons = page.get_by_role("button", name=text, exact=False).all()
             el = next((b for b in buttons if b.is_visible(timeout=200)), None)
             if el is None:
+                log_debug("_click_product_page: видимая button-text кнопка не найдена → add_to_cart_visible_not_found")
                 result["error"] = "add_to_cart_visible_not_found"
                 return result
         else:
+            log_debug(f"_click_product_page: selector типа CSS, locator [{atc_selector}]")
             el = page.locator(atc_selector).first
             if not el.is_visible(timeout=3000):
+                log_debug("_click_product_page: CSS кнопка не видима → add_to_cart_not_visible")
                 result["error"] = "add_to_cart_not_visible"
                 return result
 
         # Если кнопка disabled — пробуем выбрать первый вариант продукта
         is_disabled = el.get_attribute("disabled") is not None or \
                       "disabled" in (el.get_attribute("class") or "")
+        log_debug(f"_click_product_page: кнопка disabled={is_disabled}")
         if is_disabled:
             if debug:
-                print(f"       ⚠️  Кнопка disabled — ищем варианты продукта...")
+                log_debug(f"       Кнопка disabled — ищем варианты продукта...")
             for variant_sel in [
                 "input[type='radio']:not([disabled]) + label",
                 ".product-form__input input[type='radio']:first-child + label",
                 "[data-option-item]:first-child",
                 ".swatch:first-child",
             ]:
+                log_debug(f"_click_product_page: пробуем variant selector [{variant_sel}]")
                 try:
                     v = page.locator(variant_sel).first
                     if v.is_visible(timeout=500):
                         v.click(timeout=1000)
                         page.wait_for_timeout(500)
                         if debug:
-                            print(f"       ✓ Вариант выбран: [{variant_sel}]")
+                            log_debug(f"       ✓ Вариант выбран: [{variant_sel}]")
                         break
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"_click_product_page: variant selector [{variant_sel}] miss: {e}")
 
+        log_debug("_click_product_page: scroll_into_view + click Add to Cart")
         el.scroll_into_view_if_needed(timeout=5000)
         el.click(timeout=5000)
         result["clicked"] = True
         result["action"] = f"click:add_to_cart [{atc_selector}]"
 
         # Ждём pixel events — web-pixels могут стрелять с задержкой
+        log_debug("_click_product_page: ждём 6000ms pixel events (web-pixels с задержкой)")
         page.wait_for_timeout(6000)
 
         # Читаем события из dataLayer и fbq queue (web-pixels пишут туда)
+        log_debug("_click_product_page: читаем dataLayer + fbq.queue через page.evaluate")
         try:
             js_events = page.evaluate("""
             () => {
@@ -401,6 +432,7 @@ def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug:
             }
 
             from step2_scan import is_conversion_event, is_partial_event, is_noise_event
+            log_debug(f"_click_product_page: JS вернул {len(js_events)} событий, обрабатываем")
             for ev in js_events:
                 plat = ev["platform"]
                 event_name = ev["event"]
@@ -408,9 +440,10 @@ def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug:
                 # dl_ события маппим на стандартные GA4
                 if event_name in DL_CONVERSION_MAP:
                     mapped_plat, mapped_event = DL_CONVERSION_MAP[event_name]
+                    log_debug(f"_click_product_page: dl_ событие {event_name} → маппим на {mapped_plat}:{mapped_event}")
                     if debug:
                         ts = datetime.datetime.now().strftime("%H:%M:%S")
-                        print(f"       [{ts}] 🎯 [JS→{mapped_plat}] {event_name} → {mapped_event}")
+                        log_debug(f"       [{ts}] 🎯 [JS→{mapped_plat}] {event_name} → {mapped_event}")
                     # Добавляем оба — оригинальный dl_ и маппированный стандартный
                     for e_name in [event_name, mapped_event]:
                         pixel_events.setdefault(mapped_plat, [])
@@ -423,9 +456,10 @@ def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug:
                                 "source": "js_datalayer",
                             })
                 else:
+                    log_debug(f"_click_product_page: обычное JS событие {plat}:{event_name}")
                     if debug:
                         ts = datetime.datetime.now().strftime("%H:%M:%S")
-                        print(f"       [{ts}] 📋 [JS→{plat}] {event_name}")
+                        log_debug(f"       [{ts}] 📋 [JS→{plat}] {event_name}")
                     pixel_events.setdefault(plat, [])
                     if not any(e["event"] == event_name for e in pixel_events[plat]):
                         pixel_events[plat].append({
@@ -436,14 +470,14 @@ def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug:
                             "source": "js_read",
                         })
         except Exception as e:
-            if debug:
-                print(f"       ⚠️  JS read error: {e}")
+            log_debug(f"_click_product_page: JS read error: {e}")
 
         if debug:
             ts = datetime.datetime.now().strftime("%H:%M:%S")
-            print(f"       [{ts}] ✅ Клик выполнен: Add to Cart")
+            log_debug(f"       [{ts}] ✅ Клик выполнен: Add to Cart")
 
     except Exception as e:
+        log_debug(f"_click_product_page: click_failed: {e}")
         result["error"] = f"click_failed: {str(e)[:80]}"
 
     return result
@@ -452,26 +486,31 @@ def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug:
 def _click_listing_page(page, url: str, pixel_events: dict, result: dict, debug: bool) -> dict:
     """Кликает на первый продукт в листинге → попадает на product page → кликает Add to Cart."""
 
+    log_debug(f"_click_listing_page: start url={url}")
     page.wait_for_timeout(500)
 
     product_url = find_first_product_link(page, debug=debug)
     if not product_url:
+        log_debug("_click_listing_page: ссылка на продукт не найдена → no_product_link_found")
         result["error"] = "no_product_link_found"
         return result
+    log_debug(f"_click_listing_page: найден product_url={product_url[:80]}")
 
     try:
         # Переходим на product page
+        log_debug(f"_click_listing_page: goto product page {product_url[:80]}")
         page.goto(product_url, wait_until="domcontentloaded", timeout=15000)
         page.wait_for_timeout(2000)
         result["navigated_to"] = product_url
 
         if debug:
             ts = datetime.datetime.now().strftime("%H:%M:%S")
-            print(f"       [{ts}] 🔗 Перешли на: {product_url[:80]}")
+            log_debug(f"       [{ts}] 🔗 Перешли на: {product_url[:80]}")
 
         # Кликаем Add to Cart
         atc_selector = find_add_to_cart(page, debug=debug)
         if atc_selector:
+            log_debug(f"_click_listing_page: Add to Cart найден [{atc_selector}], кликаем")
             el = page.locator(atc_selector).first
             el.scroll_into_view_if_needed(timeout=2000)
             el.click(timeout=3000)
@@ -481,12 +520,14 @@ def _click_listing_page(page, url: str, pixel_events: dict, result: dict, debug:
 
             if debug:
                 ts = datetime.datetime.now().strftime("%H:%M:%S")
-                print(f"       [{ts}] ✅ Клик выполнен: Add to Cart на product page")
+                log_debug(f"       [{ts}] ✅ Клик выполнен: Add to Cart на product page")
         else:
+            log_debug("_click_listing_page: Add to Cart не найден, навигация засчитана как взаимодействие")
             result["action"] = f"navigate→{product_url[:60]} (Add to Cart не найден)"
             result["clicked"] = True  # навигация = уже взаимодействие
 
     except Exception as e:
+        log_debug(f"_click_listing_page: navigation_failed: {e}")
         result["error"] = f"navigation_failed: {str(e)[:80]}"
 
     return result
@@ -499,12 +540,12 @@ def run_standalone(url: str, page_type: str, platform: str = "shopify", debug: b
     from playwright.sync_api import sync_playwright
     from popup_handler import handle_popups
 
-    print(f"\n{'═' * 65}")
-    print(f"  TNC Clicker — Debug Mode")
+    log_debug(f"run_standalone: start url={url} page_type={page_type} platform={platform} debug={debug}")
+    log_header("TNC Clicker — Debug Mode")
     print(f"  URL:       {url}")
     print(f"  Type:      {page_type}")
     print(f"  Platform:  {platform}")
-    print(f"{'═' * 65}\n")
+    print()
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)  # headless=False для визуального дебага
@@ -517,26 +558,24 @@ def run_standalone(url: str, page_type: str, platform: str = "shopify", debug: b
         # Сначала homepage — как step2, чтобы consent и гео-модал закрылись там
         parsed = urlparse(url)
         base_url = f"{parsed.scheme}://{parsed.netloc}"
-        print(f"🌐 Открываем homepage {base_url}...")
+        log_step(f"Открываем homepage {base_url}...", emoji="🌐")
         page.goto(base_url, wait_until="domcontentloaded", timeout=20000)
         page.wait_for_timeout(3500)
 
-        print(f"🍪 Обрабатываем consent и гео-баннеры...")
+        log_step(f"Обрабатываем consent и гео-баннеры...", emoji="🍪")
         handle_popups(page, verbose=True)
         page.wait_for_timeout(1000)
 
         # Переходим на нужную страницу
         if url != base_url:
-            print(f"🌐 Переходим на {url}...")
+            log_step(f"Переходим на {url}...", emoji="🌐")
             page.goto(url, wait_until="domcontentloaded", timeout=20000)
             page.wait_for_timeout(3000)
 
-        print(f"\n🖱  Запускаем клики...\n")
+        log_step(f"Запускаем клики...", emoji="🖱")
         result = click_page(page, url, page_type, platform=platform, debug=debug)
 
-        print(f"\n{'─' * 65}")
-        print(f"  РЕЗУЛЬТАТ")
-        print(f"{'─' * 65}")
+        log_header("РЕЗУЛЬТАТ")
         print(f"  Клик:        {'✅ выполнен' if result['clicked'] else '❌ не выполнен'}")
         print(f"  Действие:    {result['action'] or '—'}")
         if result["navigated_to"]:
@@ -549,7 +588,7 @@ def run_standalone(url: str, page_type: str, platform: str = "shopify", debug: b
             print(f"  События:     не зафиксированы после клика")
         if result["error"]:
             print(f"  ⚠️  Ошибка:   {result['error']}")
-        print(f"{'═' * 65}\n")
+        print()
 
         input("Нажми Enter чтобы закрыть браузер...")
         browser.close()

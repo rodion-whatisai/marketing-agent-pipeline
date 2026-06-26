@@ -17,6 +17,8 @@ TNC Pipeline — Platform Detector
 import re
 from urllib.parse import urlparse
 
+from log import log_info, log_debug
+
 
 # ─── Сигналы платформ ────────────────────────────────────────────────────────
 
@@ -247,10 +249,13 @@ SHOPIFY_PAGE_SLUG_RULES = [
 
 def classify_shopify_page(slug: str) -> dict:
     """Классифицирует Shopify /pages/[slug] по ключевым словам."""
+    log_debug(f"classify_shopify_page: start slug={slug!r}")
     slug_lower = slug.lower()
     for pattern, ptype, priority in SHOPIFY_PAGE_SLUG_RULES:
         if re.search(pattern, slug_lower):
+            log_debug(f"classify_shopify_page: matched pattern={pattern!r} → type={ptype} priority={priority}")
             return {"type": ptype, "priority": priority, "method": "platform_shopify"}
+    log_debug(f"classify_shopify_page: no slug rule matched slug={slug_lower!r} → general (Claude разберётся)")
     return None  # не распознан slug rules — Claude разберётся
 
 
@@ -268,10 +273,14 @@ def detect_platform(html: str, headers: dict = None, sitemap_urls: list = None) 
     Returns:
         dict с полями: platform, confidence, score, signals, profile
     """
+    log_debug(f"detect_platform: start html_len={len(html) if html else 0} "
+              f"headers={'yes' if headers else 'no'} "
+              f"sitemap_urls={len(sitemap_urls) if sitemap_urls else 0}")
     scores = {p: 0 for p in PLATFORM_SIGNALS}
     signals = {p: [] for p in PLATFORM_SIGNALS}
 
     # ── Анализ HTML ──────────────────────────────────────────────
+    log_debug("detect_platform: фаза HTML-сигналов")
     for platform, config in PLATFORM_SIGNALS.items():
         for signal, weight in config["weight"].items():
             # URL-паттерны из sitemap проверяем отдельно ниже
@@ -280,21 +289,28 @@ def detect_platform(html: str, headers: dict = None, sitemap_urls: list = None) 
             if signal in html:
                 scores[platform] += weight
                 signals[platform].append(signal)
+                log_debug(f"detect_platform: HTML hit {platform} +{weight} ({signal})")
 
     # ── Анализ headers ───────────────────────────────────────────
     if headers:
+        log_debug("detect_platform: фаза анализа headers")
         headers_str = str(headers).lower()
         # Wix специфичные headers
         if "x-seen-by" in headers_str:
             scores["wix"] += 2
             signals["wix"].append("header:X-Seen-By")
+            log_debug("detect_platform: header hit wix +2 (X-Seen-By)")
         # Shopify headers
         if "x-shopify" in headers_str:
             scores["shopify"] += 3
             signals["shopify"].append("header:X-Shopify")
+            log_debug("detect_platform: header hit shopify +3 (X-Shopify)")
+    else:
+        log_debug("detect_platform: headers не переданы — фаза пропущена")
 
     # ── Анализ URL структуры из sitemap ─────────────────────────
     if sitemap_urls:
+        log_debug(f"detect_platform: фаза sitemap-сигналов ({len(sitemap_urls)} URL)")
         url_text = " ".join(sitemap_urls)
         for platform, config in PLATFORM_SIGNALS.items():
             for signal, weight in config["weight"].items():
@@ -306,22 +322,33 @@ def detect_platform(html: str, headers: dict = None, sitemap_urls: list = None) 
                     capped = min(count, 3) * weight
                     scores[platform] += capped
                     signals[platform].append(f"sitemap:{signal}×{min(count,3)}")
+                    log_debug(f"detect_platform: sitemap hit {platform} +{capped} ({signal}×{min(count,3)})")
+    else:
+        log_debug("detect_platform: sitemap_urls не переданы — фаза пропущена")
 
     # ── Определяем победителя ────────────────────────────────────
+    log_debug(f"detect_platform: итоговые scores={ {p: s for p, s in scores.items() if s > 0} }")
     best_platform = max(scores, key=lambda p: scores[p])
     best_score = scores[best_platform]
     config = PLATFORM_SIGNALS[best_platform]
+    log_debug(f"detect_platform: лидер={best_platform} score={best_score} "
+              f"(thresholds high={config['threshold_high']} medium={config['threshold_medium']})")
 
     if best_score >= config["threshold_high"]:
         confidence = "high"
+        log_debug(f"detect_platform: score>={config['threshold_high']} → confidence=high")
     elif best_score >= config["threshold_medium"]:
         confidence = "medium"
+        log_debug(f"detect_platform: score>={config['threshold_medium']} → confidence=medium")
     elif best_score > 0:
         confidence = "low"
+        log_debug("detect_platform: score>0 но ниже medium → confidence=low")
     else:
         best_platform = "unknown"
         confidence = "unknown"
+        log_debug("detect_platform: score=0 → platform=unknown, confidence=unknown")
 
+    log_debug(f"detect_platform: result platform={best_platform} confidence={confidence} score={best_score}")
     # ── Формируем результат ──────────────────────────────────────
     return {
         "platform":   best_platform,
@@ -340,18 +367,19 @@ def print_platform_result(result: dict):
     score     = result["score"]
     signals   = result["signals"]
     profile   = result["profile"]
+    log_debug(f"print_platform_result: start platform={platform} confidence={confidence} score={score}")
 
     CONF_EMOJI = {"high": "✅", "medium": "🟡", "low": "⚠️", "unknown": "❓"}
     emoji = CONF_EMOJI.get(confidence, "❓")
 
-    print(f"\n  🏗  Платформа: {platform.upper()}  {emoji} {confidence}  (score: {score})")
-    print(f"     {profile['description']}")
+    log_info(f"  🏗  Платформа: {platform.upper()}  {emoji} {confidence}  (score: {score})")
+    log_info(f"     {profile['description']}")
     if signals:
-        print(f"     Сигналы: {', '.join(signals[:5])}")
+        log_info(f"     Сигналы: {', '.join(signals[:5])}")
     if result.get("all_scores") and len(result["all_scores"]) > 1:
         others = {p: s for p, s in result["all_scores"].items() if p != platform}
         if others:
             others_str = ", ".join(f"{p}:{s}" for p, s in sorted(others.items(), key=lambda x: -x[1])[:3])
-            print(f"     Другие:  {others_str}")
+            log_info(f"     Другие:  {others_str}")
     if profile.get("notes"):
-        print(f"     💡 {profile['notes']}")
+        log_info(f"     💡 {profile['notes']}")
