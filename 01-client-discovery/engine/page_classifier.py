@@ -481,9 +481,14 @@ def classify_url(url: str, site_context: str = "") -> dict:
     return result
 
 
-def classify_urls(urls: list, site_context: str = "", show_progress: bool = True, platform: str = "") -> list:
+def classify_urls(urls: list, site_context: str = "", show_progress: bool = True, platform: str = "", skip_ai: bool = False) -> list:
     """Классифицирует список URL.
     Порядок: regex/patterns → platform slug rules → Claude (только остаток).
+
+    skip_ai=True — стадия Claude пропускается целиком: всё, что не распознал
+    бесплатный regex/slug-слой, помечается general (method="regex_only").
+    Нужно для «ворот» на больших сайтах: сначала бесплатно считаем POI,
+    и зовём дорогой API только если их меньше бюджета скана.
     """
     from platform_detector import classify_shopify_page
 
@@ -539,10 +544,25 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
         log_info(f"[{ts()}]   ⚡ Regex/patterns : {regex_count} URL")
         if slug_count:
             log_info(f"[{ts()}]   🏪 Slug rules    : {slug_count} URL (Shopify /pages/*)")
-        if ai_needed:
+        if ai_needed and skip_ai:
+            log_info(f"[{ts()}]   ⚡ Regex-only    : {len(ai_needed)} URL → general (Claude пропущен)")
+        elif ai_needed:
             log_info(f"[{ts()}]   🤖 Claude нужен  : {len(ai_needed)} URL → отправляем батч...")
         else:
             log_success(f"[{ts()}]   Claude не нужен — всё распознано локально")
+
+    if ai_needed and skip_ai:
+        log_debug(f"classify_urls: skip_ai=True — {len(ai_needed)} URL НЕ отправляю в Claude, помечаю general")
+        if show_progress:
+            log_info(f"   ⚡ Regex-only режим: {len(ai_needed)} нераспознанных URL → general (Claude не зову)")
+        for orig_idx, path, url in ai_needed:
+            results[orig_idx] = {
+                "type": "general", "priority": 5,
+                "url": url, "path": path,
+                "description": "General page",
+                "expect_events": [], "method": "regex_only",
+            }
+        ai_needed = []
 
     if ai_needed:
         if not ANTHROPIC_API_KEY:

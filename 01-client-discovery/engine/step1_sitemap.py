@@ -374,10 +374,10 @@ def clean_urls(urls: list, domain: str) -> list:
     return clean
 
 
-def classify_all(urls: list, site_context: str = "", show_progress: bool = True, platform: str = "") -> list:
+def classify_all(urls: list, site_context: str = "", show_progress: bool = True, platform: str = "", skip_ai: bool = False) -> list:
     from page_classifier import classify_urls
 
-    log_debug(f"classify_all: start {len(urls)} URL, platform={platform!r}")
+    log_debug(f"classify_all: start {len(urls)} URL, platform={platform!r}, skip_ai={skip_ai}")
     # Дедуплицируем по path
     seen_paths = set()
     unique_urls = []
@@ -389,7 +389,7 @@ def classify_all(urls: list, site_context: str = "", show_progress: bool = True,
     log_debug(f"classify_all: {len(urls)} → {len(unique_urls)} уникальных по path")
 
     # Классифицируем батчем — передаём платформу чтобы slug rules шли до Claude
-    results_raw = classify_urls(unique_urls, site_context=site_context, show_progress=show_progress, platform=platform)
+    results_raw = classify_urls(unique_urls, site_context=site_context, show_progress=show_progress, platform=platform, skip_ai=skip_ai)
 
     results = []
     for url, c in zip(unique_urls, results_raw):
@@ -401,6 +401,37 @@ def classify_all(urls: list, site_context: str = "", show_progress: bool = True,
             **c,
         })
     return sorted(results, key=lambda x: (x["priority"], x["path"]))
+
+
+def _struct_key(path: str) -> str:
+    """Структурная форма URL = первый сегмент пути. /cars/altima → /cars."""
+    parts = [p for p in path.split("/") if p]
+    return "/" + parts[0] if parts else "/"
+
+
+def collapse_by_form(classified_regex: list, reps_per_form: int = 3) -> tuple:
+    """Схлопывает general-остаток по форме URL ДО дорогой Claude-классификации.
+
+    Возвращает (protected, reps):
+      protected = все POI (priority<=2) и discovered — НИКОГДА не схлопываем.
+      reps      = <=reps_per_form представителей на форму из general-остатка
+                  (priority>=3). Остальные siblings отбрасываются (они p5 general,
+                  в скан не попадают).
+
+    # Tested: 2026-06-26 on nissan.ie — Claude-вход 9280 → 43 URL (181 батч → 1),
+    # 4 regex-POI защищены, merge POI 4→4, структура цела.
+    """
+    protected, reps, seen = [], [], {}
+    for item in classified_regex:
+        if item.get("priority", 5) <= 2 or item.get("discovered"):
+            protected.append(item)
+            continue
+        struct = _struct_key(item.get("path", "/"))
+        n = seen.get(struct, 0)
+        if n < reps_per_form:
+            reps.append(item)
+            seen[struct] = n + 1
+    return protected, reps
 
 
 # ─── Вывод ───────────────────────────────────────────────────────────────────
@@ -665,12 +696,21 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
         log_info(f"CTA-детектор (regex) и classify_page_content работают только для EN.")
         log_info(f"Кнопки могут не распознаться. Результаты step2 менее надёжны.")
 
-    # ── Шаг 2: pattern discovery если мало POI ───────────────────
+    platform = platform_result.get("platform", "")
+
+    # ── Шаг 2: предварительная regex-классификация (бесплатно) ─────
+    # ОДИН проход только regex/patterns (skip_ai=True) по всем URL.
+    # Раньше тут был полноценный classify_all с Claude API на ВЕСЬ sitemap,
+    # и ещё раз ниже — итого дважды. На больших сайтах (Nissan, 9284 URL) это
+    # уходило в сотни API-запросов и висло/падало ЕЩЁ ДО того, как срабатывал
+    # лимит. Теперь дорогой Claude отложен до «ворот» (Шаг 3).
+    classified = classify_all(urls, show_progress=False, platform=platform, skip_ai=True)
+    poi_check = [x for x in classified if x["priority"] <= 2]
+    log_debug(f"run: regex-POI={len(poi_check)} из {len(urls)} URL (Claude ещё не звали)")
+
+    # ── Шаг 2b: pattern discovery если мало POI ───────────────────
     discovered_items = []
     if not skip_discovery:
-        classified_check = classify_all(urls, show_progress=False)
-        poi_check = [x for x in classified_check if x["priority"] <= 2]
-
         # Запускаем discovery если POI мало или это fallback
         should_discover = (
             len(poi_check) < 5 or
@@ -704,14 +744,34 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
                         urls.append(item["url"])
                         existing.add(item["url"])
                         discovered_items.append(item)
+                # discovery добавил URL — пересчитываем regex-POI (бесплатно)
+                if discovered_items:
+                    classified = classify_all(urls, show_progress=False, platform=platform, skip_ai=True)
+                    poi_check = [x for x in classified if x["priority"] <= 2]
+                    log_debug(f"run: после discovery regex-POI={len(poi_check)} из {len(urls)} URL")
             else:
                 log_info(f"Новых паттернов не обнаружено")
     else:
         log_debug("run: skip_discovery=True — pattern discovery пропущен")
 
-    # ── Шаг 3: классифицируем ────────────────────────────────────
+    # ── Шаг 3: ВОРОТА — нужен ли Claude вообще? ───────────────────
+    # regex уже нашёл POI бесплатно (poi_check). Сканировать будем максимум
+    # `limit` страниц, отсортированных по приоритету. Если regex дал POI >= limit,
+    # Claude уже нечего добавить в скан → НЕ зовём дорогой API.
     log_step("Классификация страниц...", emoji="🏷")
-    classified = classify_all(urls, show_progress=False, platform=platform_result.get("platform", ""))
+    if len(poi_check) >= limit:
+        log_success(f"Regex нашёл {len(poi_check)} POI (≥ лимита {limit}) — Claude API не нужен")
+        # `classified` уже regex-only, используем как есть
+    else:
+        # POI мало → нужен Claude. Но СНАЧАЛА схлопываем формы по структуре URL,
+        # чтобы в нейронку ушли только представители (~десятки), а не весь шум
+        # (на Nissan это 9043 одинаковых страниц моделей → зависание).
+        protected, reps = collapse_by_form(classified)
+        dropped = len(classified) - len(protected) - len(reps)
+        log_info(f"Regex нашёл {len(poi_check)} POI (< лимита {limit}) — дозапрашиваю Claude")
+        log_step(f"Схлопнул {dropped} general-дублей по форме → {len(reps)} представителей; Claude увидит {len(reps)} URL", emoji="🔧")
+        claude_results = classify_all([r["url"] for r in reps], show_progress=False, platform=platform, skip_ai=False)
+        classified = sorted(protected + claude_results, key=lambda x: (x["priority"], x["path"]))
 
     # ── Platform-aware reclassification ─────────────────────────
     if platform_result["platform"] == "shopify":
@@ -773,11 +833,10 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
         for page in pages:
             ptype = page.get("type", "general")
             path = page.get("path", "")
-            parts = [p for p in path.split("/") if p]
             if ptype in take_all_types:
                 result.append(page)
                 continue
-            struct = "/" + parts[0] if parts else path
+            struct = _struct_key(path)
             key = (ptype, struct)
             count = seen_patterns.get(key, 0)
             if count < 2:
