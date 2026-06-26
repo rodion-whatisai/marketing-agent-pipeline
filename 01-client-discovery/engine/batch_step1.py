@@ -522,12 +522,15 @@ if __name__ == "__main__":
         "--rerun", action="store_true",
         help="Перезапустить даже если step1.json уже есть"
     )
-    parser.add_argument("--debug", action="store_true", help="Полный отладочный лог (как LOG_LEVEL=DEBUG)")
+    parser.add_argument("--debug", action="store_true", help="Полный отладочный лог (DEBUG — теперь это дефолт)")
+    parser.add_argument("--quiet", action="store_true", help="Приглушить: показывать только INFO+ (скрыть DEBUG)")
     args = parser.parse_args()
 
+    import log
     if args.debug:
-        import log
         log.set_level("DEBUG")
+    if args.quiet:
+        log.set_level("INFO")
 
     domains = list(args.domains)
 

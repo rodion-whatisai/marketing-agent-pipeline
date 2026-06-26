@@ -6,8 +6,8 @@ TNC Pipeline — Логирование с уровнями и цветами
     from log import log_info, log_warn, log_error, log_debug, log_success, log_step
 
 Уровни по возрастанию важности: DEBUG < INFO < SUCCESS < WARN < ERROR.
-Порог по умолчанию — INFO. Меняется через env LOG_LEVEL=DEBUG или set_level("DEBUG").
-Всё что ниже порога — не печатается (DEBUG-«пуки» бесплатны при дефолтном INFO).
+Порог по умолчанию — DEBUG (видно ВСЁ). Приглушить: env LOG_LEVEL=INFO/WARN/ERROR,
+set_level("INFO") или флаг --quiet у entry points. Всё что ниже порога — не печатается.
 
 Цвет — только в терминал (рендерит colorama, включается в utils.setup_console).
 В файл TeeLogger пишет ту же строку, но без ANSI (вырезает на своей стороне).
@@ -31,8 +31,9 @@ _NAMES = {
 
 
 def _initial_level() -> int:
+    # Дефолт DEBUG — по умолчанию видно ВСЁ. Приглушить: LOG_LEVEL=INFO/WARN/ERROR или флаг --quiet.
     env = (os.environ.get("LOG_LEVEL") or "").strip().upper()
-    return _NAMES.get(env, INFO)
+    return _NAMES.get(env, DEBUG)
 
 
 _LEVEL = _initial_level()

@@ -866,14 +866,17 @@ if __name__ == "__main__":
     parser.add_argument("--all", action="store_true", help="Сканировать все без вопросов")
     parser.add_argument("--show-all", action="store_true", help="Показать все URL в списке")
     parser.add_argument("--no-discovery", action="store_true", help="Отключить pattern discovery")
-    parser.add_argument("--debug", action="store_true", help="Полный отладочный лог (как LOG_LEVEL=DEBUG)")
+    parser.add_argument("--debug", action="store_true", help="Полный отладочный лог (DEBUG — теперь это дефолт)")
+    parser.add_argument("--quiet", action="store_true", help="Приглушить: показывать только INFO+ (скрыть DEBUG)")
     args = parser.parse_args()
 
     # Logging
     from utils import setup_logging, normalize_url
+    import log
     if args.debug:
-        import log
         log.set_level("DEBUG")
+    if args.quiet:
+        log.set_level("INFO")
     _log_path = setup_logging(args.domain, step="step1")
 
     run(args.domain, limit=args.limit, force_all=args.all,

@@ -725,12 +725,12 @@ def print_report(data: dict, gtm_data: dict = None):
 
 
 if __name__ == "__main__":
-    if "--debug" in sys.argv:
+    if "--debug" in sys.argv or "--quiet" in sys.argv:
         import log
-        log.set_level("DEBUG")
-        sys.argv = [a for a in sys.argv if a != "--debug"]  # убрать из позиционных
+        log.set_level("INFO" if "--quiet" in sys.argv else "DEBUG")  # --quiet приглушает до INFO+
+        sys.argv = [a for a in sys.argv if a not in ("--debug", "--quiet")]  # убрать из позиционных
     if len(sys.argv) < 2:
-        log_error("Usage: python report.py step2_<domain>.json [gtm_<domain>.json] [--debug]")
+        log_error("Usage: python report.py step2_<domain>.json [gtm_<domain>.json] [--debug|--quiet]")
         sys.exit(1)
 
     data = load(sys.argv[1])

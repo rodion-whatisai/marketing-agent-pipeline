@@ -456,11 +456,15 @@ if __name__ == "__main__":
     parser.add_argument("--click", action="store_true", default=False)
     parser.add_argument("--headed", action="store_true", default=False,
                         help="Видимый браузер — ловит Meta/GA4-события, которые headless подавляет")
+    parser.add_argument("--quiet", action="store_true", default=False,
+                        help="Приглушить: показывать только INFO+ (скрыть DEBUG)")
     args = parser.parse_args()
 
+    import log
     if args.debug:
-        import log
         log.set_level("DEBUG")  # --debug = и клик-дебаг clicker'а, и полный лог-поток
+    if args.quiet:
+        log.set_level("INFO")
 
     _log_path = setup_logging(
         json.load(open(args.step1_file, encoding="utf-8")).get("base_url", "unknown"), step="step2"
