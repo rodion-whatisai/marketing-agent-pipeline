@@ -45,10 +45,14 @@ def normalize_url(domain_or_url: str) -> str:
 
 # ─── Console encoding (Windows cp1252 fix) ────────────────────────────────────
 
+# ANSI escape codes (цвета из log.py). Вырезаем при записи в файл — лог .txt чистый.
+_ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+
+
 def setup_console() -> None:
-    """Reconfigure stdout/stderr to UTF-8 if not already.
+    """Reconfigure stdout/stderr to UTF-8 if not already + включить ANSI/VT на Windows.
     Idempotent — повторный вызов безопасен. Фиксит UnicodeEncodeError на Windows
-    (cp1252) для emoji / box-drawing символов в print().
+    (cp1252) для emoji / box-drawing символов в print(), и включает рендер цветов из log.py.
     """
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
@@ -57,6 +61,14 @@ def setup_console() -> None:
                     stream.reconfigure(encoding="utf-8")
             except Exception:
                 pass
+    # Включаем ANSI/VT на Windows, чтобы цвета из log.py рендерились, а не печатались литералом.
+    # Зовётся ДО подмены sys.stdout на TeeLogger (см. setup_logging) → colorama оборачивает
+    # реальный stdout, а TeeLogger потом его захватывает в self.terminal.
+    try:
+        import colorama
+        colorama.just_fix_windows_console()
+    except Exception:
+        pass
 
 
 # ─── Logging ──────────────────────────────────────────────────────────────────
@@ -83,11 +95,12 @@ class TeeLogger:
             line, self._buf = self._buf.split("\n", 1)
             if line.strip():
                 ts = self.datetime.datetime.now().strftime("%H:%M:%S")
-                out = f"[{ts}] {line}\n"
+                term_out = f"[{ts}] {line}\n"                        # терминал — с цветом
+                file_out = f"[{ts}] {_ANSI_RE.sub('', line)}\n"      # файл — без ANSI
             else:
-                out = "\n"
-            self.terminal.write(out)
-            self.log.write(out)
+                term_out = file_out = "\n"
+            self.terminal.write(term_out)
+            self.log.write(file_out)
         # Сразу флашим — не держим в буфере ОС
         self.terminal.flush()
         self.log.flush()
@@ -100,10 +113,10 @@ class TeeLogger:
         return False
 
     def close(self):
-        # Дописываем остаток буфера если есть
+        # Дописываем остаток буфера если есть (в файл — без ANSI)
         if self._buf.strip():
             ts = self.datetime.datetime.now().strftime("%H:%M:%S")
-            self.log.write(f"[{ts}] {self._buf}\n")
+            self.log.write(f"[{ts}] {_ANSI_RE.sub('', self._buf)}\n")
         self.log.close()
 
 

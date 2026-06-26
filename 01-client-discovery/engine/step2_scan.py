@@ -428,6 +428,10 @@ if __name__ == "__main__":
                         help="Видимый браузер — ловит Meta/GA4-события, которые headless подавляет")
     args = parser.parse_args()
 
+    if args.debug:
+        import log
+        log.set_level("DEBUG")  # --debug = и клик-дебаг clicker'а, и полный лог-поток
+
     _log_path = setup_logging(
         json.load(open(args.step1_file, encoding="utf-8")).get("base_url", "unknown"), step="step2"
     )

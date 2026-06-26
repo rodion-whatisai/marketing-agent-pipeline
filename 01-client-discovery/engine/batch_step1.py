@@ -29,6 +29,12 @@ for _stream in (sys.stdout, sys.stderr):
             _stream.reconfigure(encoding="utf-8")
         except Exception:
             pass
+# Включаем ANSI/VT на Windows — чтобы цвета логов рендерились в батч-прогонах.
+try:
+    import colorama
+    colorama.just_fix_windows_console()
+except Exception:
+    pass
 
 # ─── Патчим интерактивные части step1 до импорта ─────────────────────────────
 
@@ -494,7 +500,12 @@ if __name__ == "__main__":
         "--rerun", action="store_true",
         help="Перезапустить даже если step1.json уже есть"
     )
+    parser.add_argument("--debug", action="store_true", help="Полный отладочный лог (как LOG_LEVEL=DEBUG)")
     args = parser.parse_args()
+
+    if args.debug:
+        import log
+        log.set_level("DEBUG")
 
     domains = list(args.domains)
 

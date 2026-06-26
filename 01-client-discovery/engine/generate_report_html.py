@@ -755,6 +755,8 @@ def run(step2_path: str):
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 + ANSI на Windows (фикс cp1252-крэша при standalone-запуске)
     if len(sys.argv) < 2:
         print("Usage: python generate_report_html.py scans/domain/step2.json")
         sys.exit(1)

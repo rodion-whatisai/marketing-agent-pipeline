@@ -8,9 +8,10 @@ TNC Pipeline — Merge Logs
 """
 
 import sys
-from utils import merge_logs
+from utils import merge_logs, setup_console
 
 if __name__ == "__main__":
+    setup_console()  # UTF-8 + ANSI на Windows (фикс cp1252-крэша при standalone-запуске)
     if len(sys.argv) < 2:
         print("Использование: python merge_logs.py <domain>")
         sys.exit(1)

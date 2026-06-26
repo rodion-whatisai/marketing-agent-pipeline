@@ -703,8 +703,12 @@ def print_report(data: dict, gtm_data: dict = None):
 
 
 if __name__ == "__main__":
+    if "--debug" in sys.argv:
+        import log
+        log.set_level("DEBUG")
+        sys.argv = [a for a in sys.argv if a != "--debug"]  # убрать из позиционных
     if len(sys.argv) < 2:
-        print("Usage: python report.py step2_<domain>.json [gtm_<domain>.json]")
+        print("Usage: python report.py step2_<domain>.json [gtm_<domain>.json] [--debug]")
         sys.exit(1)
 
     data = load(sys.argv[1])
