@@ -17,7 +17,7 @@ import time
 import requests
 from urllib.parse import urlparse
 
-from log import log_info, log_warn, log_error, log_debug, log_success
+from log import log_info, log_warn, log_error, log_debug, log_success, log_fire
 
 # ─── Конфигурация ─────────────────────────────────────────────────────────────
 
@@ -35,7 +35,7 @@ def load_patterns() -> dict:
     """Загружает patterns.json, кэширует в память."""
     global _PATTERNS_CACHE
     if _PATTERNS_CACHE is not None:
-        log_debug("load_patterns: cache hit")
+        log_fire("load_patterns: cache hit")
         return _PATTERNS_CACHE
     log_debug(f"load_patterns: загружаю {_PATTERNS_FILE}")
     try:
@@ -75,7 +75,7 @@ def save_pattern(pattern: str, page_type: str, priority: int,
 
 def patterns_classify(path: str, full_url: str = "") -> dict | None:
     """Ищет совпадение пути в patterns.json."""
-    log_debug(f"patterns_classify: start path={path}")
+    log_fire(f"patterns_classify: start path={path}")
     patterns = load_patterns()
     # Нормализуем — убираем расширение .html/.php и trailing slash
     path_lower = path.lower().rstrip("/")
@@ -85,7 +85,7 @@ def patterns_classify(path: str, full_url: str = "") -> dict | None:
     for check_path in [path_lower, path_no_ext]:
         if check_path in patterns:
             p = patterns[check_path]
-            log_debug(f"patterns_classify: точное совпадение {check_path} → {p['type']} (слой patterns.json)")
+            log_fire(f"patterns_classify: точное совпадение {check_path} → {p['type']} (слой patterns.json)")
             if full_url and full_url not in p.get("examples", []):
                 save_pattern(check_path, p["type"], p["priority"],
                             p["description"], full_url, "auto")
@@ -100,7 +100,7 @@ def patterns_classify(path: str, full_url: str = "") -> dict | None:
     first_seg = "/" + path_no_ext.lstrip("/").split("/")[0] if path_no_ext else ""
     if first_seg and first_seg != path_no_ext and first_seg in patterns:
         p = patterns[first_seg]
-        log_debug(f"patterns_classify: совпадение по первому сегменту {first_seg} → {p['type']} (слой patterns.json)")
+        log_fire(f"patterns_classify: совпадение по первому сегменту {first_seg} → {p['type']} (слой patterns.json)")
         return {
             "type": p["type"],
             "priority": p["priority"],
@@ -108,7 +108,7 @@ def patterns_classify(path: str, full_url: str = "") -> dict | None:
             "description": p.get("description", ""),
         }
 
-    log_debug(f"patterns_classify: нет совпадения в patterns.json для {path}")
+    log_fire(f"patterns_classify: нет совпадения в patterns.json для {path}")
     return None
 
 # ─── Типы страниц ─────────────────────────────────────────────────────────────
@@ -178,20 +178,20 @@ FAST_RULES = [
 
 
 def fast_classify(path: str, full_url: str = "") -> dict | None:
-    log_debug(f"fast_classify: start path={path}")
+    log_fire(f"fast_classify: start path={path}")
     path_lower = path.lower()
 
     # 0. Normalize language prefix — strip /fr/, /en/, /de/, /es/, /zh-cn/ etc.
     #    Only strips if there's a following segment (lookahead (?=/)) so /fr alone is untouched.
     normalized = re.sub(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)', '', path_lower)
     if normalized != path_lower:
-        log_debug(f"fast_classify: язык-префикс снят {path_lower} → {normalized}")
+        log_fire(f"fast_classify: язык-префикс снят {path_lower} → {normalized}")
     path_lower = normalized
 
     # 1. patterns.json — наша накопленная база знаний
     p = patterns_classify(path_lower, full_url)
     if p:
-        log_debug(f"fast_classify: слой patterns.json сработал для {path_lower} → {p['type']}")
+        log_fire(f"fast_classify: слой patterns.json сработал для {path_lower} → {p['type']}")
         p["expect_events"] = _get_expect_events(p["type"])
         return p
 
@@ -199,14 +199,14 @@ def fast_classify(path: str, full_url: str = "") -> dict | None:
     for priority, page_type, patterns in FAST_RULES:
         for pattern in patterns:
             if re.search(pattern, path_lower):
-                log_debug(f"fast_classify: слой regex сработал для {path_lower} → {page_type} (pattern {pattern})")
+                log_fire(f"fast_classify: слой regex сработал для {path_lower} → {page_type} (pattern {pattern})")
                 return {
                     "type": page_type,
                     "priority": priority,
                     "method": "regex",
                     "matched_pattern": pattern,
                 }
-    log_debug(f"fast_classify: ни patterns.json, ни regex не распознали {path_lower} → нужен Claude")
+    log_fire(f"fast_classify: ни patterns.json, ни regex не распознали {path_lower} → нужен Claude")
     return None
 
 
@@ -462,18 +462,18 @@ def _get_expect_events(page_type: str) -> list:
 
 def classify_url(url: str, site_context: str = "") -> dict:
     """Классифицирует один URL."""
-    log_debug(f"classify_url: start url={url}")
+    log_fire(f"classify_url: start url={url}")
     path = urlparse(url).path if "://" in url else url
     path = path or "/"
 
     fast = fast_classify(path, full_url=url)
     if fast:
-        log_debug(f"classify_url: распознано локально (слой {fast.get('method')}) → {fast['type']}")
+        log_fire(f"classify_url: распознано локально (слой {fast.get('method')}) → {fast['type']}")
         fast["description"] = fast.get("description") or fast["type"].replace("_", " ").title()
         fast["expect_events"] = _get_expect_events(fast["type"])
         return fast
 
-    log_debug(f"classify_url: локально не распознано → слой Claude для {path}")
+    log_fire(f"classify_url: локально не распознано → слой Claude для {path}")
     results = classify_batch_api([path], site_context)
     result = results[0] if results else {"type": "general", "priority": 5}
     result["description"] = result.get("type", "general").replace("_", " ").title()
@@ -499,12 +499,12 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
     for i, url in enumerate(urls):
         path = urlparse(url).path if "://" in url else url
         path = path or "/"
-        log_debug(f"classify_urls: [{i}] url={url} path={path}")
+        log_fire(f"classify_urls: [{i}] url={url} path={path}")
 
         # 1. Regex + patterns
         fast = fast_classify(path, full_url=url)
         if fast:
-            log_debug(f"classify_urls: [{i}] локальный слой ({fast.get('method')}) → {fast['type']}")
+            log_fire(f"classify_urls: [{i}] локальный слой ({fast.get('method')}) → {fast['type']}")
             fast.update({
                 "url": url, "path": path,
                 "description": fast["type"].replace("_", " ").title(),
@@ -516,10 +516,10 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
         # 2. Shopify slug rules — до Claude, бесплатно
         if platform == "shopify" and path.startswith("/pages/"):
             slug = path.replace("/pages/", "").lstrip("/").split("/")[0]
-            log_debug(f"classify_urls: [{i}] Shopify slug-слой, slug={slug}")
+            log_fire(f"classify_urls: [{i}] Shopify slug-слой, slug={slug}")
             slug_result = classify_shopify_page(slug)
             if slug_result is not None:
-                log_debug(f"classify_urls: [{i}] Shopify slug-слой сработал → {slug_result['type']}")
+                log_fire(f"classify_urls: [{i}] Shopify slug-слой сработал → {slug_result['type']}")
                 slug_result.update({
                     "url": url, "path": path,
                     "description": slug_result["type"].replace("_", " ").title(),
@@ -529,7 +529,7 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
                 continue
 
         # 3. Claude — только то что не распознали выше
-        log_debug(f"classify_urls: [{i}] не распознано локально → откладываю в ai_needed")
+        log_fire(f"classify_urls: [{i}] не распознано локально → откладываю в ai_needed")
         ai_needed.append((i, path, url))
 
     if show_progress:

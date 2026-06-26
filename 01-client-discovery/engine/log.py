@@ -5,9 +5,11 @@ TNC Pipeline — Логирование с уровнями и цветами
 
     from log import log_info, log_warn, log_error, log_debug, log_success, log_step
 
-Уровни по возрастанию важности: DEBUG < INFO < SUCCESS < WARN < ERROR.
-Порог по умолчанию — DEBUG (видно ВСЁ). Приглушить: env LOG_LEVEL=INFO/WARN/ERROR,
-set_level("INFO") или флаг --quiet у entry points. Всё что ниже порога — не печатается.
+Уровни по возрастанию важности: FIRE < DEBUG < INFO < SUCCESS < WARN < ERROR.
+Порог по умолчанию — DEBUG (видно почти всё, КРОМЕ FIRE). FIRE — построчный
+firehose (по каждому URL/ссылке), включается отдельно: LOG_LEVEL=FIRE или --fire.
+Приглушить: env LOG_LEVEL=INFO/WARN/ERROR, set_level("INFO") или флаг --quiet
+у entry points. Всё что ниже порога — не печатается.
 
 Цвет — только в терминал (рендерит colorama, включается в utils.setup_console).
 В файл TeeLogger пишет ту же строку, но без ANSI (вырезает на своей стороне).
@@ -22,10 +24,12 @@ import sys
 import traceback
 
 # ─── Уровни ─────────────────────────────────────────────────────────────────
-DEBUG, INFO, SUCCESS, WARN, ERROR = 10, 20, 25, 30, 40
+# FIRE — глубже DEBUG: построчный firehose (по каждому URL/ссылке).
+# По умолчанию НЕ виден (порог = DEBUG). Включить: LOG_LEVEL=FIRE или флаг --fire.
+FIRE, DEBUG, INFO, SUCCESS, WARN, ERROR = 5, 10, 20, 25, 30, 40
 
 _NAMES = {
-    "DEBUG": DEBUG, "INFO": INFO, "SUCCESS": SUCCESS,
+    "FIRE": FIRE, "DEBUG": DEBUG, "INFO": INFO, "SUCCESS": SUCCESS,
     "WARN": WARN, "WARNING": WARN, "ERROR": ERROR,
 }
 
@@ -57,6 +61,7 @@ def get_level() -> int:
 _RESET = "\033[0m"
 
 _COLORS = {
+    FIRE:    "\033[2;90m",    # ещё тусклее — построчный firehose
     DEBUG:   "\033[2;37m",    # тусклый серый — отладочный шум
     INFO:    "\033[36m",      # cyan
     SUCCESS: "\033[32m",      # green
@@ -68,6 +73,7 @@ _HEADER_COLOR = "\033[1;36m"  # bold cyan — баннер раздела
 
 # Текстовый тег + дефолтный эмодзи на уровень
 _META = {
+    FIRE:    ("FIRE",  "🔥"),
     DEBUG:   ("DEBUG", "🐛"),
     INFO:    ("INFO",  "•"),
     SUCCESS: ("OK",    "✅"),
@@ -82,7 +88,7 @@ def _emit(level: int, msg, emoji=None) -> None:
     tag, default_emoji = _META[level]
     ic = emoji if emoji is not None else default_emoji
     color = _COLORS.get(level, "")
-    if level in (ERROR, WARN, DEBUG):
+    if level in (ERROR, WARN, DEBUG, FIRE):
         # критичное/отладочное — красим всю строку, чтобы не пропустить / явно приглушить
         line = f"{color}{ic} [{tag}] {msg}{_RESET}"
     else:
@@ -92,6 +98,9 @@ def _emit(level: int, msg, emoji=None) -> None:
 
 
 # ─── Публичные функции уровней ─────────────────────────────────────────────────
+# Tested: 2026-06-26 — на дефолте (DEBUG) FIRE скрыт (200 URL → 6 строк вместо ~1000);
+# --fire / LOG_LEVEL=FIRE показывает построчный трейс; --quiet прячет FIRE и DEBUG.
+def log_fire(msg, emoji=None) -> None:     _emit(FIRE, msg, emoji)
 def log_debug(msg, emoji=None) -> None:    _emit(DEBUG, msg, emoji)
 def log_info(msg, emoji=None) -> None:     _emit(INFO, msg, emoji)
 def log_success(msg, emoji=None) -> None:  _emit(SUCCESS, msg, emoji)

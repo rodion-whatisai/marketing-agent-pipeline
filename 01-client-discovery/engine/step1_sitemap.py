@@ -27,10 +27,14 @@ except ImportError:
 from page_classifier import classify_url, get_page_priority_label, save_pattern, load_patterns
 from platform_detector import detect_platform, print_platform_result, classify_shopify_page
 from utils import get_scan_dir, scan_path, TeeLogger, setup_logging, HEADERS, safe_get, normalize_url, detect_site_language
-from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header, log_fire
 
 
 DEFAULT_LIMIT = 65
+# Pattern discovery (браузерный crawl) имеет смысл только когда sitemap тонкий.
+# Если URL в sitemap уже >= этого порога — coverage хорошая, discovery не нужен
+# (иначе зря ползаем браузером по огромному сайту типа Nissan, 9284 URL).
+DISCOVERY_MAX_URLS = 50
 
 
 # ─── Sitemap helpers ──────────────────────────────────────────────────────────
@@ -260,7 +264,7 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
 
         # Уже знаем этот паттерн
         if pattern in known_patterns or pattern in seen_patterns:
-            log_debug(f"process_link: паттерн {pattern} уже известен — пропуск")
+            log_fire(f"process_link: паттерн {pattern} уже известен — пропуск")
             return False
 
         # Проверяем структурный паттерн через classifier
@@ -268,12 +272,12 @@ def discover_url_patterns(base_url: str, domain: str, known_urls: list) -> list:
         pattern_url = f"https://{domain}{pattern}"
         test_result = classify_url(pattern_url)
         if test_result["type"] != "general":
-            log_debug(f"process_link: паттерн {pattern} распознан классификатором как {test_result['type']} — не новый")
+            log_fire(f"process_link: паттерн {pattern} распознан классификатором как {test_result['type']} — не новый")
             seen_patterns.add(pattern)
             return False
 
         # Новый паттерн которого классификатор не знает
-        log_debug(f"process_link: НОВЫЙ паттерн {pattern} ← {link}")
+        log_fire(f"process_link: НОВЫЙ паттерн {pattern} ← {link}")
         seen_patterns.add(pattern)
         discovered.append({
             "url": link,
@@ -711,12 +715,18 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     # ── Шаг 2b: pattern discovery если мало POI ───────────────────
     discovered_items = []
     if not skip_discovery:
-        # Запускаем discovery если POI мало или это fallback
-        should_discover = (
-            len(poi_check) < 5 or
-            "fallback" in source or
-            len(urls) < 20
-        )
+        # Discovery нужен только при тонком sitemap. Большой sitemap (>= порога) =
+        # хорошая coverage → не ползаем браузером, даже если POI мало (Nissan: POI=4,
+        # но 9284 URL — рыть нечего).
+        if len(urls) >= DISCOVERY_MAX_URLS:
+            should_discover = False
+            log_debug(f"run: sitemap большой ({len(urls)} >= {DISCOVERY_MAX_URLS}) — discovery пропущен")
+        else:
+            should_discover = (
+                len(poi_check) < 5 or
+                "fallback" in source or
+                len(urls) < 20
+            )
         log_debug(f"run: pre-check POI={len(poi_check)} urls={len(urls)} source={source!r} → should_discover={should_discover}")
 
         if should_discover:
@@ -926,13 +936,16 @@ if __name__ == "__main__":
     parser.add_argument("--show-all", action="store_true", help="Показать все URL в списке")
     parser.add_argument("--no-discovery", action="store_true", help="Отключить pattern discovery")
     parser.add_argument("--debug", action="store_true", help="Полный отладочный лог (DEBUG — теперь это дефолт)")
+    parser.add_argument("--fire", action="store_true", help="Firehose: построчный лог по каждому URL/ссылке (уровень FIRE, глубже DEBUG)")
     parser.add_argument("--quiet", action="store_true", help="Приглушить: показывать только INFO+ (скрыть DEBUG)")
     args = parser.parse_args()
 
     # Logging
     from utils import setup_logging, normalize_url
     import log
-    if args.debug:
+    if args.fire:
+        log.set_level("FIRE")
+    elif args.debug:
         log.set_level("DEBUG")
     if args.quiet:
         log.set_level("INFO")
