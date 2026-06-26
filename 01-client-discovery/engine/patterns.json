@@ -169,7 +169,8 @@
       "https://planner5d.com/de/contacts",
       "https://planner5d.com/sv/contacts",
       "https://planner5d.com/ru/contacts",
-      "https://www.plurio.ai/contacts"
+      "https://www.plurio.ai/contacts",
+      "/contacts"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -263,7 +264,8 @@
       "https://indrive.com/en-ao/delivery",
       "https://indrive.com/pt-ao/delivery",
       "https://indrive.com/en-mg/delivery",
-      "https://indrive.com/fr-mg/delivery"
+      "https://indrive.com/fr-mg/delivery",
+      "/delivery"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -285,7 +287,8 @@
     "description": "Returns/refund policy page - e-commerce FAQ",
     "examples": [
       "keepbloomingflowers.ca/returns",
-      "https://keepbloomingflowers.ca/returns"
+      "https://keepbloomingflowers.ca/returns",
+      "/returns"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -301,7 +304,8 @@
       "https://www.lightspeedhq.com/login",
       "https://app.taxdome.com/login",
       "https://cteleport.com/login",
-      "https://www.criteo.com/login"
+      "https://www.criteo.com/login",
+      "/login"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -312,7 +316,8 @@
     "description": "Loyalty/rewards program page - related to pricing/offers",
     "examples": [
       "keepbloomingflowers.ca/loyalty",
-      "https://keepbloomingflowers.ca/loyalty"
+      "https://keepbloomingflowers.ca/loyalty",
+      "/loyalty"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -356,7 +361,8 @@
       "https://tabby.ai/en-SA/shop",
       "https://tabby.ai/en-BH/shop",
       "https://tabby.ai/en-QA/shop",
-      "https://tabby.ai/ar-AE/shop"
+      "https://tabby.ai/ar-AE/shop",
+      "/shop"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -382,7 +388,7 @@
   "/campground-owners": {
     "type": "lead_form",
     "priority": 1,
-    "description": "B2B lead page for campground owners - become a host",
+    "description": "B2B lead page for campground owners - become a host (verified section-wide lead — kept 2026-06-26)",
     "examples": [
       "hipcamp.com/campground-owners"
     ],
@@ -440,9 +446,9 @@
     "source": "manual"
   },
   "/guest-portal": {
-    "type": "lead_form",
-    "priority": 1,
-    "description": "Guest portal / client area - login or lead capture",
+    "type": "technical",
+    "priority": 5,
+    "description": "Guest portal / client area (login) — не лид, понижено 2026-06-26",
     "examples": [
       "frognerhouse.no/guest-portal"
     ],
@@ -1009,6 +1015,36 @@
       "https://flo.health/fr/politique-de-confidentialite"
     ],
     "added": "2026-04-30",
+    "source": "claude_approved"
+  },
+  "/under-construction": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Manually classified from studioaplus.ca: /under-construction",
+    "examples": [
+      "https://studioaplus.ca/under-construction"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/connected-vehicle-data": {
+    "type": "general",
+    "priority": 5,
+    "description": "Manually typed from nissan.ie: /connected-vehicle-data/request-your-connected-vehicle-data.html",
+    "examples": [
+      "https://www.nissan.ie/connected-vehicle-data/request-your-connected-vehicle-data.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/dealer-call-back-request": {
+    "type": "lead_form",
+    "priority": 1,
+    "description": "Learned from nissan.ie: /dealer-call-back-request.html",
+    "examples": [
+      "https://www.nissan.ie/dealer-call-back-request.html"
+    ],
+    "added": "2026-06-26",
     "source": "claude_approved"
   }
 }

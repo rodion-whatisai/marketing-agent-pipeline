@@ -13,7 +13,7 @@ import sys
 import json
 import os
 from urllib.parse import urlparse
-from page_classifier import save_pattern, load_patterns, ANTHROPIC_API_KEY
+from page_classifier import save_pattern, load_patterns, ANTHROPIC_API_KEY, propose_pattern_key
 from log import log_error, log_success, log_debug, log_step
 
 # ─── Метки источников ────────────────────────────────────────────────────────
@@ -176,22 +176,16 @@ def interactive_learn(classified: list, domain: str):
         if not parts:
             continue
 
-        # Структурный паттерн — обычно первый сегмент,
-        # но для "контейнерных" сегментов берём два (pages/slug, posts/slug и т.д.)
-        CONTAINER_SEGMENTS = {
-            "pages", "products", "collections", "posts", "p", "en", "fr", "ru",
-            "de", "es", "it", "blog", "news", "articles", "items", "listing",
-        }
+        # Ключ паттерна — через единый хелпер (leaf-aware: конверсия в generic-разделе
+        # ключуется по листу, а не по разделу — иначе весь раздел метится лидом).
         first = parts[0].lower()
         first_clean = first.rsplit(".", 1)[0] if "." in first else first
-
-        if first_clean in CONTAINER_SEGMENTS and len(parts) >= 2:
-            second = parts[1].lower().rsplit(".", 1)[0]
-            struct = "/" + first_clean + "/" + second
-            log_debug(f"interactive_learn: контейнерный сегмент {first_clean!r} → паттерн {struct}")
-        else:
-            struct = "/" + first_clean
-            log_debug(f"interactive_learn: одиночный сегмент → паттерн {struct}")
+        ptype = item.get("type", "general")
+        struct = propose_pattern_key(path, ptype)
+        if struct is None:
+            log_debug(f"interactive_learn: propose_pattern_key вернул None для {path} — пропуск")
+            continue
+        log_debug(f"interactive_learn: {path} ({ptype}) → ключ {struct}")
 
         # Пропускаем если паттерн уже в patterns.json
         if struct in patterns:
@@ -203,8 +197,7 @@ def interactive_learn(classified: list, domain: str):
             log_debug(f"interactive_learn: {struct} уже в new_patterns — пропуск")
             continue
 
-        # Пропускаем если тип общий и неинформативный
-        ptype = item.get("type", "general")
+        # Пропускаем если тип общий и неинформативный (ptype уже задан выше)
         if ptype in ("legal", "technical") and first_clean in (
             "cookies", "cookie", "privacy", "terms", "tos", "policy",
             "login", "account", "sitemap", "robots"
@@ -250,7 +243,9 @@ def interactive_learn(classified: list, domain: str):
             print(f"       y = согласен, добавить в базу")
             print(f"       n = не добавлять")
             print(f"       q = выйти из обучения")
-            print(f"       или введи тип вручную: p=product l=lead f=faq a=about pr=pricing s=search")
+            print(f"       или введи тип вручную:")
+            print(f"         POI:    p=product  l=lead  pr=pricing  loc=location  s=search")
+            print(f"         прочее: f=faq  a=about  b=blog  t=technical  g=general/skip")
             
             choice = input(f"\n       Твой выбор [y/n/q/тип]: ").strip().lower()
             log_debug(f"interactive_learn[new_patterns {i}/{len(new_patterns)}]: pattern={p['pattern']}, choice={choice!r}")
@@ -364,12 +359,11 @@ def interactive_learn(classified: list, domain: str):
                        "use_case": 2}
             final_pri = pri_map.get(final_type, 3)
 
-            # Структурный паттерн — первый сегмент без расширения
-            import re as _re
-            parts = [p for p in path.split("/") if p]
-            first = parts[0].lower() if parts else path.lstrip("/")
-            first_clean = _re.sub(r'\.(html|php|htm|asp|aspx)$', '', first)
-            struct = "/" + first_clean
+            # Ключ паттерна — через единый хелпер (leaf-aware, как в авто-блоке выше)
+            struct = propose_pattern_key(path, final_type)
+            if struct is None:
+                struct = "/" + (path.lstrip("/").split("/")[0] or path)
+            log_debug(f"interactive_learn[general]: {path} ({final_type}) → ключ {struct}")
 
             log_debug(f"interactive_learn[general]: ручная классификация {struct} → {final_type} (priority={final_pri}, source=manual)")
             save_pattern(

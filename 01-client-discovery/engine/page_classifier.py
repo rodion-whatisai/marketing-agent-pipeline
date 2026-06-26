@@ -153,6 +153,9 @@ FAST_RULES = [
     (1, "booking_confirm", [r"/thank-you", r"/thankyou", r"/order-confirm", r"/payment/success"]),
     (1, "lead_form",       [r"/contact(?:/|$)", r"/contact-us", r"/sign-up(?:/|$)", r"/signup(?:/|$)", r"/contacts(?:/|$)", r"/proposal(?:/|\.html|$)", r"/get-quote", r"/request(?:/|$)", r"/get-started", r"/book-demo", r"/schedule-demo", r"/request-demo", r"/start(?:/|$)", r"/try(?:/|$)", r"/join(?:/|$)", r"/register(?:/|$)", r"/apply(?:/|$)", r"/onboarding(?:/|$)", r"/create-account",
                            r"/book(?:/|$)", r"/booking(?:/|$)", r"/book-now", r"/reserve(?:/|$)",
+                           # leaf-keyword сигналы лида — матч в ЛЮБОМ месте пути (сидят листом в длинном слаге,
+                           # напр. /services/dealer-contact-form, /nissan-forms/dealer-call-back-request)
+                           r"call-?back", r"contact-form", r"enquir", r"request-a-quote",
                            # French (CA/QC)
                            r"/nous-contacter", r"/contactez-nous", r"/coordonnees", r"/coordonn\u00e9es",
                            r"/reservation(?:/|$)", r"/r\u00e9servation(?:/|$)", r"/reserver(?:/|$)", r"/r\u00e9server(?:/|$)",
@@ -175,6 +178,65 @@ FAST_RULES = [
     (3, "blog_content",    [r"/blog/", r"/blogs/", r"/news/[a-z]", r"/articles/[a-z]", r"/videos(?:/|$)", r"/resources(?:/|$)",
                            r"/nouvelles/", r"/actualites?/", r"/blogue/"]),
 ]
+
+
+# ─── Извлечение ключа паттерна для learn.py (единый источник истины) ──────────
+# Сегменты, которые САМИ по себе = тип: section-wide правило корректно
+# (каждый ребёнок раздела — того же типа). Такой раздел оставляем ключом.
+INTRINSIC_SEGMENTS = {
+    "contact", "contacts", "contact-us", "about", "about-us", "team", "careers",
+    "jobs", "faq", "faqs", "help", "support", "pricing", "plans", "blog", "news",
+    "quote", "checkout", "cart", "login", "account", "privacy", "terms", "legal",
+    "locations", "search", "demo",
+    # FR
+    "contactez-nous", "nous-contacter", "a-propos", "tarifs", "devis", "soumission",
+    "blogue", "nouvelles", "carrieres", "emplois",
+}
+# Контейнерные сегменты — generic grouping, сигнал в РЕБЁНКЕ → берём два сегмента.
+CONTAINER_SEGMENTS = {
+    "pages", "products", "collections", "posts", "p", "items", "listing",
+    "blog", "news", "articles",
+}
+# Неинформативный лист — для НЕконверсионных типов откатываемся на раздел.
+LEAF_STOPWORDS = {"overview", "index", "home", "main", "default"}
+CONVERSION_TYPES = {"lead_form", "quote", "checkout", "booking_confirm"}
+
+_LANG_PREFIX_RE = re.compile(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)')
+
+
+def _strip_ext(seg: str) -> str:
+    return re.sub(r'\.(html?|php|aspx?)$', '', seg)
+
+
+def propose_pattern_key(path: str, ptype: str) -> str | None:
+    """Какой ключ предложить в patterns.json для (path, ptype). None = не предлагать.
+
+    Чинит «section-wide» течь: для конверсионной формы внутри generic-раздела
+    (/services/dealer-contact-form) ключует по ЛИСТУ (/dealer-contact-form),
+    а не по разделу (/services) — иначе весь /services/* пометился бы лидом.
+
+    # Tested: 2026-06-26 — 8 кейсов (services/nissan-forms/contact/pages/fr/...);
+    # сиблинги разделов больше не наследуют lead_form (течь закрыта).
+    """
+    path = _LANG_PREFIX_RE.sub('', (path or "").lower())
+    parts = [_strip_ext(s) for s in path.split("/") if s]
+    if not parts:
+        return None
+    first, leaf = parts[0], parts[-1]
+
+    if len(parts) == 1:
+        return "/" + first
+    if first in CONTAINER_SEGMENTS:
+        return "/" + first + "/" + parts[1]
+    # ★ ключевой фикс: конверсия в generic-разделе → ключ по листу, не по разделу
+    if ptype in CONVERSION_TYPES and first not in INTRINSIC_SEGMENTS:
+        return "/" + leaf
+    if first in INTRINSIC_SEGMENTS:
+        return "/" + first
+    # generic-раздел, неконверсионный тип
+    if leaf in LEAF_STOPWORDS:
+        return "/" + first
+    return "/" + leaf
 
 
 def fast_classify(path: str, full_url: str = "") -> dict | None:
