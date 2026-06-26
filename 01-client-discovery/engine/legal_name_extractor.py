@@ -27,6 +27,7 @@ from urllib.parse import urlparse, urljoin
 from pathlib import Path
 
 from utils import HEADERS, normalize_url, setup_console
+from log import log_info, log_debug
 setup_console()
 
 
@@ -237,17 +238,21 @@ def _fetch_html(url: str, timeout: int = 10, allow_playwright_fallback: bool = T
     status_code == 0 = transport error.
     Если requests возвращает 403/4xx/5xx — пробует Playwright (chromium headless).
     """
+    log_debug(f"_fetch_html: GET {url} (timeout={timeout}, pw_fallback={allow_playwright_fallback})")
     try:
         r = requests.get(url, headers=HEADERS, timeout=timeout, allow_redirects=True)
+        log_debug(f"_fetch_html: requests returned status={r.status_code}, len={len(r.text)}")
         if r.status_code == 200 and r.text:
             return (r.text, r.status_code)
         # WAF / soft block — пробуем Playwright
         if allow_playwright_fallback and r.status_code in (401, 403, 405, 406, 429, 500, 502, 503):
+            log_debug(f"_fetch_html: status {r.status_code} → Playwright fallback")
             pw_html = _fetch_via_playwright(url, timeout)
             if pw_html:
                 return (pw_html, 200)
         return (r.text, r.status_code)
-    except Exception:
+    except Exception as e:
+        log_debug(f"_fetch_html: requests raised, trying Playwright fallback: {e}")
         if allow_playwright_fallback:
             pw_html = _fetch_via_playwright(url, timeout)
             if pw_html:
@@ -257,9 +262,11 @@ def _fetch_html(url: str, timeout: int = 10, allow_playwright_fallback: bool = T
 
 def _fetch_via_playwright(url: str, timeout: int = 10) -> str:
     """Playwright fallback for WAF-blocked sites. Returns rendered HTML."""
+    log_debug(f"_fetch_via_playwright: rendering {url} (timeout={timeout})")
     try:
         from playwright.sync_api import sync_playwright
-    except ImportError:
+    except ImportError as e:
+        log_debug(f"_fetch_via_playwright: playwright not installed: {e}")
         return ""
     try:
         with sync_playwright() as p:
@@ -269,13 +276,16 @@ def _fetch_via_playwright(url: str, timeout: int = 10) -> str:
             page.goto(url, timeout=timeout * 1000, wait_until="domcontentloaded")
             html = page.content()
             browser.close()
+            log_debug(f"_fetch_via_playwright: rendered {len(html)} chars from {url}")
             return html
-    except Exception:
+    except Exception as e:
+        log_debug(f"_fetch_via_playwright: render failed for {url}: {e}")  # best-effort фолбэк — тихо по дефолту
         return ""
 
 
 def _find_links(html: str, base_url: str, keywords: list) -> list[str]:
     """Достаёт ссылки на страницы по ключевым словам в href или text."""
+    log_debug(f"_find_links: scanning for {len(keywords)} keywords in {base_url}")
     found = set()
     # Pattern для href с этими keywords
     for kw in keywords:
@@ -289,6 +299,7 @@ def _find_links(html: str, base_url: str, keywords: list) -> list[str]:
             # Очистим anchor и query
             full = full.split('#')[0]
             found.add(full)
+    log_debug(f"_find_links: found {len(found)} matching links")
     return list(found)
 
 
@@ -335,6 +346,7 @@ def _score_candidate(name: str, suffix: str, context: str) -> tuple[str, list[st
 def _extract_candidates(html: str, source_label: str) -> list[dict]:
     """Findall org-form pattern в HTML, оцениваем каждый match.
     Pre-clean: strip <script>/<style>/<svg>, decode HTML entities."""
+    log_debug(f"_extract_candidates: source={source_label}, html_len={len(html)}")
     cleaned = _clean_html_for_extraction(html)
     candidates = []
     for m in LEGAL_NAME_RE.finditer(cleaned):
@@ -343,9 +355,11 @@ def _extract_candidates(html: str, source_label: str) -> list[dict]:
         # Skip blacklist — match if name == blacklist OR name starts with "<blacklist> "
         nlow = name.lower()
         if any(nlow == bl.lower() or nlow.startswith(bl.lower() + ' ') for bl in NAME_BLACKLIST):
+            log_debug(f"_extract_candidates: skip blacklisted '{name}'")
             continue
         # Skip всё что начинается с lowercase после первого слова — обычно мусор
         if not name or not name[0].isupper() and not name[0].isdigit():
+            log_debug(f"_extract_candidates: skip non-titlecase '{name}'")
             continue
         # Контекст: 200 chars вокруг
         start = max(0, m.start() - 200)
@@ -354,9 +368,11 @@ def _extract_candidates(html: str, source_label: str) -> list[dict]:
         # Skip если перед mention есть hosting marker (это disclosure про хостера, не про клиента)
         ctx_pre = cleaned[max(0, m.start() - 150):m.start()].lower()
         if any(marker in ctx_pre for marker in HOSTING_CONTEXT_MARKERS):
+            log_debug(f"_extract_candidates: skip hosting-context '{name} {suffix}'")
             continue
 
         confidence, reasons = _score_candidate(name, suffix, context)
+        log_debug(f"_extract_candidates: candidate '{name} {suffix}' conf={confidence}")
 
         candidates.append({
             "legal_name": f"{name} {re.sub(r'\\s+', ' ', suffix)}".strip(),
@@ -375,6 +391,7 @@ def _extract_candidates(html: str, source_label: str) -> list[dict]:
             seen.add(c["legal_name"])
             unique.append(c)
 
+    log_debug(f"_extract_candidates: {len(unique)} unique candidates from {source_label}")
     return unique
 
 
@@ -384,6 +401,7 @@ def _brand_keyword_from_domain(domain: str) -> str:
     vb-airsuspension.com   → 'Vb Airsuspension'
     fr.maxpeedingrods.com  → 'Maxpeedingrods'  (отрезаем lang prefix)
     """
+    log_debug(f"_brand_keyword_from_domain: input='{domain}'")
     d = domain.lower().strip()
     if "://" in d:
         d = urlparse(d).netloc
@@ -399,7 +417,9 @@ def _brand_keyword_from_domain(domain: str) -> str:
         base = d
     # Replace separators with space, capitalize words
     base = base.replace('-', ' ').replace('_', ' ')
-    return ' '.join(w.capitalize() for w in base.split())
+    result = ' '.join(w.capitalize() for w in base.split())
+    log_debug(f"_brand_keyword_from_domain: → '{result}'")
+    return result
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────
@@ -414,34 +434,39 @@ def extract_legal_name(domain: str, verbose: bool = False) -> dict:
     """
     base_url = normalize_url(domain)
     domain_clean = urlparse(base_url).netloc
+    log_debug(f"extract_legal_name: domain='{domain}' → base={base_url}, clean={domain_clean}")
 
     if verbose:
-        print(f"  [extract] {domain_clean}  (base={base_url})")
+        log_info(f"  [extract] {domain_clean}  (base={base_url})")
 
     all_candidates = []
 
     # 1. Homepage
+    log_debug("extract_legal_name: step 1 — homepage fetch")
     html, status = _fetch_html(base_url)
     if verbose:
-        print(f"    homepage: status={status}, html_len={len(html)}")
+        log_info(f"    homepage: status={status}, html_len={len(html)}")
 
     if not html:
+        log_debug(f"extract_legal_name: homepage fetch failed for {domain_clean}")
         return _result(domain_clean, None, "fetch_failed", "low", all_candidates)
 
     home_candidates = _extract_candidates(html, "homepage")
     all_candidates.extend(home_candidates)
 
     if verbose:
-        print(f"    homepage candidates: {len(home_candidates)}")
+        log_info(f"    homepage candidates: {len(home_candidates)}")
 
     # Если уже есть high — можно остановиться, но соберём ещё с legal-страницы для надёжности
     have_high = any(c["confidence"] == "high" for c in all_candidates)
 
     # 2. Legal pages (mentions-legales / impressum)
+    log_debug("extract_legal_name: step 2 — legal pages")
     legal_links = _find_links(html, base_url, LEGAL_PAGE_KEYWORDS)
     if verbose:
-        print(f"    legal links found: {len(legal_links)}")
+        log_info(f"    legal links found: {len(legal_links)}")
     for link in legal_links[:3]:  # max 3 legal pages
+        log_debug(f"extract_legal_name: fetching legal page {link}")
         lhtml, lstatus = _fetch_html(link)
         if lhtml:
             cands = _extract_candidates(lhtml, f"legal_page:{link}")
@@ -455,15 +480,18 @@ def extract_legal_name(domain: str, verbose: bool = False) -> dict:
                     c["reasons"].append("on legal-page → boost")
             all_candidates.extend(cands)
             if verbose:
-                print(f"    legal_page {link}: candidates={len(cands)}")
+                log_info(f"    legal_page {link}: candidates={len(cands)}")
 
     # 3. Contact pages — если ничего hi-confidence ещё нет
     have_high = any(c["confidence"] == "high" for c in all_candidates)
+    log_debug(f"extract_legal_name: after legal pages have_high={have_high}")
     if not have_high:
+        log_debug("extract_legal_name: step 3 — contact pages")
         contact_links = _find_links(html, base_url, CONTACT_PAGE_KEYWORDS)
         if verbose:
-            print(f"    contact links found: {len(contact_links)}")
+            log_info(f"    contact links found: {len(contact_links)}")
         for link in contact_links[:2]:
+            log_debug(f"extract_legal_name: fetching contact page {link}")
             chtml, _ = _fetch_html(link)
             if chtml:
                 cands = _extract_candidates(chtml, f"contact_page:{link}")
@@ -471,9 +499,12 @@ def extract_legal_name(domain: str, verbose: bool = False) -> dict:
 
     # 4. Privacy pages — если всё ещё low
     have_medium_or_high = any(c["confidence"] in ("medium", "high") for c in all_candidates)
+    log_debug(f"extract_legal_name: have_medium_or_high={have_medium_or_high}")
     if not have_medium_or_high:
+        log_debug("extract_legal_name: step 4 — privacy pages")
         priv_links = _find_links(html, base_url, PRIVACY_PAGE_KEYWORDS)
         for link in priv_links[:2]:
+            log_debug(f"extract_legal_name: fetching privacy page {link}")
             phtml, _ = _fetch_html(link)
             if phtml:
                 cands = _extract_candidates(phtml, f"privacy_page:{link}")
@@ -517,8 +548,10 @@ def extract_legal_name(domain: str, verbose: bool = False) -> dict:
     )
 
     # 5. Pick best
+    log_debug(f"extract_legal_name: {len(deduped)} deduped candidates")
     if deduped:
         best = deduped[0]
+        log_debug(f"extract_legal_name: best='{best['legal_name']}' conf={best['confidence']} src={best['source']}")
         return _result(
             domain_clean,
             legal_name=best["legal_name"],
@@ -528,6 +561,7 @@ def extract_legal_name(domain: str, verbose: bool = False) -> dict:
         )
 
     # 6. Fallback: brand keyword из домена
+    log_debug("extract_legal_name: no candidates → brand keyword fallback")
     fallback = _brand_keyword_from_domain(domain_clean)
     return _result(
         domain_clean,
@@ -580,8 +614,10 @@ def main():
     else:
         ap.error("Provide a domain or --file")
 
+    log_debug(f"main: processing {len(domains)} domain(s)")
     results = []
     for d in domains:
+        log_debug(f"main: extracting legal name for '{d}'")
         r = extract_legal_name(d, verbose=args.verbose)
         results.append(r)
         if not args.json:

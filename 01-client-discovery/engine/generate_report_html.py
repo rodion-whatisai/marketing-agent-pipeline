@@ -14,37 +14,50 @@ from urllib.parse import urlparse
 from pathlib import Path
 from collections import defaultdict
 
+from log import log_info, log_error, log_debug, log_success, log_step
+
 
 def load_json(path: str) -> dict:
+    log_debug(f"load_json: чтение {path}")
     try:
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+        log_debug(f"load_json: загружено {len(data)} top-level ключей из {path}")
+        return data
     except Exception as e:
-        print(f"❌ Не могу открыть {path}: {e}")
+        log_error(f"Не могу открыть {path}: {e}")
         sys.exit(1)
 
 
 def load_gtm(domain: str, step2_dir: str) -> dict:
+    log_debug(f"load_gtm: domain={domain}, step2_dir={step2_dir}")
     gtm_path = os.path.join(step2_dir, "gtm.json")
     if os.path.exists(gtm_path):
+        log_debug(f"load_gtm: найден {gtm_path}, парсинг")
         try:
             with open(gtm_path, "r", encoding="utf-8") as f:
                 return json.load(f)
-        except Exception:
+        except Exception as e:
+            log_debug(f"load_gtm: не удалось распарсить {gtm_path}: {e}")
             pass
+    else:
+        log_debug(f"load_gtm: {gtm_path} отсутствует")
     return {}
 
 
 def load_step1_stats(domain: str, step2_dir: str) -> dict:
     """Читает step1.json — кол-во страниц и категории."""
+    log_debug(f"load_step1_stats: domain={domain}, step2_dir={step2_dir}")
     step1_path = os.path.join(step2_dir, f"{domain}_step1.json")
     result = {"total": 0, "categories": {}}
     if os.path.exists(step1_path):
+        log_debug(f"load_step1_stats: найден {step1_path}, парсинг")
         try:
             with open(step1_path, "r", encoding="utf-8") as f:
                 d = json.load(f)
             classified = d.get("classified", [])
             result["total"] = len(classified)
+            log_debug(f"load_step1_stats: classified pages = {result['total']}")
             from collections import Counter
             type_counts = Counter(p.get("type", "general") for p in classified)
             # Человекочитаемые названия категорий
@@ -66,8 +79,12 @@ def load_step1_stats(domain: str, step2_dir: str) -> dict:
                 for t, c in type_counts.most_common()
                 if t not in ("legal", "general")
             }
-        except Exception:
+            log_debug(f"load_step1_stats: категорий собрано = {len(result['categories'])}")
+        except Exception as e:
+            log_debug(f"load_step1_stats: не удалось распарсить {step1_path}: {e}")
             pass
+    else:
+        log_debug(f"load_step1_stats: {step1_path} отсутствует")
     return result
 
 
@@ -102,9 +119,11 @@ def is_noise(plat, ev):
 
 
 def generate_html(data: dict, gtm_data: dict = None) -> str:
+    log_debug("generate_html: старт рендера отчёта")
     base_url = data.get("base_url", "")
     domain = urlparse(base_url).netloc or base_url
     date_str = datetime.now().strftime("%d.%m.%Y")
+    log_debug(f"generate_html: domain={domain}, date={date_str}")
 
     scanned        = data.get("scanned", 0)
     sitemap_total  = data.get("sitemap_total", 0)
@@ -159,6 +178,8 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
             presence_platforms.add(plat)
 
     all_found = network_platforms | shopify_platforms
+    log_debug(f"generate_html: network={sorted(network_platforms)}, shopify={sorted(shopify_platforms)}, presence={sorted(presence_platforms)}")
+    log_debug(f"generate_html: oks={oks}, gaps={gaps}, no_tracking={no_tracking}, all_pages={len(all_pages)}")
 
     # Три ключевые метрики
     pages_with_cta = sum(1 for p in all_pages if p.get("cta_elements"))
@@ -181,6 +202,8 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
         )
     )
 
+    log_debug(f"generate_html: pages_with_cta={pages_with_cta}, pages_with_pixel={pages_with_pixel}, pages_with_conversion={pages_with_conversion}")
+
     # Вердикт
     if no_tracking > 0 and not all_found:
         verdict_cls = "critical"
@@ -194,6 +217,7 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     else:
         verdict_cls = "warning"
         verdict_text = "Требует проверки"
+    log_debug(f"generate_html: вердикт = {verdict_cls} ({verdict_text})")
 
     # ── Google Tools блок ──────────────────────────────────────────
     gtm_row = ""
@@ -245,6 +269,7 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
         pages = gap_by_type.get(ptype, [])
         if not pages:
             continue
+        log_debug(f"generate_html: GAP-секция '{ptype}' — {len(pages)} страниц")
 
         type_labels = {
             "lead_form": "Формы и заявки",
@@ -727,13 +752,16 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
 </body>
 </html>"""
 
+    log_debug(f"generate_html: HTML собран, длина {len(html)} символов")
     return html
 
 
 def run(step2_path: str):
+    log_step(f"Генерация HTML отчёта из {step2_path}", emoji="🌐")
     data = load_json(step2_path)
     step2_dir = os.path.dirname(step2_path)
     domain = urlparse(data.get("base_url", "")).netloc
+    log_debug(f"run: domain={domain}, step2_dir={step2_dir}")
 
     gtm_data = load_gtm(domain, step2_dir)
     step1_stats = load_step1_stats(domain, step2_dir)
@@ -742,13 +770,16 @@ def run(step2_path: str):
     html = generate_html(data, gtm_data)
 
     out_path = os.path.join(step2_dir, f"{domain}_report.html")
+    log_debug(f"run: запись отчёта в {out_path}")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"✅ HTML отчёт: {out_path}")
+    log_success(f"HTML отчёт: {out_path}")
+    log_debug(f"run: открываю отчёт в браузере: {out_path}")
     try:
         webbrowser.open(f"file://{os.path.abspath(out_path)}")
-    except Exception:
+    except Exception as e:
+        log_debug(f"run: не удалось открыть браузер: {e}")
         pass
 
     return out_path
@@ -758,6 +789,6 @@ if __name__ == "__main__":
     from utils import setup_console
     setup_console()  # UTF-8 + ANSI на Windows (фикс cp1252-крэша при standalone-запуске)
     if len(sys.argv) < 2:
-        print("Usage: python generate_report_html.py scans/domain/step2.json")
+        log_info("Usage: python generate_report_html.py scans/domain/step2.json")
         sys.exit(1)
     run(sys.argv[1])

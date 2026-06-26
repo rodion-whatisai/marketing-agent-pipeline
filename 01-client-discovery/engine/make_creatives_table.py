@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from utils import SCANS_DIR
+from log import log_info, log_warn, log_success, log_debug
 
 COLUMNS = [
     "domain",
@@ -49,6 +50,7 @@ TABLE_NOTE = (
 
 
 def row_from_json(d: dict, domain: str = "") -> dict:
+    log_debug(f"row_from_json: creative_id={d.get('creative_id', '')} domain={domain}")
     targeting = d.get("targeting_categories") or []
     targeting_str = " | ".join(
         f"{t.get('sign', '')}{t.get('name', '')}" for t in targeting
@@ -86,19 +88,24 @@ def row_from_json(d: dict, domain: str = "") -> dict:
 
 def collect_rows(domains: list[str]) -> tuple[list[dict], int]:
     """Read CR*.json from each domain dir, return (rows, n_parse_errors)."""
+    log_debug(f"collect_rows: {len(domains)} domain(s) to scan")
     rows = []
     n_err = 0
     for domain in domains:
         src = SCANS_DIR / domain / "google_creatives"
         if not src.exists():
+            log_debug(f"collect_rows: no google_creatives dir for {domain}, skipping")
             continue
-        for fp in sorted(src.glob("CR*.json")):
+        creative_files = sorted(src.glob("CR*.json"))
+        log_debug(f"collect_rows: {domain} has {len(creative_files)} CR*.json file(s)")
+        for fp in creative_files:
             try:
                 d = json.loads(fp.read_text(encoding="utf-8"))
                 rows.append(row_from_json(d, domain=domain))
             except Exception as e:
                 n_err += 1
-                print(f"  ! skip {fp.name}: {e}")
+                log_warn(f"  ! skip {fp.name}: {e}")
+    log_debug(f"collect_rows: collected {len(rows)} row(s), {n_err} parse error(s)")
     return rows, n_err
 
 
@@ -109,6 +116,7 @@ def main():
                     help="All domains under scans/* with google_creatives/ subdir")
     ap.add_argument("--out", default=None, help="CSV output path")
     args = ap.parse_args()
+    log_debug(f"main: domain={args.domain} aggregate={args.aggregate} out={args.out}")
 
     if not args.domain and not args.aggregate:
         raise SystemExit("Specify either --domain <name> or --aggregate")
@@ -116,6 +124,7 @@ def main():
         raise SystemExit("--domain and --aggregate are mutually exclusive")
 
     if args.domain:
+        log_debug(f"main: single-domain mode → {args.domain}")
         domains = [args.domain]
         default_out = SCANS_DIR / args.domain / "_creatives_table.csv"
         source_label = f"scans/{args.domain}/google_creatives/*.json"
@@ -125,6 +134,7 @@ def main():
             p.parent.name for p in SCANS_DIR.glob("*/google_creatives")
             if not p.parent.name.startswith("_") and p.is_dir()
         ])
+        log_debug(f"main: aggregate mode → discovered {len(domains)} domain(s)")
         default_out = SCANS_DIR / "_all_creatives_table.csv"
         source_label = f"scans/<{len(domains)} domains>/google_creatives/*.json"
 
@@ -135,6 +145,7 @@ def main():
     rows.sort(key=lambda r: (r["domain"] or "", r["advertiser_name"] or "", r["creative_id"] or ""))
 
     out_path = Path(args.out) if args.out else default_out
+    log_debug(f"main: writing CSV → {out_path}")
     with out_path.open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS)
         w.writeheader()
@@ -175,20 +186,21 @@ def main():
         for d, n in sorted(by_domain.items(), key=lambda x: -x[1]):
             readme_lines.append(f"  {d}: {n}")
     readme_path.write_text("\n".join(readme_lines) + "\n", encoding="utf-8")
+    log_debug(f"main: wrote sidecar readme → {readme_path}")
 
-    print(f"\n[OK] {len(rows)} rows -> {out_path}")
-    print(f"     readme    -> {readme_path}")
+    log_success(f"{len(rows)} rows -> {out_path}")
+    log_info(f"     readme    -> {readme_path}")
     if n_err:
-        print(f"  ({n_err} JSON parse errors)")
+        log_warn(f"  ({n_err} JSON parse errors)")
 
-    print(f"\nWith text: {n_with_text}/{len(rows)}"
-          f"  with image: {n_with_image}/{len(rows)}"
-          f"  text_in_image: {n_text_in_image}"
-          f"  iframe_missing: {n_iframe_missing}")
+    log_info(f"With text: {n_with_text}/{len(rows)}"
+             f"  with image: {n_with_image}/{len(rows)}"
+             f"  text_in_image: {n_text_in_image}"
+             f"  iframe_missing: {n_iframe_missing}")
     if len(domains) > 1:
-        print(f"\nDomains: {len(by_domain)}")
+        log_info(f"Domains: {len(by_domain)}")
         for d, n in sorted(by_domain.items(), key=lambda x: -x[1]):
-            print(f"  {n:>4d}  {d}")
+            log_info(f"  {n:>4d}  {d}")
 
 
 if __name__ == "__main__":

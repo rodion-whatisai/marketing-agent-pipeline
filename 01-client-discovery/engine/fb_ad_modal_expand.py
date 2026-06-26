@@ -23,6 +23,8 @@ from pathlib import Path
 from utils import setup_console
 setup_console()
 
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
+
 # Импорты соседних шагов
 from fb_ad_modal_parse import detect_sections, ALL_SECTION_LABELS
 
@@ -31,6 +33,7 @@ from fb_ad_modal_parse import detect_sections, ALL_SECTION_LABELS
 
 def _scroll_heading_into_view(page, label: str):
     """JS-скролл heading'а в видимую область (работает в портале/нестед-скролле)."""
+    log_debug(f"_scroll_heading_into_view: скроллю heading '{label}'")
     page.evaluate("""
     (label) => {
       const headings = Array.from(document.querySelectorAll('[role="heading"], h2, h3, h4'));
@@ -42,19 +45,24 @@ def _scroll_heading_into_view(page, label: str):
 
 def _try_row_click(page, label: str, before_size: int) -> int:
     """Strategy A — Playwright row click. Возвращает Δ bytes (или 0 если не сработал)."""
+    log_debug(f"_try_row_click: пробую row click по '{label}' (before_size={before_size})")
     try:
         row = page.locator(
             f"div:has(> div > [role='heading']:text-is('{label}'))"
         ).first
         row.click(force=True, timeout=2500)
-    except Exception:
+    except Exception as e:
+        log_debug(f"_try_row_click: row click по '{label}' не сработал: {e}")
         return 0
     page.wait_for_timeout(1200)
-    return len(page.content()) - before_size
+    delta = len(page.content()) - before_size
+    log_debug(f"_try_row_click: '{label}' Δ={delta}")
+    return delta
 
 
 def _try_js_dispatch(page, label: str, before_size: int) -> int:
     """Strategy B — JS dispatch на <a href='#'> в строке heading'а. Δ bytes."""
+    log_debug(f"_try_js_dispatch: пробую JS dispatch по '{label}' (before_size={before_size})")
     page.evaluate("""
     (label) => {
       const headings = Array.from(document.querySelectorAll('[role="heading"]'));
@@ -74,12 +82,15 @@ def _try_js_dispatch(page, label: str, before_size: int) -> int:
     }
     """, label)
     page.wait_for_timeout(1500)
-    return len(page.content()) - before_size
+    delta = len(page.content()) - before_size
+    log_debug(f"_try_js_dispatch: '{label}' Δ={delta}")
+    return delta
 
 
 def _wait_for_transparency_loaded(page, timeout_ms: int = 6000) -> bool:
     """Async ожидание: появилась ли реальная цифра Reach в DOM."""
     import time
+    log_debug(f"_wait_for_transparency_loaded: жду Reach в DOM (timeout={timeout_ms}ms)")
     start = time.time()
     while (time.time() - start) * 1000 < timeout_ms:
         try:
@@ -93,10 +104,13 @@ def _wait_for_transparency_loaded(page, timeout_ms: int = 6000) -> bool:
               return false;
             }
             """)
-            if ok: return True
-        except Exception:
-            pass
+            if ok:
+                log_debug("_wait_for_transparency_loaded: Reach найден в DOM")
+                return True
+        except Exception as e:
+            log_debug(f"_wait_for_transparency_loaded: evaluate упал, ретрай: {e}")
         page.wait_for_timeout(500)
+    log_debug("_wait_for_transparency_loaded: timeout — Reach не появился")
     return False
 
 
@@ -109,18 +123,21 @@ def expand_all_present_accordions(page, sections_to_expand=None,
     sections_to_expand: list[str] — если None, автодетект через detect_sections().
     Возвращает {sections_present, diag: {label: status_str}, html}.
     """
+    log_debug(f"expand_all_present_accordions: вход (sections_to_expand={sections_to_expand}, verbose={verbose})")
     html_initial = page.content()
     if sections_to_expand is None:
+        log_debug("expand_all_present_accordions: автодетект секций через detect_sections()")
         sections_to_expand = detect_sections(html_initial)
 
     if verbose:
-        print(f"      📋 секций в DOM: {len(sections_to_expand)}/5")
+        log_info(f"📋 секций в DOM: {len(sections_to_expand)}/5")
         for s in sections_to_expand:
             print(f"         · {s}")
 
     diag = {}
     for label in sections_to_expand:
-        if verbose: print(f"      🔧 expand: '{label}'...")
+        log_debug(f"expand_all_present_accordions: обрабатываю секцию '{label}'")
+        if verbose: log_step(f"expand: '{label}'...", emoji="🔧")
 
         _scroll_heading_into_view(page, label)
         page.wait_for_timeout(300)
@@ -130,19 +147,23 @@ def expand_all_present_accordions(page, sections_to_expand=None,
         delta = _try_row_click(page, label, before)
         if delta >= 500:
             diag[label] = f"row_click +{delta:,}"
-            if verbose: print(f"         ✓ row_click  +{delta:,}")
+            log_debug(f"expand_all_present_accordions: '{label}' раскрыт через row_click (Δ{delta})")
+            if verbose: log_success(f"row_click  +{delta:,}", emoji="✓")
             continue
 
         # Strategy B: JS dispatch (нужен для 'Additional assets from this ad')
         delta = _try_js_dispatch(page, label, before)
         if delta >= 500:
             diag[label] = f"js_dispatch +{delta:,}"
-            if verbose: print(f"         ✓ js_dispatch +{delta:,}")
+            log_debug(f"expand_all_present_accordions: '{label}' раскрыт через js_dispatch (Δ{delta})")
+            if verbose: log_success(f"js_dispatch +{delta:,}", emoji="✓")
         else:
             diag[label] = f"NO_GROWTH Δ{delta}"
-            if verbose: print(f"         ⚠ no_growth  Δ{delta}")
+            log_debug(f"expand_all_present_accordions: '{label}' не вырос ни одной стратегией (Δ{delta})")
+            if verbose: log_warn(f"no_growth  Δ{delta}")
 
     # Финальное ожидание async-данных Transparency
+    log_debug("expand_all_present_accordions: финальное ожидание Transparency async-данных")
     _wait_for_transparency_loaded(page, timeout_ms=6000)
     page.wait_for_timeout(700)
 
@@ -163,13 +184,11 @@ if __name__ == "__main__":
     args = ap.parse_args()
 
     if not args.library_id.isdigit():
-        print(f"❌ Step 4 принимает только library_id (цифры), не '{args.library_id}'")
+        log_error(f"Step 4 принимает только library_id (цифры), не '{args.library_id}'")
         print(f"   Для прогона от домена: python fb_scan.py <domain> (когда будет готов)")
         sys.exit(1)
 
-    print(f"\n{'═' * 70}")
-    print(f"  FB AD MODAL EXPANDER — library_id: {args.library_id}")
-    print(f"{'═' * 70}\n")
+    log_header(f"FB AD MODAL EXPANDER — library_id: {args.library_id}")
 
     # Step 3 → открываем модалку (нам нужен page после)
     from playwright.sync_api import sync_playwright
@@ -185,19 +204,17 @@ if __name__ == "__main__":
         )
         page = ctx.new_page()
 
-        print(f"  → Step 3: открываю модалку...")
+        log_step("Step 3: открываю модалку...", emoji="🌐")
         open_result = open_ad_modal(args.library_id, page=page, verbose=True)
         if not open_result.get("success"):
-            print(f"❌ Step 3 не удался: {open_result.get('error')}")
+            log_error(f"Step 3 не удался: {open_result.get('error')}")
             browser.close()
             sys.exit(1)
 
-        print(f"\n  → Step 4: раскрываю аккордеоны...")
+        log_step("Step 4: раскрываю аккордеоны...", emoji="🔧")
         result = expand_all_present_accordions(page)
 
-        print(f"\n{'═' * 70}")
-        print(f"  RESULT")
-        print(f"{'═' * 70}")
+        log_header("RESULT")
         print(f"sections_present ({len(result['sections_present'])}/5):")
         for s in ALL_SECTION_LABELS:
             mark = "✓" if s in result["sections_present"] else "✗"
@@ -209,6 +226,6 @@ if __name__ == "__main__":
             out = Path(f"scans/_explore/expanded_{args.library_id}.html").resolve()
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(result["html"], encoding="utf-8")
-            print(f"💾 saved: {out}")
+            log_success(f"saved: {out}", emoji="💾")
 
         browser.close()

@@ -20,6 +20,7 @@ import json
 import argparse
 
 from utils import setup_console
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
 setup_console()
 
 DEFAULT_TOP_N = 10
@@ -29,9 +30,11 @@ DEFAULT_TOP_N = 10
 
 def _parse_count(html: str) -> int:
     """Извлекает количество объявлений на странице — несколько эвристик."""
+    log_debug(f"_parse_count: html len={len(html)}")
     # 1. JSON в HTML: "search_results_connection":{"count":42}
     m = re.search(r'"search_results_connection"\s*:\s*\{[^}]*"count"\s*:\s*(\d+)', html)
     if m:
+        log_debug(f"_parse_count: matched search_results_connection count={m.group(1)}")
         return int(m.group(1))
     # 2. Заголовок "~42 results"
     m = re.search(r"~?(\d[\d,\s]*)\s+results?", html, re.IGNORECASE)
@@ -39,20 +42,26 @@ def _parse_count(html: str) -> int:
         try:
             n = int(re.sub(r"[,\s]", "", m.group(1)))
             if 0 < n < 1_000_000:
+                log_debug(f"_parse_count: matched '~N results' n={n}")
                 return n
-        except ValueError:
+        except ValueError as e:
+            log_debug(f"_parse_count: ValueError parsing results count: {e}")
             pass
     # 3. Пустой результат
     if any(s in html.lower() for s in
            ['no ads match', 'no results', '"edges":[]', '"count":0']):
+        log_debug("_parse_count: empty-result marker found → 0")
         return 0
+    log_debug("_parse_count: no heuristic matched → None")
     return None  # не смогли определить
 
 
 def _parse_library_ids(html: str, max_n: int) -> list:
     """Library IDs из листинга в порядке появления (= impressions DESC).
     FB рендерит карточки сверху-вниз, поэтому первые N = top-N по impressions."""
+    log_debug(f"_parse_library_ids: max_n={max_n}, html len={len(html)}")
     ids = re.findall(r"Library ID:\s*(\d{10,20})", html)
+    log_debug(f"_parse_library_ids: raw matches={len(ids)}")
     seen = set()
     out = []
     for i in ids:
@@ -61,12 +70,15 @@ def _parse_library_ids(html: str, max_n: int) -> list:
             out.append(i)
         if len(out) >= max_n:
             break
+    log_debug(f"_parse_library_ids: unique returned={len(out)}")
     return out
 
 
 def _parse_ad_texts(html: str) -> list:
     """Уникальные тексты объявлений с listing."""
+    log_debug(f"_parse_ad_texts: html len={len(html)}")
     texts = re.findall(r'white-space:\s*pre-wrap[^>]*><span>([^<]{10,600})', html)
+    log_debug(f"_parse_ad_texts: raw matches={len(texts)}")
     seen = set()
     out = []
     for t in texts:
@@ -74,6 +86,7 @@ def _parse_ad_texts(html: str) -> list:
         if t and t not in seen:
             seen.add(t)
             out.append(t)
+    log_debug(f"_parse_ad_texts: unique returned={len(out)}")
     return out
 
 
@@ -81,6 +94,7 @@ def _parse_partnership(html: str) -> tuple:
     """Возвращает (is_partnership: bool, count: int)."""
     n = len(re.findall(r"branded_content", html, re.IGNORECASE))
     estimated = max(0, n // 3)  # ~3 упоминания на каждое branded_content объявление
+    log_debug(f"_parse_partnership: branded_content mentions={n}, estimated={estimated}")
     return (estimated > 0, estimated)
 
 
@@ -88,9 +102,12 @@ def _parse_partnership(html: str) -> tuple:
 
 def _scroll_to_load_more(page, target_count: int, max_scrolls: int = 6):
     """Скроллит вниз чтобы FB подгрузил больше карточек."""
+    log_debug(f"_scroll_to_load_more: target_count={target_count}, max_scrolls={max_scrolls}")
     for _ in range(max_scrolls):
         cnt = len(re.findall(r"Library ID:\s*\d{10,}", page.content()))
+        log_debug(f"_scroll_to_load_more: current cards={cnt}")
         if cnt >= target_count:
+            log_debug("_scroll_to_load_more: target reached → stop")
             return
         page.mouse.wheel(0, 2500)
         page.wait_for_timeout(1200)
@@ -99,25 +116,30 @@ def _scroll_to_load_more(page, target_count: int, max_scrolls: int = 6):
 def _scrape_status(page, url: str, status_label: str, top_n: int,
                     verbose: bool = True) -> dict:
     """Скрейпит один URL listing'а."""
-    if verbose: print(f"      🔎 [{status_label}] open URL...")
+    log_debug(f"_scrape_status: status_label={status_label}, top_n={top_n}, url={url}")
+    if verbose: log_step(f"[{status_label}] open URL...", emoji="🔎")
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=20000)
         page.wait_for_timeout(3500)
     except Exception as e:
-        if verbose: print(f"      ⚠ goto failed: {str(e)[:80]}")
+        if verbose: log_warn(f"goto failed: {str(e)[:80]}")
         return {"count": None, "library_ids": [], "ad_texts": [],
                 "partnership_ads": False, "partnership_count": 0,
                 "error": str(e)[:100]}
 
     # Если нужны top-N — скроллим чтобы подгрузить
     if top_n > 12:
+        log_debug(f"_scrape_status: top_n={top_n} > 12 → scrolling to load more")
         _scroll_to_load_more(page, target_count=top_n)
 
+    log_debug("_scrape_status: capturing page.content() for parsing")
     html = page.content()
     count = _parse_count(html)
     library_ids = _parse_library_ids(html, max_n=top_n)
     ad_texts = _parse_ad_texts(html)
     is_partnership, partnership_n = _parse_partnership(html)
+    log_debug(f"_scrape_status: parsed count={count}, library_ids={len(library_ids)}, "
+              f"ad_texts={len(ad_texts)}, partnership={is_partnership}")
 
     return {
         "count":             count,
@@ -136,9 +158,11 @@ def scrape_ads_listing(ads_library_urls: dict, display_name: str = "",
     """3-проходный скрейп listing'а Ad Library.
     ads_library_urls: dict с ключами 'all', 'active', 'inactive' (из Step 1).
     Возвращает {total_ever, active, inactive}."""
+    log_debug(f"scrape_ads_listing: display_name='{display_name}', top_n={top_n}, verbose={verbose}")
     try:
         from playwright.sync_api import sync_playwright
-    except ImportError:
+    except ImportError as e:
+        log_error(f"playwright not installed: {e}")
         return {"error": "playwright not installed"}
 
     result = {
@@ -149,6 +173,7 @@ def scrape_ads_listing(ads_library_urls: dict, display_name: str = "",
     }
 
     with sync_playwright() as p:
+        log_debug("scrape_ads_listing: launching headless Chromium")
         browser = p.chromium.launch(headless=True)
         ctx = browser.new_context(
             user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -159,43 +184,48 @@ def scrape_ads_listing(ads_library_urls: dict, display_name: str = "",
         page = ctx.new_page()
 
         # ── Pass 1: total ever ─────────────────────────────────────────
+        log_debug("scrape_ads_listing: Pass 1 (active_status=all) — total ever")
         pass1 = _scrape_status(page, ads_library_urls["all"], "all",
                                 top_n=1, verbose=verbose)
         total = pass1.get("count")
         result["total_ever"] = total
-        if verbose: print(f"      📊 total_ever = {total}")
+        if verbose: log_info(f"total_ever = {total}", emoji="📊")
 
         if not total or total == 0:
-            if verbose: print(f"      ❌ Объявлений нет — стоп")
+            if verbose: log_error("Объявлений нет — стоп")
             browser.close()
             return result
 
         # ── Pass 2: active ─────────────────────────────────────────────
+        log_debug("scrape_ads_listing: Pass 2 (active_status=active)")
         pass2 = _scrape_status(page, ads_library_urls["active"], "active",
                                 top_n=top_n, verbose=verbose)
         active_count = pass2.get("count", 0) or 0
         if active_count > 0:
             result["active"] = pass2
             if verbose:
-                print(f"      ✅ active: count={active_count}, "
+                log_success(f"active: count={active_count}, "
                       f"library_ids={len(pass2['library_ids'])}, "
                       f"texts={len(pass2['ad_texts'])}")
         else:
-            if verbose: print(f"      ➖ active: 0")
+            log_debug("scrape_ads_listing: active_count == 0")
+            if verbose: log_info("active: 0", emoji="➖")
 
         # ── Pass 3: inactive (только если есть смысл) ─────────────────
         if total > active_count:
+            log_debug("scrape_ads_listing: Pass 3 (active_status=inactive) — total > active")
             pass3 = _scrape_status(page, ads_library_urls["inactive"], "inactive",
                                     top_n=top_n, verbose=verbose)
             inactive_count = pass3.get("count", 0) or 0
             if inactive_count > 0:
                 result["inactive"] = pass3
                 if verbose:
-                    print(f"      📦 inactive: count={inactive_count}, "
+                    log_info(f"inactive: count={inactive_count}, "
                           f"library_ids={len(pass3['library_ids'])}, "
-                          f"texts={len(pass3['ad_texts'])}")
+                          f"texts={len(pass3['ad_texts'])}", emoji="📦")
         else:
-            if verbose: print(f"      ➖ inactive: пропуск (active == total)")
+            log_debug("scrape_ads_listing: skipping Pass 3 (active == total)")
+            if verbose: log_info("inactive: пропуск (active == total)", emoji="➖")
 
         browser.close()
     return result
@@ -214,12 +244,11 @@ if __name__ == "__main__":
                     help="прямо задать display_name (пропустить Step 1)")
     args = ap.parse_args()
 
-    print(f"\n{'═' * 70}")
-    print(f"  FB ADS LISTING — target: {args.target}, top={args.top}")
-    print(f"{'═' * 70}\n")
+    log_header(f"FB ADS LISTING — target: {args.target}, top={args.top}")
 
     # Если задан --display-name → строим URL'ы напрямую (без Step 1)
     if args.display_name:
+        log_debug("__main__: --display-name provided → build URLs directly (skip Step 1)")
         from fb_ads_scraper import build_ads_library_urls
         urls = build_ads_library_urls(args.display_name)["ALL"]
         ads_urls = {"all": urls["all"], "active": urls["active_only"],
@@ -227,27 +256,26 @@ if __name__ == "__main__":
         display_name = args.display_name
     else:
         # Сначала Step 1
+        log_debug("__main__: no --display-name → running Step 1 find_brand_pages")
         from fb_page_finder import find_brand_pages
         # find_delegate=False — listing работает через display_name, экономим Playwright
         pages = find_brand_pages(args.target, verbose=False, find_delegate=False)
         alive = [p for p in pages if p.get("alive")]
         if not alive:
-            print(f"❌ Нет живых FB страниц для {args.target}")
+            log_error(f"Нет живых FB страниц для {args.target}")
             sys.exit(1)
         page0 = alive[0]
         display_name = page0["display_name"]
         ads_urls = page0["ads_library_urls"]
-        print(f"  ✓ Step 1: handle=@{page0['handle']}, display_name='{display_name}'")
+        log_success(f"Step 1: handle=@{page0['handle']}, display_name='{display_name}'")
         if len(alive) > 1:
-            print(f"  ℹ обнаружено {len(alive)} аккаунтов, беру первый")
+            log_info(f"обнаружено {len(alive)} аккаунтов, беру первый")
 
     # Step 2
-    print(f"\n  → Запускаю 3-проходный скрейп listing'а...")
+    log_step("Запускаю 3-проходный скрейп listing'а...", emoji="→")
     result = scrape_ads_listing(ads_urls, display_name=display_name, top_n=args.top)
 
-    print(f"\n{'═' * 70}")
-    print(f"  RESULT")
-    print(f"{'═' * 70}")
+    log_header("RESULT")
     print(f"display_name: {result.get('display_name')}")
     print(f"total_ever:   {result.get('total_ever')}")
     for s in ("active", "inactive"):

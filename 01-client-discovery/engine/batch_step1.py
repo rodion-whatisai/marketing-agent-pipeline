@@ -48,7 +48,7 @@ sys.modules.setdefault("learn", _learn_patch)
 _original_input = input
 
 def _auto_input(prompt=""):
-    print(f"[batch] auto-answer '1' to: {prompt.strip()}")
+    log_debug(f"[batch] auto-answer '1' to: {prompt.strip()}")
     return "1"
 
 
@@ -62,6 +62,7 @@ except ImportError as e:
     sys.exit(1)
 
 from utils import normalize_url, scan_path
+from log import log_info, log_warn, log_error, log_debug, log_success, log_step
 
 
 def playwright_homepage_crawl(base_url: str, site_domain: str) -> list:
@@ -69,16 +70,18 @@ def playwright_homepage_crawl(base_url: str, site_domain: str) -> list:
     Лёгкий Playwright crawl главной страницы.
     Запускается когда sitemap дал 0 URL — обходит JS-рендеринг и блокировки.
     """
+    log_debug(f"playwright_homepage_crawl: base_url={base_url} site_domain={site_domain}")
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        print("  ⚠️  Playwright не установлен")
+        log_warn("Playwright не установлен")
         return []
 
-    print(f"  🌐 Playwright fallback: открываю {base_url}...")
+    log_step(f"Playwright fallback: открываю {base_url}...", emoji="🌐")
     urls = []
     try:
         with sync_playwright() as p:
+            log_debug("Playwright: запускаю headless Chromium")
             browser = p.chromium.launch(headless=True)
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
@@ -86,15 +89,17 @@ def playwright_homepage_crawl(base_url: str, site_domain: str) -> list:
             )
             page = context.new_page()
             try:
+                log_debug(f"Playwright: page.goto {base_url}")
                 page.goto(base_url, wait_until="domcontentloaded", timeout=20000)
                 page.wait_for_timeout(2000)
             except Exception as e:
-                print(f"  ⚠️  Playwright error: {e}")
+                log_warn(f"Playwright error: {e}")
                 browser.close()
                 return []
 
             all_links = set()
             for scroll_pos in [0, 0.5, 1.0]:
+                log_debug(f"Playwright: scroll_pos={scroll_pos}, собираю ссылки")
                 try:
                     page.evaluate(f"window.scrollTo(0, document.body.scrollHeight * {scroll_pos})")
                     page.wait_for_timeout(500)
@@ -105,10 +110,11 @@ def playwright_homepage_crawl(base_url: str, site_domain: str) -> list:
                             .slice(0, 500)
                     """)
                     all_links.update(links)
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"Playwright: scroll/собор ссылок на scroll_pos={scroll_pos} упал: {e}")
 
             browser.close()
+            log_debug(f"Playwright: собрано {len(all_links)} сырых ссылок, фильтрую по домену")
 
             skip_ext = {".jpg", ".jpeg", ".png", ".gif", ".svg", ".pdf",
                         ".zip", ".css", ".js", ".ico", ".webp", ".mp4"}
@@ -123,9 +129,9 @@ def playwright_homepage_crawl(base_url: str, site_domain: str) -> list:
                     seen.add(u.lower())
                     urls.append(u)
 
-            print(f"  ✓ Playwright нашёл {len(urls)} URL")
+            log_info(f"Playwright нашёл {len(urls)} URL")
     except Exception as e:
-        print(f"  ⚠️  Playwright fallback error: {e}")
+        log_warn(f"Playwright fallback error: {e}")
     return urls
 
 
@@ -141,6 +147,7 @@ PRIORITY_LABELS = {
 
 def summarize_result(domain: str, result: dict) -> dict:
     """Вытаскивает ключевые поля из результата step1."""
+    log_debug(f"summarize_result: domain={domain}")
     platform_info = result.get("platform", {})
     platform = platform_info.get("platform", "unknown") if isinstance(platform_info, dict) else str(platform_info)
 
@@ -184,6 +191,7 @@ def summarize_result(domain: str, result: dict) -> dict:
 
     # Топ-аккаунт — с максимальным active_ads_count
     top = max(alive, key=lambda a: a.get("active_ads_count") or 0, default=None)
+    log_debug(f"summarize_result: alive_accounts={len(alive)} top={top.get('handle') if top else None}")
 
     if top:
         fb_handle = top.get("handle", "") or ""
@@ -250,18 +258,23 @@ def summarize_result(domain: str, result: dict) -> dict:
 
 def load_existing_step1(domain: str) -> dict | None:
     """Загружает уже существующий step1 JSON если есть."""
+    log_debug(f"load_existing_step1: domain={domain}")
     path = scan_path(domain, f"{domain}_step1.json")
     if path.exists():
+        log_debug(f"load_existing_step1: найден {path}, читаю")
         try:
             with open(path, encoding="utf-8") as f:
                 return json.load(f)
-        except Exception:
+        except Exception as e:
+            log_debug(f"load_existing_step1: не смог прочитать {path}: {e}")
             return None
+    log_debug(f"load_existing_step1: {path} не существует")
     return None
 
 
 def print_table(rows: list[dict]):
     """Красивая таблица в терминал."""
+    log_debug(f"print_table: rows={len(rows)}")
     if not rows:
         return
 
@@ -297,11 +310,12 @@ def print_table(rows: list[dict]):
     print(sep)
     ok = sum(1 for r in rows if "OK" in r.get("status", ""))
     err = len(rows) - ok
-    print(f"\n  ✅ OK: {ok}   ❌ Error: {err}   Total: {len(rows)}")
+    log_info(f"✅ OK: {ok}   ❌ Error: {err}   Total: {len(rows)}")
 
 
 def save_csv(rows: list[dict], output_path: Path):
     """Сохраняет все поля в CSV. Берём union ключей чтобы не терять поля из error rows."""
+    log_debug(f"save_csv: rows={len(rows)} output_path={output_path}")
     if not rows:
         return
     # Порядок: первая строка задаёт основные колонки, потом всё остальное
@@ -316,7 +330,7 @@ def save_csv(rows: list[dict], output_path: Path):
         writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
-    print(f"\n💾 CSV сохранён: {output_path}")
+    log_success(f"CSV сохранён: {output_path}", emoji="💾")
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
@@ -358,13 +372,14 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
     skip_discovery=True по умолчанию — в батче Playwright discovery слишком медленный
     (rate limit 15с × N страниц). Используй --discovery чтобы включить.
     """
+    log_debug(f"run_batch: domains={len(domains)} skip_discovery={skip_discovery} force_rerun={force_rerun}")
     results = []
     errors = []
     _stop_all = False  # второй Ctrl+C — стоп всего батча
 
-    print(f"\n🚀 Batch Step 1 — {len(domains)} доменов")
-    print(f"   skip_discovery={skip_discovery}  force_rerun={force_rerun}")
-    print(f"   💡 Ctrl+C — пропустить домен  |  Ctrl+C дважды — остановить батч\n")
+    log_step(f"Batch Step 1 — {len(domains)} доменов", emoji="🚀")
+    log_info(f"skip_discovery={skip_discovery}  force_rerun={force_rerun}")
+    log_info(f"💡 Ctrl+C — пропустить домен  |  Ctrl+C дважды — остановить батч")
 
     for i, domain in enumerate(domains, 1):
         if _stop_all:
@@ -374,6 +389,7 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
         if not domain:
             continue
 
+        log_debug(f"run_batch: обрабатываю домен {i}/{len(domains)}: {domain}")
         print(f"\n{'─' * 60}")
         print(f"[{i}/{len(domains)}] {domain}")
         print(f"{'─' * 60}")
@@ -382,7 +398,7 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
         if not force_rerun:
             existing = load_existing_step1(domain)
             if existing:
-                print(f"  ⏩ Найден существующий step1.json — пропускаю (--rerun чтобы перезапустить)")
+                log_info("⏩ Найден существующий step1.json — пропускаю (--rerun чтобы перезапустить)")
                 row = summarize_result(domain, existing)
                 row["status"] = "⏩ cached"
                 results.append(row)
@@ -390,6 +406,7 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
 
         try:
             # Патчим input() только на время вызова run()
+            log_debug(f"run_batch: вызываю step1.run для {domain} (skip_discovery={skip_discovery})")
             with patch("builtins.input", _auto_input):
                 result = step1.run(
                     domain,
@@ -398,17 +415,20 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
                     show_all_in_list=False,
                     skip_discovery=skip_discovery,
                 )
+            log_debug(f"run_batch: step1.run вернул total_found={result.get('total_found', 0)}")
 
             # ── Playwright fallback если 0 URL ──────────────────
             if result.get("total_found", 0) == 0:
-                print(f"\n  ⚠️  0 URL из sitemap — пробую Playwright...")
+                log_warn("0 URL из sitemap — пробую Playwright...")
                 from urllib.parse import urlparse as _urlparse
                 import json as _json
                 _base_url = result.get("base_url", f"https://{domain}")
                 _site_domain = _urlparse(_base_url).netloc
+                log_debug(f"run_batch: Playwright fallback base_url={_base_url} site_domain={_site_domain}")
                 _pw_urls = playwright_homepage_crawl(_base_url, _site_domain)
                 if _pw_urls:
                     from page_classifier import classify_urls
+                    log_debug(f"run_batch: классифицирую {len(_pw_urls)} URL из Playwright")
                     _classified = classify_urls(_pw_urls)
                     _to_scan = [x for x in _classified if x.get("priority", 5) <= 2]
                     result["total_found"] = len(_pw_urls)
@@ -416,20 +436,21 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
                     result["to_scan"] = _to_scan
                     result["sitemap_source"] = "playwright homepage crawl (fallback)"
                     _json_path = scan_path(domain, f"{domain}_step1.json")
+                    log_debug(f"run_batch: сохраняю Playwright-результат в {_json_path}")
                     with open(_json_path, "w", encoding="utf-8") as _f:
                         _json.dump(result, _f, indent=2, ensure_ascii=False)
-                    print(f"  ✓ {len(_pw_urls)} URL найдено, {len(_to_scan)} к сканированию")
+                    log_info(f"✓ {len(_pw_urls)} URL найдено, {len(_to_scan)} к сканированию")
                 else:
-                    print(f"  ❌ Playwright тоже дал 0 — сайт недоступен или пустой")
+                    log_error("Playwright тоже дал 0 — сайт недоступен или пустой")
 
             row = summarize_result(domain, result)
             results.append(row)
-            print(f"\n  ✅ Done: {len(result.get('to_scan', []))} страниц к сканированию")
+            log_success(f"Done: {len(result.get('to_scan', []))} страниц к сканированию")
 
         except KeyboardInterrupt:
             # Первый Ctrl+C — пропускаем домен
-            print(f"\n⚠️  Ctrl+C — пропускаю {domain}, перехожу к следующему")
-            print(f"   (Ctrl+C ещё раз в течение 2с — остановить весь батч)")
+            log_warn(f"Ctrl+C — пропускаю {domain}, перехожу к следующему")
+            log_info("(Ctrl+C ещё раз в течение 2с — остановить весь батч)")
             errors.append(_make_error_row(domain, "⏭ skipped", "KeyboardInterrupt"))
 
             # Даём 2 секунды на второй Ctrl+C
@@ -438,12 +459,12 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
                 time.sleep(2)
             except KeyboardInterrupt:
                 _stop_all = True
-                print(f"\n🛑 Батч остановлен пользователем")
+                log_error("🛑 Батч остановлен пользователем")
 
         except Exception as e:
             tb = traceback.format_exc()
-            print(f"\n  ❌ Ошибка: {e}")
-            print(f"     {tb.splitlines()[-1]}")
+            log_error(f"Ошибка: {e}")
+            log_error(f"{tb.splitlines()[-1]}")
             errors.append(_make_error_row(domain, "❌ error", str(e)))
 
     all_rows = results + errors
@@ -459,9 +480,10 @@ def run_batch(domains: list[str], skip_discovery: bool = True, force_rerun: bool
 
     # Детальный JSON на случай дальнейшей обработки
     json_path = Path("scans") / f"batch_step1_{ts}.json"
+    log_debug(f"run_batch: сохраняю детальный JSON в {json_path}")
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(all_rows, f, indent=2, ensure_ascii=False)
-    print(f"💾 JSON сохранён: {json_path}")
+    log_success(f"JSON сохранён: {json_path}", emoji="💾")
 
     return all_rows
 
@@ -517,7 +539,7 @@ if __name__ == "__main__":
                     if line and not line.startswith("#"):
                         domains.append(line)
         except FileNotFoundError:
-            print(f"❌ Файл не найден: {args.file}")
+            log_error(f"Файл не найден: {args.file}")
             sys.exit(1)
 
     if not domains:

@@ -15,6 +15,7 @@ import sys, json, html as htmllib, argparse, webbrowser
 from pathlib import Path
 
 from utils import setup_console
+from log import log_info, log_error, log_success, log_debug
 setup_console()
 
 
@@ -23,21 +24,28 @@ def _esc(s):
 
 
 def _load_summary(domain: str):
+    log_debug(f"_load_summary: domain={domain}")
     p = Path("scans") / domain / "fb_deep_summary.json"
     if not p.exists():
+        log_debug(f"_load_summary: нет файла {p}")
         return None
+    log_debug(f"_load_summary: читаю {p}")
     return json.loads(p.read_text(encoding="utf-8"))
 
 
 def _load_ad_json(saved_path: str):
+    log_debug(f"_load_ad_json: saved_path={saved_path}")
     p = Path(saved_path)
     if not p.exists():
+        log_debug(f"_load_ad_json: нет файла {p}")
         return None
+    log_debug(f"_load_ad_json: читаю {p}")
     return json.loads(p.read_text(encoding="utf-8"))
 
 
 def _render_ad_row(rank, status, summary_row, ad_data):
     """Одна строка таблицы + скрытый drilldown."""
+    log_debug(f"_render_ad_row: rank={rank} status={status} lib_id={summary_row.get('library_id')}")
     lib_id = summary_row["library_id"]
     reach = summary_row.get("total_reach")
     reach_str = f"{reach:,}" if reach else "—"
@@ -76,11 +84,14 @@ def _render_ad_row(rank, status, summary_row, ad_data):
                  f"<th>Gender</th><th>Reach</th></tr></thead>"
                  f"<tbody>{demo_rows}</tbody></table>" if demos else "<i>no demographics</i>")
 
+    log_debug(f"_render_ad_row: lib_id={lib_id} demos={len(demos)} versions={versions} has_lead={has_lead}")
+
     # Lead form
     lead_items = (add_assets.get("text_items") or [])[:20]
     lead_links = (add_assets.get("links") or [])[:10]
     lead_html = ""
     if lead_links or lead_items:
+        log_debug(f"_render_ad_row: lib_id={lib_id} lead-form items={len(lead_items)} links={len(lead_links)}")
         links_html = "<ul>" + "".join(f"<li><a href='{_esc(u)}'>{_esc(u)}</a></li>"
                                        for u in lead_links) + "</ul>"
         items_html = "<ul>" + "".join(f"<li>{_esc(t)}</li>" for t in lead_items) + "</ul>"
@@ -130,8 +141,10 @@ def _render_ad_row(rank, status, summary_row, ad_data):
 
 
 def _render_domain(domain: str):
+    log_debug(f"_render_domain: domain={domain}")
     s = _load_summary(domain)
     if not s:
+        log_debug(f"_render_domain: нет summary для {domain} — рендерю заглушку")
         return f"<section><h2>{_esc(domain)}</h2><p><i>нет fb_deep_summary.json</i></p></section>"
 
     pages = s.get("step1_pages", [])
@@ -141,6 +154,7 @@ def _render_domain(domain: str):
     total = listing.get("total_ever") or 0
     active = (listing.get("active") or {}).get("count") or 0
     inactive = (listing.get("inactive") or {}).get("count") or 0
+    log_debug(f"_render_domain: {domain} pages={len(pages)} alive={len(alive)} total={total} active={active} inactive={inactive}")
 
     # Brand card
     card = f"""
@@ -161,11 +175,13 @@ def _render_domain(domain: str):
     # Combine deep_active + deep_inactive into one table
     rows = []
     for status, key in [("active", "deep_active"), ("inactive", "deep_inactive")]:
+        log_debug(f"_render_domain: {domain} рендерю {status} из ключа {key}: {len(s.get(key) or [])} ad'ов")
         for row in (s.get(key) or []):
             ad = _load_ad_json(row.get("saved", "")) or {}
             rows.append(_render_ad_row(row["rank"], status, row, ad))
 
     if not rows:
+        log_debug(f"_render_domain: {domain} нет deep-scanned ads")
         ads_html = "<p><i>deep-scanned ads нет</i></p>"
     else:
         ads_html = f"""
@@ -184,6 +200,7 @@ def _render_domain(domain: str):
 
 
 def render_html(domains: list, out_path: Path) -> Path:
+    log_debug(f"render_html: domains={domains} out_path={out_path}")
     sections = "\n".join(_render_domain(d) for d in domains)
     css = """
     body{font:13px/1.4 -apple-system,sans-serif;margin:20px;background:#f5f5f7;color:#1d1d1f}
@@ -218,6 +235,7 @@ def render_html(domains: list, out_path: Path) -> Path:
     <title>FB Ads Deep Report</title><style>{css}</style></head>
     <body><h1>FB Ads Deep Report — {len(domains)} sites</h1>{sections}</body></html>"""
     out_path.write_text(page, encoding="utf-8")
+    log_debug(f"render_html: записал {out_path}")
     return out_path
 
 
@@ -234,17 +252,21 @@ if __name__ == "__main__":
 
     domains = list(args.domains)
     if args.auto:
+        log_debug("standalone: --auto, ищу домены с fb_deep_summary.json в scans/")
         for p in Path("scans").glob("*/fb_deep_summary.json"):
             d = p.parent.name
-            if d not in domains: domains.append(d)
+            if d not in domains:
+                log_debug(f"standalone: --auto добавил домен {d}")
+                domains.append(d)
     if not domains:
-        print("Нет доменов. Передай domain'ы или --auto")
+        log_error("Нет доменов. Передай domain'ы или --auto")
         sys.exit(1)
 
-    print(f"  Render: {domains}")
+    log_info(f"  Render: {domains}")
     out = Path(args.out).resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
     render_html(domains, out)
-    print(f"💾 {out}")
+    log_success(f"{out}", emoji="💾")
     if args.open:
+        log_debug(f"standalone: открываю в браузере {out.as_uri()}")
         webbrowser.open(out.as_uri())

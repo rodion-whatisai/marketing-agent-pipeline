@@ -9,6 +9,7 @@ from utils import setup_console
 setup_console()
 
 from google_ads_creative import parse_creative
+from log import log_error, log_debug, log_header
 
 ADV = "AR11291011555627368449"
 TARGETS = [
@@ -19,10 +20,13 @@ TARGETS = [
 ]
 
 if __name__ == "__main__":
+    log_debug(f"smoke start: ADV={ADV}, {len(TARGETS)} targets")
     fail = 0
     for cr, label, want in TARGETS:
-        print(f"\n=== {cr}  ({label}) ===")
+        log_header(f"{cr}  ({label})")
+        log_debug(f"parsing creative {cr} (region=FR) — expects {want}")
         r = parse_creative(ADV, cr, region="FR", verbose=False)
+        log_debug(f"parse_creative returned for {cr}: keys={list(r.keys())}")
         ic = r.get("iframe_count", 0)
         txt = r.get("ad_text_candidates") or []
         nv = r.get("n_variations")
@@ -36,16 +40,17 @@ if __name__ == "__main__":
 
         ok = True
         if ic < want["min_iframes"]:
-            print(f"  FAIL: iframe_count {ic} < expected {want['min_iframes']}")
+            log_error(f"FAIL: iframe_count {ic} < expected {want['min_iframes']}")
             ok = False
         if len(txt) < want["min_text"]:
-            print(f"  FAIL: text count {len(txt)} < expected {want['min_text']}")
+            log_error(f"FAIL: text count {len(txt)} < expected {want['min_text']}")
             ok = False
         if want["n_variations"] is not None and nv != want["n_variations"]:
-            print(f"  FAIL: n_variations {nv} != expected {want['n_variations']}")
+            log_error(f"FAIL: n_variations {nv} != expected {want['n_variations']}")
             ok = False
+        log_debug(f"{cr} verdict: {'PASS' if ok else 'FAIL'}")
         print(f"  -> {'PASS' if ok else 'FAIL'}")
         if not ok:
             fail += 1
 
-    print(f"\n=== Summary: {len(TARGETS) - fail}/{len(TARGETS)} pass ===")
+    log_header(f"Summary: {len(TARGETS) - fail}/{len(TARGETS)} pass")

@@ -17,6 +17,7 @@ from datetime import datetime
 
 from utils import SCANS_DIR, setup_console
 setup_console()
+from log import log_info, log_error, log_debug, log_success, log_step
 from google_ads_creative import parse_creative
 
 
@@ -46,29 +47,42 @@ TEMPLATE_HEADERS = [
 
 def parse_date(s: str | None) -> datetime | None:
     """'Nov 25, 2024' → datetime."""
+    log_debug(f"parse_date: вход s={s!r}")
     if not s:
+        log_debug("parse_date: пустой ввод → None")
         return None
     for fmt in ('%b %d, %Y', '%B %d, %Y'):
         try:
-            return datetime.strptime(s, fmt)
-        except ValueError:
+            dt = datetime.strptime(s, fmt)
+            log_debug(f"parse_date: распознано по формату {fmt!r} → {dt}")
+            return dt
+        except ValueError as e:
+            log_debug(f"parse_date: формат {fmt!r} не подошёл: {e}")
             continue
+    log_debug(f"parse_date: ни один формат не подошёл для {s!r} → None")
     return None
 
 
 def derive_platform(format_: str | None, has_image: bool) -> str:
     """Простая эвристика — позже refine."""
+    log_debug(f"derive_platform: вход format_={format_!r} has_image={has_image}")
     if not format_:
+        log_debug("derive_platform: format_ пустой → ''")
         return ""
     f = format_.lower()
     if f == 'text':
+        log_debug("derive_platform: text → Google Search")
         return "Google Search"
     if f == 'video':
+        log_debug("derive_platform: video → YouTube")
         return "YouTube"
     if f == 'image':
+        log_debug("derive_platform: image → Display")
         return "Display"
     if f == 'shopping':
+        log_debug("derive_platform: shopping → Shopping")
         return "Shopping"
+    log_debug(f"derive_platform: неизвестный формат → pass-through {format_!r}")
     return format_
 
 
@@ -77,12 +91,16 @@ def build_row(parsed: dict, domain: str, region: str) -> dict:
     NOTE: Duration days / Daily impressions / Daily spends остаются пустыми —
     считай в Excel из Start/Finish/Impressions. Тулу сюда не лезет.
     """
+    log_debug(f"build_row: вход domain={domain!r} region={region!r} "
+              f"creative_id={parsed.get('creative_id')!r}")
     # Impressions: upper bound (consistent with Rodion's example row).
     hi = parsed.get("impressions_upper_bound")
     lo = parsed.get("impressions_lower_bound")
+    log_debug(f"build_row: impressions lower={lo} upper={hi}")
 
     # Targeting columns — by sign with category name
     targeting = parsed.get("targeting_categories") or []
+    log_debug(f"build_row: {len(targeting)} targeting categories")
     targeting_strs = []
     for t in targeting:
         if isinstance(t, dict):
@@ -94,6 +112,7 @@ def build_row(parsed: dict, domain: str, region: str) -> dict:
 
     # Text — join ad_text_candidates с переводом строки
     text_lines = parsed.get("ad_text_candidates") or []
+    log_debug(f"build_row: {len(text_lines)} ad_text_candidates")
     text_joined = "\n".join(text_lines)
 
     row = {h: "" for h in TEMPLATE_HEADERS}
@@ -133,6 +152,7 @@ def build_row(parsed: dict, domain: str, region: str) -> dict:
 
 def build_advertisers_md(summary: list[dict]) -> str:
     """Markdown отчёт с advertisers per domain."""
+    log_debug(f"build_advertisers_md: вход {len(summary)} domain records")
     lines = ["# Advertisers per FR domain\n",
              f"_(generated {datetime.now().isoformat(timespec='seconds')})_\n"]
     for r in summary:
@@ -163,13 +183,16 @@ def select_sample(summary: list[dict], per_domain: int = 1) -> list[tuple]:
     """Returns list of (domain, advertiser_id, creative_id, region).
     Sampling: для каждого domain берём первые N creatives, причём стараемся
     взять creatives от РАЗНЫХ advertisers (если их > 1)."""
+    log_debug(f"select_sample: вход {len(summary)} domains, per_domain={per_domain}")
     selected = []
     for r in summary:
         creatives = r.get("creatives") or []
         if not creatives:
+            log_debug(f"select_sample: domain={r.get('domain')!r} без creatives → skip")
             continue
         domain = r["domain"]
         region = r.get("region", "FR")
+        log_debug(f"select_sample: domain={domain!r} {len(creatives)} creatives")
 
         # Group by advertiser_id, take 1 from each (up to per_domain)
         by_adv = {}
@@ -177,11 +200,13 @@ def select_sample(summary: list[dict], per_domain: int = 1) -> list[tuple]:
             ar = c.get("advertiser_id")
             if ar and ar not in by_adv:
                 by_adv[ar] = c
+                log_debug(f"select_sample: добавлен advertiser={ar} для {domain!r}")
             if len(by_adv) >= per_domain:
                 break
 
         for c in by_adv.values():
             selected.append((domain, c["advertiser_id"], c["creative_id"], region))
+    log_debug(f"select_sample: всего отобрано {len(selected)} creatives")
     return selected
 
 
@@ -195,49 +220,55 @@ def main():
     args = ap.parse_args()
 
     summary_path = Path(args.summary)
+    log_debug(f"main: summary_path={summary_path}")
     if not summary_path.exists():
-        print(f"❌ summary not found: {summary_path}")
+        log_error(f"summary not found: {summary_path}")
         sys.exit(1)
 
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    log_debug(f"main: загружено {len(summary)} domain records из summary")
 
     # 1) Advertisers list — quick, no Playwright
+    log_step("Сборка advertisers list (без Playwright)", emoji="🌐")
     md = build_advertisers_md(summary)
     Path(args.md_out).write_text(md, encoding="utf-8")
-    print(f"✅ advertisers list saved: {args.md_out}")
+    log_success(f"advertisers list saved: {args.md_out}")
 
     # 2) Smoke test sample
     sample = select_sample(summary, per_domain=args.sample_per_domain)
-    print(f"\n→ Smoke test on {len(sample)} creatives ({args.sample_per_domain} per domain):")
+    log_step(f"Smoke test on {len(sample)} creatives ({args.sample_per_domain} per domain):", emoji="🔍")
     for domain, ar, cr, region in sample:
-        print(f"     {domain:30s}  ar={ar}  cr={cr}")
+        log_debug(f"     {domain:30s}  ar={ar}  cr={cr}")
 
     rows = []
     for i, (domain, ar, cr, region) in enumerate(sample, 1):
-        print(f"\n[{i}/{len(sample)}] parse {domain} / {cr}")
+        log_info(f"[{i}/{len(sample)}] parse {domain} / {cr}")
+        log_debug(f"main: parse_creative(ar={ar}, cr={cr}, region={region})")
         try:
             parsed = parse_creative(ar, cr, region=region, headed=False, verbose=False)
         except Exception as e:
-            print(f"    ❌ parse failed: {e}")
+            log_error(f"    parse failed: {e}")
             continue
         if parsed.get("fetch_error"):
-            print(f"    ❌ fetch_error: {parsed['fetch_error']}")
+            log_error(f"    fetch_error: {parsed['fetch_error']}")
         row = build_row(parsed, domain, region)
         rows.append(row)
+        log_debug(f"main: row собран для {cr}, всего rows={len(rows)}")
         # Show short preview
         preview_text = (row["Text"] or "").replace('\n', ' | ')[:80]
         rng = row["_impressions_range_raw"] or "—"
-        print(f"    ✓ Format={row['Format']!s:6} | Range={rng:10} "
+        log_success(f"    Format={row['Format']!s:6} | Range={rng:10} "
               f"| Start={row['Start date']!s:14} | {preview_text}")
 
     # 3) CSV out
     csv_path = Path(args.csv_out)
+    log_debug(f"main: запись CSV → {csv_path} ({len(rows)} rows)")
     with csv_path.open('w', encoding='utf-8-sig', newline='') as f:
         w = csv.DictWriter(f, fieldnames=TEMPLATE_HEADERS)
         w.writeheader()
         for r in rows:
             w.writerow(r)
-    print(f"\n✅ smoke test CSV saved: {csv_path}  ({len(rows)} rows)")
+    log_success(f"smoke test CSV saved: {csv_path}  ({len(rows)} rows)")
 
 
 if __name__ == "__main__":

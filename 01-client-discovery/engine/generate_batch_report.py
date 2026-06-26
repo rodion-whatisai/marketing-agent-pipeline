@@ -27,6 +27,8 @@ import html
 from pathlib import Path
 from datetime import datetime, timezone
 
+from log import log_info, log_warn, log_debug, log_success, log_step
+
 # UTF-8 stdout
 for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
@@ -62,7 +64,9 @@ def _slug(domain: str) -> str:
 
 def _image_data_url_thumb(path: Path) -> str:
     """Read image, return base64 data URL. Empty string if missing."""
+    log_debug(f"_image_data_url_thumb: path={path}")
     if not path or not path.exists():
+        log_debug(f"_image_data_url_thumb: missing or no path → empty ({path})")
         return ""
     try:
         data = path.read_bytes()
@@ -70,13 +74,16 @@ def _image_data_url_thumb(path: Path) -> str:
         if ext == "jpg":
             ext = "jpeg"
         b64 = base64.b64encode(data).decode("ascii")
+        log_debug(f"_image_data_url_thumb: encoded {len(data)} bytes as {ext}")
         return f"data:image/{ext};base64,{b64}"
-    except Exception:
+    except Exception as e:
+        log_debug(f"_image_data_url_thumb: read/encode failed for {path}: {e}")
         return ""
 
 
 def _load_site_data(domain: str) -> dict:
     """Read fb.json + step1.json for a domain. Returns dict for both summary + detail."""
+    log_debug(f"_load_site_data: domain={domain}")
     scan_dir = Path("scans") / domain
     out = {
         "domain": domain,
@@ -102,6 +109,7 @@ def _load_site_data(domain: str) -> dict:
 
     step1_p = scan_dir / f"{domain}_step1.json"
     if step1_p.exists():
+        log_debug(f"_load_site_data: reading step1 {step1_p}")
         try:
             with open(step1_p, encoding="utf-8") as f:
                 s1 = json.load(f)
@@ -110,11 +118,15 @@ def _load_site_data(domain: str) -> dict:
             out["platform"] = pi.get("platform", "?") if isinstance(pi, dict) else str(pi)
             li = s1.get("site_language") or {}
             out["lang"] = li.get("lang", "?") if isinstance(li, dict) else str(li)
-        except Exception:
-            pass
+            log_debug(f"_load_site_data: {domain} platform={out['platform']} lang={out['lang']}")
+        except Exception as e:
+            log_debug(f"_load_site_data: failed to parse step1 {step1_p}: {e}")
+    else:
+        log_debug(f"_load_site_data: no step1 file at {step1_p}")
 
     fb_p = scan_dir / "fb.json"
     if fb_p.exists():
+        log_debug(f"_load_site_data: reading fb.json {fb_p}")
         try:
             with open(fb_p, encoding="utf-8") as f:
                 fb = json.load(f)
@@ -127,6 +139,7 @@ def _load_site_data(domain: str) -> dict:
             out["fallback_result"] = meta.get("fallback_result")
             accounts = fb.get("accounts") or []
             alive = [a for a in accounts if a.get("alive")]
+            log_debug(f"_load_site_data: {domain} {len(accounts)} accounts, {len(alive)} alive")
             if alive:
                 top = max(alive, key=lambda a: a.get("active_ads_count") or 0)
                 out["fb_handle"] = top.get("handle")
@@ -137,8 +150,11 @@ def _load_site_data(domain: str) -> dict:
                 structured = top.get("structured_ads") or []
                 if structured and structured[0].get("image_local"):
                     out["top_image_local_path"] = scan_dir / structured[0]["image_local"]
-        except Exception:
-            pass
+                log_debug(f"_load_site_data: {domain} top handle={out['fb_handle']} active_ads={out['active_ads']}")
+        except Exception as e:
+            log_debug(f"_load_site_data: failed to parse fb.json {fb_p}: {e}")
+    else:
+        log_debug(f"_load_site_data: no fb.json at {fb_p}")
 
     if out["fetch_method"] == "blocked_by_waf":
         out["ads_count_status"] = "blocked_by_waf"
@@ -149,6 +165,7 @@ def _load_site_data(domain: str) -> dict:
     else:
         out["ads_count_status"] = "no_fb"
 
+    log_debug(f"_load_site_data: {domain} → ads_count_status={out['ads_count_status']}")
     return out
 
 
@@ -485,9 +502,11 @@ def render_summary_header(title: str, scan_date: str, n: int, sites: list) -> st
 
 
 def render_summary_table(sites: list) -> str:
+    log_debug(f"render_summary_table: {len(sites)} sites")
     sorted_sites = sorted(sites, key=lambda s: -s["active_ads"])
     rows = []
     for i, s in enumerate(sorted_sites, 1):
+        log_debug(f"render_summary_table: row {i} {s['domain']} ads={s['active_ads']}")
         thumb_html = '<div class="thumb-empty">—</div>'
         if s.get("top_image_local_path"):
             data_url = _image_data_url_thumb(s["top_image_local_path"])
@@ -581,6 +600,7 @@ def render_buckets(sites: list) -> str:
 
 def render_detail_block(s: dict) -> str:
     """Render a <details> block containing full per-site detail content."""
+    log_debug(f"render_detail_block: {s['domain']}")
     domain = s["domain"]
     slug = s["slug"]
     step1 = s["step1"] or {}
@@ -656,6 +676,7 @@ def render_disclaimer(scan_date: str) -> str:
 
 
 def build_report_html(sites: list, title: str, scan_date: str) -> str:
+    log_debug(f"build_report_html: title={title!r} scan_date={scan_date} sites={len(sites)}")
     n = len(sites)
     sorted_sites = sorted(sites, key=lambda s: -s["active_ads"])
 
@@ -713,12 +734,14 @@ def main():
 
     domains = list(args.domains or [])
     if args.file:
+        log_debug(f"main: reading domains from {args.file}")
         with open(args.file, encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith("#"):
                     domains.append(line)
     if not domains:
+        log_warn("No domains provided")
         parser.print_help()
         sys.exit(1)
 
@@ -730,6 +753,7 @@ def main():
             seen.add(d)
             uniq.append(d)
     domains = uniq
+    log_debug(f"main: {len(domains)} unique domains")
 
     batch_dir = Path("scans") / args.folder
     batch_dir.mkdir(parents=True, exist_ok=True)
@@ -744,11 +768,10 @@ def main():
     else:
         scan_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    print(f"📦 Building single-file batch report → {batch_dir}")
-    print(f"   Title: {args.title}")
-    print(f"   Sites: {len(sites)}")
-    print(f"   Snapshot date: {scan_date}")
-    print()
+    log_step(f"Building single-file batch report → {batch_dir}", emoji="📦")
+    log_info(f"   Title: {args.title}")
+    log_info(f"   Sites: {len(sites)}")
+    log_info(f"   Snapshot date: {scan_date}")
 
     html_doc = build_report_html(sites, args.title, scan_date)
     out_filename = f"{args.title}.html"
@@ -757,9 +780,9 @@ def main():
     size_kb = out_path.stat().st_size // 1024
     size_mb = size_kb / 1024
     if size_mb >= 1:
-        print(f"✅ Saved: {out_path}  ({size_mb:.1f} MB)")
+        log_success(f"Saved: {out_path}  ({size_mb:.1f} MB)")
     else:
-        print(f"✅ Saved: {out_path}  ({size_kb} KB)")
+        log_success(f"Saved: {out_path}  ({size_kb} KB)")
 
 
 if __name__ == "__main__":

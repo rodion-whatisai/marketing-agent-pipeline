@@ -34,6 +34,7 @@ import re
 import json
 
 from utils import scan_path, setup_console
+from log import log_info, log_warn, log_error, log_success, log_step, log_debug
 setup_console()
 
 
@@ -103,6 +104,7 @@ def _walk_for_key(obj, key):
 def _normalize_ad_record(raw: dict) -> dict:
     """Конвертит сырой GraphQL-ad record в плоский dict с нужными полями."""
     if not isinstance(raw, dict):
+        log_debug("_normalize_ad_record: raw не dict — skip")
         return None
     try:
         s = raw.get("snapshot") or {}
@@ -167,9 +169,11 @@ def _normalize_ad_record(raw: dict) -> dict:
 
         lib_id = str(raw.get("ad_archive_id") or "")
         if not lib_id:
+            log_debug("_normalize_ad_record: нет ad_archive_id — skip")
             return None
 
         n_card_variants = len(s.get("cards") or [])
+        log_debug(f"_normalize_ad_record: lib_id={lib_id} cards={n_card_variants} image={bool(image_url)} video={bool(video_url)}")
 
         return {
             "library_id":              lib_id,
@@ -197,7 +201,8 @@ def _normalize_ad_record(raw: dict) -> dict:
             # image_local заполнится позже в _download_ad_images
             "image_local":             None,
         }
-    except Exception:
+    except Exception as e:
+        log_debug(f"_normalize_ad_record: исключение при нормализации записи: {e}")
         return None
 
 
@@ -233,19 +238,24 @@ def _extract_ads_from_json(html: str, limit: int = 10,
         matched_count: int,  # after post-filter (== raw_total for page mode)
       }
     """
+    log_debug(f"_extract_ads_from_json: вход — html={len(html)} bytes, limit={limit}, "
+              f"target_page_id={target_page_id}, target_name={target_name}")
     all_ads = []
     seen_ids = set()
     page_mode_signal = None  # True если встретили ad_library_page_info != null
     raw_total = 0
 
+    script_blocks = 0
     for m in re.finditer(
         r'<script type="application/json"[^>]*>(.+?)</script>',
         html, flags=re.DOTALL
     ):
+        script_blocks += 1
         payload = m.group(1)
         try:
             doc = json.loads(payload)
-        except (json.JSONDecodeError, ValueError):
+        except (json.JSONDecodeError, ValueError) as e:
+            log_debug(f"_extract_ads_from_json: JSON-блок не распарсился, skip: {e}")
             continue
 
         # Mode signal: ad_library_page_info лежит рядом с ad_library_main (sibling),
@@ -276,14 +286,20 @@ def _extract_ads_from_json(html: str, limit: int = 10,
                         ad["_snap_pname"] = s.get("page_name") or ""
                         all_ads.append(ad)
 
+    log_debug(f"_extract_ads_from_json: просканировано {script_blocks} JSON-блоков, "
+              f"raw_total={raw_total}, собрано {len(all_ads)} ad records, "
+              f"page_mode_signal={page_mode_signal}")
+
     # Mode detection + post-filter
     # Inclusive: ad совпадает если ЛИБО page_id exact match ЛИБО fuzzy name match (или оба).
     # page-mode URL (view_all_page_id) не используется → page_mode_signal обычно False.
     if page_mode_signal is True:
+        log_debug("_extract_ads_from_json: ветка page-mode — фильтр не применяется")
         mode = "page"
         matched = all_ads
         matched_count = raw_total
     elif target_page_id or target_name:
+        log_debug("_extract_ads_from_json: ветка keyword post-filter (по page_id и/или name)")
         from difflib import SequenceMatcher
         def _norm(s): return (s or "").strip().lower()
         tgt_pid = str(target_page_id) if target_page_id else None
@@ -296,6 +312,9 @@ def _extract_ads_from_json(html: str, limit: int = 10,
                             SequenceMatcher(None, _norm(a["_snap_pname"]), tgt_name).ratio() >= 0.85)
             if pid_hit or name_hit:
                 matched.append(a)
+            else:
+                log_debug(f"_extract_ads_from_json: отфильтрован ad {a.get('library_id')} "
+                          f"(pid={a['_snap_pid']!r}, name={a['_snap_pname']!r})")
 
         matched_count = len(matched)
         if tgt_pid and tgt_name:
@@ -304,7 +323,9 @@ def _extract_ads_from_json(html: str, limit: int = 10,
             mode = "keyword_filtered_by_page_id"
         else:
             mode = "keyword_filtered_by_name"
+        log_debug(f"_extract_ads_from_json: post-filter mode={mode}, matched={matched_count}/{len(all_ads)}")
     else:
+        log_debug("_extract_ads_from_json: ветка keyword_raw — без фильтра")
         mode = "keyword_raw"
         matched = all_ads
         matched_count = len(matched)
@@ -332,6 +353,8 @@ def _parse_ad_library_html(html: str, limit: int = 10,
     Иначе — если передан target_name — fuzzy-match фильтр по page_name.
     Если ни того ни другого — всё сырое.
     """
+    log_debug(f"_parse_ad_library_html: вход — html={len(html)} bytes, limit={limit}, "
+              f"target_page_id={target_page_id}, target_name={target_name}")
     result = {"count": None, "status": "could_not_parse", "ad_texts": [],
               "partnership_ads": False, "partnership_count": 0,
               "structured_ads": [], "ads_library_mode": "unknown",
@@ -345,6 +368,7 @@ def _parse_ad_library_html(html: str, limit: int = 10,
         result["count"] = int(json_count.group(1))
         result["status"] = "active" if result["count"] > 0 else "no_active_ads"
         result["method"] = "json"
+        log_debug(f"_parse_ad_library_html: count из JSON regex = {result['count']}")
     else:
         heading = re.search(r'~?(\d[\d,\s]*)\s+results?', html, re.IGNORECASE)
         if heading:
@@ -354,13 +378,15 @@ def _parse_ad_library_html(html: str, limit: int = 10,
                     result["count"] = count
                     result["status"] = "active"
                     result["method"] = "heading"
-            except ValueError:
-                pass
+                    log_debug(f"_parse_ad_library_html: count из heading regex = {count}")
+            except ValueError as e:
+                log_debug(f"_parse_ad_library_html: heading count не парсится: {e}")
         if result["count"] is None:
             if any(s in html.lower() for s in ['no ads match', 'no results', '"edges":[]', '"count":0']):
                 result["count"] = 0
                 result["status"] = "no_active_ads"
                 result["method"] = "empty_signal"
+                log_debug("_parse_ad_library_html: count=0 по empty_signal")
 
     # ── NEW: structured ads из Relay JSON ───────────────────────────
     extracted = _extract_ads_from_json(
@@ -386,9 +412,13 @@ def _parse_ad_library_html(html: str, limit: int = 10,
         or extracted["raw_total"] > 0  # FB вернул ads, post-filter killed all (legitimate)
     )
     if extraction_succeeded:
+        log_debug(f"_parse_ad_library_html: extraction отработал — override count = "
+                  f"{extracted['matched_count']} (mode={extracted['mode']})")
         result["count"] = extracted["matched_count"]
         result["status"] = "active" if extracted["matched_count"] > 0 else "no_active_ads"
         result["method"] = "json_" + extracted["mode"]
+    else:
+        log_debug("_parse_ad_library_html: extraction пуст — trust regex-derived count, не затираем")
 
     if structured_ads:
         # Деривим плоский ad_texts список из отфильтрованных ads (backward compat)
@@ -403,7 +433,10 @@ def _parse_ad_library_html(html: str, limit: int = 10,
         result["partnership_count"] = sum(1 for a in structured_ads if a.get("branded_content"))
         result["partnership_ads"] = result["partnership_count"] > 0
         result["extraction_method"] = "json"
+        log_debug(f"_parse_ad_library_html: extraction_method=json — "
+                  f"{len(unique_texts)} текстов, partnership={result['partnership_count']}")
     elif extracted["raw_total"] == 0:
+        log_debug("_parse_ad_library_html: structured_ads пуст и raw_total=0 — regex fallback")
         # JSON нашёл 0 ads вообще — fallback на regex (redundant, но на всякий случай)
         texts = re.findall(r'white-space: pre-wrap[^>]*><span>([^<]{10,600})', html)
         seen = set()
@@ -419,9 +452,13 @@ def _parse_ad_library_html(html: str, limit: int = 10,
         result["partnership_ads"] = estimated > 0
         result["partnership_count"] = estimated
         result["extraction_method"] = "regex_fallback"
+        log_debug(f"_parse_ad_library_html: extraction_method=regex_fallback — "
+                  f"{len(unique_texts)} текстов")
     else:
         # JSON нашёл raw ads, но пост-фильтр отсёк все → честные нули
         # (не падаем в regex fallback — он считает шум от всех 109 advertiser'ов)
+        log_debug("_parse_ad_library_html: raw ads найдены, но post-filter отсёк все → "
+                  "extraction_method=json_all_filtered_out")
         result["ad_texts"] = []
         result["partnership_count"] = 0
         result["partnership_ads"] = False
@@ -445,6 +482,8 @@ def _download_ad_images(domain: str, structured_ads: list,
     import urllib.request
     from pathlib import Path
 
+    log_debug(f"_download_ad_images: вход — domain={domain}, "
+              f"{len(structured_ads)} ads, status_label={status_label!r}")
     img_dir = Path("scans") / domain / "fb_ads_images"
     if status_label:
         img_dir = img_dir / status_label
@@ -455,8 +494,10 @@ def _download_ad_images(domain: str, structured_ads: list,
         lib_id = ad.get("library_id")
         img_url = ad.get("image_url")
         if not (lib_id and img_url):
+            log_debug(f"_download_ad_images: пропуск ad {lib_id} — нет library_id или image_url")
             continue
         try:
+            log_debug(f"_download_ad_images: качаю ad {lib_id} из {img_url[:80]}")
             ext = ".png" if ".png" in img_url.split("?")[0].lower() else ".jpg"
             filename = f"ad_{lib_id}{ext}"
             path = img_dir / filename
@@ -474,7 +515,7 @@ def _download_ad_images(domain: str, structured_ads: list,
                 # битый старый файл болтался бы рядом с обновлённым fb.json без
                 # image_local (несоответствие). См. rerun edge case в comments.
                 path.unlink(missing_ok=True)
-                print(f"      ⚠️  Слишком маленький файл для ad {lib_id}, skip")
+                log_warn(f"Слишком маленький файл для ad {lib_id}, skip")
                 continue
 
             path.write_bytes(data)
@@ -483,9 +524,9 @@ def _download_ad_images(domain: str, structured_ads: list,
             rel_dir = f"fb_ads_images/{status_label}/" if status_label else "fb_ads_images/"
             ad["image_local"] = f"{rel_dir}{filename}"
             saved.append(str(path))
-            print(f"      📷 Сохранено: {filename}")
+            log_success(f"Сохранено: {filename}", emoji="📷")
         except Exception as e:
-            print(f"      ⚠️  Не удалось скачать ad {lib_id}: {str(e)[:60]}")
+            log_warn(f"Не удалось скачать ad {lib_id}: {str(e)[:60]}")
 
     return saved
 
@@ -503,12 +544,16 @@ def _build_ad_library_url(display_name: str, country: str, status: str,
         (CLAUDE.md, 2026-05-07).
     """
     if _is_classic_page_id(page_id):
+        log_debug(f"_build_ad_library_url: classic page_id={page_id}, status={status} "
+                  f"→ view_all_page_id URL (page-mode)")
         return (
             f"https://www.facebook.com/ads/library/"
             f"?active_status={status}&ad_type=all&country={country}"
             f"&view_all_page_id={page_id}"
             f"&search_type=page&media_type=all"
         )
+    log_debug(f"_build_ad_library_url: new-style/без page_id (page_id={page_id}), status={status} "
+              f"→ keyword search URL для '{display_name}'")
     keyword = display_name.strip().replace(" ", "%20")
     return (
         f"https://www.facebook.com/ads/library/"
@@ -530,15 +575,18 @@ def _scan_one_status(page, url: str, status_label: str, domain: str,
     target_page_id / target_name — фильтры для _parse_ad_library_html.
     Если переданы — keyword search post-filter активен (по page_id exact OR fuzzy name).
     Если None — keyword_raw mode (без фильтра, для backward-compat вызовов)."""
+    log_debug(f"_scan_one_status: status={status_label!r}, domain={domain}, "
+              f"download_images={download_images}, target_page_id={target_page_id}, url={url}")
     try:
         page.goto(url, wait_until="networkidle", timeout=25000)
         page.wait_for_timeout(3000)
-    except Exception:
+    except Exception as e:
+        log_debug(f"_scan_one_status: networkidle goto не прошёл ({e}), fallback на domcontentloaded")
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=15000)
             page.wait_for_timeout(4000)
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"_scan_one_status: domcontentloaded goto тоже не прошёл: {e}")
 
     html = page.content()
     parsed = _parse_ad_library_html(html,
@@ -553,7 +601,7 @@ def _scan_one_status(page, url: str, status_label: str, domain: str,
     if download_images and domain and status_label in ("active", "inactive"):
         structured_ads = parsed.get("structured_ads") or []
         if parsed.get("count", 0) > 0 and structured_ads:
-            print(f"      📷 Скачиваю изображения [{status_label}]...")
+            log_step(f"Скачиваю изображения [{status_label}]...", emoji="📷")
             # Мутирует structured_ads — проставляет image_local
             saved_images = _download_ad_images(domain, structured_ads,
                                                 status_label=status_label)
@@ -571,7 +619,7 @@ def _scan_one_status(page, url: str, status_label: str, domain: str,
             f.write("=" * 60 + "\n\n")
             for i, text in enumerate(parsed["ad_texts"], 1):
                 f.write(f"[{i}]\n{text}\n\n")
-        print(f"      📄 Тексты [{status_label}]: {texts_path}")
+        log_success(f"Тексты [{status_label}]: {texts_path}", emoji="📄")
         parsed["saved_texts_path"] = str(texts_path)
 
     return parsed
@@ -595,9 +643,12 @@ def get_ads_data(display_name: str, page_id: str = None,
     Deep-scan модалок (Reach/демография/disclaimer/advertiser/lead-form) живёт
     в отдельном модуле — см. fb_scan.py (orchestrator) и Modules 3/4/5.
     """
+    log_debug(f"get_ads_data: вход — display_name={display_name!r}, page_id={page_id}, "
+              f"country={country}, domain={domain}, download_images={download_images}")
     try:
         from playwright.sync_api import sync_playwright
-    except ImportError:
+    except ImportError as e:
+        log_error(f"playwright не установлен: {e}")
         return {"total_ever": None, "error": "playwright not installed"}
 
     result = {
@@ -619,7 +670,7 @@ def get_ads_data(display_name: str, page_id: str = None,
             page = context.new_page()
 
             # ── Pass 1: total ever (active_status=all) ─────────────────
-            print(f"      🔎 Проход 1/3: все объявления (active+inactive)...")
+            log_step(f"Проход 1/3: все объявления (active+inactive)...", emoji="🔎")
             url_all = _build_ad_library_url(display_name, country, "all", page_id=page_id)
             all_data = _scan_one_status(page, url_all, "all", domain,
                                          display_name, download_images=False,
@@ -629,14 +680,14 @@ def get_ads_data(display_name: str, page_id: str = None,
             result["total_ever"] = total
 
             if not total or total == 0:
-                print(f"      ❌ Объявлений не найдено вообще")
+                log_error(f"Объявлений не найдено вообще")
                 browser.close()
                 return result
 
-            print(f"      📊 Всего объявлений (когда-либо): {total}")
+            log_info(f"Всего объявлений (когда-либо): {total}")
 
             # ── Pass 2: active only ────────────────────────────────────
-            print(f"      🔎 Проход 2/3: активные объявления...")
+            log_step(f"Проход 2/3: активные объявления...", emoji="🔎")
             url_active = _build_ad_library_url(display_name, country, "active", page_id=page_id)
             active_data = _scan_one_status(page, url_active, "active", domain,
                                             display_name, download_images,
@@ -645,13 +696,13 @@ def get_ads_data(display_name: str, page_id: str = None,
             active_count = active_data.get("count", 0) or 0
             if active_count > 0:
                 result["active"] = active_data
-                print(f"      ✅ Активных: {active_count}")
+                log_success(f"Активных: {active_count}")
             else:
-                print(f"      ➖ Активных нет (но есть в архиве)")
+                log_info(f"Активных нет (но есть в архиве)")
 
             # ── Pass 3: inactive only (только если есть смысл) ────────
             if total > active_count:
-                print(f"      🔎 Проход 3/3: неактивные объявления...")
+                log_step(f"Проход 3/3: неактивные объявления...", emoji="🔎")
                 url_inactive = _build_ad_library_url(display_name, country, "inactive", page_id=page_id)
                 inactive_data = _scan_one_status(page, url_inactive, "inactive", domain,
                                                   display_name, download_images,
@@ -660,9 +711,9 @@ def get_ads_data(display_name: str, page_id: str = None,
                 inactive_count = inactive_data.get("count", 0) or 0
                 if inactive_count > 0:
                     result["inactive"] = inactive_data
-                    print(f"      📦 Неактивных: {inactive_count}")
+                    log_info(f"Неактивных: {inactive_count}")
             else:
-                print(f"      ➖ Все объявления активны — inactive скан не нужен")
+                log_info(f"Все объявления активны — inactive скан не нужен")
 
             browser.close()
 
@@ -712,6 +763,7 @@ def get_ads_data(display_name: str, page_id: str = None,
         return result
 
     except Exception as e:
+        log_error(f"get_ads_data: скан Ad Library упал: {str(e)[:100]}")
         return {"total_ever": None, "error": str(e)[:100],
                 "search_term": display_name, "country": country}
 

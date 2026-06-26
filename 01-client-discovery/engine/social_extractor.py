@@ -13,6 +13,8 @@ TNC Social Extractor
 import re
 from urllib.parse import urlparse
 
+from log import log_debug
+
 # ─── Паттерны для каждой платформы ───────────────────────────────────────────
 # Ищем только в href="..." — не по всему тексту
 # Каждый паттерн возвращает полный URL
@@ -125,20 +127,24 @@ def extract_socials(html: str, base_domain: str = "") -> dict:
     Извлекает ссылки на соцсети из HTML.
     Возвращает dict: {platform: {"url": ..., "handle": ..., "type": ...}}
     """
+    log_debug(f"extract_socials: вход — html {len(html)} символов, base_domain={base_domain!r}")
     result = {}
 
     for platform, config in PLATFORM_PATTERNS.items():
+        log_debug(f"extract_socials: платформа {platform} — {len(config['patterns'])} паттернов")
         found_company = []
         found_personal = []
         found_other = []
 
         for i, pattern in enumerate(config["patterns"]):
             matches = re.findall(pattern, html, re.IGNORECASE)
+            log_debug(f"extract_socials: {platform} паттерн #{i} → {len(matches)} совпадений")
             for match in matches:
                 path = match.strip("/").split("?")[0].split("#")[0]
                 first_segment = path.split("/")[0].lower()
 
                 if first_segment in config.get("skip_paths", set()):
+                    log_debug(f"extract_socials: {platform} пропуск системного пути {first_segment!r}")
                     continue
 
                 if platform == "instagram":
@@ -176,6 +182,7 @@ def extract_socials(html: str, base_domain: str = "") -> dict:
 
                 urls_so_far = [f["url"] for f in found_company + found_personal + found_other]
                 if full_url not in urls_so_far:
+                    log_debug(f"extract_socials: {platform} новый кандидат {full_url} (type={link_type})")
                     if link_type == "company":
                         found_company.append(entry)
                     elif link_type == "personal":
@@ -186,16 +193,19 @@ def extract_socials(html: str, base_domain: str = "") -> dict:
         # Для LinkedIn — company имеет приоритет
         if platform == "linkedin":
             found = found_company if found_company else found_personal
+            log_debug(f"extract_socials: linkedin приоритет — выбрано {'company' if found_company else 'personal'} ({len(found)} шт.)")
         else:
             found = found_company + found_personal + found_other
 
         if found:
             # Приоритизируем по близости к домену бренда
             best = _pick_best(found, base_domain, platform)
+            log_debug(f"extract_socials: {platform} итог — {best['url']} из {len(found)} кандидатов")
             result[platform] = best
             if len(found) > 1:
                 result[f"{platform}_all"] = found
 
+    log_debug(f"extract_socials: завершено — найдено платформ {len([k for k in result if not k.endswith('_all')])}")
     return result
 
 
@@ -236,9 +246,11 @@ def _pick_best(candidates: list, base_domain: str, platform: str) -> dict:
     scored = [(c, _score_handle(c["handle"], brand)) for c in candidates]
     scored.sort(key=lambda x: x[1])
     best, best_score = scored[0]
+    log_debug(f"_pick_best: {platform} brand={brand!r}, лучший {best['handle']!r} score={best_score}")
 
     # Если лучший кандидат не связан с брендом — помечаем как uncertain
     if best_score >= 10:
+        log_debug(f"_pick_best: {platform} помечен uncertain — handle не совпал с брендом {brand!r}")
         best = dict(best)
         best["uncertain"] = True
         best["uncertain_reason"] = f"no handle matches brand '{brand}'"

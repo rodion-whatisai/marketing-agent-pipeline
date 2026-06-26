@@ -21,6 +21,7 @@ import re
 import requests
 
 from utils import HEADERS, setup_console
+from log import log_warn, log_success, log_step, log_debug
 setup_console()
 
 
@@ -58,11 +59,13 @@ def detect_site_country(domain: str, html: str = "", response_headers: dict = No
 
     Возвращает {"country": "CA", "source": "content-language-header"}
     """
+    log_debug(f"detect_site_country: domain={domain} html_len={len(html)} has_headers={bool(response_headers)}")
     # 1. Content-Language header
     if response_headers:
         cl = response_headers.get("Content-Language", response_headers.get("content-language", ""))
         if cl:
             tag = cl.strip().split(",")[0].strip().lower()
+            log_debug(f"detect_site_country: Content-Language tag={tag}")
             if tag in LANG_TAG_TO_COUNTRY:
                 return {"country": LANG_TAG_TO_COUNTRY[tag], "source": f"content-language-header ({cl.strip()})"}
             # Попробуем без региона (de → DE)
@@ -76,6 +79,7 @@ def detect_site_country(domain: str, html: str = "", response_headers: dict = No
         m = _re.search(r'<html[^>]+lang=["\']([a-zA-Z]{2,3}(?:-[a-zA-Z]{2,4})?)["\']', html, _re.IGNORECASE)
         if m:
             tag = m.group(1).lower()
+            log_debug(f"detect_site_country: html lang attr tag={tag}")
             if tag in LANG_TAG_TO_COUNTRY:
                 return {"country": LANG_TAG_TO_COUNTRY[tag], "source": f"html-lang-attr ({m.group(1)})"}
             base = tag.split("-")[0]
@@ -86,8 +90,10 @@ def detect_site_country(domain: str, html: str = "", response_headers: dict = No
     d = domain.lower().rstrip("/").split("?")[0]
     for tld, country in TLD_TO_COUNTRY.items():
         if d.endswith(f".{tld}"):
+            log_debug(f"detect_site_country: matched TLD .{tld} → {country}")
             return {"country": country, "source": f"tld (.{tld})"}
 
+    log_debug("detect_site_country: no signals — defaulting to ALL")
     return {"country": "ALL", "source": "no signals found — defaulting to ALL"}
 
 
@@ -118,24 +124,29 @@ def fetch_homepage(base_url: str) -> tuple:
     Returns: (html, status_code, method, error)
       method ∈ {"requests", "playwright", "blocked_by_waf"}
     """
+    log_debug(f"fetch_homepage: base_url={base_url}")
     # Step 1: requests
     try:
+        log_debug("fetch_homepage: trying requests.get")
         r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
+        log_debug(f"fetch_homepage: requests status={r.status_code} len={len(r.text)}")
         if r.status_code < 400 and len(r.text) > 500:
             return r.text, r.status_code, "requests", None
         requests_status = r.status_code
     except Exception as e:
         requests_status = None
-        _ = str(e)[:100]  # not used but kept for symmetry
+        log_debug(f"fetch_homepage: requests.get raised: {str(e)[:100]}")
 
     # Step 2: Playwright fallback
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
+        log_debug("fetch_homepage: playwright not installed — returning blocked_by_waf")
         return "", requests_status, "blocked_by_waf", "playwright not installed"
 
-    print(f"    🎭 requests blocked ({requests_status}) — пробую Playwright...")
+    log_step(f"requests blocked ({requests_status}) — пробую Playwright...", emoji="🎭")
     try:
+        log_debug("fetch_homepage: launching headless Chromium")
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             context = browser.new_context(
@@ -147,6 +158,7 @@ def fetch_homepage(base_url: str) -> tuple:
             )
             page = context.new_page()
             try:
+                log_debug(f"fetch_homepage: playwright goto {base_url}")
                 response = page.goto(base_url, wait_until="domcontentloaded", timeout=25000)
                 # Дать JS догидратиться / cookie popup появиться (они не мешают — FB-линка
                 # уже в footer HTML независимо от того, overlay ли popup поверх или нет)
@@ -154,15 +166,19 @@ def fetch_homepage(base_url: str) -> tuple:
                 status = response.status if response else None
                 html = page.content()
                 browser.close()
+                log_debug(f"fetch_homepage: playwright status={status} len={len(html)}")
                 # Отказ если status 4xx/5xx — даже если есть HTML, это скорее всего
                 # CF challenge page или error page, а не реальный контент сайта
                 if html and len(html) > 500 and (status is None or status < 400):
                     return html, status, "playwright", None
+                log_debug(f"fetch_homepage: playwright blocked_by_waf (status {status})")
                 return "", status, "blocked_by_waf", f"playwright got status {status}"
             except Exception as e:
                 browser.close()
+                log_debug(f"fetch_homepage: playwright goto error: {str(e)[:80]}")
                 return "", requests_status, "blocked_by_waf", f"playwright error: {str(e)[:80]}"
     except Exception as e:
+        log_debug(f"fetch_homepage: playwright launch failed: {str(e)[:80]}")
         return "", requests_status, "blocked_by_waf", f"playwright launch failed: {str(e)[:80]}"
 
 
@@ -183,14 +199,16 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
     Для id_type="profile" поле page_id=None, числовой ID лежит в profile_id.
     Для id_type="unknown" оба поля None.
     """
+    log_debug(f"find_all_fb_handles: base_url={base_url} html_provided={html is not None}")
     found = {}  # key → {handle, url, page_id, profile_id, id_type, format, ...}
 
     if html is None:
         try:
+            log_debug("find_all_fb_handles: html not provided — fetching")
             r = requests.get(base_url, headers=HEADERS, timeout=10)
             html = r.text
         except Exception as e:
-            print(f"  ⚠️  Ошибка при загрузке сайта: {e}")
+            log_warn(f" Ошибка при загрузке сайта: {e}")
             return []
 
     # Формат 1: facebook.com/vanityname  →  id_type=unknown (числа в URL нет)
@@ -206,6 +224,7 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
             continue
         key = f"handle:{handle}"
         if key not in found:
+            log_debug(f"find_all_fb_handles: vanity handle found: {handle}")
             found[key] = {
                 "handle": handle,
                 "url": f"https://www.facebook.com/{handle}",
@@ -222,6 +241,7 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
     ):
         key = f"people:{profile_id}"
         if key not in found:
+            log_debug(f"find_all_fb_handles: people-format profile found: {profile_id} ({name})")
             found[key] = {
                 "handle": name.lower().replace("-", "_"),
                 "url": f"https://www.facebook.com/people/{name}/{profile_id}/",
@@ -239,6 +259,7 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
     ):
         key = f"profile:{profile_id}"
         if key not in found:
+            log_debug(f"find_all_fb_handles: profile.php-format profile found: {profile_id}")
             found[key] = {
                 "handle": f"profile_{profile_id}",
                 "url": f"https://www.facebook.com/profile.php?id={profile_id}",
@@ -255,6 +276,7 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
     ):
         key = f"pages:{page_id}"
         if key not in found:
+            log_debug(f"find_all_fb_handles: pages-format Page ID found: {page_id} ({name})")
             found[key] = {
                 "handle": name.lower(),
                 "url": f"https://www.facebook.com/pages/{name}/{page_id}/",
@@ -264,6 +286,7 @@ def find_all_fb_handles(base_url: str, html: str = None) -> list:
                 "format": "pages",
             }
 
+    log_debug(f"find_all_fb_handles: total unique handles found: {len(found)}")
     return list(found.values())
 
 
@@ -284,6 +307,7 @@ def prioritize_handles(handles: list, brand_name: str) -> list:
       2. Содержит brand + регион (canada, uk, ...)
       3. Всё остальное
     """
+    log_debug(f"prioritize_handles: {len(handles)} handles, brand_name={brand_name}")
     brand = brand_name.lower().replace("-", "").replace(".", "")
     id_type_tier = {"page": 0, "unknown": 1, "profile": 2}
 
@@ -302,7 +326,9 @@ def prioritize_handles(handles: list, brand_name: str) -> list:
         # внутри tier'а — по brand match
         return (id_type_tier.get(item.get("id_type", "unknown"), 1), brand_score)
 
-    return sorted(handles, key=score)
+    ranked = sorted(handles, key=score)
+    log_debug(f"prioritize_handles: top handle after sort: {ranked[0]['handle'] if ranked else None}")
+    return ranked
 
 
 # ─── Проверка живой/битой ссылки + display_name ─────────────────────────────
@@ -318,6 +344,7 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
 
     Returns: {"alive": bool, "reason": str, "display_name": str | None}
     """
+    log_debug(f"check_fb_page_alive_playwright: handle={handle}")
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -330,11 +357,12 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
             page = context.new_page()
 
             try:
+                log_debug(f"check_fb_page_alive_playwright: goto facebook.com/{handle}")
                 page.goto(f"https://www.facebook.com/{handle}",
                          wait_until="domcontentloaded", timeout=15000)
                 page.wait_for_timeout(2000)
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"check_fb_page_alive_playwright: goto failed (continuing with whatever loaded): {str(e)[:80]}")
 
             html_raw = page.content()
             html = html_raw.lower()
@@ -361,11 +389,14 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
             ]
             for signal in dead_signals:
                 if signal in html:
+                    log_debug(f"check_fb_page_alive_playwright: dead signal matched: {signal[:40]}")
                     return {"alive": False, "reason": f"playwright: {signal[:40]}",
                             "display_name": display_name}
 
+            log_debug(f"check_fb_page_alive_playwright: alive, display_name={display_name}")
             return {"alive": True, "reason": "playwright_ok", "display_name": display_name}
-    except Exception:
+    except Exception as e:
+        log_debug(f"check_fb_page_alive_playwright: exception, assuming alive: {str(e)[:80]}")
         return {"alive": True, "reason": "playwright_failed_assuming_alive",
                 "display_name": None}
 
@@ -391,9 +422,11 @@ def find_delegate_page_id(fb_url: str) -> str | None:
     # Tested: 2026-05-11 on redacted-prospect.example — profile 61500000000000 →
     #   Page 1234567890123456 (redacted prospect, classic Page ID, verified).
     """
+    log_debug(f"find_delegate_page_id: fb_url={fb_url}")
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
+        log_debug("find_delegate_page_id: playwright not installed — returning None")
         return None
 
     delegate_ids = []
@@ -431,42 +464,48 @@ def find_delegate_page_id(fb_url: str) -> str | None:
                     for pattern in delegate_patterns:
                         for m in re.findall(pattern, body):
                             if len(m) >= 10:
+                                log_debug(f"find_delegate_page_id: delegate id in response {response.url[:60]}: {m}")
                                 delegate_ids.append(m)
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"find_delegate_page_id: on_response handler error: {str(e)[:80]}")
 
             page.on("response", on_response)
 
             try:
+                log_debug(f"find_delegate_page_id: goto (networkidle) {fb_url}")
                 page.goto(fb_url, wait_until="networkidle", timeout=20000)
                 page.wait_for_timeout(2000)
-            except Exception:
+            except Exception as e:
+                log_debug(f"find_delegate_page_id: networkidle goto failed, retrying domcontentloaded: {str(e)[:80]}")
                 try:
                     page.goto(fb_url, wait_until="domcontentloaded", timeout=10000)
                     page.wait_for_timeout(3000)
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"find_delegate_page_id: domcontentloaded goto also failed: {str(e)[:80]}")
 
             # Финальный HTML — иногда delegate_page лежит в inline scripts
             try:
+                log_debug("find_delegate_page_id: scanning final page HTML for delegate_page")
                 html = page.content()
                 for pattern in delegate_patterns:
                     for m in re.findall(pattern, html):
                         if len(m) >= 10:
+                            log_debug(f"find_delegate_page_id: delegate id in inline HTML: {m}")
                             delegate_ids.append(m)
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"find_delegate_page_id: inline HTML scan error: {str(e)[:80]}")
 
             browser.close()
     except Exception as e:
-        print(f"    ⚠️  delegate_page extraction failed: {str(e)[:80]}")
+        log_warn(f" delegate_page extraction failed: {str(e)[:80]}")
         return None
 
     if not delegate_ids:
+        log_debug("find_delegate_page_id: no delegate_page ids found — returning None")
         return None
 
     from collections import Counter
     counts = Counter(delegate_ids)
     best_id, hits = counts.most_common(1)[0]
-    print(f"    🔗 delegate_page.id найден: {best_id} (встретился {hits} раз)")
+    log_success(f" delegate_page.id найден: {best_id} (встретился {hits} раз)", emoji="🔗")
     return best_id

@@ -16,6 +16,8 @@ Module 5: Чистый парсер модалки FB Ad Library → струк�
 """
 import re
 
+from log import log_warn, log_debug, log_header
+
 ALL_SECTION_LABELS = [
     "Transparency by location",
     "About the disclaimer",
@@ -35,7 +37,9 @@ def _strip(html: str) -> str:
 
 def detect_sections(html: str) -> list:
     """Возвращает список секций которые присутствуют в DOM (по наличию heading-текста)."""
-    return [lbl for lbl in ALL_SECTION_LABELS if lbl in html]
+    found = [lbl for lbl in ALL_SECTION_LABELS if lbl in html]
+    log_debug(f"detect_sections: найдено {len(found)}/{len(ALL_SECTION_LABELS)} секций: {found}")
+    return found
 
 
 # ─── Meta (всегда присутствует) ─────────────────────────────────────────────
@@ -62,12 +66,16 @@ def _parse_body(html: str) -> str:
 
 
 def _parse_meta(html: str) -> dict:
-    return {
+    log_debug("_parse_meta: парсинг library_id/started_running/versions/body")
+    out = {
         "library_id":          _parse_library_id(html),
         "started_running":     _parse_started_running(html),
         "multiple_versions":   _parse_multiple_versions(html),
         "body":                _parse_body(html),
     }
+    log_debug(f"_parse_meta: library_id={out['library_id']!r}, started={out['started_running']!r}, "
+              f"versions={out['multiple_versions']}, body_len={len(out['body'])}")
+    return out
 
 
 # ─── Transparency by location ───────────────────────────────────────────────
@@ -76,8 +84,10 @@ def _parse_transparency(html: str) -> dict:
     out = {"total_reach": None, "demographics": [],
            "age_range": "", "gender_target": "", "country_targets": []}
 
+    log_debug("_parse_transparency: вход")
     i = html.find("Transparency by location")
     if i < 0:
+        log_debug("_parse_transparency: секция 'Transparency by location' отсутствует — пустой результат")
         return out
     section = html[i:i + 100000]
 
@@ -90,8 +100,9 @@ def _parse_transparency(html: str) -> dict:
         if nums:
             try:
                 out["total_reach"] = int(nums[0].replace(",", ""))
-            except ValueError:
-                pass
+                log_debug(f"_parse_transparency: total_reach={out['total_reach']}")
+            except ValueError as e:
+                log_debug(f"_parse_transparency: total_reach parse failed на {nums[0]!r}: {e}")
 
     # Демографическая таблица: Location | Age Range | Gender | Reach
     j = section.find("Age Range")
@@ -106,7 +117,8 @@ def _parse_transparency(html: str) -> dict:
                 if len(row) == 4:
                     try:
                         reach = int(row[3].replace(",", ""))
-                    except ValueError:
+                    except ValueError as e:
+                        log_debug(f"_parse_transparency: skip row {row} — reach не число: {e}")
                         continue
                     out["demographics"].append({
                         "location": row[0],
@@ -125,6 +137,8 @@ def _parse_transparency(html: str) -> dict:
     m = re.search(r">Gender<.{0,500}?>(All|Male|Female|Men|Women)<",
                    section, re.DOTALL)
     if m: out["gender_target"] = m.group(1)
+    log_debug(f"_parse_transparency: demographics={len(out['demographics'])}, "
+              f"countries={out['country_targets']}, age={out['age_range']!r}, gender={out['gender_target']!r}")
     return out
 
 
@@ -132,8 +146,10 @@ def _parse_transparency(html: str) -> dict:
 
 def _parse_disclaimer(html: str) -> dict:
     out = {"location": "", "website": "", "advertiser": "", "payer": ""}
+    log_debug("_parse_disclaimer: вход")
     i = html.find("About the disclaimer")
     if i < 0:
+        log_debug("_parse_disclaimer: секция 'About the disclaimer' отсутствует — пустой результат")
         return out
     section = html[i:i + 8000]
     text = _strip(section)
@@ -146,6 +162,7 @@ def _parse_disclaimer(html: str) -> dict:
     if m: out["advertiser"] = m.group(1).strip()
     m = re.search(r"Payer\s+([A-Z][A-Za-z0-9 .,&\-]{2,80}?)(?=\s+About|$)", text)
     if m: out["payer"] = m.group(1).strip()
+    log_debug(f"_parse_disclaimer: {out}")
     return out
 
 
@@ -156,6 +173,7 @@ def _parse_followers(text: str):
     # Берём первое явное число + suffix (K/M) ПЕРЕД словом 'followers'
     m = re.search(r"([\d,]+(?:\.\d+)?[KkMm]?)\s+followers?", text)
     if not m:
+        log_debug("_parse_followers: 'followers' не найдено")
         return None
     v = m.group(1).replace(",", "")
     try:
@@ -164,14 +182,17 @@ def _parse_followers(text: str):
         if v.endswith(("M", "m")):
             return int(float(v[:-1]) * 1_000_000)
         return int(float(v))
-    except ValueError:
+    except ValueError as e:
+        log_debug(f"_parse_followers: не смог распарсить {v!r}: {e}")
         return None
 
 
 def _parse_advertiser_meta(html: str) -> dict:
     out = {"name": "", "handle": "", "followers": None, "more_info": ""}
+    log_debug("_parse_advertiser_meta: вход")
     i = html.find("About the advertiser")
     if i < 0:
+        log_debug("_parse_advertiser_meta: секция 'About the advertiser' отсутствует — пустой результат")
         return out
     section = html[i:i + 5000]
     text = _strip(section)
@@ -183,6 +204,8 @@ def _parse_advertiser_meta(html: str) -> dict:
     if m: out["name"] = m.group(1).strip()
     m = re.search(r"More info\s+(.{20,500}?)\s+(?:Advertiser and payer|About ads|$)", text)
     if m: out["more_info"] = m.group(1).strip()
+    log_debug(f"_parse_advertiser_meta: name={out['name']!r}, @{out['handle']}, "
+              f"followers={out['followers']}, info_len={len(out['more_info'])}")
     return out
 
 
@@ -191,8 +214,10 @@ def _parse_advertiser_meta(html: str) -> dict:
 def _parse_advertiser_and_payer(html: str) -> dict:
     """Секция 'Advertiser and payer' — реальный плательщик (часто отличается от page name)."""
     out = {"current_advertiser": "", "current_payer": ""}
+    log_debug("_parse_advertiser_and_payer: вход")
     i = html.find("Advertiser and payer")
     if i < 0:
+        log_debug("_parse_advertiser_and_payer: секция 'Advertiser and payer' отсутствует — пустой результат")
         return out
     section = html[i:i + 4000]
     text = _strip(section)
@@ -202,6 +227,7 @@ def _parse_advertiser_and_payer(html: str) -> dict:
     # Захватит payer из disclaimer тоже — берём ПОСЛЕДНЕЕ совпадение в этой секции
     matches = re.findall(r"Payer\s+([A-Za-z0-9][A-Za-z0-9 .,&\-]{2,80}?)(?:\s+About ads|$)", text)
     if matches: out["current_payer"] = matches[-1].strip()
+    log_debug(f"_parse_advertiser_and_payer: {out}")
     return out
 
 
@@ -209,8 +235,10 @@ def _parse_advertiser_and_payer(html: str) -> dict:
 
 def _parse_additional_assets(html: str) -> dict:
     out = {"links": [], "text_items": []}
+    log_debug("_parse_additional_assets: вход")
     i = html.find("Additional assets from this ad")
     if i < 0:
+        log_debug("_parse_additional_assets: секция 'Additional assets from this ad' отсутствует — пустой результат")
         return out
     section = html[i:i + 15000]
 
@@ -233,6 +261,7 @@ def _parse_additional_assets(html: str) -> dict:
                     and not t.startswith("http")):
                 out["text_items"].append(t)
         out["text_items"] = out["text_items"][:30]
+    log_debug(f"_parse_additional_assets: links={len(out['links'])}, text_items={len(out['text_items'])}")
     return out
 
 
@@ -241,6 +270,7 @@ def _parse_additional_assets(html: str) -> dict:
 def parse_modal(html: str) -> dict:
     """Полный парсинг модалки. Возвращает dict со всеми 5 секциями.
     Секции которых нет в DOM — соответствующие поля будут пустые/None."""
+    log_debug(f"parse_modal: вход, html_len={len(html)}")
     return {
         "sections_present":   detect_sections(html),
         "meta":               _parse_meta(html),
@@ -270,12 +300,11 @@ if __name__ == "__main__":
         try:
             html = open(path, encoding="utf-8").read()
         except FileNotFoundError:
-            print(f"⚠ {label}: файл не найден ({path})")
+            log_warn(f"{label}: файл не найден ({path})")
             continue
 
-        print(f"\n{'='*70}")
-        print(f"TEST: {label}")
-        print(f"{'='*70}")
+        print()
+        log_header(f"TEST: {label}")
         d = parse_modal(html)
 
         print(f"sections_present ({len(d['sections_present'])}/5):")

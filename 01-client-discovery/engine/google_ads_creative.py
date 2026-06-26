@@ -20,6 +20,7 @@ from urllib.parse import urlparse
 from pathlib import Path
 
 from utils import HEADERS, scan_path, setup_console
+from log import log_info, log_debug, log_error
 setup_console()
 
 
@@ -47,6 +48,7 @@ _LOOKUP_API_JS = """async ({url, payload}) => {
 def _build_lookup_payload(advertiser_id: str, creative_id: str) -> str:
     """f.req=<urlencoded JSON> — payload format observed in HAR."""
     import urllib.parse
+    log_debug(f"_build_lookup_payload: ar={advertiser_id} cr={creative_id}")
     body = {"1": advertiser_id, "2": creative_id, "5": {"1": 1, "2": 0, "3": 2124}}
     return "f.req=" + urllib.parse.quote(json.dumps(body, separators=(',', ':')))
 
@@ -62,7 +64,9 @@ def _extract_image_urls_from_api_body(body: str) -> list[str]:
         r'https://displayads-formats\.googleusercontent\.com/ads/preview/content\.js[^"\s\'\\]*',
         body,
     )
-    return list(dict.fromkeys(urls))  # dedupe preserving order
+    deduped = list(dict.fromkeys(urls))  # dedupe preserving order
+    log_debug(f"_extract_image_urls_from_api_body: {len(deduped)} asset URL(s) from {len(body)}-char body")
+    return deduped
 
 
 # ─── Page DOM helpers ────────────────────────────────────────────────────────
@@ -116,7 +120,8 @@ def _parse_impression_range(s: str) -> dict:
     def _scale(n_str, suf):
         try:
             n = float(n_str.replace(',', ''))
-        except ValueError:
+        except ValueError as e:
+            log_debug(f"_parse_impression_range._scale: не число '{n_str}': {e}")
             return None
         suf_u = (suf or '').upper()
         if suf_u == 'K':
@@ -132,6 +137,7 @@ def _parse_impression_range(s: str) -> dict:
 
 def _parse_main_meta(html: str) -> dict:
     """Extract dates / format / topic / targeting / impressions from main DOM HTML."""
+    log_debug(f"_parse_main_meta: парсим main DOM, {len(html)} символов HTML")
     meta = {
         "first_shown": None,
         "last_shown": None,
@@ -245,6 +251,11 @@ def _parse_main_meta(html: str) -> dict:
             found_targeting.append({"name": name, "sign": sign})
     meta["targeting_categories"] = found_targeting
 
+    log_debug(
+        f"_parse_main_meta: format={meta['format']!r} topic={meta['topic']!r} "
+        f"first={meta['first_shown']!r} impressions_raw={meta['impressions_range_raw']!r} "
+        f"targeting={len(found_targeting)} cat(s)"
+    )
     return meta
 
 
@@ -256,11 +267,13 @@ def _decode_data_p(data_p_value: str) -> list | None:
     Возвращает список всех parsed JSON values.
     """
     if not data_p_value:
+        log_debug("_decode_data_p: пустой data-p, пропуск")
         return None
     decoded = _html.unescape(data_p_value)
     # Strip prefix like '%.@.' (Google serialization marker)
     m = re.match(r'^%[^\[]*(\[.*)$', decoded, re.DOTALL)
     if not m:
+        log_debug("_decode_data_p: нет '%.@.[' префикса — не Google-сериализация, пропуск")
         return None
     json_text = m.group(1)
     decoder = json.JSONDecoder()
@@ -274,10 +287,12 @@ def _decode_data_p(data_p_value: str) -> list | None:
             break
         try:
             obj, end = decoder.raw_decode(json_text, idx=i)
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as e:
+            log_debug(f"_decode_data_p: JSON decode остановлен на idx={i}: {e}")
             break
         out.append(obj)
         i = end
+    log_debug(f"_decode_data_p: разобрано {len(out)} JSON-объект(ов)")
     return out or None
 
 
@@ -469,8 +484,9 @@ def parse_creative(advertiser_id: str, creative_id: str,
         "fetch_error": None,
     }
 
+    log_debug(f"parse_creative: вход cr={creative_id} ar={advertiser_id} region={region} headed={headed}")
     if verbose:
-        print(f"  [creative] {creative_id}  ar={advertiser_id}")
+        log_info(f"  [creative] {creative_id}  ar={advertiser_id}")
 
     try:
         with sync_playwright() as p:
@@ -485,7 +501,9 @@ def parse_creative(advertiser_id: str, creative_id: str,
                 else:
                     route.continue_()
             page.route("**/*", _block_assets_sync)
+            log_debug(f"parse_creative: goto {url}")
             page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+            log_debug("parse_creative: DOM загружен, ждём iframe или error-плейсхолдер")
             # Wait for either: iframe attached (real ad) OR error placeholder text
             # ("Can't find advertiser" / "Can't find ad"). Whichever first.
             # Saves ~30s on banned/missing ads, costs nothing for healthy ones.
@@ -500,8 +518,8 @@ def parse_creative(advertiser_id: str, creative_id: str,
                     }""",
                     timeout=30_000,
                 )
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative: wait_for_function (iframe/error) истёк/упал: {e}")
             # Page text shows terminal placeholder — but the API may still return
             # creative data even when the public page says "Can't find advertiser"
             # (advertiser-level visibility check ≠ creative-level data availability).
@@ -514,6 +532,7 @@ def parse_creative(advertiser_id: str, creative_id: str,
                 elif "Can't find ad" in body_text:
                     terminal_kind = "ad_not_found"
                 if terminal_kind:
+                    log_debug(f"parse_creative: terminal-плейсхолдер '{terminal_kind}', пробуем API fallback")
                     api_imgs = []
                     try:
                         payload = _build_lookup_payload(advertiser_id, creative_id)
@@ -521,19 +540,21 @@ def parse_creative(advertiser_id: str, creative_id: str,
                                               {"url": _LOOKUP_API_URL, "payload": payload})
                         if resp and resp.get("status") == 200 and len(resp.get("body") or "") > 100:
                             api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        log_debug(f"parse_creative: API probe (terminal) упал: {e}")
                     if api_imgs:
                         # Recovered via API — soft-terminal (image saved, text in pixels)
+                        log_debug(f"parse_creative: API вернул {len(api_imgs)} asset(ы) → text_in_image")
                         result["ad_image_urls"] = api_imgs
                         result["has_image"] = True
                         result["fetch_error"] = "text_in_image"
                     else:
+                        log_debug(f"parse_creative: API пуст → terminal '{terminal_kind}'")
                         result["fetch_error"] = terminal_kind
                     browser.close()
                     return result
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative: terminal-detection блок упал: {e}")
             # Real ad — locate the iframe handle (already attached by now).
             # Two ad-iframe variants observed: /adframe (Display Ads) and sadbundle
             # (Search Ads "SearchAdsViewerRenderingUi"). Both expose data-p attrs.
@@ -542,8 +563,9 @@ def parse_creative(advertiser_id: str, creative_id: str,
                 iframe_handle = page.wait_for_selector(
                     'iframe[src*="/adframe"], iframe[src*="sadbundle"]', timeout=5_000
                 )
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative: ad-iframe selector не найден за 5с: {e}")
+            log_debug(f"parse_creative: iframe_handle={'найден' if iframe_handle else 'нет'}")
             # After attach, wait for the iframe's own load event — not page networkidle
             # (TC long-polls/analytics dripping; networkidle is officially DISCOURAGED).
             if iframe_handle is not None:
@@ -551,8 +573,8 @@ def parse_creative(advertiser_id: str, creative_id: str,
                     inner = iframe_handle.content_frame()
                     if inner is not None:
                         inner.wait_for_load_state("load", timeout=15_000)
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"parse_creative: ожидание load события iframe упало: {e}")
             page.wait_for_timeout(1500)
 
             # Variations marker — "1 of 3 variations" → n_variations = 3
@@ -561,9 +583,10 @@ def parse_creative(advertiser_id: str, creative_id: str,
                     "() => { const m = document.body.innerText.match(/(\\d+)\\s+of\\s+(\\d+)\\s+variations/i); return m ? parseInt(m[2], 10) : null; }"
                 )
                 if isinstance(n_var, int):
+                    log_debug(f"parse_creative: n_variations={n_var}")
                     result["n_variations"] = n_var
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative: n_variations evaluate упал: {e}")
 
             main_html = page.content()
             meta = _parse_main_meta(main_html)
@@ -572,7 +595,9 @@ def parse_creative(advertiser_id: str, creative_id: str,
             # Collect data-p from each /adframe iframe
             ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
             result["iframe_count"] = len(ad_frames)
+            log_debug(f"parse_creative: {len(ad_frames)} ad-iframe(ов) найдено")
             if not ad_frames:
+                log_debug("parse_creative: ad-iframe нет → fetch_error=iframe_missing (может быть повышен ниже)")
                 result["fetch_error"] = "iframe_missing"  # may be upgraded below
 
             all_candidates = []
@@ -589,7 +614,8 @@ def parse_creative(advertiser_id: str, creative_id: str,
             for fr in ad_frames:
                 try:
                     fhtml = fr.content()
-                except Exception:
+                except Exception as e:
+                    log_debug(f"parse_creative: не смогли прочитать iframe content ({fr.url}): {e}")
                     continue
                 for dp in re.findall(r'data-p="([^"]+)"', fhtml):
                     payloads = _decode_data_p(dp)
@@ -628,6 +654,7 @@ def parse_creative(advertiser_id: str, creative_id: str,
             # but main DOM has metadata, hit GetCreativeById API for the image URL.
             # Sets has_image=True and fetch_error="text_in_image" (soft-terminal).
             if not ad_frames and not all_image_urls and (result.get("first_shown") or result.get("format")):
+                log_debug("parse_creative: нет iframe, но есть metadata → API fallback за image URL")
                 try:
                     payload = _build_lookup_payload(advertiser_id, creative_id)
                     resp = page.evaluate(_LOOKUP_API_JS,
@@ -635,10 +662,11 @@ def parse_creative(advertiser_id: str, creative_id: str,
                     if resp and resp.get("status") == 200:
                         api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
                         if api_imgs:
+                            log_debug(f"parse_creative: API fallback вернул {len(api_imgs)} asset(ы) → text_in_image")
                             all_image_urls.extend(api_imgs)
                             result["fetch_error"] = "text_in_image"
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"parse_creative: API fallback (image-baked) упал: {e}")
 
             result["ad_text_candidates"] = all_candidates
             result["ad_text_filtered_out"] = all_filtered_out
@@ -652,10 +680,15 @@ def parse_creative(advertiser_id: str, creative_id: str,
             else:
                 result["type_of_creative"] = "Site"
 
+            log_debug(
+                f"parse_creative: готово cr={creative_id} — {len(all_candidates)} ad-text кандидат(ов), "
+                f"{len(all_image_urls)} image URL(s), fetch_error={result['fetch_error']!r}"
+            )
             browser.close()
             return result
 
     except Exception as e:
+        log_error(f"parse_creative: упал cr={creative_id}: {type(e).__name__}: {e}")
         result["fetch_error"] = f"{type(e).__name__}: {e}"
         return result
 
@@ -671,6 +704,7 @@ def _clean_text(s: str) -> str:
 def _process_iframes_into_result(result: dict, iframe_htmls: list[str]) -> None:
     """Process collected iframe HTMLs into result['ad_text_candidates'] etc.
     Mutates result in place. Used by both sync parse_creative and async variant."""
+    log_debug(f"_process_iframes_into_result: обрабатываем {len(iframe_htmls)} iframe HTML(ов)")
     all_candidates = []
     all_filtered_out = []
     all_image_urls = []
@@ -717,6 +751,10 @@ def _process_iframes_into_result(result: dict, iframe_htmls: list[str]) -> None:
     result["ad_text_filtered_out"] = all_filtered_out
     result["ad_image_urls"] = all_image_urls
     result["has_image"] = len(all_image_urls) > 0
+    log_debug(
+        f"_process_iframes_into_result: {len(all_candidates)} кандидат(ов), "
+        f"{len(all_filtered_out)} отфильтровано, {len(all_image_urls)} image URL(s)"
+    )
 
     disp = result.get("displayed_url") or ""
     if 'play.google.com' in disp or 'apps.apple.com' in disp:
@@ -767,6 +805,7 @@ async def parse_creative_with_context(context, advertiser_id: str,
 
     NOTE: context должен быть async_playwright BrowserContext.
     """
+    log_debug(f"parse_creative_with_context: вход cr={creative_id} ar={advertiser_id} region={region}")
     result = _empty_result(advertiser_id, creative_id, region)
     url = result["ad_link"]
     page = None
@@ -778,7 +817,9 @@ async def parse_creative_with_context(context, advertiser_id: str,
             else:
                 await route.continue_()
         await page.route("**/*", _block_assets_async)
+        log_debug(f"parse_creative_with_context: goto {url}")
         await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+        log_debug("parse_creative_with_context: DOM загружен, ждём iframe или error-плейсхолдер")
         try:
             await page.wait_for_function(
                 """() => {
@@ -790,8 +831,8 @@ async def parse_creative_with_context(context, advertiser_id: str,
                 }""",
                 timeout=30_000,
             )
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"parse_creative_with_context: wait_for_function (iframe/error) истёк/упал: {e}")
         try:
             body_text = await page.evaluate("() => document.body.innerText || ''")
             terminal_kind = None
@@ -800,6 +841,7 @@ async def parse_creative_with_context(context, advertiser_id: str,
             elif "Can't find ad" in body_text:
                 terminal_kind = "ad_not_found"
             if terminal_kind:
+                log_debug(f"parse_creative_with_context: terminal-плейсхолдер '{terminal_kind}', пробуем API fallback")
                 api_imgs = []
                 try:
                     payload = _build_lookup_payload(advertiser_id, creative_id)
@@ -807,31 +849,34 @@ async def parse_creative_with_context(context, advertiser_id: str,
                                                 {"url": _LOOKUP_API_URL, "payload": payload})
                     if resp and resp.get("status") == 200 and len(resp.get("body") or "") > 100:
                         api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
-                except Exception:
-                    pass
+                except Exception as e:
+                    log_debug(f"parse_creative_with_context: API probe (terminal) упал: {e}")
                 if api_imgs:
+                    log_debug(f"parse_creative_with_context: API вернул {len(api_imgs)} asset(ы) → text_in_image")
                     result["ad_image_urls"] = api_imgs
                     result["has_image"] = True
                     result["fetch_error"] = "text_in_image"
                 else:
+                    log_debug(f"parse_creative_with_context: API пуст → terminal '{terminal_kind}'")
                     result["fetch_error"] = terminal_kind
                 return result
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"parse_creative_with_context: terminal-detection блок упал: {e}")
         iframe_handle = None
         try:
             iframe_handle = await page.wait_for_selector(
                 'iframe[src*="/adframe"], iframe[src*="sadbundle"]', timeout=5_000
             )
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"parse_creative_with_context: ad-iframe selector не найден за 5с: {e}")
+        log_debug(f"parse_creative_with_context: iframe_handle={'найден' if iframe_handle else 'нет'}")
         if iframe_handle is not None:
             try:
                 inner = await iframe_handle.content_frame()
                 if inner is not None:
                     await inner.wait_for_load_state("load", timeout=15_000)
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative_with_context: ожидание load события iframe упало: {e}")
         await page.wait_for_timeout(1500)
 
         try:
@@ -839,9 +884,10 @@ async def parse_creative_with_context(context, advertiser_id: str,
                 "() => { const m = document.body.innerText.match(/(\\d+)\\s+of\\s+(\\d+)\\s+variations/i); return m ? parseInt(m[2], 10) : null; }"
             )
             if isinstance(n_var, int):
+                log_debug(f"parse_creative_with_context: n_variations={n_var}")
                 result["n_variations"] = n_var
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"parse_creative_with_context: n_variations evaluate упал: {e}")
 
         main_html = await page.content()
         meta = _parse_main_meta(main_html)
@@ -849,14 +895,17 @@ async def parse_creative_with_context(context, advertiser_id: str,
 
         ad_frames = [f for f in page.frames if "/adframe" in f.url or "sadbundle" in f.url]
         result["iframe_count"] = len(ad_frames)
+        log_debug(f"parse_creative_with_context: {len(ad_frames)} ad-iframe(ов) найдено")
         if not ad_frames:
+            log_debug("parse_creative_with_context: ad-iframe нет → fetch_error=iframe_missing")
             result["fetch_error"] = "iframe_missing"
 
         iframe_htmls = []
         for fr in ad_frames:
             try:
                 iframe_htmls.append(await fr.content())
-            except Exception:
+            except Exception as e:
+                log_debug(f"parse_creative_with_context: не смогли прочитать iframe content ({fr.url}): {e}")
                 continue
 
         _process_iframes_into_result(result, iframe_htmls)
@@ -865,6 +914,7 @@ async def parse_creative_with_context(context, advertiser_id: str,
         # See sync parse_creative for rationale.
         if (not ad_frames and not result.get("ad_image_urls")
                 and (result.get("first_shown") or result.get("format"))):
+            log_debug("parse_creative_with_context: нет iframe, но есть metadata → API fallback за image URL")
             try:
                 payload = _build_lookup_payload(advertiser_id, creative_id)
                 resp = await page.evaluate(_LOOKUP_API_JS,
@@ -872,23 +922,30 @@ async def parse_creative_with_context(context, advertiser_id: str,
                 if resp and resp.get("status") == 200:
                     api_imgs = _extract_image_urls_from_api_body(resp.get("body") or "")
                     if api_imgs:
+                        log_debug(f"parse_creative_with_context: API fallback вернул {len(api_imgs)} asset(ы) → text_in_image")
                         result["ad_image_urls"] = api_imgs
                         result["has_image"] = True
                         result["fetch_error"] = "text_in_image"
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative_with_context: API fallback (image-baked) упал: {e}")
 
+        log_debug(
+            f"parse_creative_with_context: готово cr={creative_id} — "
+            f"{len(result.get('ad_text_candidates') or [])} ad-text кандидат(ов), "
+            f"fetch_error={result['fetch_error']!r}"
+        )
         return result
 
     except Exception as e:
+        log_error(f"parse_creative_with_context: упал cr={creative_id}: {type(e).__name__}: {e}")
         result["fetch_error"] = f"{type(e).__name__}: {e}"
         return result
     finally:
         if page is not None:
             try:
                 await page.close()
-            except Exception:
-                pass
+            except Exception as e:
+                log_debug(f"parse_creative_with_context: page.close() упал: {e}")
 
 
 # ─── CLI ─────────────────────────────────────────────────────────────────────
@@ -902,6 +959,7 @@ def main():
     ap.add_argument("--verbose", "-v", action="store_true")
     args = ap.parse_args()
 
+    log_debug(f"main: CLI ar={args.advertiser_id} cr={args.creative_id} region={args.region} headed={args.headed}")
     r = parse_creative(args.advertiser_id, args.creative_id,
                        region=args.region, headed=args.headed, verbose=args.verbose)
     print(json.dumps(r, ensure_ascii=False, indent=2))

@@ -9,13 +9,17 @@ TNC Pipeline — Merge Logs
 
 import sys
 from utils import merge_logs, setup_console
+from log import log_info, log_success, log_debug
 
 if __name__ == "__main__":
     setup_console()  # UTF-8 + ANSI на Windows (фикс cp1252-крэша при standalone-запуске)
+    log_debug(f"merge_logs.py entry: argv={sys.argv}")
     if len(sys.argv) < 2:
-        print("Использование: python merge_logs.py <domain>")
+        log_info("Использование: python merge_logs.py <domain>")
         sys.exit(1)
 
     domain = sys.argv[1].strip().rstrip("/")
+    log_debug(f"merge_logs.py: domain={domain}")
     merged = merge_logs(domain)
-    print(f"✅ Общий лог сохранён: {merged}")
+    log_debug(f"merge_logs.py: merge_logs() вернул {merged}")
+    log_success(f"Общий лог сохранён: {merged}")

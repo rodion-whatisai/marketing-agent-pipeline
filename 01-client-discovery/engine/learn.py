@@ -14,6 +14,7 @@ import json
 import os
 from urllib.parse import urlparse
 from page_classifier import save_pattern, load_patterns, ANTHROPIC_API_KEY
+from log import log_error, log_success, log_debug, log_step
 
 # ─── Метки источников ────────────────────────────────────────────────────────
 
@@ -62,6 +63,8 @@ def print_classification_report(classified: list, domain: str, max_examples: int
     """
     from collections import defaultdict
 
+    log_debug(f"print_classification_report: domain={domain}, items={len(classified)}, max_examples={max_examples}")
+
     print(f"\n{'═' * 75}")
     print(f"  КЛАССИФИКАЦИЯ — {domain}")
     print(f"{'═' * 75}")
@@ -74,6 +77,8 @@ def print_classification_report(classified: list, domain: str, max_examples: int
         src   = item.get("method", "?")
         key   = (pri, ptype, src)
         groups[key].append(item.get("path", "/"))
+
+    log_debug(f"print_classification_report: {len(groups)} уникальных групп (priority,type,source)")
 
     # Сортируем: по приоритету, потом по type, потом по source
     print(f"  {'PATH':<42} {'TYPE':<18} {'SRC'}")
@@ -113,13 +118,15 @@ def print_classification_report(classified: list, domain: str, max_examples: int
 
 def suggest_pattern_type(path: str) -> tuple[str, int]:
     """Предлагает тип на основе структуры пути."""
+    log_debug(f"suggest_pattern_type: path={path!r}")
     parts = [p for p in path.split("/") if p]
-    
+
     if not parts:
+        log_debug("suggest_pattern_type: пустой путь → homepage")
         return "homepage", 2
-    
+
     first = parts[0].lower()
-    
+
     hints = {
         "about": ("about", 3),
         "team": ("about", 3),
@@ -134,27 +141,33 @@ def suggest_pattern_type(path: str) -> tuple[str, int]:
         "contact": ("lead_form", 1),
         "demo": ("lead_form", 1),
     }
-    
-    return hints.get(first, ("general", 5))
+
+    result = hints.get(first, ("general", 5))
+    log_debug(f"suggest_pattern_type: first={first!r} → {result}")
+    return result
 
 
 def interactive_learn(classified: list, domain: str):
     """Интерактивный режим — предлагает новые паттерны, ждёт апрув."""
-    
+
+    log_debug(f"interactive_learn: старт, domain={domain}, items={len(classified)}")
     patterns = load_patterns()
-    
+    log_debug(f"interactive_learn: загружено {len(patterns)} паттернов из patterns.json")
+
     # Собираем страницы которые пошли в Claude и вернулись general
     claude_general = [
         item for item in classified
         if item.get("type") == "general" and item.get("method") == "claude"
     ]
-    
+
     # Собираем страницы которые классифицировал Claude (не general) — новые паттерны
     claude_classified = [
         item for item in classified
         if item.get("method") == "claude" and item.get("type") != "general"
     ]
-    
+
+    log_debug(f"interactive_learn: claude_general={len(claude_general)}, claude_classified={len(claude_classified)}")
+
     # Собираем паттерны которых нет в patterns.json
     new_patterns = []
     for item in claude_classified:
@@ -175,15 +188,19 @@ def interactive_learn(classified: list, domain: str):
         if first_clean in CONTAINER_SEGMENTS and len(parts) >= 2:
             second = parts[1].lower().rsplit(".", 1)[0]
             struct = "/" + first_clean + "/" + second
+            log_debug(f"interactive_learn: контейнерный сегмент {first_clean!r} → паттерн {struct}")
         else:
             struct = "/" + first_clean
+            log_debug(f"interactive_learn: одиночный сегмент → паттерн {struct}")
 
         # Пропускаем если паттерн уже в patterns.json
         if struct in patterns:
+            log_debug(f"interactive_learn: {struct} уже в patterns.json — пропуск")
             continue
 
         # Пропускаем если уже добавлен в этот список
         if struct in [p["pattern"] for p in new_patterns]:
+            log_debug(f"interactive_learn: {struct} уже в new_patterns — пропуск")
             continue
 
         # Пропускаем если тип общий и неинформативный
@@ -192,8 +209,10 @@ def interactive_learn(classified: list, domain: str):
             "cookies", "cookie", "privacy", "terms", "tos", "policy",
             "login", "account", "sitemap", "robots"
         ):
+            log_debug(f"interactive_learn: {struct} ({ptype}) уже покрыто regex — пропуск")
             continue  # уже покрыто regex — не нужно в patterns.json
 
+        log_debug(f"interactive_learn: новый паттерн-кандидат {struct} → {ptype}")
         new_patterns.append({
             "pattern": struct,
             "example": path,
@@ -204,8 +223,10 @@ def interactive_learn(classified: list, domain: str):
         })
     
     if not new_patterns and not claude_general:
-        print(f"\n  ✅ Нет новых паттернов для обучения — всё уже известно")
+        log_success("Нет новых паттернов для обучения — всё уже известно")
         return
+
+    log_debug(f"interactive_learn: к показу {len(new_patterns)} новых паттернов, {len(claude_general)} general-страниц")
     
     # Показываем новые паттерны от Claude
     # Показываем новые паттерны от Claude
@@ -232,12 +253,15 @@ def interactive_learn(classified: list, domain: str):
             print(f"       или введи тип вручную: p=product l=lead f=faq a=about pr=pricing s=search")
             
             choice = input(f"\n       Твой выбор [y/n/q/тип]: ").strip().lower()
-            
+            log_debug(f"interactive_learn[new_patterns {i}/{len(new_patterns)}]: pattern={p['pattern']}, choice={choice!r}")
+
             if choice in ("q", "quit", "exit", "stop", "s"):
+                log_debug("interactive_learn: пользователь выбрал выход из обучения (new_patterns)")
                 print(f"       ⏹  Выход из обучения")
                 return
-            
+
             if choice == "y" or choice == "":
+                log_debug(f"interactive_learn: апрув паттерна {p['pattern']} → {ptype} (source=claude_approved)")
                 save_pattern(
                     pattern=p["pattern"],
                     page_type=ptype,
@@ -246,7 +270,7 @@ def interactive_learn(classified: list, domain: str):
                     example_url=p["example_url"],
                     source="claude_approved",
                 )
-                print(f"       ✅ Сохранено: {p['pattern']} → {ptype}")
+                log_success(f"Сохранено: {p['pattern']} → {ptype}", emoji="💾")
             elif choice == "n":
                 print(f"       ⏭  Пропущено")
             else:
@@ -270,6 +294,7 @@ def interactive_learn(classified: list, domain: str):
                            "faq_support": 3, "about": 3, "blog_content": 4,
                            "technical": 5, "general": 5, "search_results": 2}
                 final_pri = pri_map.get(final_type, 3)
+                log_debug(f"interactive_learn: ручной тип {final_type} для {p['pattern']} (priority={final_pri}, source=manual)")
                 save_pattern(
                     pattern=p["pattern"],
                     page_type=final_type,
@@ -278,7 +303,7 @@ def interactive_learn(classified: list, domain: str):
                     example_url=p["example_url"],
                     source="manual",
                 )
-                print(f"       ✅ Сохранено: {p['pattern']} → {final_type}")
+                log_success(f"Сохранено: {p['pattern']} → {final_type}", emoji="💾")
             print()
     
     # Показываем general страницы — спрашиваем что с ними делать
@@ -291,7 +316,8 @@ def interactive_learn(classified: list, domain: str):
         for item in claude_general:
             path = item.get("path", "")
             suggested_type, suggested_pri = suggest_pattern_type(path)
-            
+            log_debug(f"interactive_learn[general]: path={path!r}, guess={suggested_type}")
+
             print(f"  URL: {path}")
             if suggested_type != "general":
                 print(f"  Мой guess: {TYPE_LABELS.get(suggested_type, suggested_type)}")
@@ -302,12 +328,15 @@ def interactive_learn(classified: list, domain: str):
             print(f"  enter = пропустить (оставить general)  q = выйти")
             
             choice = input(f"\n  Твой выбор: ").strip().lower()
-            
+            log_debug(f"interactive_learn[general]: choice={choice!r}")
+
             if choice in ("q", "quit", "exit", "stop"):
+                log_debug("interactive_learn: пользователь выбрал выход из обучения (general)")
                 print(f"  ⏹  Выход из обучения")
                 return
-            
+
             if choice == "" or choice == "n":
+                log_debug("interactive_learn[general]: пропуск (оставляем general)")
                 print(f"  ⏭  Пропущено\n")
                 continue
             
@@ -342,6 +371,7 @@ def interactive_learn(classified: list, domain: str):
             first_clean = _re.sub(r'\.(html|php|htm|asp|aspx)$', '', first)
             struct = "/" + first_clean
 
+            log_debug(f"interactive_learn[general]: ручная классификация {struct} → {final_type} (priority={final_pri}, source=manual)")
             save_pattern(
                 pattern=struct,
                 page_type=final_type,
@@ -350,37 +380,38 @@ def interactive_learn(classified: list, domain: str):
                 example_url=item.get("url", ""),
                 source="manual",
             )
-            print(f"\n  ✅ Сохранено: {struct} → {TYPE_LABELS.get(final_type, final_type)}")
+            log_success(f"Сохранено: {struct} → {TYPE_LABELS.get(final_type, final_type)}", emoji="💾")
             print(f"     Следующие сайты с {struct}/... пойдут без Claude\n")
-    
-    print(f"\n{'═' * 65}")
-    print(f"  ✅ Обучение завершено. patterns.json обновлён.")
-    print(f"{'═' * 65}\n")
+
+    log_debug("interactive_learn: обучение завершено, patterns.json обновлён")
+    log_success("Обучение завершено. patterns.json обновлён.")
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
 def run(step1_file: str):
+    log_debug(f"run: открываю step1_file={step1_file}")
     try:
         with open(step1_file, "r", encoding="utf-8") as f:
             step1 = json.load(f)
     except Exception as e:
-        print(f"❌ Не могу открыть {step1_file}: {e}")
+        log_error(f"Не могу открыть {step1_file}: {e}")
         sys.exit(1)
-    
+
     base_url = step1.get("base_url", "")
     domain = urlparse(base_url).netloc
     classified = step1.get("classified", [])
-    
+    log_debug(f"run: base_url={base_url!r}, domain={domain!r}, classified={len(classified)}")
+
     if not classified:
-        print(f"❌ Нет данных классификации в {step1_file}")
+        log_error(f"Нет данных классификации в {step1_file}")
         sys.exit(1)
-    
+
     # Шаг 1: показываем таблицу с источниками
     print_classification_report(classified, domain)
-    
+
     # Шаг 2: интерактивное обучение
-    print(f"\n  🎓 Запускаю режим обучения...")
+    log_step("Запускаю режим обучения...", emoji="🎓")
     interactive_learn(classified, domain)
 
 

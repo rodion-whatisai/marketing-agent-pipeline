@@ -19,13 +19,15 @@ import html
 from pathlib import Path
 from datetime import datetime, timezone
 
+from log import log_error, log_debug, log_success
+
 # UTF-8 stdout
 for _stream in (sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
         try:
             _stream.reconfigure(encoding="utf-8")
-        except Exception:
-            pass
+        except Exception as e:
+            log_debug(f"reconfigure utf-8 для {_stream}: {e}")
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -39,7 +41,8 @@ def _fmt_date(unix_ts) -> str:
         return "—"
     try:
         return datetime.fromtimestamp(int(unix_ts), tz=timezone.utc).strftime("%Y-%m-%d")
-    except Exception:
+    except Exception as e:
+        log_debug(f"_fmt_date не смог распарсить unix_ts={unix_ts!r}: {e}")
         return "—"
 
 
@@ -112,8 +115,10 @@ def _image_to_data_url(scan_dir: Path, rel_or_abs_path: str) -> str:
         path = (scan_dir / rel_or_abs_path).resolve()
     key = str(path)
     if key in _IMG_CACHE:
+        log_debug(f"_image_to_data_url: кэш-хит для {key}")
         return _IMG_CACHE[key]
     if not path.exists():
+        log_debug(f"_image_to_data_url: файл не найден {key}")
         _IMG_CACHE[key] = ""
         return ""
     try:
@@ -124,9 +129,11 @@ def _image_to_data_url(scan_dir: Path, rel_or_abs_path: str) -> str:
         mime = f"image/{ext}"
         encoded = base64.b64encode(data).decode("ascii")
         url = f"data:{mime};base64,{encoded}"
+        log_debug(f"_image_to_data_url: закодировал {len(data)} байт ({mime}) из {key}")
         _IMG_CACHE[key] = url
         return url
-    except Exception:
+    except Exception as e:
+        log_debug(f"_image_to_data_url: чтение/кодирование {key} упало: {e}")
         _IMG_CACHE[key] = ""
         return ""
 
@@ -812,6 +819,7 @@ def render_glossary() -> str:
 # ─── Main ────────────────────────────────────────────────────────────────────
 
 def build_report(domain: str) -> Path:
+    log_debug(f"build_report: старт для домена {domain}")
     scan_dir = Path("scans") / domain
     step1_path = scan_dir / f"{domain}_step1.json"
     fb_path = scan_dir / "fb.json"
@@ -819,18 +827,22 @@ def build_report(domain: str) -> Path:
     if not step1_path.exists():
         raise FileNotFoundError(f"step1.json not found: {step1_path}")
 
+    log_debug(f"build_report: читаю step1 {step1_path}")
     with open(step1_path, encoding="utf-8") as f:
         step1 = json.load(f)
 
     # fb.json may be absent if no FB handles were found on homepage
     # (common cases: site blocks requests with 403, or truly has no FB).
     if fb_path.exists():
+        log_debug(f"build_report: читаю fb.json {fb_path}")
         with open(fb_path, encoding="utf-8") as f:
             fb = json.load(f)
     else:
+        log_debug(f"build_report: fb.json отсутствует ({fb_path}) — пустой stub")
         fb = {"accounts": [], "site_country": "?", "site_country_source": "fb.json missing"}
 
     scan_date = _scan_date_iso(scan_dir)
+    log_debug(f"build_report: snapshot date = {scan_date}")
 
     body_html = (
         render_header(domain, step1, fb, scan_date)
@@ -859,6 +871,7 @@ def build_report(domain: str) -> Path:
 </html>
 """
     out_path = scan_dir / f"{domain} — Ads Library Intelligence.html"
+    log_debug(f"build_report: пишу отчёт ({len(full_html)} символов) → {out_path}")
     out_path.write_text(full_html, encoding="utf-8")
     return out_path
 
@@ -882,12 +895,14 @@ def main():
         parser.print_help()
         sys.exit(1)
 
+    log_debug(f"main: генерирую отчёты для {len(domains)} доменов")
     for dom in domains:
+        log_debug(f"main: обрабатываю домен {dom}")
         try:
             out = build_report(dom)
-            print(f"✅ {dom} → {out}")
+            log_success(f"{dom} → {out}")
         except Exception as e:
-            print(f"❌ {dom}: {e}")
+            log_error(f"{dom}: {e}")
 
 
 if __name__ == "__main__":
