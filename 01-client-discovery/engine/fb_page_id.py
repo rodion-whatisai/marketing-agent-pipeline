@@ -54,7 +54,7 @@ from fb_ads_scraper import (
 )
 
 
-def run(target: str) -> dict:
+def run(target: str, html: str = None, headers: dict = None, status: int = None) -> dict:
     log_debug(f"run() вход — target={target}")
     log_header(f"Facebook Accounts Finder v2 — Target: {target}")
 
@@ -81,22 +81,28 @@ def run(target: str) -> dict:
         # Playwright обходит Cloudflare/WAF и отдаёт тот же HTML что пользователь
         # видит в браузере — вместе с FB-линкой в footer, даже если поверх висят
         # cookie/geo popups (они не скрывают static HTML).
-        log_debug(f"fetch_homepage({base_url}) — старт")
-        _html, _homepage_status, _fetch_method, _homepage_error = fetch_homepage(base_url)
-        log_debug(f"fetch_homepage результат: status={_homepage_status} method={_fetch_method} error={_homepage_error}")
-        if _fetch_method == "playwright":
-            log_success(f"Homepage получен через Playwright (HTTP {_homepage_status})", emoji="✓")
+        if html and status == 200:
+            # HTML и headers уже скачаны вызывателем (step1) — fetch не нужен.
+            log_debug("homepage/headers переданы из step1 — fetch_homepage пропущен")
+            _html, _homepage_status, _fetch_method, _homepage_error = html, status, "requests", None
+            _headers = headers or {}
+        else:
+            log_debug(f"fetch_homepage({base_url}) — старт")
+            _html, _homepage_status, _fetch_method, _homepage_error = fetch_homepage(base_url)
+            log_debug(f"fetch_homepage результат: status={_homepage_status} method={_fetch_method} error={_homepage_error}")
+            if _fetch_method == "playwright":
+                log_success(f"Homepage получен через Playwright (HTTP {_homepage_status})", emoji="✓")
 
-        # Для country detection нужны headers — они есть только в requests-ответе.
-        # Если Playwright — оставляем пустыми, detect_site_country свалится на TLD.
-        _headers = {}
-        if _fetch_method == "requests":
-            log_debug("fetch_method=requests — повторный GET для headers (country detection)")
-            try:
-                _r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
-                _headers = dict(_r.headers)
-            except Exception as e:
-                log_debug(f"повторный GET для headers упал: {e}")
+            # Для country detection нужны headers — они есть только в requests-ответе.
+            # Если Playwright — оставляем пустыми, detect_site_country свалится на TLD.
+            _headers = {}
+            if _fetch_method == "requests":
+                log_debug("fetch_method=requests — повторный GET для headers (country detection)")
+                try:
+                    _r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
+                    _headers = dict(_r.headers)
+                except Exception as e:
+                    log_debug(f"повторный GET для headers упал: {e}")
 
         log_debug("detect_site_country() — старт")
         country_result = detect_site_country(urlparse(base_url).netloc, html=_html, response_headers=_headers)

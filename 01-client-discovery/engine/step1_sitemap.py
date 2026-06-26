@@ -616,12 +616,14 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
 
     _homepage_html = ""
     _homepage_headers = {}
+    _homepage_status = None
     try:
         from social_extractor import extract_socials, get_social_display
         import requests as _req
         _r = _req.get(base_url, headers=HEADERS, timeout=10)
         _homepage_html = _r.text
         _homepage_headers = dict(_r.headers)
+        _homepage_status = _r.status_code
         log_debug(f"run: homepage fetch ок, статус={_r.status_code}, html len={len(_homepage_html)}")
         socials_raw = extract_socials(_homepage_html, site_domain)
         log_debug(f"run: extract_socials вернул {len(socials_raw)} платформ")
@@ -649,8 +651,9 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     fb_data = {"accounts": []}
     try:
         from fb_page_id import run as fb_run
-        log_debug(f"run: вызываю fb_page_id.run({base_url})")
-        fb_result = fb_run(base_url)
+        log_debug(f"run: вызываю fb_page_id.run({base_url}) — передаю уже скачанный homepage")
+        fb_result = fb_run(base_url, html=(_homepage_html or None),
+                           headers=(_homepage_headers or None), status=_homepage_status)
         fb_data = fb_result if fb_result else {"accounts": []}
         log_debug(f"run: fb_page_id вернул {len(fb_data.get('accounts', []))} аккаунтов")
 
