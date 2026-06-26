@@ -25,7 +25,7 @@ from scanners.base_scanner import ANALYTICS_TOOLS
 
 
 def run(step1_file: str, max_priority: int = 2, only_url: str = None,
-        debug_mode: bool = False, click_mode: bool = False):
+        debug_mode: bool = False, click_mode: bool = False, headed: bool = False):
     try:
         with open(step1_file, "r", encoding="utf-8") as f:
             step1 = json.load(f)
@@ -75,8 +75,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     gtm_platforms = set()
     all_tag_ids = []
 
+    if headed:
+        print("🪟 Режим: headed (видимый браузер) — GTM-теги и Meta-beacon стреляют как в реальном браузере")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=not headed)
         context = browser.new_context(
             user_agent=HEADERS["User-Agent"],
             viewport={"width": 1440, "height": 900},
@@ -422,11 +424,13 @@ if __name__ == "__main__":
     parser.add_argument("--url", type=str, default=None)
     parser.add_argument("--debug", action="store_true", default=False)
     parser.add_argument("--click", action="store_true", default=False)
+    parser.add_argument("--headed", action="store_true", default=False,
+                        help="Видимый браузер — ловит Meta/GA4-события, которые headless подавляет")
     args = parser.parse_args()
 
     _log_path = setup_logging(
         json.load(open(args.step1_file, encoding="utf-8")).get("base_url", "unknown"), step="step2"
     )
     run(args.step1_file, max_priority=args.priority, only_url=args.url,
-        debug_mode=args.debug, click_mode=args.click)
+        debug_mode=args.debug, click_mode=args.click, headed=args.headed)
     print(f"\n📝 Лог: {_log_path}")

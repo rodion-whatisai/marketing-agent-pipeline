@@ -149,17 +149,26 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     # Платформы найденные в network
     network_platforms = set()
     shopify_platforms = set()
+    presence_platforms = set()   # пиксель пойман по ID (присутствие) — ловится даже в headless
     for page in all_pages:
         for plat in page.get("pixel_events", {}):
             network_platforms.add(plat)
         for plat in page.get("shopify_pixel_platforms", []):
             shopify_platforms.add(plat)
+        for plat in page.get("pixel_ids", {}):
+            presence_platforms.add(plat)
 
     all_found = network_platforms | shopify_platforms
 
     # Три ключевые метрики
     pages_with_cta = sum(1 for p in all_pages if p.get("cta_elements"))
-    pages_with_pixel = sum(1 for p in all_pages if p.get("pixel_events") or p.get("shopify_pixel_platforms"))
+    # "Имеют пиксель" = пиксель установлен (присутствие), не "событие сработало".
+    # pixel_ids ловит Meta по ID даже в headless, где beacon события подавлён.
+    # Tested: 2026-06-26 on nissan.ie — robot ловил оба Meta-ID, счётчик флипает 0→4 of 4.
+    pages_with_pixel = sum(
+        1 for p in all_pages
+        if p.get("pixel_events") or p.get("shopify_pixel_platforms") or p.get("pixel_ids")
+    )
     pages_with_conversion = sum(
         1 for p in all_pages
         if any(
@@ -206,12 +215,15 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     for plat in PLATFORMS_ORDER:
         in_network   = plat in network_platforms
         in_shopify   = plat in shopify_platforms
+        in_presence  = plat in presence_platforms
         in_gtm_cont  = plat in gtm_container_norm
 
         if in_network:
             cls, status = "active", "Установлен — виден в сети"
         elif in_shopify:
             cls, status = "active", "Установлен (Shopify web-pixels)"
+        elif in_presence:
+            cls, status = "active", "Установлен — виден по ID (событие не зафиксировано)"
         elif in_gtm_cont:
             cls, status = "warning", "Есть в GTM — при загрузке не зафиксирован"
         else:
