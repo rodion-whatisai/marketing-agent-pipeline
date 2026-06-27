@@ -1032,7 +1032,8 @@
     "priority": 5,
     "description": "Manually typed from nissan.ie: /connected-vehicle-data/request-your-connected-vehicle-data.html",
     "examples": [
-      "https://www.nissan.ie/connected-vehicle-data/request-your-connected-vehicle-data.html"
+      "https://www.nissan.ie/connected-vehicle-data/request-your-connected-vehicle-data.html",
+      "https://www.nissan.ie/connected-vehicle-data.html"
     ],
     "added": "2026-06-26",
     "source": "manual"
@@ -1046,5 +1047,295 @@
     ],
     "added": "2026-06-26",
     "source": "claude_approved"
+  },
+  "/dealer-locator": {
+    "type": "location",
+    "priority": 2,
+    "description": "Learned from nissan.ie: /dealer-locator.html",
+    "examples": [
+      "https://www.nissan.ie/dealer-locator.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/electric-vehicles": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /electric-vehicles.html",
+    "examples": [
+      "https://www.nissan.ie/electric-vehicles.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/experience-nissan": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /experience-nissan.html",
+    "examples": [
+      "https://www.nissan.ie/experience-nissan.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/100-electric": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /experience-nissan/100-electric.html",
+    "examples": [
+      "https://www.nissan.ie/experience-nissan/100-electric.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/e-power": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /experience-nissan/E-Power.html",
+    "examples": [
+      "https://www.nissan.ie/experience-nissan/E-Power.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/leaf-testimonials": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /experience-nissan/Leaf-Testimonials.html",
+    "examples": [
+      "https://www.nissan.ie/experience-nissan/Leaf-Testimonials.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/first-responders": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /first-responders.html",
+    "examples": [
+      "https://www.nissan.ie/first-responders.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/next-generation-nissan-qashqai": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /nissan-forms/Next-Generation-Nissan-Qashqai.html",
+    "examples": [
+      "https://www.nissan.ie/nissan-forms/Next-Generation-Nissan-Qashqai.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/search-results": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /search-results.html",
+    "examples": [
+      "https://www.nissan.ie/search-results.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/suv-crossovers": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /suv-crossovers.html",
+    "examples": [
+      "https://www.nissan.ie/suv-crossovers.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/car-deals": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /vehicles/car-deals.html",
+    "examples": [
+      "https://www.nissan.ie/vehicles/car-deals.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/government-scrappage-scheme-ice2ev": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /vehicles/car-deals/government-scrappage-scheme-ice2ev.html",
+    "examples": [
+      "https://www.nissan.ie/vehicles/car-deals/government-scrappage-scheme-ice2ev.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/low-rate-finance": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /vehicles/car-deals/low-rate-finance.html",
+    "examples": [
+      "https://www.nissan.ie/vehicles/car-deals/low-rate-finance.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/virtual-car": {
+    "type": "product",
+    "priority": 2,
+    "description": "Manually typed from nissan.ie: /virtual-car.html",
+    "examples": [
+      "https://www.nissan.ie/virtual-car.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/about-nissan": {
+    "type": "about",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /about-nissan.html",
+    "examples": [
+      "https://www.nissan.ie/about-nissan.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/customer-service": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /customer-service.html",
+    "examples": [
+      "https://www.nissan.ie/customer-service.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/covid-19": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /customer-service/covid-19.html",
+    "examples": [
+      "https://www.nissan.ie/customer-service/covid-19.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/end-of-life-vehicles": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /end-of-life-vehicles.html",
+    "examples": [
+      "https://www.nissan.ie/end-of-life-vehicles.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/glossary": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /glossary.html",
+    "examples": [
+      "https://www.nissan.ie/glossary.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/ownership": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /ownership.html",
+    "examples": [
+      "https://www.nissan.ie/ownership.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/brochures": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /services/brochures.html",
+    "examples": [
+      "https://www.nissan.ie/services/brochures.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/tyre-label-information": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /tyre-label-information.html",
+    "examples": [
+      "https://www.nissan.ie/tyre-label-information.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/wltp": {
+    "type": "faq_support",
+    "priority": 3,
+    "description": "Learned from nissan.ie: /wltp.html",
+    "examples": [
+      "https://www.nissan.ie/wltp.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/formula-e-documentary": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Learned from nissan.ie: /formula-e-documentary.html",
+    "examples": [
+      "https://www.nissan.ie/formula-e-documentary.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/accessibility": {
+    "type": "legal",
+    "priority": 5,
+    "description": "Learned from nissan.ie: /accessibility.html",
+    "examples": [
+      "https://www.nissan.ie/accessibility.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/competition-tandcs": {
+    "type": "legal",
+    "priority": 5,
+    "description": "Learned from nissan.ie: /competition-tandcs.html",
+    "examples": [
+      "https://www.nissan.ie/competition-tandcs.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/media-server-redirect": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Learned from nissan.ie: /media-server-redirect.html",
+    "examples": [
+      "https://www.nissan.ie/media-server-redirect.html"
+    ],
+    "added": "2026-06-26",
+    "source": "claude_approved"
+  },
+  "/archive-with-redirects": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Manually classified from nissan.ie: /archive-with-redirects.html",
+    "examples": [
+      "https://www.nissan.ie/archive-with-redirects.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
+  },
+  "/omni-channel-content-page": {
+    "type": "technical",
+    "priority": 5,
+    "description": "Manually classified from nissan.ie: /omni-channel-content-page.html",
+    "examples": [
+      "https://www.nissan.ie/omni-channel-content-page.html"
+    ],
+    "added": "2026-06-26",
+    "source": "manual"
   }
 }
