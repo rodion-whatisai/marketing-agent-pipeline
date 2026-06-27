@@ -321,10 +321,9 @@ def run(target: str, html: str = None, headers: dict = None, status: int = None)
         # Mode/raw transparency — показывает как фильтровались keyword результаты
         ads_lib_mode = ads_data.get("ads_library_mode")
         raw_total = ads_data.get("raw_keyword_total")
-        if raw_total and raw_total != count:
+        if ads_lib_mode != "page" and raw_total and raw_total != count:
             log_debug(f"Filter transparency: raw_total={raw_total} != count={count}, mode={ads_lib_mode}")
             mode_label = {
-                "page":                              "verified by page_id",
                 "keyword_filtered_by_pid_or_name":   "keyword + page_id+name filter",
                 "keyword_filtered_by_page_id":       "keyword + page_id filter",
                 "keyword_filtered_by_name":          "keyword + fuzzy name filter",
