@@ -1,606 +1,417 @@
 """
-TNC Pipeline — Clicker v1.0
+TNC Pipeline — Clicker v2.0
 ============================
-Симулирует пользовательское взаимодействие со страницей
-и перехватывает pixel events которые стреляют после кликов.
+Кликает по ВСЕМ значимым кнопкам страницы и фиксирует, КАКОЙ трекинг-ивент
+стрельнул по каждой. Цель — ловить misconfiguration: например, кнопка лид-формы,
+которая стреляет `Purchase` → красный флаг (конверсия не того типа).
 
-Поддерживаемые типы страниц:
-    product       — кликает Add to Cart / Add to Bag
-    search_results — кликает на первый продукт в листинге
-    homepage      — кликает на первый продукт
-
-НЕ кликает:
-    lead_form     — формы (риск отправки реальных данных)
-    checkout      — платёжные страницы
+По умолчанию включён в step2 (выключить: `step2 --no-click`). Кликает на странице
+любого типа. Формы НЕ заполняет, но submit-кнопки жмёт (сырой клик — пустые формы
+обычно отбиваются клиентской валидацией). Клик, который уводит страницу, не ломает
+прогон: перед следующей кнопкой состояние восстанавливается reload'ом.
 
 Запуск standalone (debug):
-    python clicker.py https://www.thebodyshop.com/products/100-shea-butter product shopify
-    python clicker.py https://www.thebodyshop.com/collections/body-butters search_results shopify --debug
+    python clicker.py https://example.com/contact lead_form
 """
 
-import re
-import sys
-import time
 import argparse
-import datetime
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse
 
 from utils import HEADERS
-from log import log_debug, log_step, log_header
+from log import log_debug, log_step, log_header, log_info, log_warn, log_success
 
 
-# ─── Типы страниц которые кликаем ────────────────────────────────────────────
+MAX_BUTTONS = 12
 
-# Типы страниц которые кликаем в step2 --click режиме
-# Только product — навигация (homepage/search_results) ломает контекст scan_page
-CLICKABLE_TYPES = {"product"}
+# Слова CTA — для приоритезации кнопок (выше приоритет = раньше кликаем)
+CTA_WORDS = (
+    "book", "buy", "quote", "contact", "submit", "send", "apply", "get started",
+    "add to cart", "add to bag", "add to basket", "request", "sign up", "subscribe",
+    "order", "checkout", "demo", "enquir", "call", "get a", "reserve", "register",
+    # FR
+    "devis", "soumission", "contactez", "reserver", "commander", "ajouter",
+)
 
-# Типы для standalone дебага (clicker.py напрямую) — включают навигацию
-CLICKABLE_TYPES_STANDALONE = {"product", "search_results", "homepage"}
+# Ивенты «покупка/чекаут» — если стрельнули на НЕ-commerce странице → красный флаг
+_PURCHASE_WORDS = ("purchase", "checkout", "placeanorder", "completepayment", "addpaymentinfo")
 
-# Типы которые НЕ кликаем — документируем явно
-SKIP_TYPES = {
-    "lead_form":       "риск отправки реальных данных",
-    "checkout":        "платёжная страница",
-    "booking_confirm": "страница подтверждения",
-    "quote":           "форма запроса",
+# Типы страниц, где purchase-ивент подозрителен (нет товара — а Purchase стрельнул)
+NON_COMMERCE_TYPES = {
+    "lead_form", "contact", "homepage", "search_results",
+    "location", "use_case", "about", "faq_support", "blog_content",
 }
 
 
-# ─── Add to Cart селекторы (Shopify) ─────────────────────────────────────────
+# ─── JS: дженерик-поиск кнопок (адаптировано из wordpress_scanner._WP_CTA_JS) ──
+# Стэмпит каждому выжившему кандидату data-tnc-btn="<index>" — стабильный хэндл
+# для повторного локейта. Фильтрует nav/footer/cookie-шум и служебные тексты.
+_DISCOVER_BUTTONS_JS = """
+() => {
+    const NOISE_SELECTORS = [
+        'header','nav','footer',
+        '[id*="header" i]','[class*="header" i]',
+        '[id*="navbar" i]','[class*="navbar" i]',
+        '[id*="footer" i]','[class*="footer" i]',
+        '[id*="site-nav" i]','[class*="site-nav" i]',
+        '[class*="menu-toggle" i]','[class*="mobile-menu" i]',
+        '[class*="cookie" i]','[id*="cookie" i]',
+        '[class*="consent" i]','[id*="gdpr" i]',
+        '[class*="breadcrumb" i]','[class*="pagination" i]',
+        '[class*="skip" i]','[class*="gm-style"]',
+    ];
+    const noiseNodes = new Set();
+    NOISE_SELECTORS.forEach(sel => { try { document.querySelectorAll(sel).forEach(el => noiseNodes.add(el)); } catch(e){} });
+    function isInNoise(el){ let n=el.parentElement; while(n && n!==document.body){ if(noiseNodes.has(n)) return true; n=n.parentElement; } return false; }
 
-# Порядок важен — более специфичные первыми
-ADD_TO_CART_SELECTORS = [
-    # Shopify стандарт
-    "[name='add']",
-    "[data-add-to-cart]",
-    ".product-form__submit",
-    ".shopify-payment-button button",
-    # Кнопки по тексту (aria-label или текст)
-    "button[type='submit']",
-    # Общие паттерны
-    "[class*='add-to-cart']",
-    "[class*='add_to_cart']",
-    "[class*='addtocart']",
-    "[id*='add-to-cart']",
-    "[class*='btn-cart']",
-]
+    const MAIN_SELECTORS = ['main','#main','#main-content','#content','#primary','.site-content','.site-main','#page','.page-content','article','.post','.page','.entry-content'];
+    let mainZone=null;
+    for(const sel of MAIN_SELECTORS){ try{ const el=document.querySelector(sel); if(el && el.offsetHeight>50){ mainZone=el; break; } }catch(e){} }
 
-# Тексты Add to Cart кнопок (case-insensitive)
-ADD_TO_CART_TEXTS = [
-    "add to cart",
-    "add to bag",
-    "add to basket",
-    "add to trolley",
-    "buy now",
-    "buy it now",
-    "добавить в корзину",
-    "ajouter au panier",
-    "in den warenkorb",
-]
+    const SKIP_TEXTS = new Set(['close','ok','okay','cancel','dismiss','skip','back','accept','accept all','reject all','decline','allow','deny','agree','i agree','got it','save preferences','necessary only','accept cookies','reject cookies','manage cookies','cookie settings','search','menu','home','privacy policy','terms of service','view all','see all','load more','show more','more','next','continue','no thanks','maybe later','share','follow','print','previous','pause','play']);
 
-# Селекторы карточек продуктов в листинге
-PRODUCT_CARD_SELECTORS = [
-    # Shopify стандарт
-    ".product-card a",
-    ".card__content a",
-    "[class*='product-item'] a",
-    "[class*='product-card'] a",
-    ".collection__grid a[href*='/products/']",
-    ".product-grid a[href*='/products/']",
-    # Общие
-    "a[href*='/products/']",
-]
+    function getButtonText(el){
+        const aria=(el.getAttribute('aria-label')||'').trim(); if(aria.length>1 && aria.length<80) return aria;
+        const val=(el.getAttribute('value')||'').trim(); if(val.length>1 && val.length<80) return val;
+        const raw=(el.innerText||el.textContent||'').trim();
+        const lines=raw.split('\\n').map(l=>l.trim()).filter(l=>l.length>0);
+        return lines[0]||'';
+    }
+    function isVisible(el){ const s=window.getComputedStyle(el); if(s.display==='none')return false; if(s.visibility==='hidden')return false; const r=el.getBoundingClientRect(); if(r.width===0 && r.height===0) return false; return true; }
+
+    const BUTTON_SELECTORS = [
+        'button','[role="button"]','input[type="submit"]','input[type="button"]',
+        'a.button','a.btn','[class*="btn"]','[class*="cta"]',
+        '.wpforms-submit','.wpcf7-submit','.elementor-button','.wp-block-button__link',
+        'form button',
+    ].join(', ');
+
+    let candidates=[];
+    try{ candidates = Array.from(document.querySelectorAll(BUTTON_SELECTORS)); }catch(e){ candidates=[]; }
+
+    const results=[]; const seenTexts=new Set();
+    candidates.forEach(el => {
+        const text=getButtonText(el); const tl=text.toLowerCase();
+        if(isInNoise(el)) return;
+        if(!isVisible(el)) return;
+        if(!text || text.length<2 || text.length>80) return;
+        if(SKIP_TEXTS.has(tl)) return;
+        if(/^[$£€¥₹]/.test(text.trim())) return;
+        if(/^[0-9]+$/.test(text.trim())) return;
+        if(seenTexts.has(tl)) return;
+        seenTexts.add(tl);
+        const idx = results.length;
+        try { el.setAttribute('data-tnc-btn', String(idx)); } catch(e){}
+        results.push({
+            index: idx,
+            text: text,
+            tag: el.tagName.toLowerCase(),
+            isFormSubmit: el.closest('form') !== null,
+            inMain: mainZone ? mainZone.contains(el) : false,
+        });
+    });
+    return results;
+}
+"""
+
+# JS: читает события из dataLayer (GA4) и fbq.queue (Meta) — стреляют туда после клика
+_READ_JS_EVENTS_JS = """
+() => {
+    const events = [];
+    const NOISE = new Set(['gtm.js','gtm.init','gtm.load','gtm.dom','gtm.init_consent','page_view','user_engagement','session_start','first_visit','OneTrustLoaded','OptanonLoaded','OneTrustGroupsUpdated','dl_intelligems_script_loaded','dl_user_data','scroll','click','form_start','form_close']);
+    if (window.dataLayer){ const seen=new Set(); for(const item of window.dataLayer){ if(item && item.event && !NOISE.has(item.event) && !seen.has(item.event)){ seen.add(item.event); events.push({platform:'Google Analytics', event:item.event}); } } }
+    if (window.fbq && window.fbq.queue){ const seen=new Set(); for(const item of window.fbq.queue){ if(Array.isArray(item) && item[0]==='track' && !seen.has(item[1])){ seen.add(item[1]); events.push({platform:'Meta', event:item[1]}); } } }
+    return events;
+}
+"""
+
+# Shopify dl_-события → стандартные GA4
+DL_CONVERSION_MAP = {
+    "dl_add_to_cart":    ("Google Analytics", "add_to_cart"),
+    "dl_view_item":      ("Google Analytics", "view_item"),
+    "dl_begin_checkout": ("Google Analytics", "begin_checkout"),
+    "dl_purchase":       ("Google Analytics", "purchase"),
+    "dl_generate_lead":  ("Google Analytics", "generate_lead"),
+    "dl_search":         ("Google Analytics", "search"),
+    "dl_view_item_list": ("Google Analytics", "view_item_list"),
+}
 
 
-# ─── Pixel event listener ─────────────────────────────────────────────────────
+# ─── Перехват pixel events (network) ──────────────────────────────────────────
 
-def make_pixel_listener(pixel_events: dict, debug: bool = False):
-    """Создаёт on_request handler для перехвата pixel events после кликов."""
-    from step2_scan import PIXEL_RULES, get_event_from_url, is_conversion_event, is_partial_event, is_noise_event
+def make_pixel_listener(holder: dict, debug: bool = False):
+    """on_request handler, пишущий в holder['buf']. Буфер свопается на каждую кнопку
+    (без detach/attach) — так события привязываются к конкретному клику."""
+    from scanners.base_scanner import (PIXEL_RULES, get_event_from_url,
+                                        is_conversion_event, is_partial_event, is_noise_event)
 
     def on_request(request):
+        buf = holder.get("buf")
+        if buf is None:
+            return
         req_url = request.url
-        # Shopify web-pixels — логируем в debug
-        if "/web-pixels" in req_url and debug:
-            ts = datetime.datetime.now().strftime("%H:%M:%S")
-            log_debug(f"       [{ts}] 🔷 [web-pixel] {req_url[:80]}")
-
         for platform, rules in PIXEL_RULES.items():
             for domain in rules["domains"]:
                 if domain in req_url:
                     event = get_event_from_url(req_url, platform)
-                    pixel_events.setdefault(platform, [])
-                    entry = {
-                        "event": event,
-                        "is_conversion": is_conversion_event(platform, event),
-                        "is_partial": is_partial_event(platform, event),
-                        "is_noise": is_noise_event(platform, event),
-                        "source": "click",
-                    }
-                    if not any(e["event"] == event for e in pixel_events[platform]):
-                        pixel_events[platform].append(entry)
-                    if debug:
-                        flag = "🎯" if entry["is_conversion"] else ("🔸" if entry["is_partial"] else "·")
-                        ts = datetime.datetime.now().strftime("%H:%M:%S")
-                        log_debug(f"       [{ts}] {flag} [click→{platform}] {event}")
-                    break
-
+                    buf.setdefault(platform, [])
+                    if not any(e["event"] == event for e in buf[platform]):
+                        buf[platform].append({
+                            "event": event,
+                            "is_conversion": is_conversion_event(platform, event),
+                            "is_partial": is_partial_event(platform, event),
+                            "is_noise": is_noise_event(platform, event),
+                            "source": "click",
+                        })
+                    return
     return on_request
 
 
-# ─── Поиск Add to Cart ────────────────────────────────────────────────────────
-
-def find_add_to_cart(page, debug: bool = False) -> str | None:
-    """
-    Ищет кнопку Add to Cart на product page.
-    Возвращает selector или None если не нашёл.
-    """
-    log_debug(f"find_add_to_cart: start, CSS selectors={len(ADD_TO_CART_SELECTORS)}, text patterns={len(ADD_TO_CART_TEXTS)}")
-    # 1. По CSS селекторам
-    for sel in ADD_TO_CART_SELECTORS:
-        log_debug(f"find_add_to_cart: пробуем CSS selector [{sel}]")
-        try:
-            el = page.locator(sel).first
-            if el.is_visible(timeout=500):
-                if debug:
-                    log_debug(f"       🛒 Add to Cart найден: [{sel}]")
-                return sel
-        except Exception as e:
-            log_debug(f"find_add_to_cart: CSS selector [{sel}] miss: {e}")
-
-    # 2. По тексту — ищем все кнопки с нужным текстом, берём первую visible
-    for text in ADD_TO_CART_TEXTS:
-        log_debug(f"find_add_to_cart: пробуем текст '{text}'")
-        try:
-            buttons = page.get_by_role("button", name=text, exact=False).all()
-            for btn in buttons:
-                try:
-                    if btn.is_visible(timeout=200):
-                        if debug:
-                            log_debug(f"       🛒 Add to Cart по тексту: '{text}'")
-                        # Возвращаем через evaluate чтобы получить стабильный selector
-                        return f"button-text:{text}"
-                except Exception as e:
-                    log_debug(f"find_add_to_cart: button visibility check miss '{text}': {e}")
-        except Exception as e:
-            log_debug(f"find_add_to_cart: текст '{text}' miss: {e}")
-
-    if debug:
-        log_debug(f"       Add to Cart не найден")
-    return None
+def _read_js_events(page, buf: dict, debug: bool = False):
+    """Подмешивает в buf события из dataLayer/fbq (живут только если клик НЕ увёл страницу)."""
+    from scanners.base_scanner import is_conversion_event, is_partial_event, is_noise_event
+    js_events = page.evaluate(_READ_JS_EVENTS_JS)
+    for ev in js_events:
+        plat, name = ev["platform"], ev["event"]
+        if name in DL_CONVERSION_MAP:
+            mplat, mname = DL_CONVERSION_MAP[name]
+            for en in (name, mname):
+                buf.setdefault(mplat, [])
+                if not any(e["event"] == en for e in buf[mplat]):
+                    buf[mplat].append({"event": en, "is_conversion": is_conversion_event(mplat, en),
+                                       "is_partial": is_partial_event(mplat, en), "is_noise": False, "source": "js"})
+        else:
+            buf.setdefault(plat, [])
+            if not any(e["event"] == name for e in buf[plat]):
+                buf[plat].append({"event": name, "is_conversion": is_conversion_event(plat, name),
+                                  "is_partial": is_partial_event(plat, name), "is_noise": is_noise_event(plat, name), "source": "js"})
 
 
-def find_first_product_link(page, debug: bool = False) -> str | None:
-    """
-    Ищет ссылку на первый продукт в листинге.
-    Возвращает href или None.
-    """
-    log_debug(f"find_first_product_link: start, product card selectors={len(PRODUCT_CARD_SELECTORS)}")
-    for sel in PRODUCT_CARD_SELECTORS:
-        log_debug(f"find_first_product_link: пробуем selector [{sel}]")
-        try:
-            links = page.locator(sel).all()
-            log_debug(f"find_first_product_link: [{sel}] нашёл {len(links)} ссылок, проверяем первые 5")
-            for link in links[:5]:
-                href = link.get_attribute("href")
-                if href and "/products/" in href:
-                    # Строим полный URL
-                    if href.startswith("/"):
-                        log_debug(f"find_first_product_link: относительный href, достраиваем абсолютный URL")
-                        base = page.url.split("/")[0] + "//" + page.url.split("/")[2]
-                        href = base + href
-                    if debug:
-                        log_debug(f"       🔗 Первый продукт: {href[:80]}")
-                    return href
-        except Exception as e:
-            log_debug(f"find_first_product_link: selector [{sel}] miss: {e}")
+# ─── Дженерик-поиск кнопок ────────────────────────────────────────────────────
 
-    if debug:
-        log_debug(f"       Ссылка на продукт не найдена")
-    return None
+def discover_buttons(page, debug: bool = False) -> list:
+    """Все значимые кнопки страницы (с проставленным data-tnc-btn), отсортированы по
+    приоритету и обрезаны до MAX_BUTTONS."""
+    try:
+        raw = page.evaluate(_DISCOVER_BUTTONS_JS)
+    except Exception as e:
+        log_debug(f"discover_buttons: evaluate error: {str(e)[:80]}")
+        return []
+
+    def prio(c):
+        t = (c.get("text") or "").lower()
+        if c.get("isFormSubmit"):
+            return 0
+        if any(w in t for w in CTA_WORDS):
+            return 1
+        if c.get("inMain"):
+            return 2
+        return 3
+
+    raw.sort(key=prio)
+    out = raw[:MAX_BUTTONS]
+    log_debug(f"discover_buttons: {len(raw)} найдено → {len(out)} после cap {MAX_BUTTONS}")
+    return out
+
+
+# ─── Привязка событий + красный флаг ──────────────────────────────────────────
+
+def _is_purchase_type(tag: str) -> bool:
+    ev = tag.split(":", 1)[-1].lower()
+    return any(w in ev for w in _PURCHASE_WORDS)
+
+
+def _flatten(buf: dict):
+    fired, conv, partial = [], [], []
+    for plat, evs in buf.items():
+        for e in evs:
+            if e.get("is_noise"):
+                continue
+            tag = f"{plat}:{e['event']}"
+            if tag not in fired:
+                fired.append(tag)
+            if e.get("is_conversion") and tag not in conv:
+                conv.append(tag)
+            if e.get("is_partial") and tag not in partial:
+                partial.append(tag)
+    return fired, conv, partial
+
+
+def _derive_red_flag(page_type: str, fired: list):
+    """Красный флаг: purchase-type конверсия на не-commerce странице."""
+    if page_type not in NON_COMMERCE_TYPES:
+        return False, None
+    bad = [t for t in fired if _is_purchase_type(t)]
+    if bad:
+        return True, f"purchase-type конверсия {bad} на странице типа '{page_type}'"
+    return False, None
 
 
 # ─── Основная функция ─────────────────────────────────────────────────────────
 
 def click_page(page, url: str, page_type: str, platform: str = "unknown",
                debug: bool = False) -> dict:
-    """
-    Выполняет клики на странице и собирает pixel events.
+    """Кликает по всем значимым кнопкам страницы, фиксирует ивенты на каждую.
 
-    Args:
-        page:       Playwright page (уже загружена)
-        url:        URL страницы
-        page_type:  тип из step1 классификации
-        platform:   shopify / wordpress / etc
-        debug:      verbose output
-
-    Returns:
-        {
-            "clicked": bool,
-            "action": str,           # что кликнули
-            "new_events": dict,      # события после клика {platform: [events]}
-            "conversion_events": [],  # конверсионные события
-            "navigated_to": str,     # если перешли на другую страницу
-            "error": str | None,
-        }
+    Returns: {url, page_type, buttons:[{button_text, button_tag, is_form_submit,
+              clicked, navigated_to, events_fired, conversion_events, partial_events,
+              red_flag, red_flag_reason, error}], any_red_flag, errors}
     """
     log_debug(f"click_page: start url={url} page_type={page_type} platform={platform}")
-    result = {
-        "clicked": False,
-        "action": None,
-        "new_events": {},
-        "conversion_events": [],
-        "navigated_to": None,
-        "error": None,
-    }
+    result = {"url": url, "page_type": page_type, "buttons": [], "any_red_flag": False, "errors": []}
 
-    # Проверяем что тип поддерживается
-    if page_type not in CLICKABLE_TYPES:
-        reason = SKIP_TYPES.get(page_type, "не поддерживается")
-        log_debug(f"click_page: тип '{page_type}' не в CLICKABLE_TYPES → skip ({reason})")
-        result["error"] = f"skip: {reason}"
-        if debug:
-            log_debug(f"       Клик пропущен ({reason})")
+    from popup_handler import handle_popups
+    try:
+        handle_popups(page)
+    except Exception as e:
+        log_debug(f"click_page: handle_popups error: {str(e)[:60]}")
+    page.wait_for_timeout(800)
+
+    cands = discover_buttons(page, debug)
+    if not cands:
+        log_debug("click_page: кнопок не найдено")
         return result
+    log_debug(f"click_page: {len(cands)} кнопок к клику")
 
-    ts = datetime.datetime.now().strftime("%H:%M:%S")
-    if debug:
-        log_debug(f"       [{ts}] 🖱  Начинаем клики для {page_type}...")
-
-    # Подключаем listener на page И на context (web-pixels идут через context)
-    pixel_events = {}
-    listener = make_pixel_listener(pixel_events, debug=debug)
+    holder = {"buf": None}
+    listener = make_pixel_listener(holder, debug)
     page.on("request", listener)
-    log_debug("click_page: pixel listener подключён к page")
     try:
         page.context.on("request", listener)
-        log_debug("click_page: pixel listener подключён к context")
-    except Exception as e:
-        log_debug(f"click_page: не удалось подключить listener к context: {e}")
+    except Exception:
+        pass
 
     try:
-        if page_type == "product":
-            log_debug("click_page: ветка product → _click_product_page")
-            result = _click_product_page(page, url, pixel_events, result, debug)
+        for cand in cands:
+            row = {"button_text": cand["text"], "button_tag": cand["tag"],
+                   "is_form_submit": cand["isFormSubmit"], "clicked": False,
+                   "navigated_to": None, "events_fired": [], "conversion_events": [],
+                   "partial_events": [], "red_flag": False, "red_flag_reason": None, "error": None}
+            try:
+                idx = cand["index"]
+                # Восстановление: предыдущий клик увёл страницу → reload + re-locate по тексту
+                if page.url != url:
+                    log_debug(f"click_page: url увело ({page.url[:50]}) — reload {url[:50]}")
+                    page.goto(url, wait_until="domcontentloaded", timeout=15000)
+                    try:
+                        handle_popups(page)
+                    except Exception:
+                        pass
+                    page.wait_for_timeout(500)
+                    new_cands = discover_buttons(page, debug)
+                    match = next((c for c in new_cands if (c["text"] or "").lower() == (cand["text"] or "").lower()), None)
+                    if match is None:
+                        row["error"] = "кнопка пропала после reload"
+                        result["buttons"].append(row)
+                        continue
+                    idx = match["index"]
 
-        elif page_type in ("search_results", "homepage"):
-            log_debug("click_page: ветка listing → _click_listing_page")
-            result = _click_listing_page(page, url, pixel_events, result, debug)
+                buf = {}
+                holder["buf"] = buf
+                pre = page.url
+                loc = page.locator(f'[data-tnc-btn="{idx}"]').first
+                loc.scroll_into_view_if_needed(timeout=3000)
+                loc.click(timeout=5000, no_wait_after=True)  # сырой клик, не виснем на навигации
+                row["clicked"] = True
+                page.wait_for_timeout(2500)                  # окно для network-пикселей
 
-    except Exception as e:
-        result["error"] = str(e)[:100]
-        log_debug(f"Ошибка клика: {e}")  # было `if debug: print` — debug-only видимость сохранена
+                if page.url != pre:
+                    row["navigated_to"] = page.url
+                    log_debug(f"click_page: '{cand['text'][:30]}' увёл на {page.url[:50]}")
+                else:
+                    try:
+                        _read_js_events(page, buf, debug)
+                    except Exception as e:
+                        log_debug(f"click_page: js read err: {str(e)[:60]}")
+
+                fired, conv, partial = _flatten(buf)
+                row["events_fired"] = fired
+                row["conversion_events"] = conv
+                row["partial_events"] = partial
+                rf, reason = _derive_red_flag(page_type, fired)
+                row["red_flag"], row["red_flag_reason"] = rf, reason
+                if rf:
+                    result["any_red_flag"] = True
+                    log_warn(f"🚩 RED FLAG: '{cand['text'][:40]}' → {conv} на {page_type}")
+            except Exception as e:
+                row["error"] = str(e)[:100]
+                log_debug(f"click_page: button '{cand['text'][:30]}' error: {str(e)[:80]}")
+            finally:
+                holder["buf"] = None
+            result["buttons"].append(row)
     finally:
-        page.remove_listener("request", listener)
-        log_debug("click_page: pixel listener отключён от page")
+        try:
+            page.remove_listener("request", listener)
+        except Exception:
+            pass
         try:
             page.context.remove_listener("request", listener)
-            log_debug("click_page: pixel listener отключён от context")
-        except Exception as e:
-            log_debug(f"click_page: не удалось отключить listener от context: {e}")
+        except Exception:
+            pass
 
-    # Собираем конверсионные события
-    for platform, events in pixel_events.items():
-        for ev in events:
-            if ev["is_conversion"] or ev["is_partial"]:
-                result["conversion_events"].append(f"{platform}:{ev['event']}")
-
-    result["new_events"] = {
-        plat: [e for e in evts if not e["is_noise"]]
-        for plat, evts in pixel_events.items()
-        if any(not e["is_noise"] for e in evts)
-    }
-
-    log_debug(f"click_page: done clicked={result['clicked']} conversions={result['conversion_events']} error={result['error']}")
-    return result
-
-
-def _click_product_page(page, url: str, pixel_events: dict, result: dict, debug: bool) -> dict:
-    """Кликает Add to Cart на product page."""
-    from popup_handler import handle_popups
-
-    log_debug(f"_click_product_page: start url={url}")
-    # Закрываем баннеры и consent (могут появиться на новой странице)
-    popup_result = handle_popups(page, verbose=debug)
-    log_debug(f"_click_product_page: handle_popups → cookie_consent={popup_result.get('cookie_consent')}")
-
-    # Если consent был принят — ждём дольше пока теги загрузятся и страница перерисуется
-    if popup_result["cookie_consent"] == "accepted_all":
-        wait_ms = popup_result.get("wait_after_ms", 5000)
-        log_debug(f"_click_product_page: consent accepted, ждём {wait_ms}ms пока теги загрузятся")
-        if debug:
-            log_debug(f"       ⏳ Ждём {wait_ms}ms после consent...")
-        page.wait_for_timeout(wait_ms)
-    else:
-        log_debug("_click_product_page: consent не accepted, короткое ожидание 500ms")
-        page.wait_for_timeout(500)
-
-    atc_selector = find_add_to_cart(page, debug=debug)
-
-    if not atc_selector:
-        log_debug("_click_product_page: Add to Cart не найден → error=add_to_cart_not_found")
-        result["error"] = "add_to_cart_not_found"
-        return result
-    log_debug(f"_click_product_page: Add to Cart selector={atc_selector}")
-
-    try:
-        # Получаем элемент в зависимости от типа selector
-        if atc_selector.startswith("button-text:"):
-            log_debug("_click_product_page: selector типа button-text, ищем видимую кнопку по тексту")
-            text = atc_selector.replace("button-text:", "")
-            buttons = page.get_by_role("button", name=text, exact=False).all()
-            el = next((b for b in buttons if b.is_visible(timeout=200)), None)
-            if el is None:
-                log_debug("_click_product_page: видимая button-text кнопка не найдена → add_to_cart_visible_not_found")
-                result["error"] = "add_to_cart_visible_not_found"
-                return result
-        else:
-            log_debug(f"_click_product_page: selector типа CSS, locator [{atc_selector}]")
-            el = page.locator(atc_selector).first
-            if not el.is_visible(timeout=3000):
-                log_debug("_click_product_page: CSS кнопка не видима → add_to_cart_not_visible")
-                result["error"] = "add_to_cart_not_visible"
-                return result
-
-        # Если кнопка disabled — пробуем выбрать первый вариант продукта
-        is_disabled = el.get_attribute("disabled") is not None or \
-                      "disabled" in (el.get_attribute("class") or "")
-        log_debug(f"_click_product_page: кнопка disabled={is_disabled}")
-        if is_disabled:
-            if debug:
-                log_debug(f"       Кнопка disabled — ищем варианты продукта...")
-            for variant_sel in [
-                "input[type='radio']:not([disabled]) + label",
-                ".product-form__input input[type='radio']:first-child + label",
-                "[data-option-item]:first-child",
-                ".swatch:first-child",
-            ]:
-                log_debug(f"_click_product_page: пробуем variant selector [{variant_sel}]")
-                try:
-                    v = page.locator(variant_sel).first
-                    if v.is_visible(timeout=500):
-                        v.click(timeout=1000)
-                        page.wait_for_timeout(500)
-                        if debug:
-                            log_debug(f"       ✓ Вариант выбран: [{variant_sel}]")
-                        break
-                except Exception as e:
-                    log_debug(f"_click_product_page: variant selector [{variant_sel}] miss: {e}")
-
-        log_debug("_click_product_page: scroll_into_view + click Add to Cart")
-        el.scroll_into_view_if_needed(timeout=5000)
-        el.click(timeout=5000)
-        result["clicked"] = True
-        result["action"] = f"click:add_to_cart [{atc_selector}]"
-
-        # Ждём pixel events — web-pixels могут стрелять с задержкой
-        log_debug("_click_product_page: ждём 6000ms pixel events (web-pixels с задержкой)")
-        page.wait_for_timeout(6000)
-
-        # Читаем события из dataLayer и fbq queue (web-pixels пишут туда)
-        log_debug("_click_product_page: читаем dataLayer + fbq.queue через page.evaluate")
-        try:
-            js_events = page.evaluate("""
-            () => {
-                const events = [];
-
-                // Шумовые события которые не интересуют
-                const NOISE = new Set([
-                    'gtm.js','gtm.init','gtm.load','gtm.dom','gtm.init_consent',
-                    'page_view','user_engagement','session_start','first_visit',
-                    'OneTrustLoaded','OptanonLoaded','OneTrustGroupsUpdated',
-                    'dl_intelligems_script_loaded','dl_user_data',
-                    'scroll','click','form_start','form_close',
-                ]);
-
-                // dataLayer — GA4 / кастомные события
-                if (window.dataLayer) {
-                    const seen = new Set();
-                    for (const item of window.dataLayer) {
-                        if (item.event && !NOISE.has(item.event) && !seen.has(item.event)) {
-                            seen.add(item.event);
-                            events.push({source: 'dataLayer', platform: 'Google Analytics', event: item.event});
-                        }
-                    }
-                }
-
-                // fbq — Meta Pixel события
-                if (window.fbq && window.fbq.queue) {
-                    const seen = new Set();
-                    for (const item of window.fbq.queue) {
-                        if (Array.isArray(item) && item[0] === 'track' && !seen.has(item[1])) {
-                            seen.add(item[1]);
-                            events.push({source: 'fbq.queue', platform: 'Meta', event: item[1]});
-                        }
-                    }
-                }
-
-                return events;
-            }
-            """)
-
-            # Список конверсионных dl_ событий Shopify
-            DL_CONVERSION_MAP = {
-                "dl_add_to_cart":       ("Google Analytics", "add_to_cart"),
-                "dl_view_item":         ("Google Analytics", "view_item"),
-                "dl_begin_checkout":    ("Google Analytics", "begin_checkout"),
-                "dl_purchase":          ("Google Analytics", "purchase"),
-                "dl_generate_lead":     ("Google Analytics", "generate_lead"),
-                "dl_search":            ("Google Analytics", "search"),
-                "dl_view_item_list":    ("Google Analytics", "view_item_list"),
-            }
-
-            from step2_scan import is_conversion_event, is_partial_event, is_noise_event
-            log_debug(f"_click_product_page: JS вернул {len(js_events)} событий, обрабатываем")
-            for ev in js_events:
-                plat = ev["platform"]
-                event_name = ev["event"]
-
-                # dl_ события маппим на стандартные GA4
-                if event_name in DL_CONVERSION_MAP:
-                    mapped_plat, mapped_event = DL_CONVERSION_MAP[event_name]
-                    log_debug(f"_click_product_page: dl_ событие {event_name} → маппим на {mapped_plat}:{mapped_event}")
-                    if debug:
-                        ts = datetime.datetime.now().strftime("%H:%M:%S")
-                        log_debug(f"       [{ts}] 🎯 [JS→{mapped_plat}] {event_name} → {mapped_event}")
-                    # Добавляем оба — оригинальный dl_ и маппированный стандартный
-                    for e_name in [event_name, mapped_event]:
-                        pixel_events.setdefault(mapped_plat, [])
-                        if not any(e["event"] == e_name for e in pixel_events[mapped_plat]):
-                            pixel_events[mapped_plat].append({
-                                "event": e_name,
-                                "is_conversion": is_conversion_event(mapped_plat, e_name),
-                                "is_partial": is_partial_event(mapped_plat, e_name),
-                                "is_noise": False,
-                                "source": "js_datalayer",
-                            })
-                else:
-                    log_debug(f"_click_product_page: обычное JS событие {plat}:{event_name}")
-                    if debug:
-                        ts = datetime.datetime.now().strftime("%H:%M:%S")
-                        log_debug(f"       [{ts}] 📋 [JS→{plat}] {event_name}")
-                    pixel_events.setdefault(plat, [])
-                    if not any(e["event"] == event_name for e in pixel_events[plat]):
-                        pixel_events[plat].append({
-                            "event": event_name,
-                            "is_conversion": is_conversion_event(plat, event_name),
-                            "is_partial": is_partial_event(plat, event_name),
-                            "is_noise": is_noise_event(plat, event_name),
-                            "source": "js_read",
-                        })
-        except Exception as e:
-            log_debug(f"_click_product_page: JS read error: {e}")
-
-        if debug:
-            ts = datetime.datetime.now().strftime("%H:%M:%S")
-            log_debug(f"       [{ts}] ✅ Клик выполнен: Add to Cart")
-
-    except Exception as e:
-        log_debug(f"_click_product_page: click_failed: {e}")
-        result["error"] = f"click_failed: {str(e)[:80]}"
-
-    return result
-
-
-def _click_listing_page(page, url: str, pixel_events: dict, result: dict, debug: bool) -> dict:
-    """Кликает на первый продукт в листинге → попадает на product page → кликает Add to Cart."""
-
-    log_debug(f"_click_listing_page: start url={url}")
-    page.wait_for_timeout(500)
-
-    product_url = find_first_product_link(page, debug=debug)
-    if not product_url:
-        log_debug("_click_listing_page: ссылка на продукт не найдена → no_product_link_found")
-        result["error"] = "no_product_link_found"
-        return result
-    log_debug(f"_click_listing_page: найден product_url={product_url[:80]}")
-
-    try:
-        # Переходим на product page
-        log_debug(f"_click_listing_page: goto product page {product_url[:80]}")
-        page.goto(product_url, wait_until="domcontentloaded", timeout=15000)
-        page.wait_for_timeout(2000)
-        result["navigated_to"] = product_url
-
-        if debug:
-            ts = datetime.datetime.now().strftime("%H:%M:%S")
-            log_debug(f"       [{ts}] 🔗 Перешли на: {product_url[:80]}")
-
-        # Кликаем Add to Cart
-        atc_selector = find_add_to_cart(page, debug=debug)
-        if atc_selector:
-            log_debug(f"_click_listing_page: Add to Cart найден [{atc_selector}], кликаем")
-            el = page.locator(atc_selector).first
-            el.scroll_into_view_if_needed(timeout=2000)
-            el.click(timeout=3000)
-            result["clicked"] = True
-            result["action"] = f"navigate→{product_url[:60]} + click:add_to_cart"
-            page.wait_for_timeout(2000)
-
-            if debug:
-                ts = datetime.datetime.now().strftime("%H:%M:%S")
-                log_debug(f"       [{ts}] ✅ Клик выполнен: Add to Cart на product page")
-        else:
-            log_debug("_click_listing_page: Add to Cart не найден, навигация засчитана как взаимодействие")
-            result["action"] = f"navigate→{product_url[:60]} (Add to Cart не найден)"
-            result["clicked"] = True  # навигация = уже взаимодействие
-
-    except Exception as e:
-        log_debug(f"_click_listing_page: navigation_failed: {e}")
-        result["error"] = f"navigation_failed: {str(e)[:80]}"
-
+    log_debug(f"click_page: done {len(result['buttons'])} кнопок, any_red_flag={result['any_red_flag']}")
     return result
 
 
 # ─── CLI (standalone debug) ───────────────────────────────────────────────────
 
-def run_standalone(url: str, page_type: str, platform: str = "shopify", debug: bool = True):
+def run_standalone(url: str, page_type: str, platform: str = "unknown",
+                   debug: bool = True, headless: bool = False):
     """Запуск напрямую для отладки одной страницы."""
     from playwright.sync_api import sync_playwright
     from popup_handler import handle_popups
 
-    log_debug(f"run_standalone: start url={url} page_type={page_type} platform={platform} debug={debug}")
     log_header("TNC Clicker — Debug Mode")
-    print(f"  URL:       {url}")
-    print(f"  Type:      {page_type}")
-    print(f"  Platform:  {platform}")
-    print()
+    print(f"  URL:   {url}")
+    print(f"  Type:  {page_type}\n")
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # headless=False для визуального дебага
-        context = browser.new_context(
-            user_agent=HEADERS["User-Agent"],
-            viewport={"width": 1440, "height": 900},
-        )
+        browser = p.chromium.launch(headless=headless)
+        context = browser.new_context(user_agent=HEADERS["User-Agent"], viewport={"width": 1440, "height": 900})
         page = context.new_page()
 
-        # Сначала homepage — как step2, чтобы consent и гео-модал закрылись там
         parsed = urlparse(url)
         base_url = f"{parsed.scheme}://{parsed.netloc}"
         log_step(f"Открываем homepage {base_url}...", emoji="🌐")
         page.goto(base_url, wait_until="domcontentloaded", timeout=20000)
-        page.wait_for_timeout(3500)
-
-        log_step(f"Обрабатываем consent и гео-баннеры...", emoji="🍪")
+        page.wait_for_timeout(3000)
         handle_popups(page, verbose=True)
         page.wait_for_timeout(1000)
 
-        # Переходим на нужную страницу
         if url != base_url:
             log_step(f"Переходим на {url}...", emoji="🌐")
             page.goto(url, wait_until="domcontentloaded", timeout=20000)
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(2500)
 
-        log_step(f"Запускаем клики...", emoji="🖱")
+        log_step("Кликаем по кнопкам...", emoji="🖱")
         result = click_page(page, url, page_type, platform=platform, debug=debug)
 
-        log_header("РЕЗУЛЬТАТ")
-        print(f"  Клик:        {'✅ выполнен' if result['clicked'] else '❌ не выполнен'}")
-        print(f"  Действие:    {result['action'] or '—'}")
-        if result["navigated_to"]:
-            print(f"  Перешли на:  {result['navigated_to'][:80]}")
-        if result["conversion_events"]:
-            print(f"  🎯 Конверсии: {', '.join(result['conversion_events'])}")
-        elif result["new_events"]:
-            print(f"  🔸 События:   {result['new_events']}")
-        else:
-            print(f"  События:     не зафиксированы после клика")
-        if result["error"]:
-            print(f"  ⚠️  Ошибка:   {result['error']}")
+        log_header("РЕЗУЛЬТАТ — кнопки")
+        for b in result["buttons"]:
+            ev = ", ".join(b["events_fired"]) or "—"
+            flag = " 🚩" if b["red_flag"] else ""
+            nav = f"  → {b['navigated_to'][:40]}" if b["navigated_to"] else ""
+            mark = "✓" if b["clicked"] else "×"
+            print(f"  [{mark}] {b['button_text'][:32]:32} | {ev}{flag}{nav}")
+            if b["red_flag"]:
+                print(f"        🚩 {b['red_flag_reason']}")
+            if b["error"]:
+                print(f"        ⚠️  {b['error']}")
+        if result["any_red_flag"]:
+            print("\n  🚩 НАЙДЕНЫ КРАСНЫЕ ФЛАГИ — см. выше")
         print()
 
-        input("Нажми Enter чтобы закрыть браузер...")
+        if not headless:
+            input("Enter чтобы закрыть браузер...")
         browser.close()
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="TNC Clicker — debug mode")
+    parser = argparse.ArgumentParser(description="TNC Clicker v2 — debug mode")
     parser.add_argument("url", help="URL страницы")
-    parser.add_argument("page_type", help="Тип страницы: product, search_results, homepage")
-    parser.add_argument("platform", nargs="?", default="shopify", help="Платформа (default: shopify)")
+    parser.add_argument("page_type", nargs="?", default="homepage", help="Тип страницы (для red-flag логики)")
+    parser.add_argument("platform", nargs="?", default="unknown", help="Платформа")
     parser.add_argument("--debug", action="store_true", default=True)
     parser.add_argument("--headless", action="store_true", default=False)
     args = parser.parse_args()
 
-    run_standalone(args.url, args.page_type, args.platform, debug=args.debug)
+    run_standalone(args.url, args.page_type, args.platform, debug=args.debug, headless=args.headless)

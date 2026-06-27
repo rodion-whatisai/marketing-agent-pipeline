@@ -168,25 +168,25 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
 
             if click_mode:
                 try:
-                    from clicker import click_page, CLICKABLE_TYPES
-                    if ptype in CLICKABLE_TYPES:
-                        import datetime as _dtc
-                        _tsc = _dtc.datetime.now().strftime("%H:%M:%S")
-                        log_info(f"[{_tsc}] Clicker: {ptype}...", emoji="🖱")
-                        click_result = click_page(page, url, ptype, platform=platform, debug=debug_mode)
-                        result["click_result"] = click_result
-                        log_debug(f"run: [{i}] click_result clicked={click_result.get('clicked')} conv={click_result.get('conversion_events')} error={click_result.get('error')}")
-                        for ev in click_result.get("conversion_events", []):
+                    from clicker import click_page
+                    import datetime as _dtc
+                    _tsc = _dtc.datetime.now().strftime("%H:%M:%S")
+                    log_info(f"[{_tsc}] Clicker: {ptype}...", emoji="🖱")
+                    click_result = click_page(page, url, ptype, platform=platform, debug=debug_mode)
+                    result["click_result"] = click_result
+                    btns = click_result.get("buttons", [])
+                    log_debug(f"run: [{i}] click_result buttons={len(btns)} any_red_flag={click_result.get('any_red_flag')}")
+                    # Подмешиваем per-button конверсии в общий список (дедуп) — статус OK/GAP как был
+                    for b in btns:
+                        for ev in b.get("conversion_events", []):
                             if ev not in result["conversion_events_found"]:
                                 result["conversion_events_found"].append(ev)
-                        if click_result["conversion_events"]:
-                            print(f"       🎯 После клика: {', '.join(click_result['conversion_events'])}")
-                        elif click_result["clicked"]:
-                            print(f"       ➖ Кликнули, событий нет")
-                        if click_result.get("error"):
-                            print(f"       ⚠️  {click_result['error']}")
-                    else:
-                        log_debug(f"run: [{i}] click_mode пропущен — type={ptype} не в CLICKABLE_TYPES")
+                        if b.get("red_flag"):
+                            print(f"       🚩 RED FLAG: '{b['button_text'][:40]}' → {', '.join(b['conversion_events'])} (на {ptype})")
+                    clicked_n = sum(1 for b in btns if b.get("clicked"))
+                    fired_n   = sum(1 for b in btns if b.get("events_fired"))
+                    if clicked_n:
+                        print(f"       🖱 Кликнули {clicked_n}/{len(btns)} кнопок · события на {fired_n}")
                 except Exception as e:
                     log_warn(f"Clicker error: {e}")
 
@@ -453,7 +453,10 @@ if __name__ == "__main__":
     parser.add_argument("--priority", type=int, default=2)
     parser.add_argument("--url", type=str, default=None)
     parser.add_argument("--debug", action="store_true", default=False)
-    parser.add_argument("--click", action="store_true", default=False)
+    parser.add_argument("--click", action="store_true", default=False,
+                        help="(устар.) клик-симуляция теперь включена по умолчанию")
+    parser.add_argument("--no-click", action="store_true", default=False,
+                        help="Отключить клик-симуляцию (по умолчанию ВКЛ)")
     parser.add_argument("--headed", action="store_true", default=False,
                         help="Видимый браузер — ловит Meta/GA4-события, которые headless подавляет")
     parser.add_argument("--quiet", action="store_true", default=False,
@@ -470,6 +473,6 @@ if __name__ == "__main__":
         json.load(open(args.step1_file, encoding="utf-8")).get("base_url", "unknown"), step="step2"
     )
     run(args.step1_file, max_priority=args.priority, only_url=args.url,
-        debug_mode=args.debug, click_mode=args.click, headed=args.headed)
+        debug_mode=args.debug, click_mode=(not args.no_click), headed=args.headed)
     print()
     log_info(f"Лог: {_log_path}", emoji="📝")
