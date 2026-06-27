@@ -429,7 +429,7 @@ def find_delegate_page_id(fb_url: str) -> str | None:
         log_debug("find_delegate_page_id: playwright not installed — returning None")
         return None
 
-    delegate_ids = []
+    found = {"id": None}  # first-match: первое попадание и стоп (mutable для замыкания)
 
     # GraphQL response'ы FB содержат `delegate_page` объект для profile'ов
     # которые являются админами Page. Несколько вариантов кодировки —
@@ -440,6 +440,14 @@ def find_delegate_page_id(fb_url: str) -> str | None:
         r'"delegate_page_id"\s*:\s*"(\d{10,})"',
         r'"delegate_page\.id"\s*:\s*"(\d{10,})"',
     ]
+
+    def _scan_for_delegate(text):
+        """Первое совпадение delegate_page.id в тексте (или None)."""
+        for pattern in delegate_patterns:
+            m = re.search(pattern, text)
+            if m and len(m.group(1)) >= 10:
+                return m.group(1)
+        return None
 
     try:
         with sync_playwright() as p:
@@ -453,6 +461,8 @@ def find_delegate_page_id(fb_url: str) -> str | None:
 
             def on_response(response):
                 try:
+                    if found["id"]:
+                        return  # уже нашли — дальше ответы не сканируем
                     if "facebook.com" not in response.url:
                         return
                     if response.status != 200:
@@ -460,12 +470,10 @@ def find_delegate_page_id(fb_url: str) -> str | None:
                     ct = response.headers.get("content-type", "")
                     if not any(t in ct for t in ["json", "javascript", "html"]):
                         return
-                    body = response.body().decode("utf-8", errors="ignore")
-                    for pattern in delegate_patterns:
-                        for m in re.findall(pattern, body):
-                            if len(m) >= 10:
-                                log_debug(f"find_delegate_page_id: delegate id in response {response.url[:60]}: {m}")
-                                delegate_ids.append(m)
+                    hit = _scan_for_delegate(response.body().decode("utf-8", errors="ignore"))
+                    if hit:
+                        found["id"] = hit
+                        log_debug(f"find_delegate_page_id: delegate id найден в response {response.url[:60]}: {hit}")
                 except Exception as e:
                     log_debug(f"find_delegate_page_id: on_response handler error: {str(e)[:80]}")
 
@@ -483,29 +491,26 @@ def find_delegate_page_id(fb_url: str) -> str | None:
                 except Exception as e:
                     log_debug(f"find_delegate_page_id: domcontentloaded goto also failed: {str(e)[:80]}")
 
-            # Финальный HTML — иногда delegate_page лежит в inline scripts
-            try:
-                log_debug("find_delegate_page_id: scanning final page HTML for delegate_page")
-                html = page.content()
-                for pattern in delegate_patterns:
-                    for m in re.findall(pattern, html):
-                        if len(m) >= 10:
-                            log_debug(f"find_delegate_page_id: delegate id in inline HTML: {m}")
-                            delegate_ids.append(m)
-            except Exception as e:
-                log_debug(f"find_delegate_page_id: inline HTML scan error: {str(e)[:80]}")
+            # Финальный HTML — запасной источник, только если в ответах не нашли
+            # (иногда delegate_page лежит в inline scripts, а не в стриминговых ответах)
+            if not found["id"]:
+                try:
+                    log_debug("find_delegate_page_id: scanning final page HTML for delegate_page")
+                    hit = _scan_for_delegate(page.content())
+                    if hit:
+                        found["id"] = hit
+                        log_debug(f"find_delegate_page_id: delegate id найден в inline HTML: {hit}")
+                except Exception as e:
+                    log_debug(f"find_delegate_page_id: inline HTML scan error: {str(e)[:80]}")
 
             browser.close()
     except Exception as e:
         log_warn(f" delegate_page extraction failed: {str(e)[:80]}")
         return None
 
-    if not delegate_ids:
+    if not found["id"]:
         log_debug("find_delegate_page_id: no delegate_page ids found — returning None")
         return None
 
-    from collections import Counter
-    counts = Counter(delegate_ids)
-    best_id, hits = counts.most_common(1)[0]
-    log_success(f" delegate_page.id найден: {best_id} (встретился {hits} раз)", emoji="🔗")
-    return best_id
+    log_success(f" delegate_page.id найден: {found['id']}", emoji="🔗")
+    return found["id"]
