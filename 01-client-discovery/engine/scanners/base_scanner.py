@@ -137,8 +137,8 @@ def get_event_from_url(url: str, platform: str) -> str:
 
 def get_pixel_id_from_url(url: str, platform: str) -> str:
     """Достаёт ID пикселя/счётчика из tracking-URL. '' если нет.
-    Path-regex (Meta SDK config, Google Ads) ловит ID даже когда beacon
-    события подавлён — например Meta в headless."""
+    Path-regex (Meta SDK config, Google Ads) ловит ID даже когда конверсионное
+    событие не стрельнуло — например при пассивной загрузке без действия пользователя."""
     log_fire(f"get_pixel_id_from_url: start platform={platform} url={url}")
     rule = PIXEL_RULES.get(platform, {})
     try:

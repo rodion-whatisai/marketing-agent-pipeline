@@ -184,7 +184,7 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
     # Три ключевые метрики
     pages_with_cta = sum(1 for p in all_pages if p.get("cta_elements"))
     # "Имеют пиксель" = пиксель установлен (присутствие), не "событие сработало".
-    # pixel_ids ловит Meta по ID даже в headless, где beacon события подавлён.
+    # pixel_ids ловит Meta по ID даже когда конверсионное событие не стрельнуло (пассивная загрузка).
     # Tested: 2026-06-26 on nissan.ie — robot ловил оба Meta-ID, счётчик флипает 0→4 of 4.
     pages_with_pixel = sum(
         1 for p in all_pages
@@ -691,10 +691,11 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
   <!-- Unverified: пиксель есть, событие не подтверждено -->
   {"" if not unverified_pages else f'''
   <div class="section">
-    <div class="section-title">⚠️ Пиксель установлен — срабатывание не подтверждено браузером</div>
+    <div class="section-title">⚠️ Пиксель установлен — конверсионное событие не зафиксировано</div>
     <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
-      Пиксель найден по ID, но конверсионное событие не зафиксировано в headless-скане
-      (Meta-beacon в автоматическом браузере подавляется). Требуется проверка в обычном браузере — это не означает поломку.
+      Пиксель найден по ID, но конверсионное событие при сканировании не зафиксировано:
+      конверсии срабатывают только при действии пользователя (клик/сабмит), которое
+      автоматический скан мог не воспроизвести. Это не означает поломку — нужна ручная проверка.
     </p>
     {unverified_items}
   </div>
