@@ -166,7 +166,9 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
     log_debug(f"click_page: {len(cands)} кнопок к клику")
 
     reloads = 0
-    MAX_RELOADS = 4
+    # По одному релоду на кнопку: каждый клик может увести → нужен возврат на страницу.
+    # Потолок = число кнопок (а не высосанное 4) — легитимные клики не режем.
+    MAX_RELOADS = len(cands)
 
     holder = {"buf": None}
     listener = make_pixel_listener(holder, debug)
