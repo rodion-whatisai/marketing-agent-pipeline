@@ -19,18 +19,8 @@ from urllib.parse import urlparse
 
 from utils import HEADERS
 from log import log_debug, log_step, log_header, log_info, log_warn, log_success
+from scanners.base_scanner import discover_buttons
 
-
-MAX_BUTTONS = 12
-
-# Слова CTA — для приоритезации кнопок (выше приоритет = раньше кликаем)
-CTA_WORDS = (
-    "book", "buy", "quote", "contact", "submit", "send", "apply", "get started",
-    "add to cart", "add to bag", "add to basket", "request", "sign up", "subscribe",
-    "order", "checkout", "demo", "enquir", "call", "get a", "reserve", "register",
-    # FR
-    "devis", "soumission", "contactez", "reserver", "commander", "ajouter",
-)
 
 # Ивенты «покупка/чекаут» — если стрельнули на НЕ-commerce странице → красный флаг
 _PURCHASE_WORDS = ("purchase", "checkout", "placeanorder", "completepayment", "addpaymentinfo")
@@ -41,77 +31,6 @@ NON_COMMERCE_TYPES = {
     "location", "use_case", "about", "faq_support", "blog_content",
 }
 
-
-# ─── JS: дженерик-поиск кнопок (адаптировано из wordpress_scanner._WP_CTA_JS) ──
-# Стэмпит каждому выжившему кандидату data-tnc-btn="<index>" — стабильный хэндл
-# для повторного локейта. Фильтрует nav/footer/cookie-шум и служебные тексты.
-_DISCOVER_BUTTONS_JS = """
-() => {
-    const NOISE_SELECTORS = [
-        'header','nav','footer',
-        '[id*="header" i]','[class*="header" i]',
-        '[id*="navbar" i]','[class*="navbar" i]',
-        '[id*="footer" i]','[class*="footer" i]',
-        '[id*="site-nav" i]','[class*="site-nav" i]',
-        '[class*="menu-toggle" i]','[class*="mobile-menu" i]',
-        '[class*="cookie" i]','[id*="cookie" i]',
-        '[class*="consent" i]','[id*="gdpr" i]',
-        '[class*="breadcrumb" i]','[class*="pagination" i]',
-        '[class*="skip" i]','[class*="gm-style"]',
-    ];
-    const noiseNodes = new Set();
-    NOISE_SELECTORS.forEach(sel => { try { document.querySelectorAll(sel).forEach(el => noiseNodes.add(el)); } catch(e){} });
-    function isInNoise(el){ let n=el.parentElement; while(n && n!==document.body){ if(noiseNodes.has(n)) return true; n=n.parentElement; } return false; }
-
-    const MAIN_SELECTORS = ['main','#main','#main-content','#content','#primary','.site-content','.site-main','#page','.page-content','article','.post','.page','.entry-content'];
-    let mainZone=null;
-    for(const sel of MAIN_SELECTORS){ try{ const el=document.querySelector(sel); if(el && el.offsetHeight>50){ mainZone=el; break; } }catch(e){} }
-
-    const SKIP_TEXTS = new Set(['close','ok','okay','cancel','dismiss','skip','back','accept','accept all','reject all','decline','allow','deny','agree','i agree','got it','save preferences','necessary only','accept cookies','reject cookies','manage cookies','cookie settings','search','menu','home','privacy policy','terms of service','view all','see all','load more','show more','more','next','continue','no thanks','maybe later','share','follow','print','previous','pause','play']);
-
-    function getButtonText(el){
-        const aria=(el.getAttribute('aria-label')||'').trim(); if(aria.length>1 && aria.length<80) return aria;
-        const val=(el.getAttribute('value')||'').trim(); if(val.length>1 && val.length<80) return val;
-        const raw=(el.innerText||el.textContent||'').trim();
-        const lines=raw.split('\\n').map(l=>l.trim()).filter(l=>l.length>0);
-        return lines[0]||'';
-    }
-    function isVisible(el){ const s=window.getComputedStyle(el); if(s.display==='none')return false; if(s.visibility==='hidden')return false; const r=el.getBoundingClientRect(); if(r.width===0 && r.height===0) return false; return true; }
-
-    const BUTTON_SELECTORS = [
-        'button','[role="button"]','input[type="submit"]','input[type="button"]',
-        'a.button','a.btn','[class*="btn"]','[class*="cta"]',
-        '.wpforms-submit','.wpcf7-submit','.elementor-button','.wp-block-button__link',
-        'form button',
-    ].join(', ');
-
-    let candidates=[];
-    try{ candidates = Array.from(document.querySelectorAll(BUTTON_SELECTORS)); }catch(e){ candidates=[]; }
-
-    const results=[]; const seenTexts=new Set();
-    candidates.forEach(el => {
-        const text=getButtonText(el); const tl=text.toLowerCase();
-        if(isInNoise(el)) return;
-        if(!isVisible(el)) return;
-        if(!text || text.length<2 || text.length>80) return;
-        if(SKIP_TEXTS.has(tl)) return;
-        if(/^[$£€¥₹]/.test(text.trim())) return;
-        if(/^[0-9]+$/.test(text.trim())) return;
-        if(seenTexts.has(tl)) return;
-        seenTexts.add(tl);
-        const idx = results.length;
-        try { el.setAttribute('data-tnc-btn', String(idx)); } catch(e){}
-        results.push({
-            index: idx,
-            text: text,
-            tag: el.tagName.toLowerCase(),
-            isFormSubmit: el.closest('form') !== null,
-            inMain: mainZone ? mainZone.contains(el) : false,
-        });
-    });
-    return results;
-}
-"""
 
 # JS: читает события из dataLayer (GA4) и fbq.queue (Meta) — стреляют туда после клика
 _READ_JS_EVENTS_JS = """
@@ -186,33 +105,6 @@ def _read_js_events(page, buf: dict, debug: bool = False):
                                   "is_partial": is_partial_event(plat, name), "is_noise": is_noise_event(plat, name), "source": "js"})
 
 
-# ─── Дженерик-поиск кнопок ────────────────────────────────────────────────────
-
-def discover_buttons(page, debug: bool = False) -> list:
-    """Все значимые кнопки страницы (с проставленным data-tnc-btn), отсортированы по
-    приоритету и обрезаны до MAX_BUTTONS."""
-    try:
-        raw = page.evaluate(_DISCOVER_BUTTONS_JS)
-    except Exception as e:
-        log_debug(f"discover_buttons: evaluate error: {str(e)[:80]}")
-        return []
-
-    def prio(c):
-        t = (c.get("text") or "").lower()
-        if c.get("isFormSubmit"):
-            return 0
-        if any(w in t for w in CTA_WORDS):
-            return 1
-        if c.get("inMain"):
-            return 2
-        return 3
-
-    raw.sort(key=prio)
-    out = raw[:MAX_BUTTONS]
-    log_debug(f"discover_buttons: {len(raw)} найдено → {len(out)} после cap {MAX_BUTTONS}")
-    return out
-
-
 # ─── Привязка событий + красный флаг ──────────────────────────────────────────
 
 def _is_purchase_type(tag: str) -> bool:
@@ -249,7 +141,7 @@ def _derive_red_flag(page_type: str, fired: list):
 # ─── Основная функция ─────────────────────────────────────────────────────────
 
 def click_page(page, url: str, page_type: str, platform: str = "unknown",
-               debug: bool = False) -> dict:
+               debug: bool = False, cands: list = None) -> dict:
     """Кликает по всем значимым кнопкам страницы, фиксирует ивенты на каждую.
 
     Returns: {url, page_type, buttons:[{button_text, button_tag, is_form_submit,
@@ -264,7 +156,10 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
     page.wait_for_timeout(300)
     landing = page.url  # реальный текущий адрес (после возможного редиректа) — базлайн recovery
 
-    cands = discover_buttons(page, debug)
+    # Сканер уже нашёл и пометил кнопки (data-tnc-btn) на этой же странице — берём их.
+    # Если не передали (shopify/wordpress пути, standalone) — ищем сами тем же детектором.
+    if cands is None:
+        cands = discover_buttons(page, debug)
     if not cands:
         log_debug("click_page: кнопок не найдено")
         return result

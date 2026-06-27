@@ -186,7 +186,8 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     import datetime as _dtc
                     _tsc = _dtc.datetime.now().strftime("%H:%M:%S")
                     log_info(f"[{_tsc}] Clicker: {ptype}...", emoji="🖱")
-                    click_result = click_page(page, url, ptype, platform=platform, debug=debug_mode)
+                    click_result = click_page(page, url, ptype, platform=platform, debug=debug_mode,
+                                              cands=result.get("cta_buttons"))
                     result["click_result"] = click_result
                     btns = click_result.get("buttons", [])
                     log_debug(f"run: [{i}] click_result buttons={len(btns)} any_red_flag={click_result.get('any_red_flag')}")

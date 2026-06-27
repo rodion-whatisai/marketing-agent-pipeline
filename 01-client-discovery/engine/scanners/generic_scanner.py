@@ -6,10 +6,9 @@ Webflow, Squarespace, Wix, кастомные сайты, и т.д.
 """
 
 from .base_scanner import (
-    base_scan_page, make_listeners, detect_external_services
+    base_scan_page, make_listeners, detect_external_services, discover_buttons
 )
-from .wordpress_scanner import _detect_cta_elements as _fallback_cta_detector
-from log import log_debug, log_warn
+from log import log_debug, log_warn, log_info
 
 
 def scan_page(page, url: str, page_type: str, expect_events: list,
@@ -59,13 +58,12 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
         log_debug(f"scan_page: page.content() failed for {url}: {e}")
         main_html = ""
 
-    if cta_detector_fn is not None:
-        log_debug(f"scan_page: using provided cta_detector_fn for {url}")
-        cta_elements = cta_detector_fn(page, platform=platform)
-    else:
-        log_debug(f"scan_page: no cta_detector_fn, using fallback CTA detector for {url}")
-        cta_elements = _fallback_cta_detector(page)
-    log_debug(f"scan_page: detected {len(cta_elements)} CTA element(s) for {url}")
+    # Один детектор кнопок (общий с кликером): находит, помечает data-tnc-btn, отдаёт список.
+    # Кликер потом возьмёт ровно cta_buttons — отсюда «CTA: N» и «кликнули N/N» совпадают.
+    cta_buttons = discover_buttons(page)
+    cta_elements = [c["text"] for c in cta_buttons]
+    log_info(f"       CTA: {len(cta_buttons)} найдено")
+    log_debug(f"scan_page: discover_buttons → {len(cta_buttons)} CTA for {url}")
 
     page.remove_listener("request", on_request_extended)
     page.remove_listener("response", on_response)
@@ -93,8 +91,9 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     )
 
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
-    result["cta_elements"] = list(set(cta_elements))[:8]
-    result["has_cta"] = bool(cta_elements) or result["content_analysis"]["is_page_of_interest"]
+    result["cta_buttons"] = cta_buttons                       # полный список (помечен в DOM) — для кликера
+    result["cta_elements"] = cta_elements[:8]                 # порядок приоритета сохранён (JS уже дедупит)
+    result["has_cta"] = bool(cta_buttons) or result["content_analysis"]["is_page_of_interest"]
     result["forms_count"] = result["content_analysis"]["forms_count"]
     result["ctas_in_html"] = {k: v[:3] for k, v in result["content_analysis"]["ctas"].items() if v}
     result["shopify_pixel_platforms"] = []
