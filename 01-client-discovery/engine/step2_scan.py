@@ -81,7 +81,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     all_tag_ids = []
 
     if headed:
-        log_info("Режим: headed (видимый браузер) — GTM-теги и Meta-beacon стреляют как в реальном браузере", emoji="🪟")
+        log_info("Режим: headed (видимый браузер) — для визуальной/ручной проверки страницы", emoji="🪟")
     with sync_playwright() as p:
         log_debug(f"run: launching chromium headless={not headed}")
         browser = p.chromium.launch(headless=not headed)
@@ -216,19 +216,27 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 has_serverside_scheduler = any(
                     svc in external for svc in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")
                 )
-                # Пиксель пойман по ID, но НИ одного события — типично для Meta в headless
-                # (beacon подавлён). Не врём «сломано»: пиксель есть, срабатывание не проверяемо.
+                # Пиксель пойман по ID, но НИ одного конверсионного события за скан.
+                # Пишем НАБЛЮДЕНИЕ, не причину: не врём «сломано» и не сваливаем на headless.
+                # A/B 2026-06-27 (nissan.ie /electric-vehicles.html, headless vs headed): PageView
+                # стреляет ОДИНАКОВО (110 vs 115 запросов, оба Meta[PageView, fired]) → на nissan
+                # headless beacon НЕ подавлён. Ранее 2026-06-23 на plurio/semrush был обратный
+                # результат (headless /tr=0, headed=1) → подавление SITE-DEPENDENT, не универсально.
+                # Поэтому прежний бланкетный диагноз «beacon подавлён в headless» был неверен.
+                # Наблюдаемая причина «нет события»: конверсии (ViewContent/AddToCart/Lead/Purchase)
+                # стреляют только при действии пользователя. См. memory project-headless-suppresses-meta-beacon.
                 pixel_present_no_events = has_pixel_id and not has_any_pixel and not has_shopify_px
                 if pixel_present_no_events:
                     ids_str = "; ".join(f"{p}: {', '.join(ids)}" for p, ids in result.get("pixel_ids", {}).items())
-                    result["status"] = "⚠️ пиксель установлен, событие в headless не проверено"
+                    result["status"] = "⚠️ пиксель установлен, конверсионное событие не зафиксировано (нужно действие пользователя)"
                     result["unverified_reason"] = (
-                        f"Пиксель(и) обнаружен(ы) по ID ({ids_str}), но конверсионных событий "
-                        f"в headless-скане не зафиксировано (Meta-beacon в headless подавляется — "
-                        f"типичный случай). Требуется headed-проверка срабатывания."
+                        f"Пиксель(и) обнаружен(ы) по ID ({ids_str}). Конверсионного события при "
+                        f"сканировании не зафиксировано: конверсии (ViewContent/AddToCart/Lead/"
+                        f"Purchase) срабатывают только при действии пользователя (клик/сабмит), "
+                        f"а пассивная загрузка страницы шлёт только PageView. Это не поломка."
                     )
                     unverified_pages.append(result)
-                    log_debug(f"run: [{i}] → unverified (пиксель по ID, событий нет — headless beacon подавлён)")
+                    log_debug(f"run: [{i}] → unverified (пиксель по ID; конверсионного события нет — нужно действие пользователя)")
                 elif platform == "shopify" and has_serverside_scheduler:
                     svc_names = [s for s in external if s in ("Cal.com", "Calendly", "Acuity", "HubSpot Meetings")]
                     result["status"] = f"⚠️ форма бронирования обнаружена ({', '.join(svc_names)}). Конверсионное событие при загрузке страницы не зафиксировано."
@@ -458,7 +466,7 @@ if __name__ == "__main__":
     parser.add_argument("--no-click", action="store_true", default=False,
                         help="Отключить клик-симуляцию (по умолчанию ВКЛ)")
     parser.add_argument("--headed", action="store_true", default=False,
-                        help="Видимый браузер — ловит Meta/GA4-события, которые headless подавляет")
+                        help="Видимый браузер для визуальной/ручной проверки (headless ловит те же события)")
     parser.add_argument("--quiet", action="store_true", default=False,
                         help="Приглушить: показывать только INFO+ (скрыть DEBUG)")
     args = parser.parse_args()
