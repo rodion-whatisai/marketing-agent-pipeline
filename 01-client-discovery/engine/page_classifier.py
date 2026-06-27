@@ -141,6 +141,8 @@ PRIORITY 4 — Content:
 PRIORITY 5 — Skip:
   legal           /privacy, /terms, /cookie, /legal
   technical       /api, /sitemap, /robots, /admin
+  reference       bulk-справочный контент: owner manuals, docs, archives
+                  (большие однородные поддеревья глубоких страниц)
   general         everything else
 """
 
@@ -200,6 +202,44 @@ CONTAINER_SEGMENTS = {
 # Неинформативный лист — для НЕконверсионных типов откатываемся на раздел.
 LEAF_STOPWORDS = {"overview", "index", "home", "main", "default"}
 CONVERSION_TYPES = {"lead_form", "quote", "checkout", "booking_confirm"}
+
+# ─── Структурная отсечка bulk-reference контента ──────────────────────────────
+# Большие однородные поддеревья глубоких страниц (owner manuals, docs, archives) —
+# справочный балласт, не конверсионные страницы. Скипаем их ДО patterns/FAST_RULES,
+# чтобы они не текли в MEDIUM и не уходили пачками в Claude.
+# Двойной сигнал = защита от ложного скипа одиночной глубокой страницы:
+#   глубина >= DEPTH_SKIP_THRESHOLD  И  поддерево-предок (первые N сегм.) >= CLUSTER_MIN.
+# POI-veto (в classify_urls): страница с сигналом лида/продукта (priority<=2) НЕ скипается.
+DEPTH_SKIP_THRESHOLD = 6     # с какой глубины пути страница — кандидат в bulk-reference
+CLUSTER_MIN          = 50    # минимальный размер однородного поддерева
+CLUSTER_PREFIX_SEGS  = 4     # по скольки первым сегментам группируем поддерево
+
+
+def _path_depth(path: str) -> int:
+    return len([s for s in path.split("/") if s])
+
+
+def _cluster_key(path: str) -> str:
+    segs = [s for s in path.split("/") if s]
+    return "/" + "/".join(segs[:CLUSTER_PREFIX_SEGS])
+
+
+def find_bulk_reference_paths(paths: list) -> set:
+    """Пути из больших однородных поддеревьев глубоких страниц (bulk-reference).
+
+    Сигнал двойной: глубина >= DEPTH_SKIP_THRESHOLD И предок-поддерево (первые
+    CLUSTER_PREFIX_SEGS сегментов) содержит >= CLUSTER_MIN таких страниц.
+    Одиночная глубокая страница (без массового кластера) НЕ попадает — защита
+    от ложного скипа.
+
+    # Tested: 2026-06-27 on nissan.ie — изолирует 9050 owner-manual .shtml
+    # (depth 8-9, кластер /ownership/car-owner-manual/manuals/iom), 0 ложных.
+    """
+    from collections import Counter
+    deep = [p for p in paths if _path_depth(p) >= DEPTH_SKIP_THRESHOLD]
+    sizes = Counter(_cluster_key(p) for p in deep)
+    return {p for p in deep if sizes[_cluster_key(p)] >= CLUSTER_MIN}
+
 
 _LANG_PREFIX_RE = re.compile(r'^/[a-z]{2}(?:-[a-z]{2,4})?(?=/)')
 
@@ -558,6 +598,12 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
     results = [{"type": "general", "priority": 5, "method": "unprocessed"} for _ in urls]
     ai_needed = []
 
+    # 0. Структурная отсечка bulk-reference (owner manuals/docs/archives) — ДО patterns.
+    all_paths = [((urlparse(u).path if "://" in u else u) or "/") for u in urls]
+    bulk_ref = find_bulk_reference_paths(all_paths)
+    if bulk_ref:
+        log_debug(f"classify_urls: bulk-reference pre-skip — {len(bulk_ref)} URL → reference (SKIP)")
+
     for i, url in enumerate(urls):
         path = urlparse(url).path if "://" in url else url
         path = path or "/"
@@ -565,6 +611,19 @@ def classify_urls(urls: list, site_context: str = "", show_progress: bool = True
 
         # 1. Regex + patterns
         fast = fast_classify(path, full_url=url)
+
+        # 0. Bulk-reference: глубокая страница большого однородного поддерева → SKIP.
+        #    POI-veto — если есть сигнал лида/продукта (priority<=2), НЕ скипаем, пропускаем дальше.
+        if path in bulk_ref and not (fast and fast.get("priority", 5) <= 2):
+            log_fire(f"classify_urls: [{i}] bulk-reference → reference (SKIP)")
+            results[i] = {
+                "type": "reference", "priority": 5,
+                "url": url, "path": path,
+                "description": "Reference / manual",
+                "expect_events": [], "method": "structural_skip",
+            }
+            continue
+
         if fast:
             log_fire(f"classify_urls: [{i}] локальный слой ({fast.get('method')}) → {fast['type']}")
             fast.update({

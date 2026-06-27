@@ -457,6 +457,7 @@ TYPE_LABELS = {
     "blog_content":    "Blog / content / media",
     "legal":           "Legal / policy",
     "technical":       "Technical / API",
+    "reference":       "Reference / manual (bulk)",
     "general":         "General page",
 }
 
@@ -478,7 +479,7 @@ def print_classified_list(classified: list, show_all: bool = False):
     type_order = ["lead_form", "booking_confirm", "quote", "checkout",
                   "homepage", "pricing", "location", "product", "use_case",
                   "search_results", "faq_support", "careers", "about",
-                  "blog_content", "legal", "technical", "general"]
+                  "blog_content", "legal", "technical", "reference", "general"]
 
     for ptype in type_order:
         items = by_type.get(ptype, [])
