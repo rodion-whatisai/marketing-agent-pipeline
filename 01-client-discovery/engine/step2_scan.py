@@ -26,7 +26,8 @@ from log import log_info, log_warn, log_error, log_debug, log_success, log_step,
 
 
 def run(step1_file: str, max_priority: int = 2, only_url: str = None,
-        debug_mode: bool = False, click_mode: bool = False, headed: bool = False):
+        debug_mode: bool = False, click_mode: bool = False, headed: bool = False,
+        max_pages: int = None):
     log_debug(f"run: start step1_file={step1_file} max_priority={max_priority} only_url={only_url} click_mode={click_mode} headed={headed}")
     try:
         with open(step1_file, "r", encoding="utf-8") as f:
@@ -50,6 +51,13 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         if not to_scan:
             log_error(f"Страница '{only_url}' не найдена в step1.json")
             return
+
+    # Главная всегда первой; остальные сохраняют свой порядок (стабильная сортировка).
+    to_scan.sort(key=lambda p: 0 if p.get("type") == "homepage" else 1)
+
+    if max_pages and len(to_scan) > max_pages:
+        log_info(f"--max-pages {max_pages}: усекаю {len(to_scan)} → {max_pages} страниц (дебаг)", emoji="✂")
+        to_scan = to_scan[:max_pages]
 
     log_header("TNC Pipeline — Step 2: Page Scanner")
     print(f"  Target:   {base_url}")
@@ -160,6 +168,12 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             path = item["path"]
             ptype = item["type"]
             expect = item.get("expect_events", [])
+
+            import datetime as _dt
+            _ts = _dt.datetime.now().strftime("%H:%M:%S")
+            print(f"\n  [{i:>2}/{len(to_scan)}] {ptype}  {path}  [{_ts}]")
+            print(f"  {'─' * 55}")
+            print(f"        🌐 открываю страницу, ловлю пиксели, ищу CTA…")
             log_debug(f"run: [{i}/{len(to_scan)}] scan url={url} type={ptype} expect={expect}")
 
             result = scanner(page, url, ptype, expect, platform=platform)
@@ -258,11 +272,6 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 result["status"] = "➖ NO CTA"
                 no_ctas.append(result)
                 log_debug(f"run: [{i}] → NO CTA (fallthrough)")
-
-            import datetime as _dt
-            _ts = _dt.datetime.now().strftime("%H:%M:%S")
-            print(f"\n  [{i:>2}/{len(to_scan)}] {path}  [{_ts}]")
-            print(f"  {'─' * 55}")
 
             active_platforms = {}
             for plat, evts in pixel_events_r.items():
@@ -469,6 +478,8 @@ if __name__ == "__main__":
                         help="Видимый браузер для визуальной/ручной проверки (headless ловит те же события)")
     parser.add_argument("--quiet", action="store_true", default=False,
                         help="Приглушить: показывать только INFO+ (скрыть DEBUG)")
+    parser.add_argument("--max-pages", type=int, default=None,
+                        help="Усечь прогон до первых N страниц (дебаг; по умолчанию все)")
     args = parser.parse_args()
 
     import log
@@ -481,6 +492,7 @@ if __name__ == "__main__":
         json.load(open(args.step1_file, encoding="utf-8")).get("base_url", "unknown"), step="step2"
     )
     run(args.step1_file, max_priority=args.priority, only_url=args.url,
-        debug_mode=args.debug, click_mode=(not args.no_click), headed=args.headed)
+        debug_mode=args.debug, click_mode=(not args.no_click), headed=args.headed,
+        max_pages=args.max_pages)
     print()
     log_info(f"Лог: {_log_path}", emoji="📝")
