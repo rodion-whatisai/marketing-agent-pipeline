@@ -1238,16 +1238,6 @@
     "added": "2026-06-26",
     "source": "claude_approved"
   },
-  "/ownership": {
-    "type": "faq_support",
-    "priority": 3,
-    "description": "Learned from nissan.ie: /ownership.html",
-    "examples": [
-      "https://www.nissan.ie/ownership.html"
-    ],
-    "added": "2026-06-26",
-    "source": "claude_approved"
-  },
   "/brochures": {
     "type": "faq_support",
     "priority": 3,
