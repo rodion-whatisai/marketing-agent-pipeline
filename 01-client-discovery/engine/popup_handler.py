@@ -20,7 +20,7 @@ TNC Pipeline — Popup & Consent Handler
     popup_result = handle_popups(page, verbose=True)
 """
 
-from log import log_success, log_debug
+from log import log_success, log_debug, log_fire
 
 
 # ─── Accept ALL cookies selectors ────────────────────────────────────────────
@@ -154,7 +154,7 @@ def _close_geo_modal(page, verbose: bool) -> bool:
 
     # По селекторам
     for sel in GEO_CLOSE_SELECTORS:
-        log_debug(f"_close_geo_modal: пробуем селектор [{sel}]")
+        log_fire(f"_close_geo_modal: пробуем селектор [{sel}]")
         try:
             el = page.locator(sel).first
             if el.is_visible(timeout=300):
@@ -168,7 +168,7 @@ def _close_geo_modal(page, verbose: bool) -> bool:
 
     # По тексту — ищем кнопки dismiss внутри модала
     for text in GEO_DISMISS_TEXTS:
-        log_debug(f"_close_geo_modal: пробуем текст кнопки '{text}'")
+        log_fire(f"_close_geo_modal: пробуем текст кнопки '{text}'")
         try:
             btn = page.get_by_role("button", name=text, exact=False).first
             if btn.is_visible(timeout=200):
@@ -192,7 +192,7 @@ def _accept_all_cookies(page, verbose: bool) -> bool:
 
     # По селекторам (быстрый путь)
     for sel in ACCEPT_ALL_SELECTORS:
-        log_debug(f"_accept_all_cookies: пробуем селектор [{sel}]")
+        log_fire(f"_accept_all_cookies: пробуем селектор [{sel}]")
         try:
             el = page.locator(sel).first
             if el.is_visible(timeout=500):
@@ -206,7 +206,7 @@ def _accept_all_cookies(page, verbose: bool) -> bool:
 
     # По тексту кнопок
     for text in ACCEPT_ALL_TEXTS:
-        log_debug(f"_accept_all_cookies: пробуем текст кнопки '{text}'")
+        log_fire(f"_accept_all_cookies: пробуем текст кнопки '{text}'")
         try:
             btn = page.get_by_role("button", name=text, exact=False).first
             if btn.is_visible(timeout=300):

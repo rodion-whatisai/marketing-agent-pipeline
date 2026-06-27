@@ -71,6 +71,14 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     page.remove_listener("response", on_response)
     log_debug(f"scan_page: listeners removed, {len(request_urls_all)} requests captured for {url}")
 
+    # Дайджест «кого слушал / что поймал» — сырьё (per-request) ушло в FIRE
+    _digest = []
+    for _plat, _evs in pixel_events.items():
+        _names = sorted({e["event"] for e in _evs})
+        _digest.append(f"{_plat}[{', '.join(_names)}]" if _names else _plat)
+    log_debug(f"👂 Слушал {len(request_urls_all)} запросов → "
+              + (", ".join(_digest) if _digest else "пиксели не пойманы"))
+
     combined_html = "\n".join(all_html_parts)
 
     log_debug(f"scan_page: running base_scan_page for {url}")

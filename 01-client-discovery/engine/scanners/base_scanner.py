@@ -7,7 +7,7 @@ import re
 from urllib.parse import urlparse, parse_qs
 
 from page_classifier import classify_page_content
-from log import log_debug
+from log import log_debug, log_fire
 
 # ─── Pixel rules ──────────────────────────────────────────────────────────────
 
@@ -120,16 +120,16 @@ ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory", "Lucky Orange"}
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def get_event_from_url(url: str, platform: str) -> str:
-    log_debug(f"get_event_from_url: start platform={platform} url={url}")
+    log_fire(f"get_event_from_url: start platform={platform} url={url}")
     try:
         parsed = urlparse(url)
         params = parse_qs(parsed.query)
         rule = PIXEL_RULES.get(platform, {})
         ep = rule.get("event_param")
         if ep and ep in params:
-            log_debug(f"get_event_from_url: {platform} event_param '{ep}' -> '{params[ep][0]}'")
+            log_fire(f"get_event_from_url: {platform} event_param '{ep}' -> '{params[ep][0]}'")
             return params[ep][0]
-        log_debug(f"get_event_from_url: {platform} no event_param match (ep={ep}) -> 'fired'")
+        log_fire(f"get_event_from_url: {platform} no event_param match (ep={ep}) -> 'fired'")
     except Exception as e:
         log_debug(f"get_event_from_url: parse failed for {url}: {e}")
     return "fired"
@@ -139,7 +139,7 @@ def get_pixel_id_from_url(url: str, platform: str) -> str:
     """Достаёт ID пикселя/счётчика из tracking-URL. '' если нет.
     Path-regex (Meta SDK config, Google Ads) ловит ID даже когда beacon
     события подавлён — например Meta в headless."""
-    log_debug(f"get_pixel_id_from_url: start platform={platform} url={url}")
+    log_fire(f"get_pixel_id_from_url: start platform={platform} url={url}")
     rule = PIXEL_RULES.get(platform, {})
     try:
         parsed = urlparse(url)
@@ -147,15 +147,15 @@ def get_pixel_id_from_url(url: str, platform: str) -> str:
         if id_re:
             m = re.search(id_re, parsed.path)
             if m:
-                log_debug(f"get_pixel_id_from_url: {platform} id via path-regex -> '{m.group(1)}'")
+                log_fire(f"get_pixel_id_from_url: {platform} id via path-regex -> '{m.group(1)}'")
                 return m.group(1)
         ip = rule.get("id_param")
         if ip:
             params = parse_qs(parsed.query)
             if ip in params and params[ip][0]:
-                log_debug(f"get_pixel_id_from_url: {platform} id via query-param '{ip}' -> '{params[ip][0]}'")
+                log_fire(f"get_pixel_id_from_url: {platform} id via query-param '{ip}' -> '{params[ip][0]}'")
                 return params[ip][0]
-        log_debug(f"get_pixel_id_from_url: {platform} no id found")
+        log_fire(f"get_pixel_id_from_url: {platform} no id found")
     except Exception as e:
         log_debug(f"get_pixel_id_from_url: parse failed for {url}: {e}")
     return ""
@@ -211,12 +211,12 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
     def on_request(request):
         req_url = request.url
         if "/web-pixels" in req_url:
-            log_debug(f"on_request: web-pixels asset captured url={req_url}")
+            log_fire(f"on_request: web-pixels asset captured url={req_url}")
             web_pixel_urls.append(req_url)
         for platform, rules in PIXEL_RULES.items():
             for domain in rules["domains"]:
                 if domain in req_url:
-                    log_debug(f"on_request: {platform} pixel request matched domain '{domain}' url={req_url}")
+                    log_fire(f"on_request: {platform} pixel request matched domain '{domain}' url={req_url}")
                     event = get_event_from_url(req_url, platform)
                     pixel_events.setdefault(platform, [])
                     entry = {
@@ -225,21 +225,24 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
                         "is_partial": is_partial_event(platform, event),
                         "is_noise": is_noise_event(platform, event),
                     }
-                    log_debug(f"on_request: {platform} event='{event}' conversion={entry['is_conversion']} partial={entry['is_partial']} noise={entry['is_noise']}")
+                    log_fire(f"on_request: {platform} event='{event}' conversion={entry['is_conversion']} partial={entry['is_partial']} noise={entry['is_noise']}")
                     if not any(e["event"] == event for e in pixel_events[platform]):
-                        log_debug(f"on_request: {platform} new event '{event}' recorded")
+                        log_fire(f"on_request: {platform} new event '{event}' recorded")
                         pixel_events[platform].append(entry)
                     # Собираем ID пикселя — для presence (headless) и детекта дублей
                     pid = get_pixel_id_from_url(req_url, platform)
                     if pid:
                         pixel_ids.setdefault(platform, [])
                         if pid not in pixel_ids[platform]:
-                            log_debug(f"on_request: {platform} new pixel id '{pid}' recorded")
+                            log_fire(f"on_request: {platform} new pixel id '{pid}' recorded")
                             pixel_ids[platform].append(pid)
                     break
 
     def on_response(response):
         try:
+            # Редиректы (3xx) — тела нет, читать незачем (избегаем холостых попыток + шума).
+            if response.status >= 300:
+                return
             ct = response.headers.get("content-type", "")
             url = response.url
             if "javascript" in ct or "html" in ct:
@@ -248,7 +251,7 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
                     text = body.decode("utf-8", errors="ignore")
                     all_html_parts.append(text)
                     if "/web-pixels" in url:
-                        log_debug(f"on_response: web-pixels body captured url={url} len={len(text)}")
+                        log_fire(f"on_response: web-pixels body captured url={url} len={len(text)}")
                         web_pixel_bodies[url] = text
                 except Exception as e:
                     log_debug(f"on_response: body read/decode failed url={url}: {e}")

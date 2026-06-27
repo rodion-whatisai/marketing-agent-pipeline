@@ -260,17 +260,18 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
     result = {"url": url, "page_type": page_type, "buttons": [], "any_red_flag": False, "errors": []}
 
     from popup_handler import handle_popups
-    try:
-        handle_popups(page)
-    except Exception as e:
-        log_debug(f"click_page: handle_popups error: {str(e)[:60]}")
-    page.wait_for_timeout(800)
+    # Баннеры уже закрыл сканер на этой же странице/сессии — не дублируем сюда.
+    page.wait_for_timeout(300)
+    landing = page.url  # реальный текущий адрес (после возможного редиректа) — базлайн recovery
 
     cands = discover_buttons(page, debug)
     if not cands:
         log_debug("click_page: кнопок не найдено")
         return result
     log_debug(f"click_page: {len(cands)} кнопок к клику")
+
+    reloads = 0
+    MAX_RELOADS = 4
 
     holder = {"buf": None}
     listener = make_pixel_listener(holder, debug)
@@ -288,10 +289,17 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                    "partial_events": [], "red_flag": False, "red_flag_reason": None, "error": None}
             try:
                 idx = cand["index"]
-                # Восстановление: предыдущий клик увёл страницу → reload + re-locate по тексту
-                if page.url != url:
-                    log_debug(f"click_page: url увело ({page.url[:50]}) — reload {url[:50]}")
-                    page.goto(url, wait_until="domcontentloaded", timeout=15000)
+                # Восстановление: предыдущий клик увёл страницу → reload landing + re-locate по тексту.
+                # Базлайн — landing (реальный адрес), а НЕ номинальный url: страница могла
+                # 302-редиректнуть (contact-us-confirmation → contact-us) и тогда page.url != url
+                # всегда → reload-петля. Сравниваем с landing + потолок reload'ов.
+                if page.url != landing:
+                    if reloads >= MAX_RELOADS:
+                        log_warn(f"click_page: потолок reload'ов ({MAX_RELOADS}) — прекращаю клики на странице")
+                        break
+                    reloads += 1
+                    log_debug(f"click_page: url увело ({page.url[:50]}) — reload {landing[:50]} ({reloads}/{MAX_RELOADS})")
+                    page.goto(landing, wait_until="domcontentloaded", timeout=15000)
                     try:
                         handle_popups(page)
                     except Exception:
