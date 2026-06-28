@@ -200,7 +200,9 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                             print(f"       🚩 RED FLAG: '{b['button_text'][:40]}' → {', '.join(b['conversion_events'])} (на {ptype})")
                     clicked_n = sum(1 for b in btns if b.get("clicked"))
                     fired_n   = sum(1 for b in btns if b.get("events_fired"))
-                    if clicked_n:
+                    if clicked_n and fired_n == 0:
+                        print(f"       🖱 {clicked_n} CTA прокликано · 0 именованных событий при клике — ни одна кнопка не шлёт конверсию")
+                    elif clicked_n:
                         print(f"       🖱 Кликнули {clicked_n}/{len(btns)} кнопок · события на {fired_n}")
                 except Exception as e:
                     log_warn(f"Clicker error: {e}")

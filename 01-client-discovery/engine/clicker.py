@@ -178,6 +178,19 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
     except Exception:
         pass
 
+    # Ctrl+клик открывает ссылку в ФОНОВОЙ вкладке: основная страница не уходит,
+    # а событие клика (напр. Meta SubscribedButtonClick) стреляет на ней. Фоновую
+    # вкладку сразу закрываем, чтобы её load-события (PageView и т.п.) не попали в буфер.
+    def _close_popup(p):
+        try:
+            p.close()
+        except Exception:
+            pass
+    try:
+        page.context.on("page", _close_popup)
+    except Exception:
+        pass
+
     try:
         for cand in cands:
             row = {"button_text": cand["text"], "button_tag": cand["tag"],
@@ -215,7 +228,7 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                 pre = page.url
                 loc = page.locator(f'[data-tnc-btn="{idx}"]').first
                 loc.scroll_into_view_if_needed(timeout=3000)
-                loc.click(timeout=5000, no_wait_after=True)  # сырой клик, не виснем на навигации
+                loc.click(timeout=5000, no_wait_after=True, modifiers=["Control"])  # Ctrl+клик: ссылка в фон, страница не уходит
                 row["clicked"] = True
                 page.wait_for_timeout(2500)                  # окно для network-пикселей
 
@@ -250,6 +263,10 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
             pass
         try:
             page.context.remove_listener("request", listener)
+        except Exception:
+            pass
+        try:
+            page.context.remove_listener("page", _close_popup)
         except Exception:
             pass
 
