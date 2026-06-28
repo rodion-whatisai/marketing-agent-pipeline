@@ -167,7 +167,7 @@ FAST_RULES = [
     (2, "product",         [r"/products/[^/]", r"/collections/[^/]+/products/", r"/items/", r"/listing/"]),
     (2, "location",        [r"/locations/", r"/stores/", r"/store/"]),
     (2, "use_case",        [r"/features(?:/|$)", r"/integrations(?:/|$)", r"/solutions(?:/|$)", r"/use-cases(?:/|$)", r"/use-case(?:/|$)"]),
-    (2, "pricing",         [r"/pricing(?:/|$)", r"/plans(?:/|$)", r"/loyalty(?:/|$)", r"/upgrade(?:/|$)", r"/billing(?:/|$)", r"/subscription(?:/|$)",
+    (2, "pricing",         [r"/pricing", r"/plans(?:/|$)", r"/packages?(?:/|$)", r"-package(?:/|$)", r"/loyalty(?:/|$)", r"/upgrade(?:/|$)", r"/billing(?:/|$)", r"/subscription(?:/|$)",
                            r"/tarifs?(?:/|$)", r"/forfaits?(?:/|$)", r"/abonnement(?:/|$)"]),
     (2, "search_results",  [r"/product-category/", r"/search(?:/|$)", r"/browse(?:/|$)",
                            r"/recherche(?:/|$)", r"/portfolios?(?:/|$)"]),

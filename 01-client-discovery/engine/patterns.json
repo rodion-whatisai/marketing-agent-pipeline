@@ -1327,5 +1327,15 @@
     ],
     "added": "2026-06-26",
     "source": "manual"
+  },
+  "/reviews": {
+    "type": "blog_content",
+    "priority": 4,
+    "description": "Manually classified from redacted-prospect.example: /reviews",
+    "examples": [
+      "https://redacted-prospect.example/reviews"
+    ],
+    "added": "2026-06-28",
+    "source": "manual"
   }
 }
