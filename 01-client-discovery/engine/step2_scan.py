@@ -298,6 +298,13 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             else:
                 print(f"  CTA кнопки:    не найдены")
 
+            # Пиксели по ID (presence) + дубли — сразу под CTA
+            if result.get("pixel_ids"):
+                ids_str = " | ".join(f"{p}: {', '.join(ids)}" for p, ids in result["pixel_ids"].items())
+                print(f"  🔵 Пиксели по ID: {ids_str}")
+            if result.get("duplicate_pixels"):
+                print(f"  ⚠️  ДУБЛЬ ПИКСЕЛЯ: {', '.join(result['duplicate_pixels'])} — найдено >1 ID одной платформы. Возможна дублирующая установка → двойной счёт событий. Проверить вручную.")
+
             print()
 
             has_gtm = bool([x for x in all_tag_ids if x.startswith(("GTM-", "GT-"))])
@@ -310,15 +317,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             print(f"  Платформы:     {'   '.join(plat_parts[:3])}")
             if len(plat_parts) > 3:
                 print(f"                 {'   '.join(plat_parts[3:])}")
+
             print()
 
-            # Пиксели, пойманные по ID (presence) + предупреждение о дублях (жёлтая зона)
-            if result.get("pixel_ids"):
-                ids_str = " | ".join(f"{p}: {', '.join(ids)}" for p, ids in result["pixel_ids"].items())
-                print(f"  🔵 Пиксели по ID: {ids_str}")
-            if result.get("duplicate_pixels"):
-                print(f"  ⚠️  ДУБЛЬ ПИКСЕЛЯ: {', '.join(result['duplicate_pixels'])} — найдено >1 ID одной платформы. Возможна дублирующая установка → двойной счёт событий. Проверить вручную.")
-
+            # Только то, что РЕАЛЬНО стрельнуло (включая PageView). «Не зафиксировано» не пишем.
             fired_events = [(ev, plat) for plat, info in active_platforms.items()
                             for ev in info["events"] + info["noise"]]
             if fired_events:
@@ -326,11 +328,6 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     print(f"  События:       {ev} → {plat}")
             else:
                 print(f"  События:       не зафиксированы")
-
-            missing_ev = result.get("missing_events", [])
-            if missing_ev and result.get("status") != "❌ NO TRACKING":
-                for ev in missing_ev:
-                    print(f"  {ev}: не зафиксирован при загрузке")
 
             ext = result.get("external_services", {})
             conv_svcs = [s for s in ext if s not in ANALYTICS_TOOLS]

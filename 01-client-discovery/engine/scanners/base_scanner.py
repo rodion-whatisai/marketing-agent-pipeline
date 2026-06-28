@@ -180,7 +180,7 @@ CONVERSION_EVENTS_TIER2 = {
 }
 
 NOISE_EVENTS = {
-    "Meta": ["PageView", "fired"],
+    "Meta": ["fired"],   # PageView НЕ noise: показываем «Meta: PageView» (пиксель активен, шлёт baseline)
     "Google Analytics": [
         "gtm.init", "gtm.init_consent", "gtm.js", "fired",
         "page_view", "user_engagement", "session_start", "first_visit",
@@ -211,12 +211,12 @@ EXTERNAL_SERVICES = {
     "Paperform":         ["paperform.co"],
     "HubSpot Forms":     ["hsforms.com", "hsforms.net"],
     "ActiveCampaign":    ["activehosted.com"],
-    "Intercom":          ["intercom.io", "widget.intercom.io"],
-    "Drift":             ["drift.com", "js.driftt.com"],
-    "Crisp":             ["crisp.chat"],
-    "Tidio":             ["tidio.co"],
-    "Zendesk":           ["zendesk.com/embeddable"],
-    "Freshchat":         ["freshchat.com", "wchat.freshchat.com"],
+    # Саппорт-чаты скрыты — не конверсионный канал, шум для tracking-аудита (Zendesk тоже убран):
+    # "Intercom":          ["intercom.io", "widget.intercom.io"],
+    # "Drift":             ["drift.com", "js.driftt.com"],
+    # "Crisp":             ["crisp.chat"],
+    # "Tidio":             ["tidio.co"],
+    # "Freshchat":         ["freshchat.com", "wchat.freshchat.com"],
     "Stripe":            ["js.stripe.com", "checkout.stripe.com"],
     "Paddle":            ["paddle.com"],
     "Gumroad":           ["gumroad.com"],
