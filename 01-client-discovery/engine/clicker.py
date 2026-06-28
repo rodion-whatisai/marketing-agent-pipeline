@@ -15,7 +15,7 @@ TNC Pipeline — Clicker v2.0
 """
 
 import argparse
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 
 from utils import HEADERS
 from log import log_debug, log_step, log_header, log_info, log_warn, log_success
@@ -72,6 +72,13 @@ def make_pixel_listener(holder: dict, debug: bool = False):
             for domain in rules["domains"]:
                 if domain in req_url:
                     event = get_event_from_url(req_url, platform)
+                    # Какой именно пиксель стрельнул: id из ?id=<pixel> (для дубль-пикселей критично)
+                    pid = None
+                    id_param = rules.get("id_param")
+                    if id_param:
+                        _vals = parse_qs(urlparse(req_url).query).get(id_param)
+                        if _vals:
+                            pid = _vals[0]
                     buf.setdefault(platform, [])
                     if not any(e["event"] == event for e in buf[platform]):
                         buf[platform].append({
@@ -80,6 +87,7 @@ def make_pixel_listener(holder: dict, debug: bool = False):
                             "is_partial": is_partial_event(platform, event),
                             "is_noise": is_noise_event(platform, event),
                             "source": "click",
+                            "pixel_id": pid,
                         })
                     return
     return on_request
@@ -114,6 +122,7 @@ def _is_purchase_type(tag: str) -> bool:
 
 def _flatten(buf: dict):
     fired, conv, partial = [], [], []
+    pixel_by_tag = {}   # "Meta:Purchase" → "1063725220370121" (какой пиксель стрельнул событие)
     for plat, evs in buf.items():
         for e in evs:
             if e.get("is_noise"):
@@ -121,11 +130,13 @@ def _flatten(buf: dict):
             tag = f"{plat}:{e['event']}"
             if tag not in fired:
                 fired.append(tag)
+            if e.get("pixel_id") and tag not in pixel_by_tag:
+                pixel_by_tag[tag] = e["pixel_id"]
             if e.get("is_conversion") and tag not in conv:
                 conv.append(tag)
             if e.get("is_partial") and tag not in partial:
                 partial.append(tag)
-    return fired, conv, partial
+    return fired, conv, partial, pixel_by_tag
 
 
 def _derive_red_flag(page_type: str, fired: list):
@@ -195,7 +206,7 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
         for cand in cands:
             row = {"button_text": cand["text"], "button_tag": cand["tag"],
                    "is_form_submit": cand["isFormSubmit"], "clicked": False,
-                   "navigated_to": None, "events_fired": [], "conversion_events": [],
+                   "navigated_to": None, "events_fired": [], "events_pixel": {}, "conversion_events": [],
                    "partial_events": [], "red_flag": False, "red_flag_reason": None, "error": None}
             try:
                 idx = cand["index"]
@@ -241,8 +252,9 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                     except Exception as e:
                         log_debug(f"click_page: js read err: {str(e)[:60]}")
 
-                fired, conv, partial = _flatten(buf)
+                fired, conv, partial, pixel_by_tag = _flatten(buf)
                 row["events_fired"] = fired
+                row["events_pixel"] = pixel_by_tag
                 row["conversion_events"] = conv
                 row["partial_events"] = partial
                 rf, reason = _derive_red_flag(page_type, fired)

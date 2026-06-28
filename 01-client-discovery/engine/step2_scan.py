@@ -25,6 +25,18 @@ from scanners.base_scanner import ANALYTICS_TOOLS
 from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
 
 
+def _fmt_click_events(b: dict) -> str:
+    """Клик-события с атрибуцией к пикселю: 'Meta:Purchase ← пиксель …370121, Meta:Lead ← …299258'.
+    Для дубль-пикселей видно, КАКОЙ именно пиксель стрельнул каждое событие."""
+    evs = b.get("events_fired") or []
+    pix = b.get("events_pixel") or {}
+    out = []
+    for tag in evs:
+        pid = pix.get(tag)
+        out.append(f"{tag} ← пиксель …{pid[-6:]}" if pid else tag)
+    return ", ".join(out)
+
+
 def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         debug_mode: bool = False, click_mode: bool = False, headed: bool = False,
         max_pages: int = None):
@@ -343,7 +355,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     if not evs:
                         continue
                     bt = (b.get("button_text") or "")[:30]
-                    print(f"  События (клик «{bt}»):  {', '.join(evs)}")
+                    print(f"  События (клик «{bt}»):  {_fmt_click_events(b)}")
                     if b.get("red_flag"):
                         print(f"      🚩 RED FLAG: кнопка {b.get('red_flag_reason', '')}")
             else:
@@ -423,17 +435,20 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             print(f"\n  {label} {r['path']}")
             if r.get("cta_elements"):
                 print(f"    CTA кнопки:   {', '.join(r['cta_elements'][:4])}")
-            fired = []
+            # Стиль per-page: только то, что РЕАЛЬНО стрельнуло (загрузка + клик), без «не зафиксировано»
             for plat, evts in r.get("pixel_events", {}).items():
                 names = [e["event"] for e in evts]
                 if names:
-                    fired.append(f"{', '.join(names)} → {plat}")
+                    print(f"    События (загрузка): {', '.join(names)} → {plat}")
             for plat in r.get("shopify_pixel_platforms", []):
                 if plat not in r.get("pixel_events", {}):
-                    fired.append(f"PageView → {plat}")
-            print(f"    При загрузке: {' | '.join(fired) if fired else 'ничего не зафиксировано'}")
-            for ev in r.get("missing_events", []):
-                print(f"    {ev}: не зафиксирован при загрузке")
+                    print(f"    События (загрузка): PageView → {plat}")
+            for b in (r.get("click_result") or {}).get("buttons", []):
+                evs = b.get("events_fired") or []
+                if not evs:
+                    continue
+                bt = (b.get("button_text") or "")[:30]
+                print(f"    События (клик «{bt}»): {_fmt_click_events(b)}")
 
     if unverified_pages:
         print(f"\n⚠️  ФОРМЫ БРОНИРОВАНИЯ — событие не зафиксировано:")
@@ -452,7 +467,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 if not evs:
                     continue
                 bt = (b.get("button_text") or "")[:30]
-                print(f"    События (клик «{bt}»): {', '.join(evs)}")
+                print(f"    События (клик «{bt}»): {_fmt_click_events(b)}")
                 if b.get("red_flag"):
                     print(f"    🚩 кнопка {b.get('red_flag_reason', '')}")
 
