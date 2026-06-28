@@ -134,7 +134,7 @@ def _derive_red_flag(page_type: str, fired: list):
         return False, None
     bad = [t for t in fired if _is_purchase_type(t)]
     if bad:
-        return True, f"purchase-type конверсия {bad} на странице типа '{page_type}'"
+        return True, f"при клике шлёт {', '.join(bad)} — на странице типа «{page_type}» purchase-событие быть не должно"
     return False, None
 
 
@@ -249,7 +249,7 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                 row["red_flag"], row["red_flag_reason"] = rf, reason
                 if rf:
                     result["any_red_flag"] = True
-                    log_warn(f"🚩 RED FLAG: '{cand['text'][:40]}' → {conv} на {page_type}")
+                    log_debug(f"click_page: RED FLAG '{cand['text'][:40]}' → {conv} на {page_type} (рендерится в step2 «События»)")
             except Exception as e:
                 row["error"] = str(e)[:100]
                 log_debug(f"click_page: button '{cand['text'][:30]}' error: {str(e)[:80]}")

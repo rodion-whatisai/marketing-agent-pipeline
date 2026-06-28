@@ -51,7 +51,7 @@ _DISCOVER_BUTTONS_JS = """
     let mainZone=null;
     for(const sel of MAIN_SELECTORS){ try{ const el=document.querySelector(sel); if(el && el.offsetHeight>50){ mainZone=el; break; } }catch(e){} }
 
-    const SKIP_TEXTS = new Set(['close','ok','okay','cancel','dismiss','skip','back','accept','accept all','reject all','decline','allow','deny','agree','i agree','got it','save preferences','necessary only','accept cookies','reject cookies','manage cookies','cookie settings','search','menu','home','privacy policy','terms of service','view all','see all','load more','show more','more','next','continue','no thanks','maybe later','share','follow','print','previous','pause','play']);
+    const SKIP_TEXTS = new Set(['close','ok','okay','cancel','dismiss','skip','back','accept','accept all','reject all','decline','allow','deny','agree','i agree','got it','save preferences','necessary only','accept cookies','reject cookies','manage cookies','cookie settings','search','menu','home','privacy policy','terms of service','view all','see all','load more','show more','more','next','continue','no thanks','maybe later','share','follow','print','previous','pause','play','use my current location','use my location']);
 
     function getButtonText(el){
         const aria=(el.getAttribute('aria-label')||'').trim(); if(aria.length>1 && aria.length<80) return aria;

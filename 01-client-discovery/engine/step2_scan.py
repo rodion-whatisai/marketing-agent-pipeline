@@ -87,6 +87,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     gtm_insights = {}
     gtm_platforms = set()
     all_tag_ids = []
+    site_baseline = None   # site-факты 1-й страницы (пиксели/дубли/Google tools/платформы) — для скрытия повторов
 
     if headed:
         log_info("Режим: headed (видимый браузер) — для визуальной/ручной проверки страницы", emoji="🪟")
@@ -196,8 +197,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                         for ev in b.get("conversion_events", []):
                             if ev not in result["conversion_events_found"]:
                                 result["conversion_events_found"].append(ev)
-                        if b.get("red_flag"):
-                            print(f"       🚩 RED FLAG: '{b['button_text'][:40]}' → {', '.join(b['conversion_events'])} (на {ptype})")
+                        # red flag НЕ печатаем здесь — он рендерится ниже в разделе «События»
                     clicked_n = sum(1 for b in btns if b.get("clicked"))
                     fired_n   = sum(1 for b in btns if b.get("events_fired"))
                     if clicked_n and fired_n == 0:
@@ -298,34 +298,54 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             else:
                 print(f"  CTA кнопки:    не найдены")
 
-            # Пиксели по ID (presence) + дубли — сразу под CTA
-            if result.get("pixel_ids"):
-                ids_str = " | ".join(f"{p}: {', '.join(ids)}" for p, ids in result["pixel_ids"].items())
-                print(f"  🔵 Пиксели по ID: {ids_str}")
-            if result.get("duplicate_pixels"):
-                print(f"  ⚠️  ДУБЛЬ ПИКСЕЛЯ: {', '.join(result['duplicate_pixels'])} — найдено >1 ID одной платформы. Возможна дублирующая установка → двойной счёт событий. Проверить вручную.")
-
-            print()
-
+            # --- site-факты страницы (для baseline-сравнения) ---
             has_gtm = bool([x for x in all_tag_ids if x.startswith(("GTM-", "GT-"))])
             has_ga4 = "Google Analytics" in active_platforms or bool([x for x in all_tag_ids if x.startswith("G-")])
             has_ads = "Google Ads" in active_platforms or bool([x for x in all_tag_ids if x.startswith("AW-")])
-            print(f"  Google tools:  GTM {'✅' if has_gtm else '❌'}   GA4 {'✅' if has_ga4 else '❌'}   Google Ads {'✅' if has_ads else '❌'}")
-
             OTHER_PLATFORMS = ["Meta", "TikTok", "Bing/Microsoft", "LinkedIn", "Snapchat", "Pinterest"]
-            plat_parts = [f"{pl} {'✅' + src_tag(pl) if pl in active_platforms else '❌'}" for pl in OTHER_PLATFORMS]
-            print(f"  Платформы:     {'   '.join(plat_parts[:3])}")
-            if len(plat_parts) > 3:
-                print(f"                 {'   '.join(plat_parts[3:])}")
+            site_facts = {
+                "pixel_ids": result.get("pixel_ids", {}),
+                "dup": sorted(result.get("duplicate_pixels", [])),
+                "google": (has_gtm, has_ga4, has_ads),
+                "plats": sorted(pl for pl in OTHER_PLATFORMS if pl in active_platforms),
+            }
 
-            print()
+            if site_baseline is not None and site_facts == site_baseline:
+                # Те же site-факты, что на 1-й странице — не повторяем
+                print(f"  ℹ️  Tracking setup тот же, что на главной — разница только в событиях ниже")
+                print()
+            else:
+                if site_baseline is None:
+                    site_baseline = site_facts
+                if result.get("pixel_ids"):
+                    ids_str = " | ".join(f"{p}: {', '.join(ids)}" for p, ids in result["pixel_ids"].items())
+                    print(f"  🔵 Пиксели по ID: {ids_str}")
+                if result.get("duplicate_pixels"):
+                    print(f"  ⚠️  ДУБЛЬ ПИКСЕЛЯ: {', '.join(result['duplicate_pixels'])} — найдено >1 ID одной платформы. Возможна дублирующая установка → двойной счёт событий. Проверить вручную.")
+                print()
+                print(f"  Google tools:  GTM {'✅' if has_gtm else '❌'}   GA4 {'✅' if has_ga4 else '❌'}   Google Ads {'✅' if has_ads else '❌'}")
+                plat_parts = [f"{pl} {'✅' + src_tag(pl) if pl in active_platforms else '❌'}" for pl in OTHER_PLATFORMS]
+                print(f"  Платформы:     {'   '.join(plat_parts[:3])}")
+                if len(plat_parts) > 3:
+                    print(f"                 {'   '.join(plat_parts[3:])}")
+                print()
 
-            # Только то, что РЕАЛЬНО стрельнуло (включая PageView). «Не зафиксировано» не пишем.
-            fired_events = [(ev, plat) for plat, info in active_platforms.items()
-                            for ev in info["events"] + info["noise"]]
-            if fired_events:
-                for ev, plat in fired_events:
-                    print(f"  События:       {ev} → {plat}")
+            # --- События: на загрузке (сканер) + при клике (кликер); red flag рядом с событием ---
+            load_events = [(ev, plat) for plat, info in active_platforms.items()
+                           for ev in info["events"] + info["noise"]]
+            click_btns = (result.get("click_result") or {}).get("buttons", [])
+            has_click_ev = any(b.get("events_fired") for b in click_btns)
+            if load_events or has_click_ev:
+                for ev, plat in load_events:
+                    print(f"  События (загрузка):  {ev} → {plat}")
+                for b in click_btns:
+                    evs = b.get("events_fired") or []
+                    if not evs:
+                        continue
+                    bt = (b.get("button_text") or "")[:30]
+                    print(f"  События (клик «{bt}»):  {', '.join(evs)}")
+                    if b.get("red_flag"):
+                        print(f"      🚩 RED FLAG: кнопка {b.get('red_flag_reason', '')}")
             else:
                 print(f"  События:       не зафиксированы")
 
