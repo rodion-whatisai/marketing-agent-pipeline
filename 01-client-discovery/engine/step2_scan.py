@@ -368,7 +368,14 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
 
     print()
     log_header("РЕЗУЛЬТАТ")
-    print(f"  ✅ OK  (CTA + Events):           {len(oks)}")
+    # red flag побеждает OK: страницы с misconfiguration уходят из ✅ OK в свою секцию
+    def _has_red_flag(r):
+        return bool((r.get("click_result") or {}).get("any_red_flag"))
+    misconfig  = [r for r in oks if _has_red_flag(r)]
+    clean_oks  = [r for r in oks if not _has_red_flag(r)]
+    print(f"  ✅ OK  (CTA + Events):           {len(clean_oks)}")
+    if misconfig:
+        print(f"  🚩 MISCONFIGURATION (red flag):  {len(misconfig)}")
     print(f"  🚨 GAP (пиксель, нет конверсий): {n_real_gaps}")
     if n_unverified:
         print(f"  ⚠️  Форма найдена, событие не зафиксировано: {n_unverified}")
@@ -436,9 +443,22 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             print(f"\n  {r['path']}")
             print(f"    {r['status']}")
 
-    if oks:
+    if misconfig:
+        print(f"\n🚩 MISCONFIGURATION — событие не того типа:")
+        for r in misconfig:
+            print(f"\n  {r['path']}")
+            for b in (r.get("click_result") or {}).get("buttons", []):
+                evs = b.get("events_fired") or []
+                if not evs:
+                    continue
+                bt = (b.get("button_text") or "")[:30]
+                print(f"    События (клик «{bt}»): {', '.join(evs)}")
+                if b.get("red_flag"):
+                    print(f"    🚩 кнопка {b.get('red_flag_reason', '')}")
+
+    if clean_oks:
         print(f"\n✅ OK — страницы с корректным tracking:")
-        for r in oks:
+        for r in clean_oks:
             print(f"  {r['path']}")
             for ev in r["conversion_events_found"]:
                 print(f"    → {ev}")
