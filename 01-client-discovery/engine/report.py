@@ -373,13 +373,23 @@ PLATFORM_ICONS = {
 
 
 def load_gtm_data(domain: str) -> dict:
-    """Пробует загрузить GTM данные для домена."""
-    import os
+    """Пробует загрузить GTM данные для домена.
+
+    Пайплайн пишет их в scans/<domain>/gtm.json (gtm_analyzer из step2);
+    legacy-имя gtm_<domain>.json рядом со скриптом — fallback для старых прогонов.
+    # Tested: 2026-07-07 on tinytronics.nl — до фикса искался только legacy-путь,
+    #         GTM-данные не грузились → build_recommendations выдавал 0 рекомендаций
+    """
     log_debug(f"load_gtm_data: start domain={domain}")
-    gtm_file = f"gtm_{domain}.json"
-    if os.path.exists(gtm_file):
+    gtm_file = scan_path(domain, "gtm.json")
+    if gtm_file.exists():
         log_debug(f"load_gtm_data: найден {gtm_file}")
         with open(gtm_file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    legacy = f"gtm_{domain}.json"
+    if os.path.exists(legacy):
+        log_debug(f"load_gtm_data: найден legacy {legacy}")
+        with open(legacy, "r", encoding="utf-8") as f:
             return json.load(f)
     log_debug(f"load_gtm_data: {gtm_file} нет — пусто")
     return {}
@@ -431,8 +441,8 @@ def print_report(data: dict, gtm_data: dict = None):
     platforms = analyze_platform_data(all_pages)
     domain = urlparse(base_url).netloc
 
-    # Загружаем GTM данные если не переданы явно
-    if gtm_data is None:
+    # Загружаем GTM данные если не переданы явно (или переданы пустыми)
+    if not gtm_data:
         gtm_data = load_gtm_data(domain)
     gtm = merge_gtm_insights(gtm_data) if gtm_data else {}
 
@@ -700,7 +710,15 @@ def print_report(data: dict, gtm_data: dict = None):
     recs = build_recommendations(platforms, gap_pages, base_url, gtm)
 
     if not recs:
-        print(f"\n  Tracking настроен корректно — рекомендаций нет")
+        # Нет автоматических рекомендаций ≠ «всё корректно»: формулировка строго
+        # по наблюдённым фактам, зеркалит вердикт-ветвление generate_report_html
+        if n_gaps > 0 or no_tracking > 0:
+            print(f"\n  Автоматические рекомендации не сформированы.")
+            print(f"  Зафиксировано: {n_gaps} страниц с CTA без конверсионных событий — см. секцию GAP.")
+        elif n_oks > 0:
+            print(f"\n  Конверсионные события зафиксированы на всех страницах с CTA — рекомендаций нет")
+        else:
+            print(f"\n  Данных недостаточно для автоматических рекомендаций — нужна ручная проверка")
     else:
         for i, rec in enumerate(recs, 1):
             print(f"\n  {i}. {rec['platform']}")
@@ -730,7 +748,7 @@ if __name__ == "__main__":
         log.set_level("INFO" if "--quiet" in sys.argv else "DEBUG")  # --quiet приглушает до INFO+
         sys.argv = [a for a in sys.argv if a not in ("--debug", "--quiet")]  # убрать из позиционных
     if len(sys.argv) < 2:
-        log_error("Usage: python report.py step2_<domain>.json [gtm_<domain>.json] [--debug|--quiet]")
+        log_error("Usage: python report.py scans/<domain>/<domain>_step2.json [путь-к-gtm.json] [--debug|--quiet]")
         sys.exit(1)
 
     data = load(sys.argv[1])
