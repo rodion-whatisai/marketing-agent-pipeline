@@ -480,8 +480,17 @@ def classify_all(urls: list, site_context: str = "", show_progress: bool = True,
 
 
 def _struct_key(path: str) -> str:
-    """Структурная форма URL = первый сегмент пути. /cars/altima → /cars."""
-    parts = [p for p in path.split("/") if p]
+    """Структурная форма URL = первый сегмент пути БЕЗ языкового префикса.
+    /cars/altima → /cars; /en/robotics/arms → /robotics (иначе двуязычный
+    сайт целиком схлопывается в одну форму '/en'). /en без хвоста остаётся
+    /en — корень локализации, как в fast_classify/filter_lang_duplicates.
+    # Tested: 2026-07-07 симуляция на 105 исторических step1.json — 83/105 бит-в-бит
+    #         (nissan.ie идентичен); tinytronics: 1 форма/3 репа → 87 форм/123 репа.
+    #         Известный wart: US-коды штатов /ar /de (homebuddy.com) тоже срезаются —
+    #         даёт только сплиты (+репы), потерь покрытия нет."""
+    parts = [p for p in path.lower().split("/") if p]
+    if len(parts) > 1 and parts[0] in LANG_PREFIXES:
+        parts = parts[1:]
     return "/" + parts[0] if parts else "/"
 
 

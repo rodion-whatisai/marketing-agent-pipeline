@@ -167,7 +167,14 @@ FAST_RULES = [
     (2, "product",         [r"/products/[^/]", r"/collections/[^/]+/products/", r"/items/", r"/listing/"]),
     (2, "location",        [r"/locations/", r"/stores/", r"/store/"]),
     (2, "use_case",        [r"/features(?:/|$)", r"/integrations(?:/|$)", r"/solutions(?:/|$)", r"/use-cases(?:/|$)", r"/use-case(?:/|$)"]),
-    (2, "pricing",         [r"/pricing", r"/plans(?:/|$)", r"/packages?(?:/|$)", r"-package(?:/|$)", r"/loyalty(?:/|$)", r"/upgrade(?:/|$)", r"/billing(?:/|$)", r"/subscription(?:/|$)",
+    (2, "pricing",         [r"/pricing", r"/plans(?:/|$)", r"/packages?(?:/|$)",
+                           # -package только БЕЗ саппорт-контекста в сегменте:
+                           # received-damaged-package («повреждённая посылка», OpenCart) — не прайсинг
+                           # Tested: 2026-07-07 sweep по 133 историческим scan-JSON — классификацию
+                           #         потерял только целевой /en/received-damaged-package;
+                           #         /pricing-package (redacted-prospect), /wedding-package и т.п. — остались pricing
+                           r"/(?![^/]*(?:damaged|received|return|refund|lost|missing|broken|stolen|track|warranty))[^/]*-package(?:/|$)",
+                           r"/loyalty(?:/|$)", r"/upgrade(?:/|$)", r"/billing(?:/|$)", r"/subscription(?:/|$)",
                            r"/tarifs?(?:/|$)", r"/forfaits?(?:/|$)", r"/abonnement(?:/|$)"]),
     (2, "search_results",  [r"/product-category/", r"/search(?:/|$)", r"/browse(?:/|$)",
                            r"/recherche(?:/|$)", r"/portfolios?(?:/|$)"]),
