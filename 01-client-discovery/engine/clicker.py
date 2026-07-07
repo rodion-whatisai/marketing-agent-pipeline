@@ -32,16 +32,28 @@ NON_COMMERCE_TYPES = {
 }
 
 
-# JS: читает события из dataLayer (GA4) и fbq.queue (Meta) — стреляют туда после клика
+# JS: читает события из dataLayer (GA4) и fbq.queue (Meta) — стреляют туда после клика.
+# Принимает watermarks [dlOff, fbqOff] — длины ДО клика: читаем только новые элементы,
+# иначе кумулятивный dataLayer приписывает событие первой кнопки всем последующим
+# (Ctrl+клик не навигирует → один dataLayer живёт на все кнопки страницы).
+# Clamp-to-0 — на случай сайтов, переприсваивающих window.dataLayer на лету.
+# Tested: 2026-07-07 on tinytronics.nl homepage — до фикса Verlanglijst и Next slide
+#         наследовали add_to_cart от Toevoegen (3 byte-identical записи в step2.json)
 _READ_JS_EVENTS_JS = """
-() => {
+([dlOff, fbqOff]) => {
     const events = [];
     const NOISE = new Set(['gtm.js','gtm.init','gtm.load','gtm.dom','gtm.init_consent','page_view','user_engagement','session_start','first_visit','OneTrustLoaded','OptanonLoaded','OneTrustGroupsUpdated','dl_intelligems_script_loaded','dl_user_data','scroll','click','form_start','form_close']);
-    if (window.dataLayer){ const seen=new Set(); for(const item of window.dataLayer){ if(item && item.event && !NOISE.has(item.event) && !seen.has(item.event)){ seen.add(item.event); events.push({platform:'Google Analytics', event:item.event}); } } }
-    if (window.fbq && window.fbq.queue){ const seen=new Set(); for(const item of window.fbq.queue){ if(Array.isArray(item) && item[0]==='track' && !seen.has(item[1])){ seen.add(item[1]); events.push({platform:'Meta', event:item[1]}); } } }
+    if (window.dataLayer){ const arr = window.dataLayer; const start = (dlOff <= arr.length) ? dlOff : 0; const seen=new Set(); for(const item of arr.slice(start)){ if(item && item.event && !NOISE.has(item.event) && !seen.has(item.event)){ seen.add(item.event); events.push({platform:'Google Analytics', event:item.event}); } } }
+    if (window.fbq && window.fbq.queue){ const q = window.fbq.queue; const qs = (fbqOff <= q.length) ? fbqOff : 0; const seen=new Set(); for(const item of q.slice(qs)){ if(Array.isArray(item) && item[0]==='track' && !seen.has(item[1])){ seen.add(item[1]); events.push({platform:'Meta', event:item[1]}); } } }
     return events;
 }
 """
+
+def _js_watermarks(page) -> list:
+    """Длины dataLayer/fbq.queue ПЕРЕД кликом — _read_js_events прочтёт только новое."""
+    return page.evaluate(
+        "() => [window.dataLayer ? window.dataLayer.length : 0,"
+        " (window.fbq && window.fbq.queue) ? window.fbq.queue.length : 0]")
 
 # Shopify dl_-события → стандартные GA4
 DL_CONVERSION_MAP = {
@@ -93,10 +105,11 @@ def make_pixel_listener(holder: dict, debug: bool = False):
     return on_request
 
 
-def _read_js_events(page, buf: dict, debug: bool = False):
-    """Подмешивает в buf события из dataLayer/fbq (живут только если клик НЕ увёл страницу)."""
+def _read_js_events(page, buf: dict, marks: list = None, debug: bool = False):
+    """Подмешивает в buf события из dataLayer/fbq (живут только если клик НЕ увёл страницу).
+    marks = watermarks от _js_watermarks (снятые до клика); None → читать всё (легаси)."""
     from scanners.base_scanner import is_conversion_event, is_partial_event, is_noise_event
-    js_events = page.evaluate(_READ_JS_EVENTS_JS)
+    js_events = page.evaluate(_READ_JS_EVENTS_JS, marks or [0, 0])
     for ev in js_events:
         plat, name = ev["platform"], ev["event"]
         if name in DL_CONVERSION_MAP:
@@ -237,6 +250,10 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                 buf = {}
                 holder["buf"] = buf
                 pre = page.url
+                try:
+                    marks = _js_watermarks(page)   # длины dataLayer/fbq ДО клика
+                except Exception:
+                    marks = [0, 0]
                 loc = page.locator(f'[data-tnc-btn="{idx}"]').first
                 loc.scroll_into_view_if_needed(timeout=3000)
                 loc.click(timeout=5000, no_wait_after=True, modifiers=["Control"])  # Ctrl+клик: ссылка в фон, страница не уходит
@@ -248,7 +265,7 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                     log_debug(f"click_page: '{cand['text'][:30]}' увёл на {page.url[:50]}")
                 else:
                     try:
-                        _read_js_events(page, buf, debug)
+                        _read_js_events(page, buf, marks, debug)
                     except Exception as e:
                         log_debug(f"click_page: js read err: {str(e)[:60]}")
 
