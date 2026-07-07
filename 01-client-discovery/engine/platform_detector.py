@@ -63,6 +63,22 @@ PLATFORM_SIGNALS = {
         "threshold_high": 7,
         "threshold_medium": 3,
     },
+    "opencart": {
+        "weight": {
+            # HTML / assets — OpenCart-специфичные пути.
+            # НЕ добавлять: голое 'route=' (коллизии с другими фреймворками),
+            # 'journal' (имя темы = обычное слово), 'OpenCart'/'system/storage' (0 хитов, server-side).
+            # Tested: 2026-07-07 on tinytronics.nl — opencart/high (HTML 5+5+4+2 + header 4)
+            "index.php?route=":                 5,
+            "catalog/view/theme":               5,
+            "catalog/view/javascript":          4,
+            "image/cache/":                     2,
+            # URL структура — из sitemap (магазины без SEO-rewrite)
+            "/index.php?route=":                3,
+        },
+        "threshold_high": 8,
+        "threshold_medium": 4,
+    },
     "webflow": {
         "weight": {
             "webflow.js":                       5,
@@ -153,6 +169,23 @@ PLATFORM_PROFILES = {
             "lead_form": ["Lead", "generate_lead"],
         },
         "notes": "Often uses GTM. Check for WooCommerce events.",
+    },
+    "opencart": {
+        "description": "OpenCart e-commerce",
+        "url_patterns": {
+            "route=product/product":     {"type": "product",   "priority": 2},
+            "route=product/category":    {"type": "product",   "priority": 2},
+            "route=checkout/":           {"type": "checkout",  "priority": 1},
+            "route=information/contact": {"type": "lead_form", "priority": 1},
+            "route=account":             {"type": "technical", "priority": 5},
+        },
+        "expected_pixels": ["Meta", "Google Analytics", "Google Ads"],
+        "expected_events": {
+            "product":  ["ViewContent", "view_item"],
+            "checkout": ["InitiateCheckout", "begin_checkout", "Purchase", "purchase"],
+            "lead_form": ["Lead", "generate_lead"],
+        },
+        "notes": "SEO-rewrite прячет ?route= из фронтовых URL (tinytronics) — тогда детект по catalog/view/* asset-путям и OCSESSID-куке.",
     },
     "webflow": {
         "description": "Webflow — design-first, usually leadgen or brochure",
@@ -305,6 +338,11 @@ def detect_platform(html: str, headers: dict = None, sitemap_urls: list = None) 
             scores["shopify"] += 3
             signals["shopify"].append("header:X-Shopify")
             log_debug("detect_platform: header hit shopify +3 (X-Shopify)")
+        # OpenCart session cookie (Set-Cookie: OCSESSID=...)
+        if "ocsessid" in headers_str:
+            scores["opencart"] += 4
+            signals["opencart"].append("header:OCSESSID")
+            log_debug("detect_platform: header hit opencart +4 (OCSESSID)")
     else:
         log_debug("detect_platform: headers не переданы — фаза пропущена")
 
