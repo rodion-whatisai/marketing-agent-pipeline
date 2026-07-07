@@ -91,6 +91,9 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     )
 
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
+    # Сырьё для постмортемов: без него дебаг «почему пиксели не пойманы» требует
+    # живого перескана (2026-07-07: 76 URL tinytronics были потеряны — пришлось переезжать)
+    result["network_requests"] = request_urls_all[:300]
     result["cta_buttons"] = cta_buttons                       # полный список (помечен в DOM) — для кликера
     result["cta_elements"] = cta_elements[:8]                 # порядок приоритета сохранён (JS уже дедупит)
     result["has_cta"] = bool(cta_buttons) or result["content_analysis"]["is_page_of_interest"]

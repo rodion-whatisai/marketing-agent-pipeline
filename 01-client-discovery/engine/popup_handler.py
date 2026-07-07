@@ -41,6 +41,10 @@ ACCEPT_ALL_SELECTORS = [
     "button[id*='allow-all']",
     "button[class*='allow-all']",
     "button[data-testid*='accept-all']",
+
+    # Insites cookieconsent (tinytronics.nl) — Accept = <a class="cc-btn cc-allow">
+    ".cc-btn.cc-allow",
+    "a.cc-allow",
 ]
 
 # Тексты кнопок "Accept all" (case-insensitive, partial match)
@@ -64,6 +68,11 @@ ACCEPT_ALL_TEXTS = [
     "accetta tutto",
     # Dutch
     "alles accepteren",
+    "accepteren",
+    "cookies toestaan",
+    # Insites cookieconsent: accessible name кнопки = aria-label "allow cookies",
+    # а не видимый текст "Accepteren" — нужны оба варианта
+    "allow cookies",
     # Portuguese
     "aceitar todos", "aceitar tudo",
 ]
@@ -123,17 +132,12 @@ def handle_popups(page, verbose: bool = False) -> dict:
         "wait_after_ms": 0,
     }
 
-    # 1. Гео-модал — закрываем крестиком / "No thanks"
-    log_debug("handle_popups: step 1 — пробуем закрыть гео-модал")
-    if _close_geo_modal(page, verbose):
-        result["geo_modal"] = "closed"
-        log_debug("handle_popups: гео-модал закрыт, ждём 400ms")
-        page.wait_for_timeout(400)
-    else:
-        log_debug("handle_popups: гео-модал не найден")
-
-    # 2. Cookie consent — принимаем всё
-    log_debug("handle_popups: step 2 — пробуем принять все куки")
+    # 1. Cookie consent — принимаем всё. ПЕРВЫМ: если гео-проход бежит раньше,
+    # его generic-слова ('dismiss', 'close') попадают в consent-баннер и ОТКЛОНЯЮТ
+    # куки (tinytronics: клик по cc-dismiss «dismiss cookie message» = decline →
+    # сайт не грузит GTM → ноль Google-запросов на весь контекст).
+    # Tested: 2026-07-07 on tinytronics.nl — до фикса гео-проход декейнил consent
+    log_debug("handle_popups: step 1 — пробуем принять все куки")
     if _accept_all_cookies(page, verbose):
         result["cookie_consent"] = "accepted_all"
         # Ждём загрузки тегов которые были заблокированы CMP
@@ -143,6 +147,15 @@ def handle_popups(page, verbose: bool = False) -> dict:
         result["wait_after_ms"] = 5000
     else:
         log_debug("handle_popups: cookie consent не найден")
+
+    # 2. Гео-модал — закрываем крестиком / "No thanks"
+    log_debug("handle_popups: step 2 — пробуем закрыть гео-модал")
+    if _close_geo_modal(page, verbose):
+        result["geo_modal"] = "closed"
+        log_debug("handle_popups: гео-модал закрыт, ждём 400ms")
+        page.wait_for_timeout(400)
+    else:
+        log_debug("handle_popups: гео-модал не найден")
 
     log_debug(f"handle_popups: done result={result}")
     return result
@@ -166,12 +179,29 @@ def _close_geo_modal(page, verbose: bool) -> bool:
         except Exception as e:
             log_debug(f"_close_geo_modal: селектор [{sel}] не сработал: {e}")
 
+    # Текстовый dismiss-проход — ТОЛЬКО если на странице есть гео-триггер:
+    # generic-слова ('dismiss', 'close') иначе цепляют consent-баннеры и чужие модалы
+    try:
+        body_text = (page.evaluate("() => document.body ? document.body.innerText : ''") or "").lower()
+    except Exception:
+        body_text = ""
+    if not any(t in body_text for t in GEO_TRIGGER_TEXTS):
+        log_debug("_close_geo_modal: гео-триггеров на странице нет — текстовый dismiss-проход пропущен")
+        return False
+
     # По тексту — ищем кнопки dismiss внутри модала
     for text in GEO_DISMISS_TEXTS:
         log_fire(f"_close_geo_modal: пробуем текст кнопки '{text}'")
         try:
             btn = page.get_by_role("button", name=text, exact=False).first
             if btn.is_visible(timeout=200):
+                # Consent-кнопки не трогаем (Insites cc-dismiss = ОТКЛОНИТЬ куки)
+                attrs = (btn.evaluate(
+                    "el => ((el.className||'')+' '+(el.id||'')+' '+(el.getAttribute('aria-label')||'')).toString()"
+                ) or "").lower()
+                if any(w in attrs for w in ("cookie", "consent", "cc-")):
+                    log_debug(f"_close_geo_modal: '{text}' — consent-кнопка ({attrs[:60]}), пропускаю")
+                    continue
                 # Проверяем что это не основной CTA страницы
                 # Гео-модал обычно выше или в overlay
                 log_debug(f"_close_geo_modal: кнопка '{text}' видна, кликаем")

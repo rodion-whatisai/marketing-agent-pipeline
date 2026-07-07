@@ -134,15 +134,26 @@ PIXEL_RULES = {
         "id_path_re": r"/signals/config/(\d{6,})",     # SDK config — летит даже в headless
     },
     "Google Analytics": {
-        "domains": ["analytics.google.com/g/collect", "google-analytics.com/collect"],
+        # 'google-analytics.com/g/collect' substring-ловит и www., и region1. хосты —
+        # реальные GA4 endpoints; старые записи оставлены для legacy UA / analytics.google.com
+        # Tested: 2026-07-07 on tinytronics.nl — GA4 бил в www.google-analytics.com/g/collect,
+        #         старые паттерны его не матчили (ломался на '/g/')
+        "domains": ["analytics.google.com/g/collect", "google-analytics.com/collect",
+                    "google-analytics.com/g/collect"],
         "event_param": "en",
         "id_param": "tid",                             # ?tid=G-XXXX
     },
     "Google Ads": {
+        # ccm/collect и viewthroughconversion — presence-пинги современного gtag:
+        # регистрируют платформу/ID, но page_view и т.п. глушатся NOISE_EVENTS ниже
         "domains": ["googleadservices.com/pagead/conversion",
-                    "google.com/pagead/1p-conversion"],
-        "event_param": None,
-        "id_path_re": r"/conversion/(\d{6,})",         # /pagead/conversion/<id>/
+                    "google.com/pagead/1p-conversion",
+                    "google.com/ccm/collect",
+                    "doubleclick.net/ccm/s/collect",
+                    "doubleclick.net/pagead/viewthroughconversion",
+                    "pagead/1p-user-list"],
+        "event_param": "en",                           # ccm/collect несёт en=page_view
+        "id_path_re": r"/(?:conversion|viewthroughconversion)/(\d{6,})",
     },
     "Bing/Microsoft": {
         "domains": ["bat.bing.com/action", "bat.bing.com/p/action"],
@@ -187,7 +198,9 @@ NOISE_EVENTS = {
         "scroll", "click", "view_item_list",
         "form_start", "form_close",
     ],
-    "Google Ads": [],
+    # page_view/gtag.config с ccm/collect — presence-пинг, НЕ конверсия: без этого
+    # ccm-хиты ложно «озеленяли» бы GAP-страницы
+    "Google Ads": ["page_view", "gtag.config"],
     "Bing/Microsoft": ["fired"],
     "TikTok": ["fired"],
     "LinkedIn": ["fired"],

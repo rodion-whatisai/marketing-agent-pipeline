@@ -408,6 +408,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     )
 
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
+    result["network_requests"] = request_urls_all[:300]   # сырьё для постмортемов (см. generic_scanner)
     result["cta_elements"] = list(set(cta_elements))[:8]
     result["has_iframe_form"] = has_iframe_form
     result["iframe_forms"] = iframe_providers
