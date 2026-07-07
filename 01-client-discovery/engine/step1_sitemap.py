@@ -141,11 +141,61 @@ def _urls_belong_to_domain(urls: list, domain: str) -> bool:
     return any(target in u.lower() for u in urls[:50])
 
 
+def _host_variants(base_url: str) -> list:
+    """base_url + его www/no-www сиблинг — robots.txt может отличаться между ними.
+    # Tested: 2026-07-07 on tinytronics.nl — no-www robots без Sitemap:, www robots с Sitemap:
+    """
+    p = urlparse(base_url)
+    sibling = p.netloc[4:] if p.netloc.startswith("www.") else "www." + p.netloc
+    return [f"{p.scheme}://{p.netloc}", f"{p.scheme}://{sibling}"]
+
+
+def _looks_like_waf_challenge(text: str) -> bool:
+    """Только маркеры, встречающиеся исключительно на Cloudflare-интерстишле —
+    НЕ 'challenge-platform' (есть на обычных CF-страницах и в легитимных robots.txt)."""
+    t = text.lower()
+    return ("just a moment" in t or "_cf_chl_opt" in t
+            or "enable javascript and cookies" in t)
+
+
+def fetch_links_from_html_sitemap(url: str, site_domain: str) -> list:
+    """
+    Нестандартная HTML-карта (напр. OpenCart index.php?route=information/sitemap):
+    не XML, но легитимный список ссылок. Тянем <a href> того же домена.
+    Предохранитель: если редирект увёл со страницы карты (в финальном URL нет
+    'sitemap') — считаем что карты нет, чтобы не скрейпить заглушку/главную.
+    # Tested: 2026-07-07 on tinytronics.nl — 481 ссылок с HTML-карты, 468 после clean_urls
+    #         (было: homepage crawl, 135). Регресс: aiby.com (level 1) и platinumlist.net
+    #         (robots→XML) — источник и поведение не изменились.
+    """
+    log_debug(f"fetch_links_from_html_sitemap: пробую {url}")
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=15, allow_redirects=True)
+        if r.status_code != 200 or _looks_like_waf_challenge(r.text):
+            log_debug(f"fetch_links_from_html_sitemap: {url} статус={r.status_code}/waf — пусто")
+            return []
+        if "sitemap" not in r.url.lower():
+            log_debug(f"fetch_links_from_html_sitemap: редирект увёл на {r.url} (не карта) — пусто")
+            return []
+        hrefs = re.findall(r'href=["\']([^"\'#]+)["\']', r.text)
+        urls = set()
+        for h in hrefs:
+            if h.startswith("/") and len(h) > 1:
+                urls.add(urljoin(r.url, h))
+            elif site_domain in h:
+                urls.add(h)
+        log_debug(f"fetch_links_from_html_sitemap: {url} → {len(urls)} внутренних ссылок")
+        return list(urls)
+    except Exception as e:
+        log_debug(f"fetch_links_from_html_sitemap: {url} упал: {e}")
+        return []
+
+
 def get_sitemap_urls(base_url: str) -> tuple:
     """
     Умный поиск sitemap — 4 уровня:
     1. Стандартные пути
-    2. robots.txt (только если URL принадлежат нашему домену)
+    2. robots.txt с обоих хостов (www/no-www); XML или HTML-карта нашего домена
     3. Ссылки с 'sitemap' на главной
     4. Fallback — href с главной
     """
@@ -167,22 +217,44 @@ def get_sitemap_urls(base_url: str) -> tuple:
             return urls, base_url + path
 
     log_debug("get_sitemap_urls: уровень 2 — robots.txt")
-    try:
-        r = requests.get(f"{base_url}/robots.txt", headers=HEADERS, timeout=10)
-        if r.status_code == 200:
-            sm_urls = re.findall(r'(?i)sitemap\s*:\s*(https?://\S+)', r.text)
-            log_debug(f"get_sitemap_urls: robots.txt дал {len(sm_urls)} sitemap-ссылок")
-            for sm_url in sm_urls:
-                urls = try_fetch_sitemap(sm_url)
-                if urls and _urls_belong_to_domain(urls, site_domain):
-                    log_debug(f"get_sitemap_urls: найдено через robots.txt → {sm_url}")
-                    return urls, f"robots.txt → {sm_url}"
-                elif urls:
-                    log_warn(f"robots.txt sitemap чужого домена ({sm_url}) — пропускаю")
-        else:
-            log_debug(f"get_sitemap_urls: robots.txt статус={r.status_code}")
-    except Exception as e:
-        log_debug(f"get_sitemap_urls: уровень 2 (robots.txt) упал: {e}")
+    # robots.txt может отличаться на www и no-www (tinytronics: Sitemap: только на www).
+    # Сначала собираем все Sitemap:-ссылки с обоих хостов (с дедупом), потом пробуем каждую один раз.
+    sm_urls = []
+    for robots_base in _host_variants(base_url):
+        try:
+            r = requests.get(f"{robots_base}/robots.txt", headers=HEADERS, timeout=10)
+            if r.status_code != 200:
+                log_debug(f"get_sitemap_urls: robots.txt {robots_base} статус={r.status_code}")
+                continue
+            if _looks_like_waf_challenge(r.text):
+                log_warn(f"robots.txt {robots_base} — WAF-заглушка, пропускаю")
+                continue
+            found = re.findall(r'(?i)sitemap\s*:\s*(https?://\S+)', r.text)
+            log_debug(f"get_sitemap_urls: robots.txt {robots_base} дал {len(found)} sitemap-ссылок")
+            for sm_url in found:
+                if sm_url not in sm_urls:
+                    sm_urls.append(sm_url)
+        except Exception as e:
+            log_debug(f"get_sitemap_urls: уровень 2 (robots.txt {robots_base}) упал: {e}")
+
+    for sm_url in sm_urls:
+        urls = try_fetch_sitemap(sm_url)
+        if urls and _urls_belong_to_domain(urls, site_domain):
+            log_debug(f"get_sitemap_urls: найдено через robots.txt → {sm_url}")
+            return urls, f"robots.txt → {sm_url}"
+        elif urls:
+            log_warn(f"robots.txt sitemap чужого домена ({sm_url}) — пропускаю")
+            continue
+        # XML не вышел. Если ссылка обещала XML (*.xml/.gz) — она мертва;
+        # HTML-скрейп такой страницы дал бы мусор с 200-заглушки.
+        if urlparse(sm_url).path.lower().endswith((".xml", ".xml.gz")):
+            continue
+        # Нестандартная карта (OpenCart index.php?route=information/sitemap и т.п.) — пробуем как HTML.
+        urls = fetch_links_from_html_sitemap(sm_url, site_domain)
+        if urls and _urls_belong_to_domain(urls, site_domain):
+            log_debug(f"get_sitemap_urls: HTML-карта через robots.txt → {sm_url}")
+            # 'fallback' в имени источника — run() оставляет Pattern Discovery включённым
+            return urls, f"robots.txt html-fallback → {sm_url}"
 
     log_debug("get_sitemap_urls: уровень 3 — ссылки с 'sitemap' на главной")
     try:
