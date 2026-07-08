@@ -270,7 +270,11 @@ PLATFORM_SIGNATURES = {
     "Zendesk": [r'zendesk\.com', r'zopim'],
     "Hotjar": [r'hotjar\.com', r'hjSetting'],
     "Clarity": [r'clarity\.ms', r'microsoft\.com/clarity'],
-    "Segment": [r'segment\.com', r'analytics\.js'],
+    # 'analytics\.js' убран (A2): это имя файла рантайма самого gtm.js —
+    # матчился почти на каждом контейнере → фейковый Segment на 8 сайтах.
+    # Tested: 2026-07-08 on allbirds/bombas/fritz-kola/gymshark/tinytronics —
+    #         Segment исчез из gtm.json; синтетика cdn.segment.com детектится.
+    "Segment": [r'segment\.com', r'cdn\.segment'],
     "Mixpanel": [r'mixpanel\.com', r'mixpanel\.init'],
     "Amplitude": [r'amplitude\.com', r'amplitude\.init'],
     "Klaviyo": [r'klaviyo\.com'],
