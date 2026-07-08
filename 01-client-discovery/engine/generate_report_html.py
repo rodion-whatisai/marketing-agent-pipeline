@@ -244,10 +244,11 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
 
         if in_network:
             cls, status = "active", "Установлен — виден в сети"
-        elif in_shopify:
-            cls, status = "active", "Установлен (Shopify web-pixels)"
         elif in_presence:
             cls, status = "active", "Установлен — виден по ID (событие не зафиксировано)"
+        elif in_shopify:
+            # только в коде web-pixels, network-подтверждения нет — НЕ зелёный (A1)
+            cls, status = "warning", "Обнаружен в коде (Shopify web-pixels) — запросов не зафиксировано"
         elif in_gtm_cont:
             cls, status = "warning", "Есть в GTM — при загрузке не зафиксирован"
         else:
@@ -309,7 +310,8 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
                         fired.append(f"PageView → {plat}")
             for plat in shopify_plats:
                 if plat not in px:
-                    fired.append(f"PageView → {plat}")
+                    # в коде web-pixels, network-запросов нет — не приписываем событие (A1)
+                    fired.append(f"{plat} — в коде (web-pixels), запросов нет")
 
             fired_str = " &nbsp;|&nbsp; ".join(fired) if fired else "Ничего не зафиксировано"
 

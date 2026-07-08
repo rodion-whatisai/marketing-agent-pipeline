@@ -296,12 +296,16 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 active_platforms[plat] = {"source": "direct", "events": non_noise, "noise": noise}
             for plat in shopify_plats:
                 if plat not in active_platforms:
-                    active_platforms[plat] = {"source": "shopify-worker", "events": [], "noise": ["PageView"]}
+                    # найден в коде web-pixels, network-запросов нет — событий не приписываем (A1)
+                    active_platforms[plat] = {"source": "shopify-worker", "events": [], "noise": []}
 
-            def src_tag(plat):
+            def plat_mark(plat):
                 info = active_platforms.get(plat)
-                if not info: return ""
-                return " (Shopify worker)" if info["source"] == "shopify-worker" else ""
+                if not info:
+                    return "❌"
+                if info["source"] == "shopify-worker":
+                    return "⚠️ в коде, запросов нет"
+                return "✅"
 
             if cta_elements:
                 print(f"  CTA кнопки:    {', '.join(cta_elements[:5])}")
@@ -337,7 +341,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     print(f"  ⚠️  ДУБЛЬ ПИКСЕЛЯ: {', '.join(result['duplicate_pixels'])} — найдено >1 ID одной платформы. Возможна дублирующая установка → двойной счёт событий. Проверить вручную.")
                 print()
                 print(f"  Google tools:  GTM {'✅' if has_gtm else '❌'}   GA4 {'✅' if has_ga4 else '❌'}   Google Ads {'✅' if has_ads else '❌'}")
-                plat_parts = [f"{pl} {'✅' + src_tag(pl) if pl in active_platforms else '❌'}" for pl in OTHER_PLATFORMS]
+                plat_parts = [f"{pl} {plat_mark(pl)}" for pl in OTHER_PLATFORMS]
                 print(f"  Платформы:     {'   '.join(plat_parts[:3])}")
                 if len(plat_parts) > 3:
                     print(f"                 {'   '.join(plat_parts[3:])}")
@@ -445,9 +449,6 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 names = [e["event"] for e in evts if not e.get("is_noise")]
                 if names:
                     print(f"    События (загрузка): {', '.join(names)} → {plat}")
-            for plat in r.get("shopify_pixel_platforms", []):
-                if plat not in r.get("pixel_events", {}):
-                    print(f"    События (загрузка): PageView → {plat}")
             for b in (r.get("click_result") or {}).get("buttons", []):
                 evs = b.get("events_fired") or []
                 if not evs:

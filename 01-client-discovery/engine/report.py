@@ -95,14 +95,10 @@ def analyze_platform_data(all_pages: list) -> dict:
     platforms = {}
 
     for page in all_pages:
-        # Объединяем pixel_events + shopify_pixel_platforms
-        # Shopify web-pixels платформы — PageView only, остальное неизвестно
-        shopify_plats = page.get("shopify_pixel_platforms", [])
+        # Только network-подтверждённые события. Платформы из shopify_pixel_platforms
+        # без запросов НЕ подмешиваем (A1: дубль синтеза PageView) — они рендерятся
+        # отдельной строкой «обнаружены в коде, запросов не зафиксировано».
         combined_events = dict(page.get("pixel_events", {}))
-        for plat in shopify_plats:
-            if plat not in combined_events:
-                combined_events[plat] = [{"event": "PageView", "is_conversion": False,
-                                          "is_partial": False, "is_noise": True}]
 
         for platform, events in combined_events.items():
             if platform not in platforms:
@@ -574,6 +570,14 @@ def print_report(data: dict, gtm_data: dict = None):
             if custom:
                 print(f"    🔧 Кастомные события:    {', '.join(custom)}")
 
+    # Shopify web-pixels: найдены в коде воркеров, ни одного network-запроса.
+    # Не «активность» и не событие — отдельная строка (consent-gated пиксель молчит легитимно).
+    code_only = sorted({
+        plat for p in all_pages for plat in p.get("shopify_pixel_platforms", [])
+    } - set(platforms.keys()))
+    if code_only:
+        print(f"\n  ⚠️  Обнаружены в коде (Shopify web-pixels), запросов не зафиксировано: {', '.join(code_only)}")
+
     # ── 3. Что отсутствует глобально ─────────────────────────────
     print(f"\n{'─' * 65}")
     print(f"🚫 ОТСУТСТВУЮЩИЕ СТАНДАРТНЫЕ СОБЫТИЯ")
@@ -646,24 +650,22 @@ def print_report(data: dict, gtm_data: dict = None):
                 print(f"    {p['path']}")
                 if ctas:
                     print(f"      CTA: {', '.join(ctas[:3])}")
-                # При загрузке — что реально зафиксировали
+                # При загрузке — что реально зафиксировали (только network-события, A1)
                 fired = []
-                combined_px = dict(px)
-                for plat in p.get("shopify_pixel_platforms", []):
-                    if plat not in combined_px:
-                        combined_px[plat] = []
-                for plat, evts in combined_px.items():
+                for plat, evts in px.items():
                     names = [e["event"] for e in evts
                              if not is_noise(plat, e["event"])
                              and e["event"] not in ("fired", "track")]
                     if names:
                         fired.append(f"{', '.join(names)} → {plat}")
-                    elif plat in p.get("shopify_pixel_platforms", []):
-                        fired.append(f"PageView → {plat}")
+                code_only = [plat for plat in p.get("shopify_pixel_platforms", [])
+                             if plat not in px]
                 if fired:
                     print(f"      При загрузке: {' | '.join(fired)}")
                 else:
                     print(f"      При загрузке: ничего не зафиксировано")
+                if code_only:
+                    print(f"      В коде (web-pixels), запросов нет: {', '.join(code_only)}")
 
                 # Не зафиксированные события
                 if missing:

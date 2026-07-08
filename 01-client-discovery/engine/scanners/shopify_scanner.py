@@ -19,16 +19,22 @@ SHOPIFY_PIXEL_PLATFORMS = {
     "136216791":  "Pinterest",
 }
 
-SHOPIFY_PIXEL_NAMES = {
-    "facebook":  "Meta",
-    "meta":      "Meta",
-    "google":    "Google Analytics",
-    "tiktok":    "TikTok",
-    "pinterest": "Pinterest",
-    "bing":      "Bing/Microsoft",
-    "microsoft": "Bing/Microsoft",
-    "linkedin":  "LinkedIn",
-    "snapchat":  "Snapchat",
+# Маркеры ВЫЗОВОВ per-платформа — НЕ голые слова. Голые подстроки ("snapchat",
+# "bing") били в UA-регэкспы рантайма Shopify web-pixels-manager
+# (/(chromium|instagram|snapchat)/i, /bingbot/i), который грузится на КАЖДОМ
+# магазине → фейковые «Snapchat ✅»/«Bing ✅» в клиентском отчёте (баг A1;
+# allbirds: 0 запросов к tr.snapchat.com/bat.bing из ~1200, а в отчёте обе).
+# Все маркеры lowercase — тело скрипта приводится к lower() перед матчингом.
+# Tested: 2026-07-08 on allbirds.com — Snapchat/Bing исчезли (0 network-запросов);
+#         pipsnacks.com — Pinterest жив через маркеры (code-only → warning в отчёте).
+SHOPIFY_PIXEL_MARKERS = {
+    "Meta":             ("fbevents.js", "fbq(", "connect.facebook.net", "facebook.com/tr"),
+    "Google Analytics": ("googletagmanager.com", "google-analytics.com", "gtag("),
+    "TikTok":           ("ttq.load", "analytics.tiktok.com"),
+    "Pinterest":        ("pintrk", "ct.pinterest.com", "s.pinimg.com"),
+    "Bing/Microsoft":   ("bat.bing.com", "uetq"),
+    "LinkedIn":         ("lintrk", "snap.licdn.com", "px.ads.linkedin.com"),
+    "Snapchat":         ("snaptr(", "tr.snapchat.com", "sc-static.net"),
 }
 
 _SHOPIFY_CTA_JS = """
@@ -242,25 +248,16 @@ def detect_shopify_pixel_platforms(web_pixel_urls: list, web_pixel_bodies: dict 
             if app_id in url:
                 log_debug(f"detect_shopify_pixel_platforms: app_id {app_id} → {platform} (url={url[:80]})")
                 found.add(platform)
-        url_lower = url.lower()
-        for keyword, platform in SHOPIFY_PIXEL_NAMES.items():
-            if keyword in url_lower:
-                log_debug(f"detect_shopify_pixel_platforms: keyword '{keyword}' → {platform} (url={url[:80]})")
+        body = (bodies.get(url) or "").lower()
+        if not body:
+            continue
+        for platform, markers in SHOPIFY_PIXEL_MARKERS.items():
+            if platform in found:
+                continue
+            marker = next((m for m in markers if m in body), None)
+            if marker:
+                log_debug(f"detect_shopify_pixel_platforms: маркер '{marker}' → {platform} (url={url[:80]})")
                 found.add(platform)
-        body = bodies.get(url, "")
-        if body:
-            if "fbevents.js" in body or "facebook.net" in body:
-                found.add("Meta")
-            if "googletagmanager" in body or "google-analytics" in body or "gtag" in body:
-                found.add("Google Analytics")
-            if "tiktok" in body.lower() or "ttq.load" in body:
-                found.add("TikTok")
-            if "pinterest" in body.lower() or "pintrk" in body:
-                found.add("Pinterest")
-            if "bing" in body.lower() or "bat.bing" in body:
-                found.add("Bing/Microsoft")
-            if "snap.com" in body or "snapchat" in body.lower():
-                found.add("Snapchat")
     log_debug(f"detect_shopify_pixel_platforms: result={sorted(found)}")
     return list(found)
 
@@ -353,10 +350,14 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
         if re.search(r'fbevents\.js|facebook\.net/en_US|"pixelId"\s*:\s*"\d{10,}"', combined_html):
             log_debug("scan_page: Meta найден по HTML regex (fbevents/facebook.net/pixelId)")
             shopify_pixel_platforms.append("Meta")
-    for sp in shopify_pixel_platforms:
-        if sp not in pixel_events:
-            pixel_events[sp] = [{"event": "PageView", "is_conversion": False,
-                                  "is_partial": False, "is_noise": True}]
+    # PageView НЕ синтезируем: pixel_events = только network-подтверждённые события (A1).
+    # Платформа из web-pixels кода без запросов остаётся в shopify_pixel_platforms
+    # и рендерится downstream как «обнаружен в коде, запросов не зафиксировано».
+    # Tested: 2026-07-08 on gymshark.com — Bing (network, ID 134606084) цел;
+    #         tinytronics.nl — регрессии нет (статусы страниц идентичны old-vs-new).
+    code_only = [sp for sp in shopify_pixel_platforms if sp not in pixel_events]
+    if code_only:
+        log_debug(f"scan_page: в коде web-pixels, но без network-запросов: {code_only} — событий не приписываем")
 
     cta_elements = _detect_cta_elements(page)
 
