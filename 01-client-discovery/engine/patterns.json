@@ -265,7 +265,8 @@
       "https://indrive.com/pt-ao/delivery",
       "https://indrive.com/en-mg/delivery",
       "https://indrive.com/fr-mg/delivery",
-      "/delivery"
+      "/delivery",
+      "https://www.tinytronics.nl/en/delivery"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -326,7 +327,9 @@
     "type": "technical",
     "priority": 5,
     "description": "User account page - skip",
-    "examples": [],
+    "examples": [
+      "https://www.tinytronics.nl/en/account"
+    ],
     "added": "2026-04-08",
     "source": "manual"
   },
