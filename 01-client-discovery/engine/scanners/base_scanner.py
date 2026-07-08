@@ -175,8 +175,18 @@ PIXEL_RULES = {
         "id_param": "pid",                             # ?pid=<id>
     },
     "TikTok": {
-        "domains": ["analytics.tiktok.com/api/v2/pixel"],
+        # i18n/pixel = загрузка SDK (events.js/config) — presence-сигнал, как fbevents у Meta.
+        # Подстроки без хоста кроют региональные хосты (analytics-sg.tiktok.com и т.п.).
+        # Кейс: bobbies.com — TikTok через GTM грузил i18n/pixel/events.js, старое правило
+        # (только analytics.tiktok.com/api/v2/pixel) его не видело → ложный «TikTok ❌».
+        "domains": ["tiktok.com/api/v2/pixel", "tiktok.com/i18n/pixel/"],
         "event_param": "event",
+        "id_param": "sdkid",                           # events.js?sdkid=<PIXEL_ID>&lib=ttq
+    },
+    "Snapchat": {
+        # До 2026-07-08 правила НЕ БЫЛО вообще — «Snapchat ❌» не мог стать ✅ в принципе
+        "domains": ["tr.snapchat.com", "sc-static.net/scevent"],
+        "event_param": None,
     },
 }
 
@@ -188,6 +198,7 @@ CONVERSION_EVENTS_TIER1 = {
     "Google Ads": ["conversion"],
     "Bing/Microsoft": ["purchase", "lead", "conversion"],
     "TikTok": ["Purchase", "AddToCart", "InitiateCheckout", "PlaceAnOrder"],
+    "Snapchat": ["PURCHASE", "START_CHECKOUT", "ADD_CART", "SIGN_UP", "LEAD"],
 }
 
 CONVERSION_EVENTS_TIER2 = {
@@ -213,6 +224,7 @@ NOISE_EVENTS = {
     "Bing/Microsoft": ["fired"],
     "TikTok": ["fired"],
     "LinkedIn": ["fired"],
+    "Snapchat": ["fired"],
 }
 
 # ─── External services ────────────────────────────────────────────────────────
@@ -479,11 +491,12 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
         "partial_events_found": partial_events_found,
         "missing_events": missing_events,
         "only_noise_events": noise_only,
-        "pixel_events": {
-            plat: [e for e in events if not e["is_noise"]]
-            for plat, events in pixel_events.items()
-            if any(not e["is_noise"] for e in events)
-        },
+        # noise-события СОХРАНЯЕМ (SDK-load 'fired', page_view и т.п.): по ним step2/report
+        # показывают ПРИСУТСТВИЕ пикселя («Платформы: TikTok ✅»), а conversion-логика
+        # смотрит на is_noise-флаги и с событиями их не путает. Старый фильтр выкидывал
+        # noise-only платформы целиком → bobbies: TikTok[fired] пойман, но «TikTok ❌».
+        # Tested: 2026-07-08 on bobbies.com/en/contact
+        "pixel_events": {plat: evs for plat, evs in pixel_events.items() if evs},
         "pixel_ids": {p: ids for p, ids in pixel_ids.items() if ids},
         "duplicate_pixels": [p for p, ids in pixel_ids.items() if len(ids) >= 2],
         "external_services": external_services,

@@ -344,8 +344,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 print()
 
             # --- События: на загрузке (сканер) + при клике (кликер); red flag рядом с событием ---
+            # noise (SDK-load 'fired', page_view, gtag.config) в строку событий не пишем:
+            # присутствие пикселя уже показано строкой «Платформы: … ✅»
             load_events = [(ev, plat) for plat, info in active_platforms.items()
-                           for ev in info["events"] + info["noise"]]
+                           for ev in info["events"]]
             click_btns = (result.get("click_result") or {}).get("buttons", [])
             has_click_ev = any(b.get("events_fired") for b in click_btns)
             if load_events or has_click_ev:
@@ -436,9 +438,11 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             print(f"\n  {label} {r['path']}")
             if r.get("cta_elements"):
                 print(f"    CTA кнопки:   {', '.join(r['cta_elements'][:4])}")
-            # Стиль per-page: только то, что РЕАЛЬНО стрельнуло (загрузка + клик), без «не зафиксировано»
+            # Стиль per-page: только то, что РЕАЛЬНО стрельнуло (загрузка + клик), без «не зафиксировано».
+            # noise-события (SDK-load 'fired', page_view) в строку не пишем — они дают
+            # присутствие в «Платформы», но событиями не являются
             for plat, evts in r.get("pixel_events", {}).items():
-                names = [e["event"] for e in evts]
+                names = [e["event"] for e in evts if not e.get("is_noise")]
                 if names:
                     print(f"    События (загрузка): {', '.join(names)} → {plat}")
             for plat in r.get("shopify_pixel_platforms", []):
