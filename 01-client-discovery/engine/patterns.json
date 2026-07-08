@@ -328,7 +328,8 @@
     "priority": 5,
     "description": "User account page - skip",
     "examples": [
-      "https://www.tinytronics.nl/en/account"
+      "https://www.tinytronics.nl/en/account",
+      "https://fritz-kola.de/account"
     ],
     "added": "2026-04-08",
     "source": "manual"
@@ -545,7 +546,8 @@
     "description": "Shopify static page — refund/return policy",
     "examples": [
       "redacted-client.example/pages/refund-policy",
-      "https://redacted-client.example/pages/refund-policy"
+      "https://redacted-client.example/pages/refund-policy",
+      "https://www.pipsnacks.com/pages/refund-policy"
     ],
     "added": "2026-04-11",
     "source": "manual"
@@ -579,7 +581,9 @@
     "examples": [
       "redacted-client.example/pages/faq",
       "https://redacted-client.example/pages/faq",
-      "https://shop.delta.com/pages/faq"
+      "https://shop.delta.com/pages/faq",
+      "https://www.pipsnacks.com/pages/faq",
+      "https://fritz-kola.de/pages/faq"
     ],
     "added": "2026-04-11",
     "source": "manual"
@@ -602,7 +606,8 @@
     "examples": [
       "redacted-client.example/pages/contact",
       "https://redacted-client.example/pages/contact",
-      "https://shop.delta.com/pages/contact"
+      "https://shop.delta.com/pages/contact",
+      "https://fritz-kola.de/pages/contact"
     ],
     "added": "2026-04-11",
     "source": "manual"
