@@ -154,6 +154,7 @@ def fetch_homepage(base_url: str) -> tuple:
                            "AppleWebKit/537.36 (KHTML, like Gecko) "
                            "Chrome/120.0.0.0 Safari/537.36",
                 locale="en-US",
+                ignore_https_errors=True,   # это fallback на САЙТ КЛИЕНТА (не FB): битый серт — не повод падать
                 viewport={"width": 1440, "height": 900},
             )
             page = context.new_page()

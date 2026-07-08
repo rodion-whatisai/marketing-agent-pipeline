@@ -109,6 +109,7 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         context = browser.new_context(
             user_agent=HEADERS["User-Agent"],
             viewport={"width": 1440, "height": 900},
+            ignore_https_errors=True,   # клиентский сайт: битый сертификат — не повод падать
         )
         page = context.new_page()
 

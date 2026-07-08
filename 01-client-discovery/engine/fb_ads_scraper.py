@@ -32,9 +32,19 @@ vs KeyMe Locksmiths (общий суффикс давал 0.75).
 
 import re
 import json
+import ssl
 
 from utils import scan_path, setup_console
 from log import log_info, log_warn, log_error, log_success, log_step, log_debug
+
+
+def _ssl_unverified_ctx():
+    """SSL-контекст без проверки сертификата для urllib (см. utils: TNC_SSL_VERIFY).
+    Скачивание картинок объявлений — read-only, секретов не передаём."""
+    import os
+    if os.environ.get("TNC_SSL_VERIFY") == "1":
+        return None  # строгий режим — дефолтная проверка
+    return ssl._create_unverified_context()
 setup_console()
 
 
@@ -507,7 +517,8 @@ def _download_ad_images(domain: str, structured_ads: list,
                               "AppleWebKit/537.36 (KHTML, like Gecko) "
                               "Chrome/120.0.0.0 Safari/537.36"
             })
-            with urllib.request.urlopen(req, timeout=15) as r:
+            with urllib.request.urlopen(req, timeout=15,
+                                        context=_ssl_unverified_ctx()) as r:
                 data = r.read()
 
             if len(data) < 5000:

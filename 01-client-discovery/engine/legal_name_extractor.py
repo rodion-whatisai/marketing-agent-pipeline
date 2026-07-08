@@ -271,7 +271,8 @@ def _fetch_via_playwright(url: str, timeout: int = 10) -> str:
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            ctx = browser.new_context(user_agent=HEADERS["User-Agent"])
+            ctx = browser.new_context(user_agent=HEADERS["User-Agent"],
+                                      ignore_https_errors=True)  # клиентский сайт: битый сертификат — не повод падать
             page = ctx.new_page()
             page.goto(url, timeout=timeout * 1000, wait_until="domcontentloaded")
             html = page.content()

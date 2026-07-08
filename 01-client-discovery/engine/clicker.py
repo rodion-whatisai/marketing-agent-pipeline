@@ -317,7 +317,8 @@ def run_standalone(url: str, page_type: str, platform: str = "unknown",
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=headless)
-        context = browser.new_context(user_agent=HEADERS["User-Agent"], viewport={"width": 1440, "height": 900})
+        context = browser.new_context(user_agent=HEADERS["User-Agent"], viewport={"width": 1440, "height": 900},
+                                      ignore_https_errors=True)  # клиентский сайт: битый сертификат — не повод падать
         page = context.new_page()
 
         parsed = urlparse(url)

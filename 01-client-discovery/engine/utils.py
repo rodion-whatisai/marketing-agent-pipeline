@@ -10,6 +10,29 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
+# ─── SSL: не проверяем сертификаты клиентских сайтов ─────────────────────────
+# Сканер аудирует чужие сайты — битый/просроченный сертификат клиента не должен
+# ронять скан (аналог wget --no-check-certificate). Мы ничего не отправляем,
+# только читаем публичные страницы. Вернуть строгий режим: TNC_SSL_VERIFY=1.
+# Патч кроет ВСЕ requests.get/post во всех модулях (каждый вызов идёт через
+# Session.request); явный verify= в конкретном вызове остаётся уважаем.
+# Playwright-контексты клиентских сайтов получают ignore_https_errors отдельно.
+# Tested: 2026-07-08 on expired/self-signed/wrong.host.badssl.com — все три HTTP 200;
+#         TNC_SSL_VERIFY=1 возвращает строгий режим (expired снова падает); google.com OK.
+if os.environ.get("TNC_SSL_VERIFY") != "1":
+    import requests as _requests
+    import urllib3 as _urllib3
+    _urllib3.disable_warnings(_urllib3.exceptions.InsecureRequestWarning)
+    if not getattr(_requests.Session.request, "_tnc_no_verify", False):
+        _orig_session_request = _requests.Session.request
+
+        def _no_verify_request(self, *args, **kwargs):
+            kwargs.setdefault("verify", False)
+            return _orig_session_request(self, *args, **kwargs)
+
+        _no_verify_request._tnc_no_verify = True
+        _requests.Session.request = _no_verify_request
+
 # ─── Paths ────────────────────────────────────────────────────────────────────
 
 SCANS_DIR = Path(__file__).parent / "scans"

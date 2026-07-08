@@ -86,6 +86,7 @@ def playwright_homepage_crawl(base_url: str, site_domain: str) -> list:
             context = browser.new_context(
                 user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
                 viewport={"width": 1440, "height": 900},
+                ignore_https_errors=True,   # клиентский сайт: битый сертификат — не повод падать
             )
             page = context.new_page()
             try:
