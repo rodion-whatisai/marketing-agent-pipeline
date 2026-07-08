@@ -8,7 +8,7 @@
 
 Рекомендуемый порядок (по вреду):
 1. ~~**A1** — Shopify substring false positives~~ — **починен 2026-07-08, commit `7fcf9f9`**: SHOPIFY_PIXEL_MARKERS вместо голых слов, синтез PageView убран (shopify_scanner + дубль в report.py), code-only платформы → warning в отчётах. Verified: allbirds/gymshark/pipsnacks/tinytronics.
-2. **A2** — Segment из `analytics\.js` — gtm_analyzer.py:273. Убрать generic-паттерн.
+2. ~~**A2** — Segment из `analytics\.js`~~ — **починен 2026-07-08, commit `eecfe45`**: паттерн убран, оставлены segment.com + cdn.segment. Verified per-container на 5 сайтах (7 контейнеров), gtm.json + отчёты перегенерированы.
 3. **A3** — Cal.com из `cal.com/` подстроки — base_scanner.py:236 (EXTERNAL_SERVICES). Требовать границу (`//cal.com`, `"cal.com`, `.cal.com` нет — думать).
 4. **A4** — Meta из пустого `"metaPixelId":""` — shopify_scanner.py:352-355 regex. Требовать непустой ID.
 5. **B5/B6** — Pinterest в PIXEL_RULES+gtm_analyzer; Snapchat в gtm_analyzer (в PIXEL_RULES уже есть).
@@ -40,7 +40,7 @@
 
 **A. Ложные платформы в клиентском отчёте (приоритет: доверие)**
 1. ~~**«Snapchat ✅» на любом Shopify»**~~ — **FIXED 2026-07-08 (`7fcf9f9`)**. Было: `detect_shopify_pixel_platforms` (shopify_scanner.py:246-263) матчит голую подстроку `snapchat` в JS web-pixels-manager: она есть в UA-регэкспе `/(chromium|instagram|snapchat)/i` рантайма Shopify НА КАЖДОМ магазине. Плюс синтезированный PageView (356-359). То же слово `bing` → `/bingbot/i`. Кейс: allbirds (0 Snap-запросов из 1200, а в отчёте ✅ + рекомендация «бюджет Bing без attribution»).
-2. **«Segment» из gtm_analyzer на 3 из 5 сайтов** — сигнатура `analytics\.js` (gtm_analyzer.py:273) матчит рантайм САМОГО gtm.js. Убрать generic-паттерн, оставить segment.com/cdn.segment.
+2. ~~**«Segment» из gtm_analyzer на 3 из 5 сайтов**~~ — **FIXED 2026-07-08 (`eecfe45`)**. Было: сигнатура `analytics\.js` (gtm_analyzer.py:273) матчит рантайм САМОГО gtm.js (реально задето 8 сайтов в scans/, не 3). Убран generic-паттерн, оставлены segment.com/cdn.segment.
 3. **Cal.com false positive** (pipsnacks) — EXTERNAL_SERVICES `cal.com/` подстрокой матчит `tetralogiCAL.COM/` внутри бандла AccessiBe → фейковая «форма бронирования (Cal.com)» в unverified_pages.
 4. **Meta из пустого pixelId** (jobs.fritz-kola.de) — HTML-regex матчит `"metaPixelId":""` (пустой!) и фабрикует Meta:PageView запись без source-флага.
 
