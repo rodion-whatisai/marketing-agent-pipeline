@@ -29,10 +29,15 @@ CTA_WORDS = (
 # JS: дженерик-поиск кнопок. Стэмпит каждому выжившему кандидату data-tnc-btn="<i>"
 # — стабильный хэндл для повторного локейта. Фильтрует nav/footer/cookie-шум и
 # служебные тексты.
+# Tested: 2026-07-08 nav-фильтр (role="navigation"/menubar/menu + голые названия
+#         разделов + стрелки каруселей): tinytronics → только Toevoegen/Verlanglijst
+#         (события целы); nissan.ie → VIEW OFFERS/DISCOVER MORE/EXPLORE THE RANGE;
+#         thebodyshop → VIEW PRODUCT. Пункты меню в CTA не попадают.
 _DISCOVER_BUTTONS_JS = """
 () => {
     const NOISE_SELECTORS = [
         'header','nav','footer',
+        '[role="navigation"]','[role="menubar"]','[role="menu"]',
         '[id*="header" i]','[class*="header" i]',
         '[id*="navbar" i]','[class*="navbar" i]',
         '[id*="footer" i]','[class*="footer" i]',
@@ -51,7 +56,11 @@ _DISCOVER_BUTTONS_JS = """
     let mainZone=null;
     for(const sel of MAIN_SELECTORS){ try{ const el=document.querySelector(sel); if(el && el.offsetHeight>50){ mainZone=el; break; } }catch(e){} }
 
-    const SKIP_TEXTS = new Set(['close','ok','okay','cancel','dismiss','skip','back','accept','accept all','reject all','decline','allow','deny','agree','i agree','got it','save preferences','necessary only','accept cookies','reject cookies','manage cookies','cookie settings','search','menu','home','privacy policy','terms of service','view all','see all','load more','show more','more','next','continue','no thanks','maybe later','share','follow','print','previous','pause','play','use my current location','use my location']);
+    const SKIP_TEXTS = new Set(['close','ok','okay','cancel','dismiss','skip','back','accept','accept all','reject all','decline','allow','deny','agree','i agree','got it','save preferences','necessary only','accept cookies','reject cookies','manage cookies','cookie settings','search','menu','home','privacy policy','terms of service','view all','see all','load more','show more','more','next','continue','no thanks','maybe later','share','follow','print','previous','pause','play','use my current location','use my location',
+        // голые названия разделов = навигация, не CTA (страховка для меню вне nav-контейнеров)
+        'products','orders','returns','account','my account','delivery','about','about us','news','blog',
+        // стрелки каруселей — не CTA (tinytronics: 'Previous slide' давал 5s-таймаут на каждой странице)
+        'previous slide','next slide','prev slide']);
 
     function getButtonText(el){
         const aria=(el.getAttribute('aria-label')||'').trim(); if(aria.length>1 && aria.length<80) return aria;
