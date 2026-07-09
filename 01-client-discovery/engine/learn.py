@@ -410,6 +410,9 @@ def run(step1_file: str):
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: usage-кириллица и log_debug в run() падали на cp1252
+    # Tested: 2026-07-09 запуск без аргументов под PYTHONIOENCODING=cp1252 — usage печатается, exit 1 без крэша
     if len(sys.argv) < 2:
         print("Использование: python learn.py scans/[domain]/step1.json")
         sys.exit(1)

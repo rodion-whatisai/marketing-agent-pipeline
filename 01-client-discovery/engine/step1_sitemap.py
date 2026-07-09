@@ -21,6 +21,9 @@ try:
     import requests
     from xml.etree import ElementTree as ET
 except ImportError:
+    # utils недоступен без requests (тянет его при импорте) — минимальный cp1252-фикс инлайном
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     print("❌ Установи: pip install requests")  # log не импортирован если requests упал — оставляем print
     sys.exit(1)
 
@@ -1014,6 +1017,9 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: русские help-строки argparse падали на cp1252 при --help
+    # Tested: 2026-07-09 --help под PYTHONIOENCODING=cp1252 — help печатается, exit 0
     parser = argparse.ArgumentParser(description="TNC Step 1 — Sitemap Fetch & Classify")
     parser.add_argument("domain", help="Domain (e.g. bandago.com)")
     parser.add_argument("--limit", type=int, default=DEFAULT_LIMIT,

@@ -358,6 +358,9 @@ def run_standalone(url: str, page_type: str, platform: str = "unknown",
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: русский argparse-help и log_header("═"×65) падали на cp1252
+    # Tested: 2026-07-09 --help под PYTHONIOENCODING=cp1252 — help печатается, exit 0
     parser = argparse.ArgumentParser(description="TNC Clicker v2 — debug mode")
     parser.add_argument("url", help="URL страницы")
     parser.add_argument("page_type", nargs="?", default="homepage", help="Тип страницы (для red-flag логики)")

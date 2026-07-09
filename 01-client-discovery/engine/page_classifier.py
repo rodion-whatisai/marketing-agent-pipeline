@@ -806,6 +806,10 @@ def classify_page_content(html: str, page=None) -> dict:
 if __name__ == "__main__":
     import sys
 
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: log_debug в load_patterns (🐛+кириллица) падал на cp1252
+    # Tested: 2026-07-09 "python page_classifier.py /contact" под PYTHONIOENCODING=cp1252 — exit 0
+
     if len(sys.argv) > 1:
         for url in sys.argv[1:]:
             result = classify_url(url)

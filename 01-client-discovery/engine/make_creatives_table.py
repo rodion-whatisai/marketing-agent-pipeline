@@ -204,4 +204,7 @@ def main():
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: log_debug в main() (🐛) падал на cp1252
+    # Tested: 2026-07-09 запуск без аргументов под PYTHONIOENCODING=cp1252 — exit 1 без крэша
     main()

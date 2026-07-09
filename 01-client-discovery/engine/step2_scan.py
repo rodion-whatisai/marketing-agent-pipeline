@@ -526,6 +526,9 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: русские help-строки argparse падали на cp1252 при --help
+    # Tested: 2026-07-09 --help под PYTHONIOENCODING=cp1252 — help печатается, exit 0
     parser = argparse.ArgumentParser(description="TNC Step 2 — Page Scanner")
     parser.add_argument("step1_file", help="JSON файл из Step 1")
     parser.add_argument("--priority", type=int, default=2)

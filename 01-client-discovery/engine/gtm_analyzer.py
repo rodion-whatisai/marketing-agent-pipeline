@@ -527,6 +527,9 @@ def run(target: str) -> dict:
 
 
 if __name__ == "__main__":
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: run() сразу зовёт log_debug с 🐛 — падало на cp1252
+    # Tested: 2026-07-09 "python gtm_analyzer.py GTM-XXXXXXX" под PYTHONIOENCODING=cp1252 — exit 0 без крэша
     if len(sys.argv) < 2:
         print("Usage:")
         print("  python gtm_analyzer.py bandago.com")

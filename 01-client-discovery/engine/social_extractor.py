@@ -280,6 +280,10 @@ if __name__ == "__main__":
     import sys
     import requests
 
+    from utils import setup_console
+    setup_console()  # UTF-8 до первого вывода: log_debug в extract_socials (🐛+кириллица) падал на cp1252
+    # Tested: 2026-07-09 "python social_extractor.py https://example.com" под PYTHONIOENCODING=cp1252 — exit 0
+
     url = sys.argv[1] if len(sys.argv) > 1 else "https://bandago.com"
     HEADERS = {"User-Agent": "Mozilla/5.0 Chrome/120.0.0.0"}
 

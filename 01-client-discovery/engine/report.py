@@ -745,6 +745,12 @@ def print_report(data: dict, gtm_data: dict = None):
 
 
 if __name__ == "__main__":
+    # UTF-8 сразу: load() ниже зовёт log_debug с эмодзи ДО setup_logging
+    # (домен для имени лога известен только после загрузки JSON) — на cp1252 падало.
+    # Tested: 2026-07-09 on kogerstaete.nl_step2.json под PYTHONIOENCODING=cp1252 —
+    #         до фикса UnicodeEncodeError на 🐛 (report.py:59 → log.py:97), после — чистый прогон.
+    from utils import setup_console
+    setup_console()
     if "--debug" in sys.argv or "--quiet" in sys.argv:
         import log
         log.set_level("INFO" if "--quiet" in sys.argv else "DEBUG")  # --quiet приглушает до INFO+
