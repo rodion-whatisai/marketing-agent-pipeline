@@ -2,6 +2,8 @@ __pycache__/
 *.pyc
 *.pyo
 scans/
+# секреты движка (ANTHROPIC_API_KEY) — в git не попадают никогда
+.env
 *.zip
 pw-profile/
 .claude/

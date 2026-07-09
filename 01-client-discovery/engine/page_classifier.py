@@ -21,6 +21,9 @@ from log import log_info, log_warn, log_error, log_debug, log_success, log_fire
 
 # ─── Конфигурация ─────────────────────────────────────────────────────────────
 
+from utils import load_env
+load_env()  # ключ из engine/.env если в окружении нет — ДО module-level чтения ниже
+
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 CLAUDE_MODEL = "claude-haiku-4-5-20251001"
 BATCH_SIZE = 50

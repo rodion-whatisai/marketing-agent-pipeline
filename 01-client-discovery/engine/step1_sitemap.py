@@ -27,7 +27,7 @@ except ImportError:
     print("❌ Установи: pip install requests")  # log не импортирован если requests упал — оставляем print
     sys.exit(1)
 
-from page_classifier import classify_url, get_page_priority_label, save_pattern, load_patterns
+from page_classifier import classify_url, get_page_priority_label, save_pattern, load_patterns, ANTHROPIC_API_KEY
 from platform_detector import detect_platform, print_platform_result, classify_shopify_page
 from utils import get_scan_dir, scan_path, TeeLogger, setup_logging, HEADERS, safe_get, normalize_url, detect_site_language
 from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header, log_fire
@@ -682,6 +682,11 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
 
     log_header("TNC Pipeline — Step 1: Sitemap")
     log_info(f"Target: {base_url}")
+
+    # Громко и сразу: без ключа половина классификации молча падает в general
+    # (kogerstaete 2026-07-09: 19 из 22 URL — general, в скан попали 2 страницы).
+    if not ANTHROPIC_API_KEY:
+        log_warn("ANTHROPIC_API_KEY не найден (окружение/.env) — Claude-классификатор отключён, нераспознанные URL уйдут в general")
 
     # ── Шаг 1: sitemap ───────────────────────────────────────────
     log_step("Fetching sitemap...", emoji="📋")

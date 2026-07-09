@@ -66,6 +66,32 @@ def normalize_url(domain_or_url: str) -> str:
     return s
 
 
+# ─── Секреты из .env ──────────────────────────────────────────────────────────
+
+def load_env(path=None) -> None:
+    """Подгружает KEY=VALUE из .env рядом с движком в os.environ.
+
+    setdefault — реальное окружение всегда приоритетнее файла. Идемпотентна,
+    файла нет — тихо выходим. Нужна потому что ANTHROPIC_API_KEY в
+    Windows-окружении регулярно терялся (set вместо setx, новые сессии/агенты) —
+    движок не должен зависеть от того, кто и откуда его запустил.
+    Формат: KEY=VALUE построчно, # — комментарий, кавычки вокруг значения опциональны.
+    # Tested: 2026-07-09 — ключ из файла грузится, кавычки снимаются, пустые значения
+    #         пропускаются, реальный env приоритетнее файла, отсутствие файла — тихий выход.
+    """
+    env_path = Path(path) if path else Path(__file__).parent / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key, value = key.strip(), value.strip().strip("'\"")
+        if key and value:
+            os.environ.setdefault(key, value)
+
+
 # ─── Console encoding (Windows cp1252 fix) ────────────────────────────────────
 
 # ANSI escape codes (цвета из log.py). Вырезаем при записи в файл — лог .txt чистый.
