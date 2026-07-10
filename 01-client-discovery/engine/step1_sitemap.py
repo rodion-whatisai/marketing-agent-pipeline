@@ -31,9 +31,11 @@ from page_classifier import classify_url, get_page_priority_label, save_pattern,
 from platform_detector import detect_platform, print_platform_result, classify_shopify_page
 from utils import get_scan_dir, scan_path, TeeLogger, setup_logging, HEADERS, safe_get, normalize_url, detect_site_language
 from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header, log_fire
+from language_detector import discover_language_versions, keep_lang_subtree
 
 
 DEFAULT_LIMIT = 65
+MIN_EN_POOL = 5  # меньше этого EN-URL в пуле после языкового switch → докраулить EN-главную
 # Pattern discovery (браузерный crawl) имеет смысл только когда sitemap тонкий.
 # Если URL в sitemap уже >= этого порога — coverage хорошая, discovery не нужен
 # (иначе зря ползаем браузером по огромному сайту типа Nissan, 9284 URL).
@@ -695,12 +697,9 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     log_success(f"Источник: {source}")
     log_success(f"Найдено URL: {len(urls)}")
 
-    # ── Фильтр языковых дублей ───────────────────────────────────
-    urls, lang_removed, lang_prefixes = filter_lang_duplicates(urls)
-    if lang_removed > 0:
-        log_step(f"Двуязычный сайт — убраны {lang_removed} дублей на [{', '.join(sorted(lang_prefixes))}]", emoji="🌐")
-        log_info(f"Сканируем только EN версию. Результаты применимы к обеим версиям.")
-        log_info(f"Осталось URL: {len(urls)}")
+    # Фильтр языковых дублей ПЕРЕНЕСЁН ниже, за Language Detection: он всегда
+    # оставлял no-prefix версию, считая её английской — для NL-default сайтов
+    # (kogerstaete) это ровно наоборот. Решение о стороне теперь принимает развилка.
 
     # ── Соцсети + Facebook Ads Library ──────────────────────────
     log_step("Извлекаю соцсети и проверяю Facebook...", emoji="🌐")
@@ -708,6 +707,7 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     _homepage_html = ""
     _homepage_headers = {}
     _homepage_status = None
+    _homepage_final_url = base_url  # финальный URL после редиректов — нужен языковой развилке (алиасы типа fritz-kola.de)
     try:
         from social_extractor import extract_socials, get_social_display
         import requests as _req
@@ -715,6 +715,7 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
         _homepage_html = _r.text
         _homepage_headers = dict(_r.headers)
         _homepage_status = _r.status_code
+        _homepage_final_url = _r.url
         log_debug(f"run: homepage fetch ок, статус={_r.status_code}, html len={len(_homepage_html)}")
         socials_raw = extract_socials(_homepage_html, site_domain)
         log_debug(f"run: extract_socials вернул {len(socials_raw)} платформ")
@@ -786,13 +787,78 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     # ── Language Detection ──────────────────────────────────────
     lang_result = detect_site_language(_homepage_html, _homepage_headers)
     log_debug(f"run: detect_site_language → lang={lang_result['lang']} is_english={lang_result['is_english']} source={lang_result['source']}")
+    # ── Языковая развилка (EN-first) ──────────────────────────────
+    # EN-сайт → старый путь (фильтр дублей, оставляем no-prefix).
+    # Не-EN → ищем EN-версию лесенкой language_detector; нашли → сканируем
+    # ТОЛЬКО EN-дерево; не нашли → штатный стоп no_english_version.
+    # Tested: 2026-07-10 — kogerstaete.nl: nl → switch на …/en (probe), to_scan 2 → 12 стр.
+    #         (вкл. /en/rooms-suites/basic); americor/akvelon (EN): без switch, старый путь;
+    #         tinytronics.nl: already-EN через Accept-Language, развилка не нужна;
+    #         abianpaysbasque.fr (FR-only): стоп no_english_version, platform/FB сохранены;
+    #         step2 по switched step1 сканит /en-страницы без правок.
+    scan_base_url = base_url
+    lang_versions = None
+    lang_removed, lang_prefixes = 0, set()
+
     if lang_result["is_english"]:
         log_success(f"Язык сайта: {lang_result['lang'].upper()} (via {lang_result['source']})", emoji="🌐")
+        urls, lang_removed, lang_prefixes = filter_lang_duplicates(urls)
+        if lang_removed > 0:
+            log_step(f"Двуязычный сайт — убраны {lang_removed} дублей на [{', '.join(sorted(lang_prefixes))}]", emoji="🌐")
+            log_info(f"Сканируем только EN версию. Результаты применимы к обеим версиям.")
+            log_info(f"Осталось URL: {len(urls)}")
     else:
         log_warn(f"Язык сайта: {lang_result['lang'].upper()} (via {lang_result['source']})")
-        log_warn(f"Сайт не на английском языке.")
-        log_info(f"CTA-детектор (regex) и classify_page_content работают только для EN.")
-        log_info(f"Кнопки могут не распознаться. Результаты step2 менее надёжны.")
+        log_step("Сайт не на английском — ищу EN-версию...", emoji="🌐")
+        lang_versions = discover_language_versions(
+            _homepage_html, _homepage_headers, base_url, final_url=_homepage_final_url)
+        if lang_versions["en_url"]:
+            scan_base_url = lang_versions["en_url"]
+            log_success(f"Найдена EN-версия: {scan_base_url} (источник: {lang_versions['source']}) — сканируем EN-дерево", emoji="🌐")
+            urls, lang_removed = keep_lang_subtree(urls, scan_base_url)
+            lang_prefixes = {"en"}
+            if len(urls) < MIN_EN_POOL:
+                log_info(f"EN-URL в пуле мало ({len(urls)}) — краулю EN-главную")
+                extra = clean_urls(crawl_homepage_links(scan_base_url), site_domain)
+                extra_en, _ = keep_lang_subtree(extra, scan_base_url)
+                existing = set(urls)
+                for u in extra_en:
+                    if u not in existing:
+                        urls.append(u)
+                        existing.add(u)
+                source += " + EN-tree crawl"
+            if scan_base_url not in urls:
+                urls.insert(0, scan_base_url)
+            log_info(f"EN-пул: {len(urls)} URL (не-EN отброшено: {lang_removed})")
+        else:
+            log_error("Нет версии сайта на английском. Скан невозможен")
+            if lang_versions["external_en"]:
+                log_info(f"EN-версия существует на другом домене: {lang_versions['external_en']} — прогони её отдельным сканом", emoji="🌐")
+            output = {
+                "base_url": base_url,
+                "status": "no_english_version",
+                "status_message": "Нет версии сайта на английском. Скан невозможен",
+                "sitemap_source": source,
+                "platform": platform_result,
+                "site_language": lang_result,
+                "languages_available": lang_versions["versions"],
+                "language_switch_source": None,
+                "external_en": lang_versions["external_en"],
+                "scan_url_base": None,
+                "scan_language": None,
+                "lang_removed": 0,
+                "lang_prefixes": [],
+                "total_found": 0,
+                "discovered_patterns": 0,
+                "social": social,          # platform/social/FB добыты ДО развилки — Ads-отчёт возможен
+                "classified": [],
+                "to_scan": [],
+            }
+            filename = scan_path(site_domain, f"{site_domain}_step1.json")
+            with open(filename, "w", encoding="utf-8") as f:
+                json.dump(output, f, indent=2, ensure_ascii=False)
+            log_success(f"Сохранено: {filename}", emoji="💾")
+            return output
 
     platform = platform_result.get("platform", "")
 
@@ -825,7 +891,16 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
 
         if should_discover:
             log_step(f"Мало POI ({len(poi_check)}) или ненадёжный источник — запускаю Pattern Discovery...", emoji="🔍")
-            discovered = discover_url_patterns(base_url, site_domain, urls)
+            discovered = discover_url_patterns(scan_base_url, site_domain, urls)
+
+            # В EN-режиме discovery ползает по EN-страницам, но в их шапках живут
+            # ссылки на не-EN версии — отсекаем всё вне EN-дерева.
+            if discovered and scan_base_url != base_url:
+                kept_urls = set(keep_lang_subtree([d["url"] for d in discovered], scan_base_url)[0])
+                dropped_n = len(discovered) - len(kept_urls)
+                discovered = [d for d in discovered if d["url"] in kept_urls]
+                if dropped_n:
+                    log_debug(f"run: discovery — {dropped_n} не-EN URL отброшено subtree-фильтром")
 
             if discovered:
                 # Дедуплицируем по структурному паттерну — берём только 1 пример каждого
@@ -912,6 +987,15 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
             item["discovery_source"] = disc.get("source", "")
             item["discovery_pattern"] = disc.get("pattern", "")
 
+    # EN-root — принудительно homepage: classify_url не считает /en главной
+    # (языковой префикс без следующего сегмента не стрипается, homepage-правило — это "/")
+    if scan_base_url != base_url:
+        for item in classified:
+            if item["url"].rstrip("/") == scan_base_url.rstrip("/"):
+                log_debug(f"run: EN-root {item['url']} принудительно homepage (был {item['type']}/{item['priority']})")
+                item["type"], item["priority"], item["method"] = "homepage", 1, "lang_root"
+                break
+
     # Итоговая статистика классификации
     n_regex    = sum(1 for x in classified if x.get("method") in ("regex", "patterns_json"))
     n_claude   = sum(1 for x in classified if x.get("method") == "claude")
@@ -988,6 +1072,12 @@ def run(domain: str, limit: int = DEFAULT_LIMIT, force_all: bool = False,
     # ── Сохраняем ────────────────────────────────────────────────
     output = {
         "base_url": base_url,
+        "status": "ok",
+        "scan_url_base": scan_base_url,
+        "scan_language": "en" if scan_base_url != base_url else lang_result["lang"],
+        "languages_available": (lang_versions or {}).get("versions", {}),
+        "language_switch_source": (lang_versions or {}).get("source"),
+        "external_en": (lang_versions or {}).get("external_en"),
         "sitemap_source": source,
         "platform": platform_result,
         "site_language": lang_result,
