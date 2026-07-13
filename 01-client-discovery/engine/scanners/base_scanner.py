@@ -182,6 +182,30 @@ NETWORK_ONLY_SERVICES = {"Stripe", "Paddle", "Gumroad"}
 ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory", "Lucky Orange"}
 
 
+# ─── Матчинг доменов с границей слова (шаг B, баг A3) ────────────────────────
+# Голая подстрока 'cal.com/' матчила 'tetralogiCAL.COM/' внутри бандла AccessiBe
+# (pipsnacks: подстрока в Destini-виджете перекрашивала статус страницы в
+# фейковую «форму бронирования Cal.com»). Граница слева: перед доменом не может
+# стоять буква/цифра/дефис — легитимные 'app.cal.com' (точка) и '//cal.com'
+# проходят, 'tetralogical.com' (буква) отбрасывается.
+# Tested: 2026-07-13 test_detection.py — tetralogiCAL.COM/ не матчится,
+#         app.cal.com/ и "https://cal.com/..." матчятся.
+
+def _boundary_pattern(domain: str):
+    return re.compile(r"(?<![a-z0-9-])" + re.escape(domain.lower()))
+
+
+_SERVICE_PATTERNS = {
+    service: [_boundary_pattern(d) for d in domains]
+    for service, domains in EXTERNAL_SERVICES.items()
+}
+# Те же границы для network-матчинга пиксель-правил (URL всегда лверкейсим)
+_PIXEL_DOMAIN_PATTERNS = {
+    platform: [_boundary_pattern(d) for d in rule["domains"]]
+    for platform, rule in PIXEL_RULES.items()
+}
+
+
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def get_event_from_url(url: str, platform: str) -> str:
@@ -242,12 +266,13 @@ def detect_external_services(html: str, requests_urls: list = None) -> dict:
     log_debug(f"detect_external_services: start html_len={len(html)} n_requests={len(requests_urls) if requests_urls else 0}")
     found = {}
     html_lower = html.lower()
+    # матчинг с границей слова (_SERVICE_PATTERNS) — не голой подстрокой (баг A3)
     for service, domains in EXTERNAL_SERVICES.items():
         if service in NETWORK_ONLY_SERVICES:
             log_debug(f"detect_external_services: skip {service} (network-only) in HTML pass")
             continue
-        for domain in domains:
-            if domain in html_lower:
+        for domain, pattern in zip(domains, _SERVICE_PATTERNS[service]):
+            if pattern.search(html_lower):
                 log_debug(f"detect_external_services: {service} matched in HTML via '{domain}'")
                 found[service] = {"detected_via": "html", "domain": domain}
                 break
@@ -256,8 +281,8 @@ def detect_external_services(html: str, requests_urls: list = None) -> dict:
             req_lower = req_url.lower()
             for service, domains in EXTERNAL_SERVICES.items():
                 if service not in found:
-                    for domain in domains:
-                        if domain in req_lower:
+                    for domain, pattern in zip(domains, _SERVICE_PATTERNS[service]):
+                        if pattern.search(req_lower):
                             log_debug(f"detect_external_services: {service} matched in network via '{domain}'")
                             found[service] = {"detected_via": "network", "domain": domain}
                             break
@@ -325,9 +350,11 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
         if "/web-pixels" in req_url:
             log_fire(f"on_request: web-pixels asset captured url={req_url}")
             web_pixel_urls.append(req_url)
+        req_url_lower = req_url.lower()
         for platform, rules in PIXEL_RULES.items():
-            for domain in rules["domains"]:
-                if domain in req_url:
+            # границы слова (шаг B): защита от подстрочных совпадений внутри чужих доменов
+            for domain, pattern in zip(rules["domains"], _PIXEL_DOMAIN_PATTERNS[platform]):
+                if pattern.search(req_url_lower):
                     log_fire(f"on_request: {platform} pixel request matched domain '{domain}' url={req_url}")
                     event = get_event_from_url(req_url, platform)
                     pixel_events.setdefault(platform, [])

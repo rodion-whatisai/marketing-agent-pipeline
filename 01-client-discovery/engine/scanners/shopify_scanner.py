@@ -19,6 +19,10 @@ import platforms as _platforms
 SHOPIFY_PIXEL_PLATFORMS = _platforms.as_shopify_pixel_platforms()
 SHOPIFY_PIXEL_MARKERS = _platforms.as_shopify_pixel_markers()
 
+# Meta по HTML: pixelId ОБЯЗАН быть непустым (≥10 цифр) — пустой "metaPixelId":""
+# на jobs.fritz-kola.de фабриковал Meta-запись (баг A4). Запинено test_detection.py
+META_HTML_RE = re.compile(r'fbevents\.js|facebook\.net/en_US|"pixelId"\s*:\s*"\d{10,}"')
+
 _SHOPIFY_CTA_JS = """
 () => {
     const NOISE_SELECTORS = [
@@ -331,7 +335,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     else:
         log_debug("scan_page: web_pixel_urls пуст — пропускаю detect_shopify_pixel_platforms")
     if "Meta" not in shopify_pixel_platforms:
-        if re.search(r'fbevents\.js|facebook\.net/en_US|"pixelId"\s*:\s*"\d{10,}"', combined_html):
+        if META_HTML_RE.search(combined_html):
             log_debug("scan_page: Meta найден по HTML regex (fbevents/facebook.net/pixelId)")
             shopify_pixel_platforms.append("Meta")
     # PageView НЕ синтезируем: pixel_events = только network-подтверждённые события (A1).
