@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "domain": "tinytronics.nl",
-  "verified_by": "draft",
-  "verified_against": "текущий вывод сканера — НЕ проверено человеком",
-  "notes": "ЧЕРНОВИК: сгенерирован автоматически, ждёт апрува Rodion'ом (make_expected.py --update).",
+  "verified_by": "rodion",
+  "verified_against": "ответы в чате 2026-07-13: ручная сверка Meta Pixel Helper + Google Tag Assistant",
+  "notes": "Rodion проверил вручную 2026-07-13: Meta/TikTok пикселей НЕТ (запинено forbidden). Google-теги (GTM + 2 Ads-кабинета + GA4) появляются ТОЛЬКО после принятия куков — consent-first обязателен. GA4 ходит через consent-mode endpoints (ccm/collect). На форме сконфигурирован Ads-тег «отправленные обращения» — стрельнёт только на реальном сабмите, мы формы не сабмитим. missing_events с Meta-именами убраны из эталона: бессмысленны без Meta-пикселя (feedback Rodion).",
   "verified_date": "2026-07-13",
   "scanner_commit": "b8f2beb",
   "site": {
@@ -30,8 +30,9 @@
         "Google Analytics"
       ],
       "external_services": [],
-      "missing_events": [
-        "ViewContent"
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok"
       ]
     },
     "/en/comment-or-suggestion": {
@@ -42,10 +43,9 @@
         "Google Ads"
       ],
       "external_services": [],
-      "missing_events": [
-        "CompleteRegistration",
-        "Contact",
-        "Lead"
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok"
       ]
     }
   }

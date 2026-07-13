@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "domain": "garage.suspenair.fr",
-  "verified_by": "draft",
-  "verified_against": "текущий вывод сканера — НЕ проверено человеком",
-  "notes": "ЧЕРНОВИК: сгенерирован автоматически, ждёт апрува Rodion'ом (make_expected.py --update).",
+  "verified_by": "rodion",
+  "verified_against": "ответы в чате 2026-07-13: ручная сверка Meta Pixel Helper + Google Tag Assistant",
+  "notes": "Rodion подтвердил 2026-07-13: теги G-NH36SNC14N (x2) + AW-480621483 + GTM-MWCVH5SD стоят, конфигурация правильная (Ads и GA на одном теге). В свежем прогоне на загрузке летит только en=user_engagement (не конверсия) → GAP корректен. В браузере Rodion (старые куки) Tag Assistant показывает больше — env-разница, CMP-warning у сайта. RDV-страница: кнопки живут ВНУТРИ Calendly-iframe (NO CTA корректен by design); calendy_* события есть только в dataLayer, в network не уходят — GA-теги на них не настроены (питч-возможность для клиента; ловить можно только dataLayer-инспекцией — будущая фича). missing_events с Meta-именами убраны: Meta-пикселя нет.",
   "verified_date": "2026-07-13",
   "scanner_commit": "b8f2beb",
   "site": {
@@ -29,10 +29,7 @@
         "Google Ads",
         "Google Analytics"
       ],
-      "external_services": [],
-      "missing_events": [
-        "ViewContent"
-      ]
+      "external_services": []
     },
     "/prendre-rendez-vous-en-ligne": {
       "status": "NO_CTA",
@@ -45,11 +42,6 @@
       "external_services": [
         "Calendly",
         "Stripe"
-      ],
-      "missing_events": [
-        "CompleteRegistration",
-        "Contact",
-        "Lead"
       ]
     }
   }
