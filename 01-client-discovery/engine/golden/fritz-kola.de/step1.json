@@ -1,0 +1,2002 @@
+{
+  "base_url": "https://fritz-kola.de",
+  "sitemap_source": "homepage crawl (fallback)",
+  "platform": {
+    "platform": "shopify",
+    "confidence": "high",
+    "score": 51,
+    "signals": [
+      "cdn.shopify.com",
+      "Shopify.theme",
+      "shopify_pay",
+      "myshopify.com",
+      "shopify-section",
+      "window.Shopify",
+      "Shopify.routes",
+      "sitemap:/collections/×3",
+      "sitemap:/products/×3",
+      "sitemap:/cart×1",
+      "sitemap:/pages/×3",
+      "sitemap:/blogs/×1"
+    ],
+    "all_scores": {
+      "shopify": 51
+    },
+    "profile": {
+      "description": "Shopify e-commerce",
+      "url_patterns": {
+        "/products/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/collections/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/cart": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/checkout": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/pages/": {
+          "type": "general",
+          "priority": 5
+        },
+        "/blogs/": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/account": {
+          "type": "technical",
+          "priority": 5
+        },
+        "/search": {
+          "type": "search_results",
+          "priority": 3
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "InitiateCheckout",
+          "begin_checkout",
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Shopify /pages/* = static pages, classify by slug keywords"
+    }
+  },
+  "site_language": {
+    "lang": "de",
+    "is_english": false,
+    "source": "Content-Language header"
+  },
+  "lang_removed": 0,
+  "lang_prefixes": [],
+  "total_found": 62,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/fritz-kola/",
+    "instagram": "https://www.instagram.com/fritzkola/",
+    "tiktok": "https://www.tiktok.com/@fritzkola/",
+    "youtube": "https://www.youtube.com/c/fritzkola_official/",
+    "facebook_accounts": {
+      "target": "https://fritz-kola.de",
+      "brand_name": "fritz-kola",
+      "site_country": "DE",
+      "site_country_source": "content-language-header (de-DE)",
+      "accounts": [
+        {
+          "handle": "fritz-kola",
+          "display_name": "fritz-kola",
+          "url": "https://www.facebook.com/fritz-kola",
+          "page_id": "43899732459",
+          "alive": true,
+          "total_ever": 23,
+          "active": {
+            "count": 8,
+            "status": "active",
+            "ad_texts": [
+              "pride kan je op veel verschillende manieren vieren. we vroegen het de community in amsterdam. hoe vier jij dit jaar pride? 🏳️‍🌈💃🏽",
+              "win deze zomer een volkswagen ID.Buzz. open je fritz-kola. check de dop. spin mee. maak kans op prijzen. vind de link in onze bio.\n#fritzkola #verfritzend #spinitwinit",
+              "win de rit van je zomer! één fritz dichter bij jullie volgende avontuur.  open een fritz-kola, check de dop en spin mee via fritz.win. misschien rijd jij deze zomer wel weg in een volkswagen ID. Buzz.\n#fritzkola #verfritzend #spinitwinit",
+              "auto winnen? er is nog een plekje vrij achter het stuur van deze buzz. wil jij instappen? check de dop van je fritz-kola, spin mee via fritz.win en maak kans op een volkswagen ID. Buzz. #fritzkola #verfritzend #spinitwinit",
+              "win deze zomer een VW buzz met fritz! een koude fritz. een beetje geluk. en een heel goed verhaal voor later. check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz #fritzkola #verfritzend #spinitwinit",
+              "open, spin en win! soms begint een goed verhaal met een koude fritz. nieuwsgierig? check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz."
+            ],
+            "partnership_ads": false,
+            "partnership_count": 0,
+            "structured_ads": [
+              {
+                "library_id": "27380380334959485",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782975600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "pride kan je op veel verschillende manieren vieren. we vroegen het de community in amsterdam. hoe vier jij dit jaar pride? 🏳️‍🌈💃🏽",
+                "caption": "",
+                "link_description": "",
+                "link_url": "",
+                "cta_text": "",
+                "cta_type": "",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/736182251_1537057561249015_1284969894351135721_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=cA5cvixihEYQ7kNvwG_TWKx&_nc_oc=AdpwU7bDD63ikuWYno4oo1TwPohx1Vp4yLvbBerdhb6-iKU28Zucq50gk__yMTkAzYU&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQB7a1pkXE0a0IPDgB9M1aZgiCFwjUdwPHgqfEHLkiparQ&oe=6A5470E4",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMNnO1Plkzy3T_LnMwsvrRrdjOxJ80LzDfKcj0JqjhLqWt1kHHG2j38gL64m9XsTPp3Op74MefUxYMD5YHafMNdi3j6dCpX2Id6IVkOwHkDjw.mp4?_nc_cat=106&_nc_oc=AdoUCmDFxaQk9uclbSQLes3sqUKCdKtk2CigcxMQVLgA2Wk6OnQnmbNaOpwN1YPbG_o&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=WOVQnmqcuSMQ7kNvwFLmY1T&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjg4MDQzNTQ3MTI3ODU2NSwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMTM5LCJkdXJhdGlvbl9zIjozOCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=624b484d90011459&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC8xMDQ0MEM4NTRFRjc5RjU2NkUxRUE0Njc5OERCRUJCM19tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzdGNEU0RkI1MzcxMjMyMEEzOUQyRUFFRkFFMTlEQTkxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbKh5u4i7CQAxUCKAJDMywXQENcKPXCj1wYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZbaeAQA&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQBp93KQ8F8c7MWJsK0S8fXxUfbQNtXPmLQdfU7KlmZhYA&oe=6A547EC2",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/736226327_27285142801146394_1926805255784596258_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=uIsqzH7FEiYQ7kNvwG0k4hR&_nc_oc=AdrgBbKdtVZIR6y6E2YbKgCe84oBTGA9Jaqjkzib9RSzBDecAio9dNFtKHdTF38zGMY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQA1WJVecCFg34GlGlc4cI5rXnw5arFU2o5t7m_SSpPPLQ&oe=6A5473B8",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=27380380334959485",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_27380380334959485.jpg"
+              },
+              {
+                "library_id": "993995633266763",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782975600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "pride kan je op veel verschillende manieren vieren. we vroegen het de community in amsterdam. hoe vier jij dit jaar pride? 🏳️‍🌈💃🏽",
+                "caption": "",
+                "link_description": "",
+                "link_url": "",
+                "cta_text": "",
+                "cta_type": "",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/737721916_1017006417749714_2130523943348146242_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=k9h5TBWyJcIQ7kNvwFsltT2&_nc_oc=AdqkkkQOOGtVUyYhuArRms7057KhOelYSJepWly3PogCzV2zfTnXeea1fo6PQWhmwAo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQBqJNFWmgAUXHB7kxqJXp359dtUS4N8lPOg3vGFoZntwA&oe=6A546C73",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMNnO1Plkzy3T_LnMwsvrRrdjOxJ80LzDfKcj0JqjhLqWt1kHHG2j38gL64m9XsTPp3Op74MefUxYMD5YHafMNdi3j6dCpX2Id6IVkOwHkDjw.mp4?_nc_cat=106&_nc_oc=AdoUCmDFxaQk9uclbSQLes3sqUKCdKtk2CigcxMQVLgA2Wk6OnQnmbNaOpwN1YPbG_o&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=WOVQnmqcuSMQ7kNvwFLmY1T&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjg4MDQzNTQ3MTI3ODU2NSwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMTM5LCJkdXJhdGlvbl9zIjozOCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=624b484d90011459&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC8xMDQ0MEM4NTRFRjc5RjU2NkUxRUE0Njc5OERCRUJCM19tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzdGNEU0RkI1MzcxMjMyMEEzOUQyRUFFRkFFMTlEQTkxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbKh5u4i7CQAxUCKAJDMywXQENcKPXCj1wYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZbaeAQA&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQBp93KQ8F8c7MWJsK0S8fXxUfbQNtXPmLQdfU7KlmZhYA&oe=6A547EC2",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/735157486_2459638471172174_695197678522643480_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Zc0vjMRpNhwQ7kNvwH5IGQH&_nc_oc=AdpqQ-0IMO-Q1KedRMzhF6UcsNdswIPERrdoFN19_BxS7zxAwIWeOA0nrk_GyXibFbk&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQDg38FjwhcXJJIQntvwfbh6KjlpDSooDYYzMJBxhw76JA&oe=6A546866",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=993995633266763",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_993995633266763.jpg"
+              },
+              {
+                "library_id": "1540195744501202",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782975600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "win deze zomer een volkswagen ID.Buzz. open je fritz-kola. check de dop. spin mee. maak kans op prijzen. vind de link in onze bio.\n#fritzkola #verfritzend #spinitwinit",
+                "caption": "fritz.win",
+                "link_description": "",
+                "link_url": "https://fritz.win/",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/734767935_1340633544254684_6201523441146388931_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=0qq1bYiakXYQ7kNvwEjS9Qy&_nc_oc=AdoG7PWD6ts_cRZ21pBm46919Rf23oohQmTkYZ1Ho4aYb3QSRodbs2fnCid3wtitLFY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQAU1_Qaz9syoSmjPD47WtvtHpKg2GXco6zI10IRqAqnzg&oe=6A548818",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQM-igSuINZ77NOok34FUR2nIm2sERceqBA9BivsOySqjsGkmAowTS44r5HIWp-yN2eJlVY2csyRkRPYNN1Io7H5LgomlQTs9WZRuxSkVw.mp4?_nc_cat=107&_nc_oc=AdqCRIiKrI2B00uv2uCKOG-mAlTkbbk8SDt1KKsk7Plwsm3wCzcJH4VU0Dy5cKLE8fg&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=AL6kyUrjLjIQ7kNvwEbHj05&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5ODkxMzUwMDMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjo5LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQCWasLjeuQ3e4gk42n2jWEjc-EUtr56jTA4v8Pif_RIAQ&oe=6A54838B",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/735858919_1018436203922775_5332706038125898940_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=5EzFOi_JoP0Q7kNvwEu8Pag&_nc_oc=Adrd9CeDLgcTaEXBbPpf8UCiOsm3pwacixE3tm-r7DhajyUL9GU_pdFPHrq0IWstJ9I&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCtydV2s_8w_3UQLK655k_Weo0KII3xf4dmZSUR_9FCLw&oe=6A548644",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1540195744501202",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1540195744501202.jpg"
+              },
+              {
+                "library_id": "1341270261470403",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782975600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "win deze zomer een volkswagen ID.Buzz. open je fritz-kola. check de dop. spin mee. maak kans op prijzen. vind de link in onze bio.\n#fritzkola #verfritzend #spinitwinit",
+                "caption": "fritz.win",
+                "link_description": "",
+                "link_url": "https://fritz.win/",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/736289603_1800110570978605_6167088778805290604_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=nrJFfTV-aAoQ7kNvwGhD6S4&_nc_oc=AdqPn2v4fbiyIeCx4Zm5ijb7jKNZTfxuJz7NpVxErJ2O7NnJECudvBqF8DGxWgNgupE&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQDG2-T4NiA-3UcHEvBqjZVc3i_Fs6n9YdG-0K09AjRqmg&oe=6A5479AE",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQM-igSuINZ77NOok34FUR2nIm2sERceqBA9BivsOySqjsGkmAowTS44r5HIWp-yN2eJlVY2csyRkRPYNN1Io7H5LgomlQTs9WZRuxSkVw.mp4?_nc_cat=107&_nc_oc=AdqCRIiKrI2B00uv2uCKOG-mAlTkbbk8SDt1KKsk7Plwsm3wCzcJH4VU0Dy5cKLE8fg&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=AL6kyUrjLjIQ7kNvwEbHj05&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5ODkxMzUwMDMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjo5LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQCWasLjeuQ3e4gk42n2jWEjc-EUtr56jTA4v8Pif_RIAQ&oe=6A54838B",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/737502603_1010566691596020_7022324064443679881_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=onFfwgujayAQ7kNvwEFUAMM&_nc_oc=Adpq5F-uQssDXeExUDUuB8BIkFOytYY3zVtjjqNgrfP8kMQjKr5mtXOTab5QC3QzxzM&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCFQTLDgY2WZl9Al4JqXalvAtIXbvTCiJT2GTMA8leBIw&oe=6A546AB8",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1341270261470403",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1341270261470403.jpg"
+              },
+              {
+                "library_id": "1057448303368933",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1783407600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "win de rit van je zomer! één fritz dichter bij jullie volgende avontuur.  open een fritz-kola, check de dop en spin mee via fritz.win. misschien rijd jij deze zomer wel weg in een volkswagen ID. Buzz.\n#fritzkola #verfritzend #spinitwinit",
+                "caption": "fritz.win",
+                "link_description": "",
+                "link_url": "http://fritz.win/",
+                "cta_text": "Watch more",
+                "cta_type": "WATCH_MORE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/741827918_2003978513819963_336284846345560481_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=DqqZdOVk7zIQ7kNvwHfXqPw&_nc_oc=AdqH2SXqr_7kQ8BcHxi58cuVH9lqAHPw5dfaW5FkCyMS76Fdr7C8mTEVS3zBk9cQxNk&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQAlO-s2qvRgD1dWED4gJCUoaw4ECRv9z4aZpFmoE_Bpxw&oe=6A546804",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQPMYQSpzDZs3UzRvk0lMKN4asOfjSVAW9N07jl26Uwqu8qlIbrdEcCS6n0IDzz6Ywe1m4ZD23OXzELTHxxY1P144FlTmNWRT3q43DzGYg.mp4?_nc_cat=107&_nc_oc=AdqdJbDedx8m96nK169bVAygOJZWhhfvkWUBma7q4lBp7QugmY_ZOCF8_wL-ZX1VHb8&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=R-0pi3inmugQ7kNvwEUv63z&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5OTQzMjY5MjMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjIsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxNCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQDoimZ6GAK-cX7f18NmK9eT1wB7uk5CiD0uYaiZcTRPqA&oe=6A54882F",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/741828084_1360134192990119_5992333953811379094_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=wxXwB5QpXFAQ7kNvwHpzuAR&_nc_oc=Adr6JsaK_M5zg0YT16vhc9qFdNLT15zkNugw4TNZC6zR1FNBChLPTUPqPA1poqjVVXE&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCpLU-PtZ__KTCpadyFjNb0mvna-EwhQPKQW3sxXvIawA&oe=6A547332",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1057448303368933",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1057448303368933.jpg"
+              },
+              {
+                "library_id": "1573465544302779",
+                "page_name": "fritz-kola NL",
+                "display_format": "IMAGE",
+                "is_active": true,
+                "start_date": 1783407600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "fritz-kola | Kronkorkenaktion 2026",
+                "body_text": "auto winnen? er is nog een plekje vrij achter het stuur van deze buzz. wil jij instappen? check de dop van je fritz-kola, spin mee via fritz.win en maak kans op een volkswagen ID. Buzz. #fritzkola #verfritzend #spinitwinit",
+                "caption": "fritz.win",
+                "link_description": "Jetzt an unserer fritz-Kronkorken-Aktion teilnehmen und fette Preise gewinnen!",
+                "link_url": "http://fritz.win/",
+                "cta_text": "Watch more",
+                "cta_type": "WATCH_MORE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/737730534_987695727422358_7155070734073636544_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=lFxjwl3mtNEQ7kNvwEWUdNw&_nc_oc=Adq6H0p_pgg5RcaEGyAKSVNZ7KLHDLll84B23SiAVfiwCGWeIB3EhIgSwVjcSVUGeQY&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQDfL-VyVSZqAYVaQoBDQsiK2WFNu-hqa7dtChf29xtefw&oe=6A547A80",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/742331228_1372600674813064_8897899036755618986_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-_w2cNCQcFoQ7kNvwEGY50V&_nc_oc=AdqJDRV4y4WhZ80IReA8iRHBXzd53XVvnkEIIzqMZyyk6dzp2jWYLaaCzncncxsC98w&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQBrBOzqxuBdzQf5giUOMTv90MqHSlirScYJjTg4r505eg&oe=6A547B9B",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1573465544302779",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1573465544302779.jpg"
+              },
+              {
+                "library_id": "1671762173916043",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1783407600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "win deze zomer een VW buzz met fritz! een koude fritz. een beetje geluk. en een heel goed verhaal voor later. check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz #fritzkola #verfritzend #spinitwinit",
+                "caption": "fritz.win",
+                "link_description": "",
+                "link_url": "http://fritz.win/",
+                "cta_text": "Watch more",
+                "cta_type": "WATCH_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/738511563_1691222958870347_4013799074969667189_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=jIGJupBpC1QQ7kNvwF6tbXB&_nc_oc=AdqTijn-dTs2hIPWjKDbysFN08es9uWWLEbHD2nzedW5HitdryE61rDydQ7WFCr5afA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQBixtD6kRsKulLPX-UJ0yFmE17xuDNahOki1CMTGsdtlA&oe=6A54919E",
+                "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQNw-q6AcGHiKoj-BHgpx25XAmS-sseJm8300ZUtkBNCnb0_qTLK2GDVWXs4aQo6vtcWAk64AarxuX13kvaK1XHOypEMNZay4qA5IIcx1w.mp4?_nc_cat=105&_nc_oc=Adqi0XKmOv2tOh20n-t4q7B7GN3K3SiN6b0uQQmrpoGsNr63kO8cBdP_6Ix4ndfubYg&_nc_sid=ef5aa3&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=dgEqnVAYM0YQ7kNvwFLo2tz&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5NzE1MzAwNDMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjE5LCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6MTQsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQD0480HwyswY1peAoHtdu4wfSKg8p2wqOhVvXedQDdaBQ&oe=6A5469ED",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/739313656_27687920667491627_4811901811351488790_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Dd5s-_y466MQ7kNvwHIxbIL&_nc_oc=Adog0CB-DrFeqICTE0AZQXWfaAcNHDfZeXungOrNKAGkNlGNbLtRK80D8VhhcM6UYyI&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQA7aYhzPaWrA1jvn7N-S-VFcS80KEsWVdwQGyLwuGPO8w&oe=6A546E25",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1671762173916043",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1671762173916043.jpg"
+              },
+              {
+                "library_id": "2206985433392072",
+                "page_name": "fritz-kola NL",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1783407600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "open, spin en win! soms begint een goed verhaal met een koude fritz. nieuwsgierig? check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz.",
+                "caption": "fritz.win",
+                "link_description": "",
+                "link_url": "http://fritz.win/",
+                "cta_text": "Watch more",
+                "cta_type": "WATCH_MORE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/740601984_3402570083259045_6456610783958681518_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=f0abL7kxpVkQ7kNvwH1U8e7&_nc_oc=Adr-MijR9v3PlcUgOWL_I6GjBbQ_qu8ya4UCbQFY6pDU4KMTgOH-VnbmMY1cqrQAKaU&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQB8DLi7Rk5k0u3lUKJDEZq7Mk03wQ4ykpvbkkqe3VUDcg&oe=6A5477FE",
+                "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQP6WU6TfYh3flq3YPbMDjY3YL4RLcLeZMQi8PpAFGQ-XveDVE9YS2527qw99_8FCBbpZS5oKFXimRPR273p_xElYySG4Mk8g0-apBRiUA.mp4?_nc_cat=110&_nc_oc=AdouI__Ewoylzu5Q3R4aTdd1iQPJKD9eAUbOFO2JW-s44ebq-L1TwJn_2AJnh-TsSFA&_nc_sid=ef5aa3&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=yCgaMdmK4D4Q7kNvwHcI21W&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5OTE4MjI1MjMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjQsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQBnRo0do5i_aCMawPj9Jn4SR8LzUfZhjk505-d81H1l5Q&oe=6A546178",
+                "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/740686634_1022538023797550_443407198843198620_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=rxp5qAL4RdQQ7kNvwH5emRC&_nc_oc=AdoKuVwI26vCuL-8KE0DwgO-qgVryz4SHfbaCzb4q2F7kpZvzN1CS-qkKiivIzNFbH0&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCHIG7d3tVaKteoC5XiLIsJjECCaaY6ZFM-_ylnixGaTQ&oe=6A548621",
+                "page_like_count": 39,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2206985433392072",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_2206985433392072.jpg"
+              }
+            ],
+            "ads_library_mode": "keyword_filtered_by_pid_or_name",
+            "raw_keyword_total": 36,
+            "method": "json_keyword_filtered_by_pid_or_name",
+            "extraction_method": "json",
+            "search_term": "fritz-kola",
+            "status_filter": "active",
+            "saved_images": [
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_27380380334959485.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_993995633266763.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1540195744501202.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1341270261470403.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1057448303368933.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1573465544302779.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1671762173916043.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_2206985433392072.jpg"
+            ],
+            "saved_texts_path": "scans\\fritz-kola.de\\fb_ads_images\\ad_texts_active.txt"
+          },
+          "inactive": {
+            "count": 23,
+            "status": "active",
+            "ad_texts": [
+              "fritz-kola trinken, code einlösen, sammeln oder \nriskieren. und mit ganz viel glück einen vw\nid.buzz gewinnen.",
+              "behind the kola: vielleicht der code zu deinem glück? fritz-kola kaufen, code online eingeben und am rad drehen.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "heute nur wach geblieben. morgen vielleicht \nim neuen vw id.buzz unterwegs. jetzt fritz-kola \ntrinken, sammeln oder riskieren – du \nentscheidest.",
+              "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "Aus euren Kommentaren wurden 16 Flaschenpost-Wünsche, die wir per fritz-Lieferservice direkt an die zukünftige Regierung verfrachtet haben. #gumozukunft #flaschenpost"
+            ],
+            "partnership_ads": false,
+            "partnership_count": 0,
+            "structured_ads": [
+              {
+                "library_id": "4059189527547342",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1780470000,
+                "end_date": 1781593200,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "kola mit buzz drin.",
+                "body_text": "fritz-kola trinken, code einlösen, sammeln oder \nriskieren. und mit ganz viel glück einen vw\nid.buzz gewinnen.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/706549641_1299556945725246_399960212770271548_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=psAEaBm9m_EQ7kNvwEHOmnj&_nc_oc=AdoiDFUlzOSvrwmqRGh41Ct7kPzG1R2HMGDxGTuFVp9Nb4_6vEFG-X_yER8Q4KKDqnA&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBj6_NlQfqxgyCLjwP_eCj6a6vqXdQX9V6-fD3t_lCq8w&oe=6A547931",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQMVJfypHzsQVqZz5nqcwYTmqLW0Wm6OLTMUpLH9pGPKTXth7vNQBCVPB6nLDuJf48rv2zmahJFhHKrNOKOzcyyy.mp4?strext=1&_nc_cat=101&_nc_oc=AdohvcEFOtRpjqS0OmdzukjhIdWnBjQ3SQVhFDSjtjuTCDCvfXTOBwlKicguVbhmZDE&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=V3bAoL8EdfQQ7kNvwHCK8Zd&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6MTc2MTM3MTg3ODEzNDY4OSwiYXNzZXRfYWdlX2RheXMiOjQyMSwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjE1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQA3wnTZOOowTpcYQV1DL5nw9vc4y92JTzZ3zga4odINmg&oe=6A546D8D",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/706198618_1740993366894944_1293049746561088319_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Bkz8-p5GcQAQ7kNvwEkJbAw&_nc_oc=AdoOXOQRsOqNUOJ3zMtkyVp4nApPfKmrcXBe9utALFlTKywgI9Sqy5pk0boQYQaIva8&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDFrEBvFiwyiLD4uACJ5obMRher-yC0_kNHYMPgRs4-1g&oe=6A546D6D",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=4059189527547342",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_4059189527547342.jpg"
+              },
+              {
+                "library_id": "1718220942537848",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1779433200,
+                "end_date": 1780556400,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "{{product.name}}",
+                "body_text": "behind the kola: vielleicht der code zu deinem glück? fritz-kola kaufen, code online eingeben und am rad drehen.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/703183029_2582272815521513_5483226661401604301_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=ziqsDdzreEEQ7kNvwGhCzbQ&_nc_oc=AdrlO0o96m-yifuMzCltwwokji5SKEubmp_VEWkrlWiX7nPJtRu15YtLtkcOKAJAc2U&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDPXt-kOC6IRNksjk2i88tidEGSXmr1PCrLa7S_4khRow&oe=6A547152",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQN-nLlNROY11Nt80uZqaCjbynci5NHSg2LuIIuYOky_MXJcbSw-uzfN0ng8IOTloDDwmCmyPogfidvMjlH6Wr1RqK-Q_kGBiSHmk5UIIY7Mgg.mp4?_nc_cat=100&_nc_oc=Ado5W68G7aufDeeC79Hxrvs63VxtcxSPT8m3uXayx_Jdw3v2NYJfpmlDdzV6-C2rURg&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=ume_gQogN2QQ7kNvwEuiAPU&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjI1MTk0MTE0OTE4NDIxMDUsImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM2LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=75a42081128ec914&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC80RDRFNzdEQkMwMThCNjc1NzZEQjFFQjUwRTE5Q0E4NV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U2NEFBREJEMjgyMEQ2ODQ3OTQ3QTNCRjczQzU4N0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbyoJ2whtn5CBUCKAJDMywXQEIgAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQCcKkFCdNiHE7mYuRWgriIJy75j3YdAvqUGkgAoEiBO7A&oe=6A54717C",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/704327420_1639510503927275_3795086516652358946_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=105&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=WHZgqKMQHncQ7kNvwHd69uO&_nc_oc=AdosteR_7vCJGYm6P4sn5dyqpMBBumITdazFL715V1R0IdJpO60pLuB5OYNQyV5d-pI&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBTimNRjGHHhBG4QNRPCPR77g-K14Yi0UmXpZQjPLRtSw&oe=6A546689",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1718220942537848",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1718220942537848.jpg"
+              },
+              {
+                "library_id": "2747581408953096",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1779433200,
+                "end_date": 1780642800,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "{{product.name}}",
+                "body_text": "behind the kola: vielleicht der code zu deinem glück? fritz-kola kaufen, code online eingeben und am rad drehen.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/703675353_1129824909349445_1672715260774167622_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=tFArhWowWcAQ7kNvwHSUKbz&_nc_oc=Adq1Urx45l1a7vrju_wU-BwLh_hV1Un3vDK0HZsdwMw8tqAKIVEzCHVLv8ccFrX1QJQ&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCiX78OVxM6U6GgGMir1rrqdNkpjfLP692Tjb7D8tzESg&oe=6A545FE3",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQN-nLlNROY11Nt80uZqaCjbynci5NHSg2LuIIuYOky_MXJcbSw-uzfN0ng8IOTloDDwmCmyPogfidvMjlH6Wr1RqK-Q_kGBiSHmk5UIIY7Mgg.mp4?_nc_cat=100&_nc_oc=Ado5W68G7aufDeeC79Hxrvs63VxtcxSPT8m3uXayx_Jdw3v2NYJfpmlDdzV6-C2rURg&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=ume_gQogN2QQ7kNvwEuiAPU&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjI1MTk0MTE0OTE4NDIxMDUsImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM2LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=75a42081128ec914&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC80RDRFNzdEQkMwMThCNjc1NzZEQjFFQjUwRTE5Q0E4NV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U2NEFBREJEMjgyMEQ2ODQ3OTQ3QTNCRjczQzU4N0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbyoJ2whtn5CBUCKAJDMywXQEIgAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQCcKkFCdNiHE7mYuRWgriIJy75j3YdAvqUGkgAoEiBO7A&oe=6A54717C",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/705298614_4588276994741697_1339010933331871275_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=fMeyxxtndsMQ7kNvwE26sy4&_nc_oc=Adoj9ICJCeno8HH-1R8DHqH0fvSa_e4gEhzXx9cPJrq765j9BlqYrahgSdG1hD-ZwlM&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCuIZjHO8ZM4zGIDwKrfRBu3mcPKWaZXv0DdT7a1f2nuA&oe=6A546569",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2747581408953096",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_2747581408953096.jpg"
+              },
+              {
+                "library_id": "1863328521029364",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1780470000,
+                "end_date": 1781593200,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "kola mit buzz drin.",
+                "body_text": "heute nur wach geblieben. morgen vielleicht \nim neuen vw id.buzz unterwegs. jetzt fritz-kola \ntrinken, sammeln oder riskieren – du \nentscheidest.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/702589554_1982321776003771_2104995692106589333_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=BOmQlxWxYOUQ7kNvwHciWUP&_nc_oc=Adrfyo9XevxOZ-LT3IdQ2T5Q8nDvp_rSeE5bXIJLo_M1NXBPtRTeUIFZngcRqqxZTcc&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQAakYxA61rI-03bA1ITuS1xJN57puXDdJaqDaoaSqHqiQ&oe=6A545D6A",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQMVJfypHzsQVqZz5nqcwYTmqLW0Wm6OLTMUpLH9pGPKTXth7vNQBCVPB6nLDuJf48rv2zmahJFhHKrNOKOzcyyy.mp4?strext=1&_nc_cat=101&_nc_oc=AdohvcEFOtRpjqS0OmdzukjhIdWnBjQ3SQVhFDSjtjuTCDCvfXTOBwlKicguVbhmZDE&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=V3bAoL8EdfQQ7kNvwHCK8Zd&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6MTc2MTM3MTg3ODEzNDY4OSwiYXNzZXRfYWdlX2RheXMiOjQyMSwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjE1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQA3wnTZOOowTpcYQV1DL5nw9vc4y92JTzZ3zga4odINmg&oe=6A546D8D",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/703156173_933464743030266_3407354822952210160_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=odujMUR2OD4Q7kNvwGcs7P4&_nc_oc=AdqRpoPU9tDCYyjvN037uknsrF4oBvu9NhNw-FGt2Bpwi7525Mp-iPi2OakRJwueUMA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCBvSKzB32tRpHZ5sKkdLRc8QQGJtM9GQzUVkMn3WoZvQ&oe=6A5477A2",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1863328521029364",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1863328521029364.jpg"
+              },
+              {
+                "library_id": "1303745295063274",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1778828400,
+                "end_date": 1779519600,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "{{product.name}}",
+                "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium= paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/689482445_1614387972984228_6316623639492712536_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=sVUIdAcnHH4Q7kNvwEEfxCd&_nc_oc=AdoT88SW55LpkqacAYHfKKTAQzB3iim2uWLocV5jfep0h5pjIeQOYsVBB8XzrfZAFxw&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCtkuz-WbocoNzSZpTUH5iLlj74P03Rvk-TWBubVxKmGA&oe=6A547CEC",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/697129664_1031584839911932_5109774475860800987_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=6gKzKcWC6dwQ7kNvwGT1ySD&_nc_oc=AdpzzssHHVi39hcnsyyg5hKkRxxtweaaXzSVo5te3jKAawkzDnRucqCaI_YwMeyus_I&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDaMRTY5XS-7-wmG-iDGcLYmIFCA4766WmIr4tn7_10xQ&oe=6A546C6B",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1303745295063274",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1303745295063274.jpg"
+              },
+              {
+                "library_id": "1470110994341431",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1779433200,
+                "end_date": 1780556400,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "{{product.name}}",
+                "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/704558725_2460519484461878_5684050497681860803_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=_pMvvzQknjoQ7kNvwEzRuFr&_nc_oc=AdqqXgtC8vmsDFHDQ_Bw3KHuv0aMo7nGeXi5FhR1_yU9zqcVtPOf7zmRF3clbo-M0cY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBtBKoNqlR6LA1BwrLwcdt5vwtbOvuf-9VR0RK4WdsJPg&oe=6A54679C",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/705246993_1515291460383496_2433008013388494900_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=sOyFvMc4C70Q7kNvwHxwl5g&_nc_oc=AdrSpvEWNrn0OBpib1oUSaGYg7DaKo3yNxdd4RpJq6WQhximZWfU71I_vLRSg_SG1_c&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCziHj0HPlIQ6qhQudcdGa9PhhIF1YkITAn_UG0v-BDaA&oe=6A546202",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1470110994341431",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1470110994341431.jpg"
+              },
+              {
+                "library_id": "1474335210409469",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1779433200,
+                "end_date": 1780556400,
+                "platforms": [
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/706199602_2362723617549830_719310654754508714_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=keqjGTZ_PzQQ7kNvwGVwzSm&_nc_oc=Adoo9OBxqG5_QADTGuLAaWULsqQpWshzvSGoEERdS-OnYRwLxcRSS-aOlgdzYp-EkBg&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCTq3kqsnaSjIOxP4C2jqn-2FwBUF9PTZbNmxULLK4w9A&oe=6A548F19",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/706318216_2087116771853554_8305300887977935914_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=PohxK9QmSmkQ7kNvwHg91SR&_nc_oc=AdqqPRNZphxZX92kUQN4xEFTa3qWgXCeIu-5Ol0RtxKuLJJxplGNpg-maniOoclDrI8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBkThQtDTTEEMJhLwLuvou5F5RdF6ZQ7l-BH9g6U5T9SA&oe=6A54643A",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1474335210409469",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1474335210409469.jpg"
+              },
+              {
+                "library_id": "1030518726166061",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1779433200,
+                "end_date": 1780556400,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "{{product.name}}",
+                "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/704764196_2226304641438128_3204764345904468479_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=2CzYmPYvQCkQ7kNvwFpxq9j&_nc_oc=AdrJGzUrXWW9GbN0x2Pr38g5KkEDMiR6vam92p3ILullWtG7fPo4XDggm_iJ0UU6OJU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCjH1_bvhLbbf5RIhJ3azW6_JQM37G2wYI3ZKfMPET_5w&oe=6A5473C9",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/704992498_1520066246512087_7646468160066809885_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Q5OD_eGsyc0Q7kNvwFpdTbl&_nc_oc=Adp9STdSNhnLA0p9oXDr2oY0svhEfNgfXCgkU4PYW9jEamACx8bQuzFhBJFbQPw27Uo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCiFbf4RoJv3VChsqC1yf552zWcGrN2UrZsJ2_2LNUmcg&oe=6A5461A1",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1030518726166061",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1030518726166061.jpg"
+              },
+              {
+                "library_id": "1001566051375309",
+                "page_name": "fritz-kola",
+                "display_format": "VIDEO",
+                "is_active": false,
+                "start_date": 1742281200,
+                "end_date": 1743404400,
+                "platforms": [
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "Aus euren Kommentaren wurden 16 Flaschenpost-Wünsche, die wir per fritz-Lieferservice direkt an die zukünftige Regierung verfrachtet haben. #gumozukunft #flaschenpost",
+                "caption": "",
+                "link_description": "",
+                "link_url": "",
+                "cta_text": "",
+                "cta_type": "",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/485392345_9854058091271591_7962717884969581142_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=v0CPUnZZCvcQ7kNvwHvk1g3&_nc_oc=Ado727E8cRewAHtk4X2mUTPnmvCBPwYNHMbmMhlfpRPmmz8A965IzsM_Mo-5L1cXCkg&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBCNnniMaanpPBwAdePZJAxZyTd5QbQEfoe4nRnkSK1KQ&oe=6A546DCC",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQOKYeI91qE2ArAu8FUMf602IUZrUo9eLBbRHsHTAO9UMNZmA8tCouJu2snFrzyNXvfy0p7jqAixVCsLvZerj16P.mp4?strext=1&_nc_cat=109&_nc_oc=Adrdb3VUGmjNbUvv9HcT8c3AEHIuLaSECPTaqpoXfXVfMxSoEP6HU6fhODE2X88RuoQ&_nc_sid=ef5aa3&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=_6nr1Qc20iAQ7kNvwHwzQYy&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6NjcwNTk2ODU1NDc3NTU5LCJhc3NldF9hZ2VfZGF5cyI6NDc3LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjgsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQD70lZyt2L38OSPNL1tp6-gzy7ry2lLr675eCBeiuuadw&oe=6A5485A9",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/484794115_3517107188590421_7284281052193498429_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=PqZpiGuTJboQ7kNvwEwDYQD&_nc_oc=AdruNQTtKGkSR9iRf9Xoil3JxiQnP2MZG8GB5d910uu-Oj293z1q-ssC-LfA-0sz7Os&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQA9B5CAasa_Xpz6caXlmBwX4usoTZnGu23IClM_cd3oiw&oe=6A54936E",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1001566051375309",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/inactive/ad_1001566051375309.jpg"
+              },
+              {
+                "library_id": "1677955833327020",
+                "page_name": "fritz-kola",
+                "display_format": "DCO",
+                "is_active": false,
+                "start_date": 1778828400,
+                "end_date": 1779519600,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "{{product.name}}",
+                "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+                "caption": "fritz-kola-shop.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium= paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/689482445_1614387972984228_6316623639492712536_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=sVUIdAcnHH4Q7kNvwEEfxCd&_nc_oc=AdoT88SW55LpkqacAYHfKKTAQzB3iim2uWLocV5jfep0h5pjIeQOYsVBB8XzrfZAFxw&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCtkuz-WbocoNzSZpTUH5iLlj74P03Rvk-TWBubVxKmGA&oe=6A547CEC",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+                "page_profile_uri": "https://www.facebook.com/fritzkola/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/697129664_1031584839911932_5109774475860800987_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=6gKzKcWC6dwQ7kNvwGT1ySD&_nc_oc=AdpzzssHHVi39hcnsyyg5hKkRxxtweaaXzSVo5te3jKAawkzDnRucqCaI_YwMeyus_I&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDaMRTY5XS-7-wmG-iDGcLYmIFCA4766WmIr4tn7_10xQ&oe=6A546C6B",
+                "page_like_count": 93584,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1677955833327020",
+                "n_card_variants": 5,
+                "image_local": "fb_ads_images/inactive/ad_1677955833327020.jpg"
+              }
+            ],
+            "ads_library_mode": "keyword_filtered_by_pid_or_name",
+            "raw_keyword_total": 2303,
+            "method": "json_keyword_filtered_by_pid_or_name",
+            "extraction_method": "json",
+            "search_term": "fritz-kola",
+            "status_filter": "inactive",
+            "saved_images": [
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_4059189527547342.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1718220942537848.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_2747581408953096.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1863328521029364.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1303745295063274.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1470110994341431.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1474335210409469.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1030518726166061.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1001566051375309.jpg",
+              "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1677955833327020.jpg"
+            ],
+            "saved_texts_path": "scans\\fritz-kola.de\\fb_ads_images\\ad_texts_inactive.txt"
+          },
+          "active_ads_count": 8,
+          "partnership_ads": false,
+          "partnership_count": 0,
+          "ad_texts": [
+            "pride kan je op veel verschillende manieren vieren. we vroegen het de community in amsterdam. hoe vier jij dit jaar pride? 🏳️‍🌈💃🏽",
+            "win deze zomer een volkswagen ID.Buzz. open je fritz-kola. check de dop. spin mee. maak kans op prijzen. vind de link in onze bio.\n#fritzkola #verfritzend #spinitwinit",
+            "win de rit van je zomer! één fritz dichter bij jullie volgende avontuur.  open een fritz-kola, check de dop en spin mee via fritz.win. misschien rijd jij deze zomer wel weg in een volkswagen ID. Buzz.\n#fritzkola #verfritzend #spinitwinit",
+            "auto winnen? er is nog een plekje vrij achter het stuur van deze buzz. wil jij instappen? check de dop van je fritz-kola, spin mee via fritz.win en maak kans op een volkswagen ID. Buzz. #fritzkola #verfritzend #spinitwinit",
+            "win deze zomer een VW buzz met fritz! een koude fritz. een beetje geluk. en een heel goed verhaal voor later. check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz #fritzkola #verfritzend #spinitwinit",
+            "open, spin en win! soms begint een goed verhaal met een koude fritz. nieuwsgierig? check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz.",
+            "fritz-kola trinken, code einlösen, sammeln oder \nriskieren. und mit ganz viel glück einen vw\nid.buzz gewinnen.",
+            "behind the kola: vielleicht der code zu deinem glück? fritz-kola kaufen, code online eingeben und am rad drehen.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+            "heute nur wach geblieben. morgen vielleicht \nim neuen vw id.buzz unterwegs. jetzt fritz-kola \ntrinken, sammeln oder riskieren – du \nentscheidest.",
+            "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+            "Aus euren Kommentaren wurden 16 Flaschenpost-Wünsche, die wir per fritz-Lieferservice direkt an die zukünftige Regierung verfrachtet haben. #gumozukunft #flaschenpost"
+          ],
+          "saved_images": [
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_27380380334959485.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_993995633266763.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1540195744501202.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1341270261470403.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1057448303368933.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1573465544302779.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_1671762173916043.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\active\\ad_2206985433392072.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_4059189527547342.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1718220942537848.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_2747581408953096.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1863328521029364.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1303745295063274.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1470110994341431.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1474335210409469.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1030518726166061.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1001566051375309.jpg",
+            "scans\\fritz-kola.de\\fb_ads_images\\inactive\\ad_1677955833327020.jpg"
+          ],
+          "structured_ads": [
+            {
+              "library_id": "27380380334959485",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782975600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "pride kan je op veel verschillende manieren vieren. we vroegen het de community in amsterdam. hoe vier jij dit jaar pride? 🏳️‍🌈💃🏽",
+              "caption": "",
+              "link_description": "",
+              "link_url": "",
+              "cta_text": "",
+              "cta_type": "",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/736182251_1537057561249015_1284969894351135721_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=cA5cvixihEYQ7kNvwG_TWKx&_nc_oc=AdpwU7bDD63ikuWYno4oo1TwPohx1Vp4yLvbBerdhb6-iKU28Zucq50gk__yMTkAzYU&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQB7a1pkXE0a0IPDgB9M1aZgiCFwjUdwPHgqfEHLkiparQ&oe=6A5470E4",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMNnO1Plkzy3T_LnMwsvrRrdjOxJ80LzDfKcj0JqjhLqWt1kHHG2j38gL64m9XsTPp3Op74MefUxYMD5YHafMNdi3j6dCpX2Id6IVkOwHkDjw.mp4?_nc_cat=106&_nc_oc=AdoUCmDFxaQk9uclbSQLes3sqUKCdKtk2CigcxMQVLgA2Wk6OnQnmbNaOpwN1YPbG_o&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=WOVQnmqcuSMQ7kNvwFLmY1T&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjg4MDQzNTQ3MTI3ODU2NSwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMTM5LCJkdXJhdGlvbl9zIjozOCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=624b484d90011459&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC8xMDQ0MEM4NTRFRjc5RjU2NkUxRUE0Njc5OERCRUJCM19tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzdGNEU0RkI1MzcxMjMyMEEzOUQyRUFFRkFFMTlEQTkxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbKh5u4i7CQAxUCKAJDMywXQENcKPXCj1wYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZbaeAQA&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQBp93KQ8F8c7MWJsK0S8fXxUfbQNtXPmLQdfU7KlmZhYA&oe=6A547EC2",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/736226327_27285142801146394_1926805255784596258_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=uIsqzH7FEiYQ7kNvwG0k4hR&_nc_oc=AdrgBbKdtVZIR6y6E2YbKgCe84oBTGA9Jaqjkzib9RSzBDecAio9dNFtKHdTF38zGMY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQA1WJVecCFg34GlGlc4cI5rXnw5arFU2o5t7m_SSpPPLQ&oe=6A5473B8",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=27380380334959485",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_27380380334959485.jpg"
+            },
+            {
+              "library_id": "993995633266763",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782975600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "pride kan je op veel verschillende manieren vieren. we vroegen het de community in amsterdam. hoe vier jij dit jaar pride? 🏳️‍🌈💃🏽",
+              "caption": "",
+              "link_description": "",
+              "link_url": "",
+              "cta_text": "",
+              "cta_type": "",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/737721916_1017006417749714_2130523943348146242_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=k9h5TBWyJcIQ7kNvwFsltT2&_nc_oc=AdqkkkQOOGtVUyYhuArRms7057KhOelYSJepWly3PogCzV2zfTnXeea1fo6PQWhmwAo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQBqJNFWmgAUXHB7kxqJXp359dtUS4N8lPOg3vGFoZntwA&oe=6A546C73",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMNnO1Plkzy3T_LnMwsvrRrdjOxJ80LzDfKcj0JqjhLqWt1kHHG2j38gL64m9XsTPp3Op74MefUxYMD5YHafMNdi3j6dCpX2Id6IVkOwHkDjw.mp4?_nc_cat=106&_nc_oc=AdoUCmDFxaQk9uclbSQLes3sqUKCdKtk2CigcxMQVLgA2Wk6OnQnmbNaOpwN1YPbG_o&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=WOVQnmqcuSMQ7kNvwFLmY1T&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjg4MDQzNTQ3MTI3ODU2NSwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMTM5LCJkdXJhdGlvbl9zIjozOCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=624b484d90011459&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC8xMDQ0MEM4NTRFRjc5RjU2NkUxRUE0Njc5OERCRUJCM19tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzdGNEU0RkI1MzcxMjMyMEEzOUQyRUFFRkFFMTlEQTkxX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbKh5u4i7CQAxUCKAJDMywXQENcKPXCj1wYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZbaeAQA&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQBp93KQ8F8c7MWJsK0S8fXxUfbQNtXPmLQdfU7KlmZhYA&oe=6A547EC2",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/735157486_2459638471172174_695197678522643480_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Zc0vjMRpNhwQ7kNvwH5IGQH&_nc_oc=AdpqQ-0IMO-Q1KedRMzhF6UcsNdswIPERrdoFN19_BxS7zxAwIWeOA0nrk_GyXibFbk&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQDg38FjwhcXJJIQntvwfbh6KjlpDSooDYYzMJBxhw76JA&oe=6A546866",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=993995633266763",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_993995633266763.jpg"
+            },
+            {
+              "library_id": "1540195744501202",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782975600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "win deze zomer een volkswagen ID.Buzz. open je fritz-kola. check de dop. spin mee. maak kans op prijzen. vind de link in onze bio.\n#fritzkola #verfritzend #spinitwinit",
+              "caption": "fritz.win",
+              "link_description": "",
+              "link_url": "https://fritz.win/",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/734767935_1340633544254684_6201523441146388931_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=0qq1bYiakXYQ7kNvwEjS9Qy&_nc_oc=AdoG7PWD6ts_cRZ21pBm46919Rf23oohQmTkYZ1Ho4aYb3QSRodbs2fnCid3wtitLFY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQAU1_Qaz9syoSmjPD47WtvtHpKg2GXco6zI10IRqAqnzg&oe=6A548818",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQM-igSuINZ77NOok34FUR2nIm2sERceqBA9BivsOySqjsGkmAowTS44r5HIWp-yN2eJlVY2csyRkRPYNN1Io7H5LgomlQTs9WZRuxSkVw.mp4?_nc_cat=107&_nc_oc=AdqCRIiKrI2B00uv2uCKOG-mAlTkbbk8SDt1KKsk7Plwsm3wCzcJH4VU0Dy5cKLE8fg&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=AL6kyUrjLjIQ7kNvwEbHj05&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5ODkxMzUwMDMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjo5LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQCWasLjeuQ3e4gk42n2jWEjc-EUtr56jTA4v8Pif_RIAQ&oe=6A54838B",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/735858919_1018436203922775_5332706038125898940_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=5EzFOi_JoP0Q7kNvwEu8Pag&_nc_oc=Adrd9CeDLgcTaEXBbPpf8UCiOsm3pwacixE3tm-r7DhajyUL9GU_pdFPHrq0IWstJ9I&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCtydV2s_8w_3UQLK655k_Weo0KII3xf4dmZSUR_9FCLw&oe=6A548644",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1540195744501202",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1540195744501202.jpg"
+            },
+            {
+              "library_id": "1341270261470403",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782975600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "win deze zomer een volkswagen ID.Buzz. open je fritz-kola. check de dop. spin mee. maak kans op prijzen. vind de link in onze bio.\n#fritzkola #verfritzend #spinitwinit",
+              "caption": "fritz.win",
+              "link_description": "",
+              "link_url": "https://fritz.win/",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/736289603_1800110570978605_6167088778805290604_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=nrJFfTV-aAoQ7kNvwGhD6S4&_nc_oc=AdqPn2v4fbiyIeCx4Zm5ijb7jKNZTfxuJz7NpVxErJ2O7NnJECudvBqF8DGxWgNgupE&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQDG2-T4NiA-3UcHEvBqjZVc3i_Fs6n9YdG-0K09AjRqmg&oe=6A5479AE",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQM-igSuINZ77NOok34FUR2nIm2sERceqBA9BivsOySqjsGkmAowTS44r5HIWp-yN2eJlVY2csyRkRPYNN1Io7H5LgomlQTs9WZRuxSkVw.mp4?_nc_cat=107&_nc_oc=AdqCRIiKrI2B00uv2uCKOG-mAlTkbbk8SDt1KKsk7Plwsm3wCzcJH4VU0Dy5cKLE8fg&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=AL6kyUrjLjIQ7kNvwEbHj05&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5ODkxMzUwMDMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjYsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjo5LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQCWasLjeuQ3e4gk42n2jWEjc-EUtr56jTA4v8Pif_RIAQ&oe=6A54838B",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/737502603_1010566691596020_7022324064443679881_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=onFfwgujayAQ7kNvwEFUAMM&_nc_oc=Adpq5F-uQssDXeExUDUuB8BIkFOytYY3zVtjjqNgrfP8kMQjKr5mtXOTab5QC3QzxzM&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCFQTLDgY2WZl9Al4JqXalvAtIXbvTCiJT2GTMA8leBIw&oe=6A546AB8",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1341270261470403",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1341270261470403.jpg"
+            },
+            {
+              "library_id": "1057448303368933",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1783407600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "win de rit van je zomer! één fritz dichter bij jullie volgende avontuur.  open een fritz-kola, check de dop en spin mee via fritz.win. misschien rijd jij deze zomer wel weg in een volkswagen ID. Buzz.\n#fritzkola #verfritzend #spinitwinit",
+              "caption": "fritz.win",
+              "link_description": "",
+              "link_url": "http://fritz.win/",
+              "cta_text": "Watch more",
+              "cta_type": "WATCH_MORE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/741827918_2003978513819963_336284846345560481_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=DqqZdOVk7zIQ7kNvwHfXqPw&_nc_oc=AdqH2SXqr_7kQ8BcHxi58cuVH9lqAHPw5dfaW5FkCyMS76Fdr7C8mTEVS3zBk9cQxNk&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQAlO-s2qvRgD1dWED4gJCUoaw4ECRv9z4aZpFmoE_Bpxw&oe=6A546804",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQPMYQSpzDZs3UzRvk0lMKN4asOfjSVAW9N07jl26Uwqu8qlIbrdEcCS6n0IDzz6Ywe1m4ZD23OXzELTHxxY1P144FlTmNWRT3q43DzGYg.mp4?_nc_cat=107&_nc_oc=AdqdJbDedx8m96nK169bVAygOJZWhhfvkWUBma7q4lBp7QugmY_ZOCF8_wL-ZX1VHb8&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=R-0pi3inmugQ7kNvwEUv63z&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5OTQzMjY5MjMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjIsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxNCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQDoimZ6GAK-cX7f18NmK9eT1wB7uk5CiD0uYaiZcTRPqA&oe=6A54882F",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/741828084_1360134192990119_5992333953811379094_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=wxXwB5QpXFAQ7kNvwHpzuAR&_nc_oc=Adr6JsaK_M5zg0YT16vhc9qFdNLT15zkNugw4TNZC6zR1FNBChLPTUPqPA1poqjVVXE&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCpLU-PtZ__KTCpadyFjNb0mvna-EwhQPKQW3sxXvIawA&oe=6A547332",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1057448303368933",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1057448303368933.jpg"
+            },
+            {
+              "library_id": "1573465544302779",
+              "page_name": "fritz-kola NL",
+              "display_format": "IMAGE",
+              "is_active": true,
+              "start_date": 1783407600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "fritz-kola | Kronkorkenaktion 2026",
+              "body_text": "auto winnen? er is nog een plekje vrij achter het stuur van deze buzz. wil jij instappen? check de dop van je fritz-kola, spin mee via fritz.win en maak kans op een volkswagen ID. Buzz. #fritzkola #verfritzend #spinitwinit",
+              "caption": "fritz.win",
+              "link_description": "Jetzt an unserer fritz-Kronkorken-Aktion teilnehmen und fette Preise gewinnen!",
+              "link_url": "http://fritz.win/",
+              "cta_text": "Watch more",
+              "cta_type": "WATCH_MORE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/737730534_987695727422358_7155070734073636544_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=lFxjwl3mtNEQ7kNvwEWUdNw&_nc_oc=Adq6H0p_pgg5RcaEGyAKSVNZ7KLHDLll84B23SiAVfiwCGWeIB3EhIgSwVjcSVUGeQY&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQDfL-VyVSZqAYVaQoBDQsiK2WFNu-hqa7dtChf29xtefw&oe=6A547A80",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/742331228_1372600674813064_8897899036755618986_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-_w2cNCQcFoQ7kNvwEGY50V&_nc_oc=AdqJDRV4y4WhZ80IReA8iRHBXzd53XVvnkEIIzqMZyyk6dzp2jWYLaaCzncncxsC98w&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQBrBOzqxuBdzQf5giUOMTv90MqHSlirScYJjTg4r505eg&oe=6A547B9B",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1573465544302779",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1573465544302779.jpg"
+            },
+            {
+              "library_id": "1671762173916043",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1783407600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "win deze zomer een VW buzz met fritz! een koude fritz. een beetje geluk. en een heel goed verhaal voor later. check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz #fritzkola #verfritzend #spinitwinit",
+              "caption": "fritz.win",
+              "link_description": "",
+              "link_url": "http://fritz.win/",
+              "cta_text": "Watch more",
+              "cta_type": "WATCH_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/738511563_1691222958870347_4013799074969667189_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=jIGJupBpC1QQ7kNvwF6tbXB&_nc_oc=AdqTijn-dTs2hIPWjKDbysFN08es9uWWLEbHD2nzedW5HitdryE61rDydQ7WFCr5afA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQBixtD6kRsKulLPX-UJ0yFmE17xuDNahOki1CMTGsdtlA&oe=6A54919E",
+              "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQNw-q6AcGHiKoj-BHgpx25XAmS-sseJm8300ZUtkBNCnb0_qTLK2GDVWXs4aQo6vtcWAk64AarxuX13kvaK1XHOypEMNZay4qA5IIcx1w.mp4?_nc_cat=105&_nc_oc=Adqi0XKmOv2tOh20n-t4q7B7GN3K3SiN6b0uQQmrpoGsNr63kO8cBdP_6Ix4ndfubYg&_nc_sid=ef5aa3&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=dgEqnVAYM0YQ7kNvwFLo2tz&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5NzE1MzAwNDMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjE5LCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6MTQsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQD0480HwyswY1peAoHtdu4wfSKg8p2wqOhVvXedQDdaBQ&oe=6A5469ED",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/739313656_27687920667491627_4811901811351488790_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Dd5s-_y466MQ7kNvwHIxbIL&_nc_oc=Adog0CB-DrFeqICTE0AZQXWfaAcNHDfZeXungOrNKAGkNlGNbLtRK80D8VhhcM6UYyI&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQA7aYhzPaWrA1jvn7N-S-VFcS80KEsWVdwQGyLwuGPO8w&oe=6A546E25",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1671762173916043",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1671762173916043.jpg"
+            },
+            {
+              "library_id": "2206985433392072",
+              "page_name": "fritz-kola NL",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1783407600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "open, spin en win! soms begint een goed verhaal met een koude fritz. nieuwsgierig? check de dop van je fritz-kola, spin mee en maak kans op prijzen én een volkswagen ID. Buzz.",
+              "caption": "fritz.win",
+              "link_description": "",
+              "link_url": "http://fritz.win/",
+              "cta_text": "Watch more",
+              "cta_type": "WATCH_MORE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/740601984_3402570083259045_6456610783958681518_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=f0abL7kxpVkQ7kNvwH1U8e7&_nc_oc=Adr-MijR9v3PlcUgOWL_I6GjBbQ_qu8ya4UCbQFY6pDU4KMTgOH-VnbmMY1cqrQAKaU&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQB8DLi7Rk5k0u3lUKJDEZq7Mk03wQ4ykpvbkkqe3VUDcg&oe=6A5477FE",
+              "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQP6WU6TfYh3flq3YPbMDjY3YL4RLcLeZMQi8PpAFGQ-XveDVE9YS2527qw99_8FCBbpZS5oKFXimRPR273p_xElYySG4Mk8g0-apBRiUA.mp4?_nc_cat=110&_nc_oc=AdouI__Ewoylzu5Q3R4aTdd1iQPJKD9eAUbOFO2JW-s44ebq-L1TwJn_2AJnh-TsSFA&_nc_sid=ef5aa3&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=yCgaMdmK4D4Q7kNvwHcI21W&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLnByb2dyZXNzaXZlX2gyNjQtYmFzaWMtZ2VuMl83MjBwIiwieHB2X2Fzc2V0X2lkIjoxODI5OTE4MjI1MjMwNDIzMCwiYXNzZXRfYWdlX2RheXMiOjQsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&_nc_zt=28&oh=00_AQBnRo0do5i_aCMawPj9Jn4SR8LzUfZhjk505-d81H1l5Q&oe=6A546178",
+              "page_profile_uri": "https://www.facebook.com/fritzkolaNL/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/740686634_1022538023797550_443407198843198620_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=rxp5qAL4RdQQ7kNvwH5emRC&_nc_oc=AdoKuVwI26vCuL-8KE0DwgO-qgVryz4SHfbaCzb4q2F7kpZvzN1CS-qkKiivIzNFbH0&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=PJDGE6gHnGEm7_uiE4t4Gg&_nc_ss=7b289&oh=00_AQCHIG7d3tVaKteoC5XiLIsJjECCaaY6ZFM-_ylnixGaTQ&oe=6A548621",
+              "page_like_count": 39,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2206985433392072",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_2206985433392072.jpg"
+            },
+            {
+              "library_id": "4059189527547342",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1780470000,
+              "end_date": 1781593200,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "kola mit buzz drin.",
+              "body_text": "fritz-kola trinken, code einlösen, sammeln oder \nriskieren. und mit ganz viel glück einen vw\nid.buzz gewinnen.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/706549641_1299556945725246_399960212770271548_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=psAEaBm9m_EQ7kNvwEHOmnj&_nc_oc=AdoiDFUlzOSvrwmqRGh41Ct7kPzG1R2HMGDxGTuFVp9Nb4_6vEFG-X_yER8Q4KKDqnA&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBj6_NlQfqxgyCLjwP_eCj6a6vqXdQX9V6-fD3t_lCq8w&oe=6A547931",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQMVJfypHzsQVqZz5nqcwYTmqLW0Wm6OLTMUpLH9pGPKTXth7vNQBCVPB6nLDuJf48rv2zmahJFhHKrNOKOzcyyy.mp4?strext=1&_nc_cat=101&_nc_oc=AdohvcEFOtRpjqS0OmdzukjhIdWnBjQ3SQVhFDSjtjuTCDCvfXTOBwlKicguVbhmZDE&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=V3bAoL8EdfQQ7kNvwHCK8Zd&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6MTc2MTM3MTg3ODEzNDY4OSwiYXNzZXRfYWdlX2RheXMiOjQyMSwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjE1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQA3wnTZOOowTpcYQV1DL5nw9vc4y92JTzZ3zga4odINmg&oe=6A546D8D",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/706198618_1740993366894944_1293049746561088319_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Bkz8-p5GcQAQ7kNvwEkJbAw&_nc_oc=AdoOXOQRsOqNUOJ3zMtkyVp4nApPfKmrcXBe9utALFlTKywgI9Sqy5pk0boQYQaIva8&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDFrEBvFiwyiLD4uACJ5obMRher-yC0_kNHYMPgRs4-1g&oe=6A546D6D",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=4059189527547342",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_4059189527547342.jpg"
+            },
+            {
+              "library_id": "1718220942537848",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1779433200,
+              "end_date": 1780556400,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "{{product.name}}",
+              "body_text": "behind the kola: vielleicht der code zu deinem glück? fritz-kola kaufen, code online eingeben und am rad drehen.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/703183029_2582272815521513_5483226661401604301_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=ziqsDdzreEEQ7kNvwGhCzbQ&_nc_oc=AdrlO0o96m-yifuMzCltwwokji5SKEubmp_VEWkrlWiX7nPJtRu15YtLtkcOKAJAc2U&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDPXt-kOC6IRNksjk2i88tidEGSXmr1PCrLa7S_4khRow&oe=6A547152",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQN-nLlNROY11Nt80uZqaCjbynci5NHSg2LuIIuYOky_MXJcbSw-uzfN0ng8IOTloDDwmCmyPogfidvMjlH6Wr1RqK-Q_kGBiSHmk5UIIY7Mgg.mp4?_nc_cat=100&_nc_oc=Ado5W68G7aufDeeC79Hxrvs63VxtcxSPT8m3uXayx_Jdw3v2NYJfpmlDdzV6-C2rURg&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=ume_gQogN2QQ7kNvwEuiAPU&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjI1MTk0MTE0OTE4NDIxMDUsImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM2LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=75a42081128ec914&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC80RDRFNzdEQkMwMThCNjc1NzZEQjFFQjUwRTE5Q0E4NV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U2NEFBREJEMjgyMEQ2ODQ3OTQ3QTNCRjczQzU4N0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbyoJ2whtn5CBUCKAJDMywXQEIgAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQCcKkFCdNiHE7mYuRWgriIJy75j3YdAvqUGkgAoEiBO7A&oe=6A54717C",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/704327420_1639510503927275_3795086516652358946_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=105&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=WHZgqKMQHncQ7kNvwHd69uO&_nc_oc=AdosteR_7vCJGYm6P4sn5dyqpMBBumITdazFL715V1R0IdJpO60pLuB5OYNQyV5d-pI&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBTimNRjGHHhBG4QNRPCPR77g-K14Yi0UmXpZQjPLRtSw&oe=6A546689",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1718220942537848",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1718220942537848.jpg"
+            },
+            {
+              "library_id": "2747581408953096",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1779433200,
+              "end_date": 1780642800,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "{{product.name}}",
+              "body_text": "behind the kola: vielleicht der code zu deinem glück? fritz-kola kaufen, code online eingeben und am rad drehen.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/703675353_1129824909349445_1672715260774167622_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=tFArhWowWcAQ7kNvwHSUKbz&_nc_oc=Adq1Urx45l1a7vrju_wU-BwLh_hV1Un3vDK0HZsdwMw8tqAKIVEzCHVLv8ccFrX1QJQ&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCiX78OVxM6U6GgGMir1rrqdNkpjfLP692Tjb7D8tzESg&oe=6A545FE3",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQN-nLlNROY11Nt80uZqaCjbynci5NHSg2LuIIuYOky_MXJcbSw-uzfN0ng8IOTloDDwmCmyPogfidvMjlH6Wr1RqK-Q_kGBiSHmk5UIIY7Mgg.mp4?_nc_cat=100&_nc_oc=Ado5W68G7aufDeeC79Hxrvs63VxtcxSPT8m3uXayx_Jdw3v2NYJfpmlDdzV6-C2rURg&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=ume_gQogN2QQ7kNvwEuiAPU&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjI1MTk0MTE0OTE4NDIxMDUsImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM2LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=75a42081128ec914&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC80RDRFNzdEQkMwMThCNjc1NzZEQjFFQjUwRTE5Q0E4NV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U2NEFBREJEMjgyMEQ2ODQ3OTQ3QTNCRjczQzU4N0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbyoJ2whtn5CBUCKAJDMywXQEIgAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQCcKkFCdNiHE7mYuRWgriIJy75j3YdAvqUGkgAoEiBO7A&oe=6A54717C",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/705298614_4588276994741697_1339010933331871275_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=fMeyxxtndsMQ7kNvwE26sy4&_nc_oc=Adoj9ICJCeno8HH-1R8DHqH0fvSa_e4gEhzXx9cPJrq765j9BlqYrahgSdG1hD-ZwlM&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCuIZjHO8ZM4zGIDwKrfRBu3mcPKWaZXv0DdT7a1f2nuA&oe=6A546569",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2747581408953096",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_2747581408953096.jpg"
+            },
+            {
+              "library_id": "1863328521029364",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1780470000,
+              "end_date": 1781593200,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "kola mit buzz drin.",
+              "body_text": "heute nur wach geblieben. morgen vielleicht \nim neuen vw id.buzz unterwegs. jetzt fritz-kola \ntrinken, sammeln oder riskieren – du \nentscheidest.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/702589554_1982321776003771_2104995692106589333_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=BOmQlxWxYOUQ7kNvwHciWUP&_nc_oc=Adrfyo9XevxOZ-LT3IdQ2T5Q8nDvp_rSeE5bXIJLo_M1NXBPtRTeUIFZngcRqqxZTcc&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQAakYxA61rI-03bA1ITuS1xJN57puXDdJaqDaoaSqHqiQ&oe=6A545D6A",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQMVJfypHzsQVqZz5nqcwYTmqLW0Wm6OLTMUpLH9pGPKTXth7vNQBCVPB6nLDuJf48rv2zmahJFhHKrNOKOzcyyy.mp4?strext=1&_nc_cat=101&_nc_oc=AdohvcEFOtRpjqS0OmdzukjhIdWnBjQ3SQVhFDSjtjuTCDCvfXTOBwlKicguVbhmZDE&_nc_sid=ef5aa3&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=V3bAoL8EdfQQ7kNvwHCK8Zd&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6MTc2MTM3MTg3ODEzNDY4OSwiYXNzZXRfYWdlX2RheXMiOjQyMSwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjE1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQA3wnTZOOowTpcYQV1DL5nw9vc4y92JTzZ3zga4odINmg&oe=6A546D8D",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/703156173_933464743030266_3407354822952210160_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=odujMUR2OD4Q7kNvwGcs7P4&_nc_oc=AdqRpoPU9tDCYyjvN037uknsrF4oBvu9NhNw-FGt2Bpwi7525Mp-iPi2OakRJwueUMA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCBvSKzB32tRpHZ5sKkdLRc8QQGJtM9GQzUVkMn3WoZvQ&oe=6A5477A2",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1863328521029364",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1863328521029364.jpg"
+            },
+            {
+              "library_id": "1303745295063274",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1778828400,
+              "end_date": 1779519600,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "{{product.name}}",
+              "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium= paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/689482445_1614387972984228_6316623639492712536_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=sVUIdAcnHH4Q7kNvwEEfxCd&_nc_oc=AdoT88SW55LpkqacAYHfKKTAQzB3iim2uWLocV5jfep0h5pjIeQOYsVBB8XzrfZAFxw&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCtkuz-WbocoNzSZpTUH5iLlj74P03Rvk-TWBubVxKmGA&oe=6A547CEC",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/697129664_1031584839911932_5109774475860800987_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=6gKzKcWC6dwQ7kNvwGT1ySD&_nc_oc=AdpzzssHHVi39hcnsyyg5hKkRxxtweaaXzSVo5te3jKAawkzDnRucqCaI_YwMeyus_I&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDaMRTY5XS-7-wmG-iDGcLYmIFCA4766WmIr4tn7_10xQ&oe=6A546C6B",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1303745295063274",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1303745295063274.jpg"
+            },
+            {
+              "library_id": "1470110994341431",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1779433200,
+              "end_date": 1780556400,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "{{product.name}}",
+              "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/704558725_2460519484461878_5684050497681860803_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=_pMvvzQknjoQ7kNvwEzRuFr&_nc_oc=AdqqXgtC8vmsDFHDQ_Bw3KHuv0aMo7nGeXi5FhR1_yU9zqcVtPOf7zmRF3clbo-M0cY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBtBKoNqlR6LA1BwrLwcdt5vwtbOvuf-9VR0RK4WdsJPg&oe=6A54679C",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/705246993_1515291460383496_2433008013388494900_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=sOyFvMc4C70Q7kNvwHxwl5g&_nc_oc=AdrSpvEWNrn0OBpib1oUSaGYg7DaKo3yNxdd4RpJq6WQhximZWfU71I_vLRSg_SG1_c&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCziHj0HPlIQ6qhQudcdGa9PhhIF1YkITAn_UG0v-BDaA&oe=6A546202",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1470110994341431",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1470110994341431.jpg"
+            },
+            {
+              "library_id": "1474335210409469",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1779433200,
+              "end_date": 1780556400,
+              "platforms": [
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/706199602_2362723617549830_719310654754508714_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=keqjGTZ_PzQQ7kNvwGVwzSm&_nc_oc=Adoo9OBxqG5_QADTGuLAaWULsqQpWshzvSGoEERdS-OnYRwLxcRSS-aOlgdzYp-EkBg&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCTq3kqsnaSjIOxP4C2jqn-2FwBUF9PTZbNmxULLK4w9A&oe=6A548F19",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/706318216_2087116771853554_8305300887977935914_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=PohxK9QmSmkQ7kNvwHg91SR&_nc_oc=AdqqPRNZphxZX92kUQN4xEFTa3qWgXCeIu-5Ol0RtxKuLJJxplGNpg-maniOoclDrI8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBkThQtDTTEEMJhLwLuvou5F5RdF6ZQ7l-BH9g6U5T9SA&oe=6A54643A",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1474335210409469",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1474335210409469.jpg"
+            },
+            {
+              "library_id": "1030518726166061",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1779433200,
+              "end_date": 1780556400,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "{{product.name}}",
+              "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium=paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/704764196_2226304641438128_3204764345904468479_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=2CzYmPYvQCkQ7kNvwFpxq9j&_nc_oc=AdrJGzUrXWW9GbN0x2Pr38g5KkEDMiR6vam92p3ILullWtG7fPo4XDggm_iJ0UU6OJU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCjH1_bvhLbbf5RIhJ3azW6_JQM37G2wYI3ZKfMPET_5w&oe=6A5473C9",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/704992498_1520066246512087_7646468160066809885_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Q5OD_eGsyc0Q7kNvwFpdTbl&_nc_oc=Adp9STdSNhnLA0p9oXDr2oY0svhEfNgfXCgkU4PYW9jEamACx8bQuzFhBJFbQPw27Uo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCiFbf4RoJv3VChsqC1yf552zWcGrN2UrZsJ2_2LNUmcg&oe=6A5461A1",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1030518726166061",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1030518726166061.jpg"
+            },
+            {
+              "library_id": "1001566051375309",
+              "page_name": "fritz-kola",
+              "display_format": "VIDEO",
+              "is_active": false,
+              "start_date": 1742281200,
+              "end_date": 1743404400,
+              "platforms": [
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "Aus euren Kommentaren wurden 16 Flaschenpost-Wünsche, die wir per fritz-Lieferservice direkt an die zukünftige Regierung verfrachtet haben. #gumozukunft #flaschenpost",
+              "caption": "",
+              "link_description": "",
+              "link_url": "",
+              "cta_text": "",
+              "cta_type": "",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/485392345_9854058091271591_7962717884969581142_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=v0CPUnZZCvcQ7kNvwHvk1g3&_nc_oc=Ado727E8cRewAHtk4X2mUTPnmvCBPwYNHMbmMhlfpRPmmz8A965IzsM_Mo-5L1cXCkg&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQBCNnniMaanpPBwAdePZJAxZyTd5QbQEfoe4nRnkSK1KQ&oe=6A546DCC",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQOKYeI91qE2ArAu8FUMf602IUZrUo9eLBbRHsHTAO9UMNZmA8tCouJu2snFrzyNXvfy0p7jqAixVCsLvZerj16P.mp4?strext=1&_nc_cat=109&_nc_oc=Adrdb3VUGmjNbUvv9HcT8c3AEHIuLaSECPTaqpoXfXVfMxSoEP6HU6fhODE2X88RuoQ&_nc_sid=ef5aa3&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=_6nr1Qc20iAQ7kNvwHwzQYy&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6NjcwNTk2ODU1NDc3NTU5LCJhc3NldF9hZ2VfZGF5cyI6NDc3LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjgsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQD70lZyt2L38OSPNL1tp6-gzy7ry2lLr675eCBeiuuadw&oe=6A5485A9",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/484794115_3517107188590421_7284281052193498429_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=PqZpiGuTJboQ7kNvwEwDYQD&_nc_oc=AdruNQTtKGkSR9iRf9Xoil3JxiQnP2MZG8GB5d910uu-Oj293z1q-ssC-LfA-0sz7Os&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQA9B5CAasa_Xpz6caXlmBwX4usoTZnGu23IClM_cd3oiw&oe=6A54936E",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1001566051375309",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/inactive/ad_1001566051375309.jpg"
+            },
+            {
+              "library_id": "1677955833327020",
+              "page_name": "fritz-kola",
+              "display_format": "DCO",
+              "is_active": false,
+              "start_date": 1778828400,
+              "end_date": 1779519600,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "{{product.name}}",
+              "body_text": "diese tricks öffnen türen – und du vielleicht bald die von deinem neuen vw id. buzz. jetzt fritz-kola kaufen, code eingeben und chance auf den bus sichern.\n.\nAktionszeitraum: 01.05. - 31.08.2026. Teilnahmebedingungen und faqs unter www.fritz-kola.com. Bus-Abbildung ähnlich.",
+              "caption": "fritz-kola-shop.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://fritz-kola-shop.com/pages/aktion?utm_source={{site_source_name}}&utm_medium= paid%20social&utm_campaign={{campaign.name}}&utm_term={{adset.name}}&utm_content={{ad.name}}&placement={{placement}}",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/689482445_1614387972984228_6316623639492712536_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=sVUIdAcnHH4Q7kNvwEEfxCd&_nc_oc=AdoT88SW55LpkqacAYHfKKTAQzB3iim2uWLocV5jfep0h5pjIeQOYsVBB8XzrfZAFxw&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQCtkuz-WbocoNzSZpTUH5iLlj74P03Rvk-TWBubVxKmGA&oe=6A547CEC",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPnESXjHSu_rESN93hy5P8J79qJ1nYglcNWSGeMzBNtDdX6xmRH1jlO7RDyh6gmn7EDcVhmX3Oy4ZU2j2WMD6pTcCGAh1aCjePlkOvaEYswTw.mp4?_nc_cat=100&_nc_oc=AdoVO2YP-smcyRFiMk132-oqb9NRLre6KDbx_oh0pS8EtTHbulj9XFA6bHrIANyw9dA&_nc_sid=b66105&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=4MD-v-keaosQ7kNvwE2zHoB&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjE0NzQxNTE5MjExMTQ2MTksImFzc2V0X2FnZV9kYXlzIjo1NiwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjM1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=f4a33c011d9e58a4&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9FOTRDN0E3MkY4MEQ5NTVFODMxQTgwNzk5MDZBM0ZCMV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzMyNEIyMUFDM0ZFRjkwRTdGQkJBNkY0NDM2QzhEMTlCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb299LZ966eBRUCKAJDMywXQEH1P3ztkWgYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&_nc_zt=28&oh=00_AQClo7cxf1IcviqSGCb1Vv_ArMJDzkBOK-JE-EHhflaqCw&oe=6A5477BC",
+              "page_profile_uri": "https://www.facebook.com/fritzkola/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/697129664_1031584839911932_5109774475860800987_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=6gKzKcWC6dwQ7kNvwGT1ySD&_nc_oc=AdpzzssHHVi39hcnsyyg5hKkRxxtweaaXzSVo5te3jKAawkzDnRucqCaI_YwMeyus_I&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=sR1cAFxFiH8znp-d2Yy75A&_nc_ss=7b289&oh=00_AQDaMRTY5XS-7-wmG-iDGcLYmIFCA4766WmIr4tn7_10xQ&oe=6A546C6B",
+              "page_like_count": 93584,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1677955833327020",
+              "n_card_variants": 5,
+              "image_local": "fb_ads_images/inactive/ad_1677955833327020.jpg"
+            }
+          ],
+          "ads_library_mode": "keyword_filtered_by_pid_or_name",
+          "raw_keyword_total": 2303,
+          "extraction_method": "json",
+          "ads_search_term": "fritz-kola",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=fritz-kola&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=fritz-kola&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=fritz-kola&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            }
+          },
+          "discovery_method": "homepage_link"
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://fritz-kola.de/cart",
+      "path": "/cart",
+      "type": "checkout",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/cart(?:/|$)",
+      "description": "Checkout",
+      "expect_events": [
+        "Purchase",
+        "InitiateCheckout",
+        "AddPaymentInfo"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/pages/contact",
+      "path": "/pages/contact",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://jobs.fritz-kola.de",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/accessoires",
+      "path": "/collections/accessoires",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/bestseller",
+      "path": "/collections/bestseller",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/fritz-kola",
+      "path": "/collections/fritz-kola",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/fritz-limo",
+      "path": "/collections/fritz-limo",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/fritz-spritz",
+      "path": "/collections/fritz-spritz",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/getranke",
+      "path": "/collections/getranke",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/klamotten",
+      "path": "/collections/klamotten",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/lifestyle",
+      "path": "/collections/lifestyle",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/ur-so-cool",
+      "path": "/collections/ur-so-cool",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/wohnen-mehr",
+      "path": "/collections/wohnen-mehr",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/anjola-bio-limonade-ananas-limette-0-33-l",
+      "path": "/products/anjola-bio-limonade-ananas-limette-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/cocktail-set-doodle",
+      "path": "/products/cocktail-set-doodle",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/dein-fritz-mix",
+      "path": "/products/dein-fritz-mix",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/eiswurfel-edelstahl",
+      "path": "/products/eiswurfel-edelstahl",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/flaschenoffner-holz-schwarz",
+      "path": "/products/flaschenoffner-holz-schwarz",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-gelegenheit-kistenauflage",
+      "path": "/products/fritz-gelegenheit-kistenauflage",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-kola-classic-light-0-33-l",
+      "path": "/products/fritz-kola-classic-light-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-kola-gluhbirne",
+      "path": "/products/fritz-kola-gluhbirne",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-kola-organic-kola-0-33-l",
+      "path": "/products/fritz-kola-organic-kola-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-kola-original-0-33l",
+      "path": "/products/fritz-kola-original-0-33l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-kola-shirt-classic-mit-stick",
+      "path": "/products/fritz-kola-shirt-classic-mit-stick",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-kola-super-zero-0-33-l",
+      "path": "/products/fritz-kola-super-zero-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-limo-apfel-kirsch-holunder-0-33-l",
+      "path": "/products/fritz-limo-apfel-kirsch-holunder-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-limo-honigmelone-0-33-l",
+      "path": "/products/fritz-limo-honigmelone-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-limo-ingwer-limette-0-33-l",
+      "path": "/products/fritz-limo-ingwer-limette-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-limo-orange-0-33-l",
+      "path": "/products/fritz-limo-orange-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-limo-zitrone-0-33-l",
+      "path": "/products/fritz-limo-zitrone-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-spritz-bio-apfelschorle-0-33-l",
+      "path": "/products/fritz-spritz-bio-apfelschorle-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-spritz-bio-rhabarberschorle-0-33-l",
+      "path": "/products/fritz-spritz-bio-rhabarberschorle-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/fritz-spritz-bio-traubenschorle-0-33-l",
+      "path": "/products/fritz-spritz-bio-traubenschorle-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/glaser-embossed-4er-set",
+      "path": "/products/glaser-embossed-4er-set",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/jutebeutel-wachkatze",
+      "path": "/products/jutebeutel-wachkatze",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/kugelschreiber-wide-awake",
+      "path": "/products/kugelschreiber-wide-awake",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/mischmasch-kola-orange-0-33l",
+      "path": "/products/mischmasch-kola-orange-0-33l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/mischmasch-super-zero-0-33l",
+      "path": "/products/mischmasch-super-zero-0-33l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/radfritzen-radtrikot-2026",
+      "path": "/products/radfritzen-radtrikot-2026",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/schlusselband-fritz-kola",
+      "path": "/products/schlusselband-fritz-kola",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/shirt-koksen-ist-achtziger",
+      "path": "/products/shirt-koksen-ist-achtziger",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/socken-fritz-kola-mischmasch",
+      "path": "/products/socken-fritz-kola-mischmasch",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/weihnachtsbaumflasche-fritz-kola-original",
+      "path": "/products/weihnachtsbaumflasche-fritz-kola-original",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/zaubermausi-schlusselanhanger",
+      "path": "/products/zaubermausi-schlusselanhanger",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/search",
+      "path": "/search",
+      "type": "search_results",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/search(?:/|$)",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/blogs/pressroom-de",
+      "path": "/blogs/pressroom-de",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://fritz-kola.de/pages/faq",
+      "path": "/pages/faq",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "patterns_json",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://fritz-kola.de/account",
+      "path": "/account",
+      "type": "technical",
+      "priority": 5,
+      "method": "patterns_json",
+      "description": "Technical",
+      "expect_events": []
+    },
+    {
+      "url": "https://fritz-kola.de/account/login",
+      "path": "/account/login",
+      "type": "technical",
+      "priority": 5,
+      "method": "patterns_json",
+      "description": "Technical",
+      "expect_events": []
+    },
+    {
+      "url": "https://fritz-kola.de/pages/aktion",
+      "path": "/pages/aktion",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://fritz-kola.de/pages/downloads",
+      "path": "/pages/downloads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://fritz-kola.de/policies/legal-notice",
+      "path": "/policies/legal-notice",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/legal",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://fritz-kola.de/policies/privacy-policy",
+      "path": "/policies/privacy-policy",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/privacy",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://fritz-kola.de/policies/refund-policy",
+      "path": "/policies/refund-policy",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://fritz-kola.de/cart",
+      "path": "/cart",
+      "type": "checkout",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/cart(?:/|$)",
+      "description": "Checkout",
+      "expect_events": [
+        "Purchase",
+        "InitiateCheckout",
+        "AddPaymentInfo"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/pages/contact",
+      "path": "/pages/contact",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://jobs.fritz-kola.de",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/accessoires",
+      "path": "/collections/accessoires",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/collections/bestseller",
+      "path": "/collections/bestseller",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/anjola-bio-limonade-ananas-limette-0-33-l",
+      "path": "/products/anjola-bio-limonade-ananas-limette-0-33-l",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/products/cocktail-set-doodle",
+      "path": "/products/cocktail-set-doodle",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://fritz-kola.de/search",
+      "path": "/search",
+      "type": "search_results",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/search(?:/|$)",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    }
+  ]
+}

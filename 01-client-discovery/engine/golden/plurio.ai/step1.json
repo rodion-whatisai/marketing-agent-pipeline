@@ -1,0 +1,3881 @@
+{
+  "base_url": "https://plurio.ai",
+  "sitemap_source": "https://plurio.ai/sitemap.xml",
+  "platform": {
+    "platform": "framer",
+    "confidence": "high",
+    "score": 13,
+    "signals": [
+      "framer.com",
+      "framerusercontent.com",
+      "__framer"
+    ],
+    "all_scores": {
+      "shopify": 2,
+      "framer": 13
+    },
+    "profile": {
+      "description": "Framer — modern no-code, usually SaaS/startup",
+      "url_patterns": {},
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics"
+      ],
+      "expected_events": {
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Usually leadgen. Often uses Segment or Mixpanel."
+    }
+  },
+  "site_language": {
+    "lang": "en",
+    "is_english": true,
+    "source": "html lang attr"
+  },
+  "lang_removed": 0,
+  "lang_prefixes": [],
+  "total_found": 308,
+  "discovered_patterns": 0,
+  "social": {
+    "linkedin": "https://www.linkedin.com/company/elly-analytics/",
+    "youtube": "https://www.youtube.com/@plurioai/",
+    "facebook_accounts": {
+      "target": "https://plurio.ai",
+      "brand_name": "plurio",
+      "site_country": "ALL",
+      "site_country_source": "no signals found — defaulting to ALL",
+      "accounts": [
+        {
+          "handle": null,
+          "display_name": "plurio",
+          "url": null,
+          "page_id": null,
+          "alive": true,
+          "total_ever": 14,
+          "active": {
+            "count": 5,
+            "status": "active",
+            "ad_texts": [
+              "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "O Itaú perdeu no STJ por causa de uma assinatura inválida! ⚖️\n\nSim, um simples detalhe técnico derrubou uma execução inteira.\nO banco apresentou um contrato digital sem conseguir comprovar autoria e integridade da assinatura.\nResultado? O processo foi extinto e a decisão mantida até o STJ.\n\n👉 Essa decisão mostra o que muita gente ainda ignora: assinatura eletrônica não é tudo igual.\nSem rastreabilidade, logs e carimbo do tempo, não há prova jurídica suficiente pra sustentar um contrato.\n\nNa Plurio, a gente garante o que o mercado esquece: confiança digital de verdade.\nConcorda com o STJ ou acha que foi exagero? 👇\n\n#Plurio #STJ #AssinaturaDigital #Governanca #SegurancaJuridica"
+            ],
+            "partnership_ads": true,
+            "partnership_count": 1,
+            "structured_ads": [
+              {
+                "library_id": "992492679857487",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": true,
+                "start_date": 1780038000,
+                "end_date": 1782198000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/710497399_873480012435728_7491091920792875887_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=UhjJMCtWfnYQ7kNvwEw3jzI&_nc_oc=AdrdFZv3bj1YYVZ5ckGA-NzVIU5uR18FgynkUdWCJ0UYEVs7uwZk4VrQjhsd1e7dP-0&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af-hjAq7A5e9h64Iq5WVCdmIEzAVV605bEeqYrxOiJK1yA&oe=6A411553",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/710573571_1341301011425947_8225311133662471987_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=naioA2Tz2K8Q7kNvwGkLM9O&_nc_oc=AdrWeMGGD0N_C1FPmVjZRazqEIFiweG1q9row9yZTlv1Zdn117dIv7LSr8KbaalG3M4&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af9JnOQ6b0hbAvc2l0wzpI3wsAy1buG2s6SKPJOAA0BeKw&oe=6A411882",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=992492679857487",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_992492679857487.jpg"
+              },
+              {
+                "library_id": "773958519040313",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": true,
+                "start_date": 1780383600,
+                "end_date": 1782198000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/713823822_818537351137331_4164325344327723810_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=47bxnWU5APIQ7kNvwFhJ4gW&_nc_oc=AdqavFVlgORik7aWrnyJDlaV4OMKS1IPiBYGZNxEjOvHatkrBuMQWixe0WNEtWq1jQs&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af9E5PSOdMvdqpqtpPouTuXACrrew7FaaPkyl3kLtCf8cw&oe=6A41050D",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/712984958_1985523382093164_848777367557991430_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=QhM7EF6x2BsQ7kNvwFu0pMu&_nc_oc=Adp1etmKmWl3U4JLgW5pMCd4HLnOlcubXrukHvpW722VSjjQrt6oZb3w9L86xXplAEE&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_HQDjfMaxF1Il3qdxvmNFEGeRtnhP3X8mnaaUUohsovw&oe=6A40EAE1",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=773958519040313",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_773958519040313.jpg"
+              },
+              {
+                "library_id": "1691448675471643",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": true,
+                "start_date": 1780038000,
+                "end_date": 1782198000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/711643532_973261675482261_4235492564450472387_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-G09FGNr1p0Q7kNvwFQ30rH&_nc_oc=AdpU8DhuW-b-8JwBMV14CgZj6IxqAqDtQ64mLTk6OofHacgz4_bzDDwZfIzcuWrbLFQ&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af-HPZ3vocwleguJ52IRzhYU23eZrNdsKWAE-vpXUHsOlQ&oe=6A40EF73",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/709940777_1325402076183433_1957829872444545560_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=F9NTtV7pQrkQ7kNvwFMWRYg&_nc_oc=AdqTYSdGa2S7_IPlHgfsyN49Aq9j03nMJdimllgZCLY9Qqfmmk0PMNIY6Nv6jkIt9CM&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_ebYriGHbDSyQiw3DScDKdgaqxxoKMS5wV5SXvTnJmGg&oe=6A40EEFA",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1691448675471643",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_1691448675471643.jpg"
+              },
+              {
+                "library_id": "2814606562232238",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": true,
+                "start_date": 1780038000,
+                "end_date": 1782198000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/710688418_997632689483479_2637958644705821228_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=4JAQHATxIccQ7kNvwHwDFpx&_nc_oc=AdqtfIQxk_67KA1kW1UshCLK7E0HUNoue47tnaJEFJhm9fgPOSHwCcuXs0KmMok9rmA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af8Rpuh9i7nsFwFfgkaGc_5dv_0gWj53Cjiy4jLUaW98fA&oe=6A41091F",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/710315089_958984087126260_3789046789583409876_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=8tc1_8iLrNQQ7kNvwGk55_z&_nc_oc=AdqYKQ3g_H1ubb2m3XsFYk0345lH5d6YGmLD6o4QpvkJFydHObi4Ui9j8NFRTapxDH0&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af-iI1o7IFvbml21nheBU6bivkFlJLRqEMvX8jNifbIxdA&oe=6A411869",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2814606562232238",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_2814606562232238.jpg"
+              },
+              {
+                "library_id": "2162530260987886",
+                "page_name": "Plurio",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782198000,
+                "end_date": 1782198000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": {
+                  "page_id": "583255014860172",
+                  "page_is_deleted": false,
+                  "page_profile_uri": "https://www.instagram.com/_u/antoniocorreia4.0",
+                  "page_name": "antoniocorreia4.0"
+                },
+                "title": "",
+                "body_text": "O Itaú perdeu no STJ por causa de uma assinatura inválida! ⚖️\n\nSim, um simples detalhe técnico derrubou uma execução inteira.\nO banco apresentou um contrato digital sem conseguir comprovar autoria e integridade da assinatura.\nResultado? O processo foi extinto e a decisão mantida até o STJ.\n\n👉 Essa decisão mostra o que muita gente ainda ignora: assinatura eletrônica não é tudo igual.\nSem rastreabilidade, logs e carimbo do tempo, não há prova jurídica suficiente pra sustentar um contrato.\n\nNa Plurio, a gente garante o que o mercado esquece: confiança digital de verdade.\nConcorda com o STJ ou acha que foi exagero? 👇\n\n#Plurio #STJ #AssinaturaDigital #Governanca #SegurancaJuridica",
+                "caption": "www.instagram.com",
+                "link_description": "",
+                "link_url": "https://www.instagram.com/plurioid",
+                "cta_text": "Visit Instagram profile",
+                "cta_type": "VIEW_INSTAGRAM_PROFILE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728245088_972836332255558_8286666508313814279_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=F2e7VpyFtBoQ7kNvwF4g1pO&_nc_oc=AdpAmxdautLwuzow2BdNntNfrKDWFfhk6KFG9IX73L2mbpMGGILpPQoydoRXto-Pgy4&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_tklK0-zICSXJyIJ5cGAGsiCy88sJBOXospWvrCulVUA&oe=6A40F992",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQMcpBu3g0aCtd6_YbBRVjuSDAZbj9Tro5Sml0z6mhHnIvmAym2HOksMzNuhr1RoFxhhoXpHQJrTFdq-JoH5aMuFUqw5UikgWO8S3no.mp4?_nc_cat=106&_nc_oc=AdqeX-LX4spYr88MH_vPIZrjngTPi7-8Mf9aTdh6Aa-irk25AlPIi3-38YTFEU4T6Ik&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=HwZmaTJ7HBAQ7kNvwE3Ap9r&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MjEwMzYwMjEzNzExNDA2NywiYXNzZXRfYWdlX2RheXMiOjIyMSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjY1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=7e3e7d7159a95437&_nc_vs=HBksFQIYQGlnX2VwaGVtZXJhbC9FMjQ2RkZGRUM0MDQwREY0RjIwRTQ5ODZGMkIwMUQ4N192aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYRmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC84NDUzNTMwNDQ2NzcyNjNfODg4NDM4ODMzOTY1MTE3OTAxMC5tcDQVAgLIARIAKAAYABsCiAd1c2Vfb2lsATEScHJvZ3Jlc3NpdmVfcmVjaXBlATEVAAAmppeNouHNvAcVAigCQzMsF0BQYhysCDEnGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHUAZeadAQA&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&_nc_zt=28&oh=00_Af-UghYgcTkatNZTJ59hV1uXP_2v0Go-l1KfznzEZbHgEA&oe=6A41147B",
+                "page_profile_uri": "https://www.facebook.com/plurioid/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728255045_1363183159056399_509185605086388621_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=EEvl6_Sh0J0Q7kNvwGg21TR&_nc_oc=AdqR86732pfUgc8PBQfjQT9_1PwAQ6LhWqeWC_J0FOAQgdaqbFgjWOoU3XPw31rtOjw&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_4JDU6IP1-HWmiVAEubwmoRVMJIK2WL-SaYgqczTCPVA&oe=6A40EC91",
+                "page_like_count": 9,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2162530260987886",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_2162530260987886.jpg"
+              }
+            ],
+            "ads_library_mode": "keyword_filtered_by_name",
+            "raw_keyword_total": 5,
+            "method": "json_keyword_filtered_by_name",
+            "extraction_method": "json",
+            "search_term": "plurio",
+            "status_filter": "active",
+            "saved_images": [
+              "scans\\plurio.ai\\fb_ads_images\\active\\ad_992492679857487.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\active\\ad_773958519040313.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\active\\ad_1691448675471643.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\active\\ad_2814606562232238.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\active\\ad_2162530260987886.jpg"
+            ],
+            "saved_texts_path": "scans\\plurio.ai\\fb_ads_images\\ad_texts_active.txt"
+          },
+          "inactive": {
+            "count": 9,
+            "status": "active",
+            "ad_texts": [
+              "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "Build and automate your performance marketing workflows with AI in 7 days.\n\nKickoff demos, workshops, and ongoing expert support.\n\nApply by May 20"
+            ],
+            "partnership_ads": false,
+            "partnership_count": 0,
+            "structured_ads": [
+              {
+                "library_id": "4414798218841263",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1775458800,
+                "end_date": 1780038000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657835859_2872792496406301_8943167968428996320_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=hpXrqqfZhLIQ7kNvwH1bVNW&_nc_oc=Adqqn3UNhXiVm4RkZG627j64Yw30Py1lsKDVeLqEzD4xbZeqUTuXMX0oqSC-mpAUtf0&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-guVMzntGGxvTff1ejkcV0ZB6nvDtsd0J6khoj7QTiNg&oe=6A41046D",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/660462657_1425694959354200_4890797726809548892_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=rsI6tZkChoUQ7kNvwH4pD9D&_nc_oc=AdrHw0vkIc_tr7umJuduR_0oIE83SSQ3u6im4SWXMFE_JMbFzhxwASOvxkovUFY8x_Q&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8XPH4Hf0OGIh2NxRm4CwzYA4vNajrBOEc7v6Wgw7pvZA&oe=6A4109B0",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=4414798218841263",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_4414798218841263.jpg"
+              },
+              {
+                "library_id": "26424253807260457",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1774854000,
+                "end_date": 1775286000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657835859_2872792496406301_8943167968428996320_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=hpXrqqfZhLIQ7kNvwH1bVNW&_nc_oc=Adqqn3UNhXiVm4RkZG627j64Yw30Py1lsKDVeLqEzD4xbZeqUTuXMX0oqSC-mpAUtf0&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-guVMzntGGxvTff1ejkcV0ZB6nvDtsd0J6khoj7QTiNg&oe=6A41046D",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/660462657_1425694959354200_4890797726809548892_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=rsI6tZkChoUQ7kNvwH4pD9D&_nc_oc=AdrHw0vkIc_tr7umJuduR_0oIE83SSQ3u6im4SWXMFE_JMbFzhxwASOvxkovUFY8x_Q&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8XPH4Hf0OGIh2NxRm4CwzYA4vNajrBOEc7v6Wgw7pvZA&oe=6A4109B0",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=26424253807260457",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_26424253807260457.jpg"
+              },
+              {
+                "library_id": "2324762064659068",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1775545200,
+                "end_date": 1780038000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657524723_961843733198966_4506292036952780950_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=qbLpez7-_2wQ7kNvwHHaela&_nc_oc=AdoqteDtgoCXLVkQwSXDut14i11TLQZ3A6Hjp_VMCdkkpZPn0Ds_yTtB4B_rtGi9qlI&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-a0QywByNE8F_HAF0sQDf7B2RRIzBebHXipoXdetC40A&oe=6A412165",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/659216242_936372922311874_8672086644454293200_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=wMK7prAKDQkQ7kNvwHzsaTS&_nc_oc=Adpj3LH8TVwbkI7bMOzVzJXIt5_tKk6Uj_waKSBDnB6V6lx1rF7I1Iw_ucOn-lY4x4I&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af9JF4RLEDRfpTEKtL6bEjMKjmqyhCodAUEP_-Fsk2UUsw&oe=6A40F49D",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2324762064659068",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_2324762064659068.jpg"
+              },
+              {
+                "library_id": "1306050164716655",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1774854000,
+                "end_date": 1775286000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657524723_961843733198966_4506292036952780950_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=qbLpez7-_2wQ7kNvwHHaela&_nc_oc=AdoqteDtgoCXLVkQwSXDut14i11TLQZ3A6Hjp_VMCdkkpZPn0Ds_yTtB4B_rtGi9qlI&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-a0QywByNE8F_HAF0sQDf7B2RRIzBebHXipoXdetC40A&oe=6A412165",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/659216242_936372922311874_8672086644454293200_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=wMK7prAKDQkQ7kNvwHzsaTS&_nc_oc=Adpj3LH8TVwbkI7bMOzVzJXIt5_tKk6Uj_waKSBDnB6V6lx1rF7I1Iw_ucOn-lY4x4I&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af9JF4RLEDRfpTEKtL6bEjMKjmqyhCodAUEP_-Fsk2UUsw&oe=6A40F49D",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1306050164716655",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_1306050164716655.jpg"
+              },
+              {
+                "library_id": "1276513867938749",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1775458800,
+                "end_date": 1780124400,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/656980012_912905078044665_5250580595075143125_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=L86GN3hXvxUQ7kNvwGLjpTl&_nc_oc=AdrLnRTso7KZ7SN0EeoOdyKjM-_JjDBPhw0XicFTUWLa-7vg26ktmPdt2TQTTNeBF0E&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-HQe0FAAeRqjvbFsOwvD8VY__Xr5QjvprEg55v4GBCJw&oe=6A40F61E",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/660295632_4454629174778425_1620789220460179776_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-b635pmamuoQ7kNvwF7CF_O&_nc_oc=AdpxhaWQufVNCr99UFb6TL4LpG_8oqVR5lapbtBTS6bcd7wVjTaZ2Ys2_RIT1SuBlq8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8DwDbCsjjaVN0OlmeeLQIPwTigRfmTlTu90_oYTbgn6w&oe=6A411ACA",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1276513867938749",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_1276513867938749.jpg"
+              },
+              {
+                "library_id": "1819204458751307",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1774854000,
+                "end_date": 1775286000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/656980012_912905078044665_5250580595075143125_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=L86GN3hXvxUQ7kNvwGLjpTl&_nc_oc=AdrLnRTso7KZ7SN0EeoOdyKjM-_JjDBPhw0XicFTUWLa-7vg26ktmPdt2TQTTNeBF0E&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-HQe0FAAeRqjvbFsOwvD8VY__Xr5QjvprEg55v4GBCJw&oe=6A40F61E",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/660295632_4454629174778425_1620789220460179776_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-b635pmamuoQ7kNvwF7CF_O&_nc_oc=AdpxhaWQufVNCr99UFb6TL4LpG_8oqVR5lapbtBTS6bcd7wVjTaZ2Ys2_RIT1SuBlq8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8DwDbCsjjaVN0OlmeeLQIPwTigRfmTlTu90_oYTbgn6w&oe=6A411ACA",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1819204458751307",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_1819204458751307.jpg"
+              },
+              {
+                "library_id": "2125047544977140",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1775458800,
+                "end_date": 1780038000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/658359241_1272946697625970_5388381410185679825_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=NGCZP3UpIMwQ7kNvwG5tN1H&_nc_oc=AdpFQmgWoPviPxYfJyI-FUW9i2hwAB2n-W5ObOmxBQfngaS90xcZQYQ0ek3PeZhivCY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af_Oe4T8PGkHNnVuC5R05xtsKeNVO5mxOvcw2Pkxqdn3gw&oe=6A41075E",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/657925201_984984657192615_6834835030165293755_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=yMw-623S6MsQ7kNvwHmaFlp&_nc_oc=Adp0xsSRQkm6QPTHEoSFv1c6_F1v1u9nOA1jXqBpP8l3KwWfxRsOtfmj1vEaELMtxUg&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8SaYGFeXVVTxFHod6JKa4YLa-QHyMU_8pWa7k2YNm6PA&oe=6A40FAF3",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2125047544977140",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_2125047544977140.jpg"
+              },
+              {
+                "library_id": "1752992669018717",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1774854000,
+                "end_date": 1775286000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+                "caption": "https://www.plurio.ai/",
+                "link_description": "",
+                "link_url": "https://www.plurio.ai/",
+                "cta_text": "Learn more",
+                "cta_type": "LEARN_MORE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/658359241_1272946697625970_5388381410185679825_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=NGCZP3UpIMwQ7kNvwG5tN1H&_nc_oc=AdpFQmgWoPviPxYfJyI-FUW9i2hwAB2n-W5ObOmxBQfngaS90xcZQYQ0ek3PeZhivCY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af_Oe4T8PGkHNnVuC5R05xtsKeNVO5mxOvcw2Pkxqdn3gw&oe=6A41075E",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/657925201_984984657192615_6834835030165293755_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=yMw-623S6MsQ7kNvwHmaFlp&_nc_oc=Adp0xsSRQkm6QPTHEoSFv1c6_F1v1u9nOA1jXqBpP8l3KwWfxRsOtfmj1vEaELMtxUg&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8SaYGFeXVVTxFHod6JKa4YLa-QHyMU_8pWa7k2YNm6PA&oe=6A40FAF3",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1752992669018717",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/inactive/ad_1752992669018717.jpg"
+              },
+              {
+                "library_id": "1681143369999985",
+                "page_name": "Plurio",
+                "display_format": "CAROUSEL",
+                "is_active": false,
+                "start_date": 1776927600,
+                "end_date": 1777014000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM",
+                  "AUDIENCE_NETWORK",
+                  "MESSENGER",
+                  "THREADS"
+                ],
+                "branded_content": null,
+                "title": "Plurio",
+                "body_text": "Build and automate your performance marketing workflows with AI in 7 days.\n\nKickoff demos, workshops, and ongoing expert support.\n\nApply by May 20",
+                "caption": "https://luma.com/xhxq4hj8",
+                "link_description": "",
+                "link_url": "https://luma.com/xhxq4hj8",
+                "cta_text": "See details",
+                "cta_type": "SEE_DETAILS",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/679347374_1328689989165634_285103307231774078_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=105&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=d8vy2-ZPTfEQ7kNvwFznJP9&_nc_oc=AdrHDO6NrBw-RX3rdEdR3iRmOeQXrXMvhgDyc49DXAxgIJGRcqH6DV_b1_QyqPr__lw&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af9RGauicEQl_iMNvV_eqsLS8MqV5m7Jpri5civJ4u28-g&oe=6A410493",
+                "video_url": null,
+                "page_profile_uri": "https://www.facebook.com/61563178984628/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/678580402_1385444076724510_7987644945560199081_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=YIXHb446rzgQ7kNvwGVivKU&_nc_oc=AdonEgDs2mLEzFDlSkRoLBCfza0Zp3bw9qjGKEmqvYb_9USMEXmjJAl8YUSQln1lTzU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8-W8cj3L2I104kgAlrj7yUUc1Vjqfo7V9rY9DS1Q7BHQ&oe=6A40FF25",
+                "page_like_count": 5,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1681143369999985",
+                "n_card_variants": 2,
+                "image_local": "fb_ads_images/inactive/ad_1681143369999985.jpg"
+              }
+            ],
+            "ads_library_mode": "keyword_filtered_by_name",
+            "raw_keyword_total": 19,
+            "method": "json_keyword_filtered_by_name",
+            "extraction_method": "json",
+            "search_term": "plurio",
+            "status_filter": "inactive",
+            "saved_images": [
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_4414798218841263.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_26424253807260457.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_2324762064659068.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1306050164716655.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1276513867938749.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1819204458751307.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_2125047544977140.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1752992669018717.jpg",
+              "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1681143369999985.jpg"
+            ],
+            "saved_texts_path": "scans\\plurio.ai\\fb_ads_images\\ad_texts_inactive.txt"
+          },
+          "active_ads_count": 5,
+          "partnership_ads": true,
+          "partnership_count": 1,
+          "ad_texts": [
+            "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+            "O Itaú perdeu no STJ por causa de uma assinatura inválida! ⚖️\n\nSim, um simples detalhe técnico derrubou uma execução inteira.\nO banco apresentou um contrato digital sem conseguir comprovar autoria e integridade da assinatura.\nResultado? O processo foi extinto e a decisão mantida até o STJ.\n\n👉 Essa decisão mostra o que muita gente ainda ignora: assinatura eletrônica não é tudo igual.\nSem rastreabilidade, logs e carimbo do tempo, não há prova jurídica suficiente pra sustentar um contrato.\n\nNa Plurio, a gente garante o que o mercado esquece: confiança digital de verdade.\nConcorda com o STJ ou acha que foi exagero? 👇\n\n#Plurio #STJ #AssinaturaDigital #Governanca #SegurancaJuridica",
+            "Build and automate your performance marketing workflows with AI in 7 days.\n\nKickoff demos, workshops, and ongoing expert support.\n\nApply by May 20"
+          ],
+          "saved_images": [
+            "scans\\plurio.ai\\fb_ads_images\\active\\ad_992492679857487.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\active\\ad_773958519040313.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\active\\ad_1691448675471643.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\active\\ad_2814606562232238.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\active\\ad_2162530260987886.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_4414798218841263.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_26424253807260457.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_2324762064659068.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1306050164716655.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1276513867938749.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1819204458751307.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_2125047544977140.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1752992669018717.jpg",
+            "scans\\plurio.ai\\fb_ads_images\\inactive\\ad_1681143369999985.jpg"
+          ],
+          "structured_ads": [
+            {
+              "library_id": "992492679857487",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": true,
+              "start_date": 1780038000,
+              "end_date": 1782198000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/710497399_873480012435728_7491091920792875887_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=UhjJMCtWfnYQ7kNvwEw3jzI&_nc_oc=AdrdFZv3bj1YYVZ5ckGA-NzVIU5uR18FgynkUdWCJ0UYEVs7uwZk4VrQjhsd1e7dP-0&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af-hjAq7A5e9h64Iq5WVCdmIEzAVV605bEeqYrxOiJK1yA&oe=6A411553",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/710573571_1341301011425947_8225311133662471987_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=naioA2Tz2K8Q7kNvwGkLM9O&_nc_oc=AdrWeMGGD0N_C1FPmVjZRazqEIFiweG1q9row9yZTlv1Zdn117dIv7LSr8KbaalG3M4&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af9JnOQ6b0hbAvc2l0wzpI3wsAy1buG2s6SKPJOAA0BeKw&oe=6A411882",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=992492679857487",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_992492679857487.jpg"
+            },
+            {
+              "library_id": "773958519040313",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": true,
+              "start_date": 1780383600,
+              "end_date": 1782198000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/713823822_818537351137331_4164325344327723810_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=47bxnWU5APIQ7kNvwFhJ4gW&_nc_oc=AdqavFVlgORik7aWrnyJDlaV4OMKS1IPiBYGZNxEjOvHatkrBuMQWixe0WNEtWq1jQs&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af9E5PSOdMvdqpqtpPouTuXACrrew7FaaPkyl3kLtCf8cw&oe=6A41050D",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/712984958_1985523382093164_848777367557991430_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=QhM7EF6x2BsQ7kNvwFu0pMu&_nc_oc=Adp1etmKmWl3U4JLgW5pMCd4HLnOlcubXrukHvpW722VSjjQrt6oZb3w9L86xXplAEE&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_HQDjfMaxF1Il3qdxvmNFEGeRtnhP3X8mnaaUUohsovw&oe=6A40EAE1",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=773958519040313",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_773958519040313.jpg"
+            },
+            {
+              "library_id": "1691448675471643",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": true,
+              "start_date": 1780038000,
+              "end_date": 1782198000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/711643532_973261675482261_4235492564450472387_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-G09FGNr1p0Q7kNvwFQ30rH&_nc_oc=AdpU8DhuW-b-8JwBMV14CgZj6IxqAqDtQ64mLTk6OofHacgz4_bzDDwZfIzcuWrbLFQ&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af-HPZ3vocwleguJ52IRzhYU23eZrNdsKWAE-vpXUHsOlQ&oe=6A40EF73",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/709940777_1325402076183433_1957829872444545560_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=F9NTtV7pQrkQ7kNvwFMWRYg&_nc_oc=AdqTYSdGa2S7_IPlHgfsyN49Aq9j03nMJdimllgZCLY9Qqfmmk0PMNIY6Nv6jkIt9CM&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_ebYriGHbDSyQiw3DScDKdgaqxxoKMS5wV5SXvTnJmGg&oe=6A40EEFA",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1691448675471643",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_1691448675471643.jpg"
+            },
+            {
+              "library_id": "2814606562232238",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": true,
+              "start_date": 1780038000,
+              "end_date": 1782198000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/710688418_997632689483479_2637958644705821228_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=4JAQHATxIccQ7kNvwHwDFpx&_nc_oc=AdqtfIQxk_67KA1kW1UshCLK7E0HUNoue47tnaJEFJhm9fgPOSHwCcuXs0KmMok9rmA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af8Rpuh9i7nsFwFfgkaGc_5dv_0gWj53Cjiy4jLUaW98fA&oe=6A41091F",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/710315089_958984087126260_3789046789583409876_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=8tc1_8iLrNQQ7kNvwGk55_z&_nc_oc=AdqYKQ3g_H1ubb2m3XsFYk0345lH5d6YGmLD6o4QpvkJFydHObi4Ui9j8NFRTapxDH0&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af-iI1o7IFvbml21nheBU6bivkFlJLRqEMvX8jNifbIxdA&oe=6A411869",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2814606562232238",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_2814606562232238.jpg"
+            },
+            {
+              "library_id": "2162530260987886",
+              "page_name": "Plurio",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782198000,
+              "end_date": 1782198000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": {
+                "page_id": "583255014860172",
+                "page_is_deleted": false,
+                "page_profile_uri": "https://www.instagram.com/_u/antoniocorreia4.0",
+                "page_name": "antoniocorreia4.0"
+              },
+              "title": "",
+              "body_text": "O Itaú perdeu no STJ por causa de uma assinatura inválida! ⚖️\n\nSim, um simples detalhe técnico derrubou uma execução inteira.\nO banco apresentou um contrato digital sem conseguir comprovar autoria e integridade da assinatura.\nResultado? O processo foi extinto e a decisão mantida até o STJ.\n\n👉 Essa decisão mostra o que muita gente ainda ignora: assinatura eletrônica não é tudo igual.\nSem rastreabilidade, logs e carimbo do tempo, não há prova jurídica suficiente pra sustentar um contrato.\n\nNa Plurio, a gente garante o que o mercado esquece: confiança digital de verdade.\nConcorda com o STJ ou acha que foi exagero? 👇\n\n#Plurio #STJ #AssinaturaDigital #Governanca #SegurancaJuridica",
+              "caption": "www.instagram.com",
+              "link_description": "",
+              "link_url": "https://www.instagram.com/plurioid",
+              "cta_text": "Visit Instagram profile",
+              "cta_type": "VIEW_INSTAGRAM_PROFILE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728245088_972836332255558_8286666508313814279_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=F2e7VpyFtBoQ7kNvwF4g1pO&_nc_oc=AdpAmxdautLwuzow2BdNntNfrKDWFfhk6KFG9IX73L2mbpMGGILpPQoydoRXto-Pgy4&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_tklK0-zICSXJyIJ5cGAGsiCy88sJBOXospWvrCulVUA&oe=6A40F992",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQMcpBu3g0aCtd6_YbBRVjuSDAZbj9Tro5Sml0z6mhHnIvmAym2HOksMzNuhr1RoFxhhoXpHQJrTFdq-JoH5aMuFUqw5UikgWO8S3no.mp4?_nc_cat=106&_nc_oc=AdqeX-LX4spYr88MH_vPIZrjngTPi7-8Mf9aTdh6Aa-irk25AlPIi3-38YTFEU4T6Ik&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=HwZmaTJ7HBAQ7kNvwE3Ap9r&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MjEwMzYwMjEzNzExNDA2NywiYXNzZXRfYWdlX2RheXMiOjIyMSwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjY1LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=7e3e7d7159a95437&_nc_vs=HBksFQIYQGlnX2VwaGVtZXJhbC9FMjQ2RkZGRUM0MDQwREY0RjIwRTQ5ODZGMkIwMUQ4N192aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYRmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC84NDUzNTMwNDQ2NzcyNjNfODg4NDM4ODMzOTY1MTE3OTAxMC5tcDQVAgLIARIAKAAYABsCiAd1c2Vfb2lsATEScHJvZ3Jlc3NpdmVfcmVjaXBlATEVAAAmppeNouHNvAcVAigCQzMsF0BQYhysCDEnGBJkYXNoX2Jhc2VsaW5lXzFfdjERAHUAZeadAQA&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&_nc_zt=28&oh=00_Af-UghYgcTkatNZTJ59hV1uXP_2v0Go-l1KfznzEZbHgEA&oe=6A41147B",
+              "page_profile_uri": "https://www.facebook.com/plurioid/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728255045_1363183159056399_509185605086388621_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=EEvl6_Sh0J0Q7kNvwGg21TR&_nc_oc=AdqR86732pfUgc8PBQfjQT9_1PwAQ6LhWqeWC_J0FOAQgdaqbFgjWOoU3XPw31rtOjw&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=mc18uSWsoEpLjeWd7cniMg&_nc_ss=7b289&oh=00_Af_4JDU6IP1-HWmiVAEubwmoRVMJIK2WL-SaYgqczTCPVA&oe=6A40EC91",
+              "page_like_count": 9,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2162530260987886",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_2162530260987886.jpg"
+            },
+            {
+              "library_id": "4414798218841263",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1775458800,
+              "end_date": 1780038000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657835859_2872792496406301_8943167968428996320_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=hpXrqqfZhLIQ7kNvwH1bVNW&_nc_oc=Adqqn3UNhXiVm4RkZG627j64Yw30Py1lsKDVeLqEzD4xbZeqUTuXMX0oqSC-mpAUtf0&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-guVMzntGGxvTff1ejkcV0ZB6nvDtsd0J6khoj7QTiNg&oe=6A41046D",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/660462657_1425694959354200_4890797726809548892_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=rsI6tZkChoUQ7kNvwH4pD9D&_nc_oc=AdrHw0vkIc_tr7umJuduR_0oIE83SSQ3u6im4SWXMFE_JMbFzhxwASOvxkovUFY8x_Q&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8XPH4Hf0OGIh2NxRm4CwzYA4vNajrBOEc7v6Wgw7pvZA&oe=6A4109B0",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=4414798218841263",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_4414798218841263.jpg"
+            },
+            {
+              "library_id": "26424253807260457",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1774854000,
+              "end_date": 1775286000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657835859_2872792496406301_8943167968428996320_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=hpXrqqfZhLIQ7kNvwH1bVNW&_nc_oc=Adqqn3UNhXiVm4RkZG627j64Yw30Py1lsKDVeLqEzD4xbZeqUTuXMX0oqSC-mpAUtf0&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-guVMzntGGxvTff1ejkcV0ZB6nvDtsd0J6khoj7QTiNg&oe=6A41046D",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/660462657_1425694959354200_4890797726809548892_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=rsI6tZkChoUQ7kNvwH4pD9D&_nc_oc=AdrHw0vkIc_tr7umJuduR_0oIE83SSQ3u6im4SWXMFE_JMbFzhxwASOvxkovUFY8x_Q&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8XPH4Hf0OGIh2NxRm4CwzYA4vNajrBOEc7v6Wgw7pvZA&oe=6A4109B0",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=26424253807260457",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_26424253807260457.jpg"
+            },
+            {
+              "library_id": "2324762064659068",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1775545200,
+              "end_date": 1780038000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657524723_961843733198966_4506292036952780950_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=qbLpez7-_2wQ7kNvwHHaela&_nc_oc=AdoqteDtgoCXLVkQwSXDut14i11TLQZ3A6Hjp_VMCdkkpZPn0Ds_yTtB4B_rtGi9qlI&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-a0QywByNE8F_HAF0sQDf7B2RRIzBebHXipoXdetC40A&oe=6A412165",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/659216242_936372922311874_8672086644454293200_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=wMK7prAKDQkQ7kNvwHzsaTS&_nc_oc=Adpj3LH8TVwbkI7bMOzVzJXIt5_tKk6Uj_waKSBDnB6V6lx1rF7I1Iw_ucOn-lY4x4I&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af9JF4RLEDRfpTEKtL6bEjMKjmqyhCodAUEP_-Fsk2UUsw&oe=6A40F49D",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2324762064659068",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_2324762064659068.jpg"
+            },
+            {
+              "library_id": "1306050164716655",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1774854000,
+              "end_date": 1775286000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/657524723_961843733198966_4506292036952780950_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=qbLpez7-_2wQ7kNvwHHaela&_nc_oc=AdoqteDtgoCXLVkQwSXDut14i11TLQZ3A6Hjp_VMCdkkpZPn0Ds_yTtB4B_rtGi9qlI&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-a0QywByNE8F_HAF0sQDf7B2RRIzBebHXipoXdetC40A&oe=6A412165",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/659216242_936372922311874_8672086644454293200_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=wMK7prAKDQkQ7kNvwHzsaTS&_nc_oc=Adpj3LH8TVwbkI7bMOzVzJXIt5_tKk6Uj_waKSBDnB6V6lx1rF7I1Iw_ucOn-lY4x4I&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af9JF4RLEDRfpTEKtL6bEjMKjmqyhCodAUEP_-Fsk2UUsw&oe=6A40F49D",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1306050164716655",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_1306050164716655.jpg"
+            },
+            {
+              "library_id": "1276513867938749",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1775458800,
+              "end_date": 1780124400,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/656980012_912905078044665_5250580595075143125_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=L86GN3hXvxUQ7kNvwGLjpTl&_nc_oc=AdrLnRTso7KZ7SN0EeoOdyKjM-_JjDBPhw0XicFTUWLa-7vg26ktmPdt2TQTTNeBF0E&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-HQe0FAAeRqjvbFsOwvD8VY__Xr5QjvprEg55v4GBCJw&oe=6A40F61E",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/660295632_4454629174778425_1620789220460179776_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-b635pmamuoQ7kNvwF7CF_O&_nc_oc=AdpxhaWQufVNCr99UFb6TL4LpG_8oqVR5lapbtBTS6bcd7wVjTaZ2Ys2_RIT1SuBlq8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8DwDbCsjjaVN0OlmeeLQIPwTigRfmTlTu90_oYTbgn6w&oe=6A411ACA",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1276513867938749",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_1276513867938749.jpg"
+            },
+            {
+              "library_id": "1819204458751307",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1774854000,
+              "end_date": 1775286000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/656980012_912905078044665_5250580595075143125_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=L86GN3hXvxUQ7kNvwGLjpTl&_nc_oc=AdrLnRTso7KZ7SN0EeoOdyKjM-_JjDBPhw0XicFTUWLa-7vg26ktmPdt2TQTTNeBF0E&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af-HQe0FAAeRqjvbFsOwvD8VY__Xr5QjvprEg55v4GBCJw&oe=6A40F61E",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/660295632_4454629174778425_1620789220460179776_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=-b635pmamuoQ7kNvwF7CF_O&_nc_oc=AdpxhaWQufVNCr99UFb6TL4LpG_8oqVR5lapbtBTS6bcd7wVjTaZ2Ys2_RIT1SuBlq8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8DwDbCsjjaVN0OlmeeLQIPwTigRfmTlTu90_oYTbgn6w&oe=6A411ACA",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1819204458751307",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_1819204458751307.jpg"
+            },
+            {
+              "library_id": "2125047544977140",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1775458800,
+              "end_date": 1780038000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/658359241_1272946697625970_5388381410185679825_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=NGCZP3UpIMwQ7kNvwG5tN1H&_nc_oc=AdpFQmgWoPviPxYfJyI-FUW9i2hwAB2n-W5ObOmxBQfngaS90xcZQYQ0ek3PeZhivCY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af_Oe4T8PGkHNnVuC5R05xtsKeNVO5mxOvcw2Pkxqdn3gw&oe=6A41075E",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/657925201_984984657192615_6834835030165293755_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=yMw-623S6MsQ7kNvwHmaFlp&_nc_oc=Adp0xsSRQkm6QPTHEoSFv1c6_F1v1u9nOA1jXqBpP8l3KwWfxRsOtfmj1vEaELMtxUg&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8SaYGFeXVVTxFHod6JKa4YLa-QHyMU_8pWa7k2YNm6PA&oe=6A40FAF3",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2125047544977140",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_2125047544977140.jpg"
+            },
+            {
+              "library_id": "1752992669018717",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1774854000,
+              "end_date": 1775286000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Facebook and Google are optimizing for form fills, not actual sales? Elly Analytics sends both online and offline closed-deal data back to ad algorithms so they learn to find paying customers, not just leads. Cut CAC and scale efficiently.",
+              "caption": "https://www.plurio.ai/",
+              "link_description": "",
+              "link_url": "https://www.plurio.ai/",
+              "cta_text": "Learn more",
+              "cta_type": "LEARN_MORE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/658359241_1272946697625970_5388381410185679825_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=NGCZP3UpIMwQ7kNvwG5tN1H&_nc_oc=AdpFQmgWoPviPxYfJyI-FUW9i2hwAB2n-W5ObOmxBQfngaS90xcZQYQ0ek3PeZhivCY&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af_Oe4T8PGkHNnVuC5R05xtsKeNVO5mxOvcw2Pkxqdn3gw&oe=6A41075E",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/657925201_984984657192615_6834835030165293755_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=yMw-623S6MsQ7kNvwHmaFlp&_nc_oc=Adp0xsSRQkm6QPTHEoSFv1c6_F1v1u9nOA1jXqBpP8l3KwWfxRsOtfmj1vEaELMtxUg&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8SaYGFeXVVTxFHod6JKa4YLa-QHyMU_8pWa7k2YNm6PA&oe=6A40FAF3",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1752992669018717",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/inactive/ad_1752992669018717.jpg"
+            },
+            {
+              "library_id": "1681143369999985",
+              "page_name": "Plurio",
+              "display_format": "CAROUSEL",
+              "is_active": false,
+              "start_date": 1776927600,
+              "end_date": 1777014000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM",
+                "AUDIENCE_NETWORK",
+                "MESSENGER",
+                "THREADS"
+              ],
+              "branded_content": null,
+              "title": "Plurio",
+              "body_text": "Build and automate your performance marketing workflows with AI in 7 days.\n\nKickoff demos, workshops, and ongoing expert support.\n\nApply by May 20",
+              "caption": "https://luma.com/xhxq4hj8",
+              "link_description": "",
+              "link_url": "https://luma.com/xhxq4hj8",
+              "cta_text": "See details",
+              "cta_type": "SEE_DETAILS",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/679347374_1328689989165634_285103307231774078_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=105&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=d8vy2-ZPTfEQ7kNvwFznJP9&_nc_oc=AdrHDO6NrBw-RX3rdEdR3iRmOeQXrXMvhgDyc49DXAxgIJGRcqH6DV_b1_QyqPr__lw&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af9RGauicEQl_iMNvV_eqsLS8MqV5m7Jpri5civJ4u28-g&oe=6A410493",
+              "video_url": null,
+              "page_profile_uri": "https://www.facebook.com/61563178984628/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/678580402_1385444076724510_7987644945560199081_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=YIXHb446rzgQ7kNvwGVivKU&_nc_oc=AdonEgDs2mLEzFDlSkRoLBCfza0Zp3bw9qjGKEmqvYb_9USMEXmjJAl8YUSQln1lTzU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=gCdoR388DPqXqo0LfK9-9g&_nc_ss=7b289&oh=00_Af8-W8cj3L2I104kgAlrj7yUUc1Vjqfo7V9rY9DS1Q7BHQ&oe=6A40FF25",
+              "page_like_count": 5,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1681143369999985",
+              "n_card_variants": 2,
+              "image_local": "fb_ads_images/inactive/ad_1681143369999985.jpg"
+            }
+          ],
+          "ads_library_mode": "keyword_filtered_by_name",
+          "raw_keyword_total": 19,
+          "extraction_method": "json",
+          "ads_search_term": "plurio",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=plurio&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=plurio&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=plurio&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            }
+          },
+          "discovery_method": "brand_keyword_fallback",
+          "confidence_note": "Homepage returned 200 OK but contained no FB links. These ads were found by brand-keyword search in Ads Library and fuzzy-matched advertiser names. Manual verification recommended (especially for franchise brands with city-specific FB pages)."
+        }
+      ],
+      "discovery_meta": {
+        "homepage_status": 200,
+        "homepage_error": null,
+        "homepage_fetch_method": "requests",
+        "fallback_attempted": true,
+        "fallback_keyword": "plurio",
+        "fallback_result": "found_14_ads"
+      }
+    }
+  },
+  "classified": [
+    {
+      "url": "https://www.plurio.ai/connectors/cart",
+      "path": "/connectors/cart",
+      "type": "checkout",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/cart(?:/|$)",
+      "description": "Checkout",
+      "expect_events": [
+        "Purchase",
+        "InitiateCheckout",
+        "AddPaymentInfo"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai/contacts",
+      "path": "/contacts",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai/thank-you",
+      "path": "/thank-you",
+      "type": "booking_confirm",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/thank-you",
+      "description": "Booking Confirm",
+      "expect_events": [
+        "Purchase",
+        "Lead",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai/blog/borzo-case-study-reporting-automation",
+      "path": "/blog/borzo-case-study-reporting-automation",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blog/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/blog/building-blocks-for-your-website",
+      "path": "/blog/building-blocks-for-your-website",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blog/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/blog/how-to-get-more-quality-leads",
+      "path": "/blog/how-to-get-more-quality-leads",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/how-to",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/blog/influencer-marketing-tracking",
+      "path": "/blog/influencer-marketing-tracking",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blog/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/testimonials",
+      "path": "/testimonials",
+      "type": "about",
+      "priority": 3,
+      "method": "patterns_json",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/ai-guide",
+      "path": "/ai-guide",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/blog",
+      "path": "/blog",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/chat",
+      "path": "/chat",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/company",
+      "path": "/company",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/company/advanced-attribution",
+      "path": "/company/advanced-attribution",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/company/customer-profiles",
+      "path": "/company/customer-profiles",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/company/from-lead-gen-to-high-ltv-customers-2mv",
+      "path": "/company/from-lead-gen-to-high-ltv-customers-2mv",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/company/how-plurio-works",
+      "path": "/company/how-plurio-works",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/company/report-logic",
+      "path": "/company/report-logic",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors",
+      "path": "/connectors",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/6sense",
+      "path": "/connectors/6sense",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/7shifts",
+      "path": "/connectors/7shifts",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/activecampaign",
+      "path": "/connectors/activecampaign",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/adapty",
+      "path": "/connectors/adapty",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/adjust",
+      "path": "/connectors/adjust",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/adobe-analytics",
+      "path": "/connectors/adobe-analytics",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/adroll",
+      "path": "/connectors/adroll",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/adyen",
+      "path": "/connectors/adyen",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/agilecrm",
+      "path": "/connectors/agilecrm",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/aha",
+      "path": "/connectors/aha",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/airbyte",
+      "path": "/connectors/airbyte",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/aircall",
+      "path": "/connectors/aircall",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/airtable",
+      "path": "/connectors/airtable",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/akeneo",
+      "path": "/connectors/akeneo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/algolia",
+      "path": "/connectors/algolia",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/alpha-vantage",
+      "path": "/connectors/alpha-vantage",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/amazon-ads",
+      "path": "/connectors/amazon-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/amazon-seller-central",
+      "path": "/connectors/amazon-seller-central",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/amazon-seller-partner",
+      "path": "/connectors/amazon-seller-partner",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/amazon-sqs",
+      "path": "/connectors/amazon-sqs",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/amplitude",
+      "path": "/connectors/amplitude",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/apache-iceberg",
+      "path": "/connectors/apache-iceberg",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/apify-dataset",
+      "path": "/connectors/apify-dataset",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/apollo",
+      "path": "/connectors/apollo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/appcues",
+      "path": "/connectors/appcues",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/appfigures",
+      "path": "/connectors/appfigures",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/appfollow",
+      "path": "/connectors/appfollow",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/apple-search-ads",
+      "path": "/connectors/apple-search-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/appsflyer",
+      "path": "/connectors/appsflyer",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/apptivo",
+      "path": "/connectors/apptivo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/asana",
+      "path": "/connectors/asana",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/ashby",
+      "path": "/connectors/ashby",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/astra-db",
+      "path": "/connectors/astra-db",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/attentive",
+      "path": "/connectors/attentive",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/auth0",
+      "path": "/connectors/auth0",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/avni",
+      "path": "/connectors/avni",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/aws-cloudtrail",
+      "path": "/connectors/aws-cloudtrail",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/aws-datalake",
+      "path": "/connectors/aws-datalake",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/azure-blob-storage",
+      "path": "/connectors/azure-blob-storage",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/azure-table-storage",
+      "path": "/connectors/azure-table-storage",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/babelforce",
+      "path": "/connectors/babelforce",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bamboohr",
+      "path": "/connectors/bamboohr",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/basecamp",
+      "path": "/connectors/basecamp",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/beamer",
+      "path": "/connectors/beamer",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/beehiiv",
+      "path": "/connectors/beehiiv",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bigcommerce",
+      "path": "/connectors/bigcommerce",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bigmailer",
+      "path": "/connectors/bigmailer",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bigquery",
+      "path": "/connectors/bigquery",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bing-ads",
+      "path": "/connectors/bing-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bitly",
+      "path": "/connectors/bitly",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/blogger",
+      "path": "/connectors/blogger",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bold-commerce",
+      "path": "/connectors/bold-commerce",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/box",
+      "path": "/connectors/box",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/braintree",
+      "path": "/connectors/braintree",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/branch",
+      "path": "/connectors/branch",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/braze",
+      "path": "/connectors/braze",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/breezometer",
+      "path": "/connectors/breezometer",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/breezy-hr",
+      "path": "/connectors/breezy-hr",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/brevo",
+      "path": "/connectors/brevo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/brex",
+      "path": "/connectors/brex",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/bugsnag",
+      "path": "/connectors/bugsnag",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/buildkite",
+      "path": "/connectors/buildkite",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/buzzsprout",
+      "path": "/connectors/buzzsprout",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/callrail",
+      "path": "/connectors/callrail",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/campaign-monitor",
+      "path": "/connectors/campaign-monitor",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/campayn",
+      "path": "/connectors/campayn",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/canny",
+      "path": "/connectors/canny",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/capsule-crm",
+      "path": "/connectors/capsule-crm",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/captain-data",
+      "path": "/connectors/captain-data",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/care-quality-commission",
+      "path": "/connectors/care-quality-commission",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/castor-edc",
+      "path": "/connectors/castor-edc",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/chameleon",
+      "path": "/connectors/chameleon",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/chargebee-app",
+      "path": "/connectors/chargebee-app",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/chargedesk",
+      "path": "/connectors/chargedesk",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/chargify",
+      "path": "/connectors/chargify",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/chartmogul",
+      "path": "/connectors/chartmogul",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/chroma",
+      "path": "/connectors/chroma",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/churnzero",
+      "path": "/connectors/churnzero",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/cin7",
+      "path": "/connectors/cin7",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/circa",
+      "path": "/connectors/circa",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/circleci",
+      "path": "/connectors/circleci",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clarif-ai",
+      "path": "/connectors/clarif-ai",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clazar",
+      "path": "/connectors/clazar",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clearbit",
+      "path": "/connectors/clearbit",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clickhouse",
+      "path": "/connectors/clickhouse",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clickup",
+      "path": "/connectors/clickup",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clockify",
+      "path": "/connectors/clockify",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/clockodo",
+      "path": "/connectors/clockodo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/close",
+      "path": "/connectors/close",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/cloudbeds",
+      "path": "/connectors/cloudbeds",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/coassemble",
+      "path": "/connectors/coassemble",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/cockroachdb",
+      "path": "/connectors/cockroachdb",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/coda",
+      "path": "/connectors/coda",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/codefresh",
+      "path": "/connectors/codefresh",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/coin-api",
+      "path": "/connectors/coin-api",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/coingecko-coins",
+      "path": "/connectors/coingecko-coins",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/coinmarketcap",
+      "path": "/connectors/coinmarketcap",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/commcare",
+      "path": "/connectors/commcare",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/commercetools",
+      "path": "/connectors/commercetools",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/concord",
+      "path": "/connectors/concord",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/configcat",
+      "path": "/connectors/configcat",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/confluence",
+      "path": "/connectors/confluence",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/constant-contact",
+      "path": "/connectors/constant-contact",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/convertkit",
+      "path": "/connectors/convertkit",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/convex",
+      "path": "/connectors/convex",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/convex-dev",
+      "path": "/connectors/convex-dev",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/copper",
+      "path": "/connectors/copper",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/countercyclical",
+      "path": "/connectors/countercyclical",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/criteo",
+      "path": "/connectors/criteo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/csv-file",
+      "path": "/connectors/csv-file",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/customer",
+      "path": "/connectors/customer",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/databricks-lakehouse",
+      "path": "/connectors/databricks-lakehouse",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/datadog",
+      "path": "/connectors/datadog",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/datascope",
+      "path": "/connectors/datascope",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/delighted",
+      "path": "/connectors/delighted",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/demandbase",
+      "path": "/connectors/demandbase",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/deputy",
+      "path": "/connectors/deputy",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/dialpad",
+      "path": "/connectors/dialpad",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/dixa",
+      "path": "/connectors/dixa",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/dockerhub",
+      "path": "/connectors/dockerhub",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/dremio",
+      "path": "/connectors/dremio",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/drift",
+      "path": "/connectors/drift",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/drip",
+      "path": "/connectors/drip",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/dropbox-sign",
+      "path": "/connectors/dropbox-sign",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/e-conomic",
+      "path": "/connectors/e-conomic",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/easypost",
+      "path": "/connectors/easypost",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/easypromos",
+      "path": "/connectors/easypromos",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/ebay",
+      "path": "/connectors/ebay",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/elasticemail",
+      "path": "/connectors/elasticemail",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/eloqua",
+      "path": "/connectors/eloqua",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/emailoctopus",
+      "path": "/connectors/emailoctopus",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/employment-hero",
+      "path": "/connectors/employment-hero",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/encharge",
+      "path": "/connectors/encharge",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/etsy",
+      "path": "/connectors/etsy",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/eventbrite",
+      "path": "/connectors/eventbrite",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/eventee",
+      "path": "/connectors/eventee",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/eventzilla",
+      "path": "/connectors/eventzilla",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/everhour",
+      "path": "/connectors/everhour",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/excel-file",
+      "path": "/connectors/excel-file",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/exchange-rates-api",
+      "path": "/connectors/exchange-rates-api",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/ezofficeinventory",
+      "path": "/connectors/ezofficeinventory",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/facebook-marketing",
+      "path": "/connectors/facebook-marketing",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/factorial",
+      "path": "/connectors/factorial",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/fairing",
+      "path": "/connectors/fairing",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/fastbill",
+      "path": "/connectors/fastbill",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/fauna",
+      "path": "/connectors/fauna",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/fillout",
+      "path": "/connectors/fillout",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/finage",
+      "path": "/connectors/finage",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/financial-modelling",
+      "path": "/connectors/financial-modelling",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/finnhub",
+      "path": "/connectors/finnhub",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/finnworlds",
+      "path": "/connectors/finnworlds",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/formbricks",
+      "path": "/connectors/formbricks",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/formbricks-copy",
+      "path": "/connectors/formbricks-copy",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/freeagent-connector",
+      "path": "/connectors/freeagent-connector",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/freshcaller",
+      "path": "/connectors/freshcaller",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/freshdesk",
+      "path": "/connectors/freshdesk",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/freshsales",
+      "path": "/connectors/freshsales",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/fullstory",
+      "path": "/connectors/fullstory",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/gainsight",
+      "path": "/connectors/gainsight",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/genesys",
+      "path": "/connectors/genesys",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/getgist",
+      "path": "/connectors/getgist",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/github",
+      "path": "/connectors/github",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/gitlab",
+      "path": "/connectors/gitlab",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/gocardless",
+      "path": "/connectors/gocardless",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/gong",
+      "path": "/connectors/gong",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-ads",
+      "path": "/connectors/google-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-analytics",
+      "path": "/connectors/google-analytics",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-analytics-4",
+      "path": "/connectors/google-analytics-4",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-cloud-storage-(gcs)",
+      "path": "/connectors/google-cloud-storage-(gcs)",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-forms",
+      "path": "/connectors/google-forms",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-search-console",
+      "path": "/connectors/google-search-console",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/google-sheets",
+      "path": "/connectors/google-sheets",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/gorgias",
+      "path": "/connectors/gorgias",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/greenhouse",
+      "path": "/connectors/greenhouse",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/greythr",
+      "path": "/connectors/greythr",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/grin",
+      "path": "/connectors/grin",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/heap",
+      "path": "/connectors/heap",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/height",
+      "path": "/connectors/height",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/help-scout",
+      "path": "/connectors/help-scout",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/hotjar",
+      "path": "/connectors/hotjar",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/hubplanner",
+      "path": "/connectors/hubplanner",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/hubspot",
+      "path": "/connectors/hubspot",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/insightly",
+      "path": "/connectors/insightly",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/instagram",
+      "path": "/connectors/instagram",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/intercom",
+      "path": "/connectors/intercom",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/iterable",
+      "path": "/connectors/iterable",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/jazzhr",
+      "path": "/connectors/jazzhr",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/json-file",
+      "path": "/connectors/json-file",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/k6-cloud",
+      "path": "/connectors/k6-cloud",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/kit",
+      "path": "/connectors/kit",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/klaviyo",
+      "path": "/connectors/klaviyo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/kochava",
+      "path": "/connectors/kochava",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/less-annoying-crm",
+      "path": "/connectors/less-annoying-crm",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/lever",
+      "path": "/connectors/lever",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/lever-hiring",
+      "path": "/connectors/lever-hiring",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/linkedin-ads",
+      "path": "/connectors/linkedin-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/livechat",
+      "path": "/connectors/livechat",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/loop",
+      "path": "/connectors/loop",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/magento",
+      "path": "/connectors/magento",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/mailchimp-copy",
+      "path": "/connectors/mailchimp-copy",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/meta-ads",
+      "path": "/connectors/meta-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/microsoft-dynamics-365",
+      "path": "/connectors/microsoft-dynamics-365",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/microsoft-onedrive",
+      "path": "/connectors/microsoft-onedrive",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/microsoft-sharepoint",
+      "path": "/connectors/microsoft-sharepoint",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/mixpanel",
+      "path": "/connectors/mixpanel",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/monday-com",
+      "path": "/connectors/monday-com",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/ms-sql-server",
+      "path": "/connectors/ms-sql-server",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/mysql",
+      "path": "/connectors/mysql",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/mysql-destination",
+      "path": "/connectors/mysql-destination",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/netsuite",
+      "path": "/connectors/netsuite",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/notion",
+      "path": "/connectors/notion",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/omnisend",
+      "path": "/connectors/omnisend",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/outbrain",
+      "path": "/connectors/outbrain",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/outbrain-amplify",
+      "path": "/connectors/outbrain-amplify",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/outreach",
+      "path": "/connectors/outreach",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/paddle",
+      "path": "/connectors/paddle",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/pardot",
+      "path": "/connectors/pardot",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/paypal",
+      "path": "/connectors/paypal",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/personio",
+      "path": "/connectors/personio",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/pinterest-ads",
+      "path": "/connectors/pinterest-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/pipedrive",
+      "path": "/connectors/pipedrive",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/postgres",
+      "path": "/connectors/postgres",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/postgres-destination",
+      "path": "/connectors/postgres-destination",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/postscript",
+      "path": "/connectors/postscript",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/prestashop",
+      "path": "/connectors/prestashop",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/recharge",
+      "path": "/connectors/recharge",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/recurly",
+      "path": "/connectors/recurly",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/reddit-ads",
+      "path": "/connectors/reddit-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/redshift",
+      "path": "/connectors/redshift",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/revenue-cat",
+      "path": "/connectors/revenue-cat",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/ring-central",
+      "path": "/connectors/ring-central",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/rollworks",
+      "path": "/connectors/rollworks",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/s3",
+      "path": "/connectors/s3",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/sage",
+      "path": "/connectors/sage",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/salesforce",
+      "path": "/connectors/salesforce",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/salesloft",
+      "path": "/connectors/salesloft",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/segment",
+      "path": "/connectors/segment",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/sendgrid",
+      "path": "/connectors/sendgrid",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/sendlane",
+      "path": "/connectors/sendlane",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/shipstation",
+      "path": "/connectors/shipstation",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/shopify",
+      "path": "/connectors/shopify",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/sigma-computing",
+      "path": "/connectors/sigma-computing",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/singular",
+      "path": "/connectors/singular",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/slack",
+      "path": "/connectors/slack",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/smartrecruiters",
+      "path": "/connectors/smartrecruiters",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/snapchat-marketing",
+      "path": "/connectors/snapchat-marketing",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/snowflake",
+      "path": "/connectors/snowflake",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/snowflake-destination",
+      "path": "/connectors/snowflake-destination",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/sonar-cloud",
+      "path": "/connectors/sonar-cloud",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/spotify-ads",
+      "path": "/connectors/spotify-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/square-app",
+      "path": "/connectors/square-app",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/stackadapt",
+      "path": "/connectors/stackadapt",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/stripe",
+      "path": "/connectors/stripe",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/substack",
+      "path": "/connectors/substack",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/sugarcrm",
+      "path": "/connectors/sugarcrm",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/taboola",
+      "path": "/connectors/taboola",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/terminus",
+      "path": "/connectors/terminus",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/the-trade-desk",
+      "path": "/connectors/the-trade-desk",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/tiktok-ads",
+      "path": "/connectors/tiktok-ads",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/totango",
+      "path": "/connectors/totango",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/twilio",
+      "path": "/connectors/twilio",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/twitter",
+      "path": "/connectors/twitter",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/uppromote",
+      "path": "/connectors/uppromote",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/vimeo",
+      "path": "/connectors/vimeo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/visma-economic",
+      "path": "/connectors/visma-economic",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/visma-economic-copy",
+      "path": "/connectors/visma-economic-copy",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/walmart-marketplace",
+      "path": "/connectors/walmart-marketplace",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/woocommerce",
+      "path": "/connectors/woocommerce",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/workday",
+      "path": "/connectors/workday",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/yotpo",
+      "path": "/connectors/yotpo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/youtube-analytics",
+      "path": "/connectors/youtube-analytics",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zendesk",
+      "path": "/connectors/zendesk",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zendesk-chat",
+      "path": "/connectors/zendesk-chat",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zoho-campaign",
+      "path": "/connectors/zoho-campaign",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zoho-crm",
+      "path": "/connectors/zoho-crm",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zoho-expense",
+      "path": "/connectors/zoho-expense",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zoominfo",
+      "path": "/connectors/zoominfo",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/connectors/zuora",
+      "path": "/connectors/zuora",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/data-foundation",
+      "path": "/data-foundation",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/data-security",
+      "path": "/data-security",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/demo-booking",
+      "path": "/demo-booking",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/demo-booking-2-steps",
+      "path": "/demo-booking-2-steps",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/finom",
+      "path": "/finom",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/privacypolicy",
+      "path": "/privacypolicy",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/privacy",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/rules",
+      "path": "/rules",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/termsofservice",
+      "path": "/termsofservice",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/terms",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.plurio.ai/webinar",
+      "path": "/webinar",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/webinar-cpa",
+      "path": "/webinar-cpa",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    },
+    {
+      "url": "https://www.plurio.ai/workflows",
+      "path": "/workflows",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "no_api_key"
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://www.plurio.ai/connectors/cart",
+      "path": "/connectors/cart",
+      "type": "checkout",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/cart(?:/|$)",
+      "description": "Checkout",
+      "expect_events": [
+        "Purchase",
+        "InitiateCheckout",
+        "AddPaymentInfo"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai/contacts",
+      "path": "/contacts",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai/thank-you",
+      "path": "/thank-you",
+      "type": "booking_confirm",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/thank-you",
+      "description": "Booking Confirm",
+      "expect_events": [
+        "Purchase",
+        "Lead",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.plurio.ai",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    }
+  ]
+}

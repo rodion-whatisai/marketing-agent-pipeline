@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "domain": "garage.suspenair.fr",
+  "verified_by": "draft",
+  "verified_against": "текущий вывод сканера — НЕ проверено человеком",
+  "notes": "ЧЕРНОВИК: сгенерирован автоматически, ждёт апрува Rodion'ом (make_expected.py --update).",
+  "verified_date": "2026-07-13",
+  "scanner_commit": "b8f2beb",
+  "site": {
+    "gtm_platforms": [
+      "Google Ads",
+      "Google Analytics"
+    ],
+    "counters": {
+      "gaps": 1,
+      "oks": 0,
+      "no_ctas": 1,
+      "no_tracking": 0,
+      "unverified": 0
+    },
+    "platform": "wordpress"
+  },
+  "pages": {
+    "/": {
+      "status": "GAP",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics"
+      ],
+      "external_services": [],
+      "missing_events": [
+        "ViewContent"
+      ]
+    },
+    "/prendre-rendez-vous-en-ligne": {
+      "status": "NO_CTA",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics"
+      ],
+      "external_services": [
+        "Calendly",
+        "Stripe"
+      ],
+      "missing_events": [
+        "CompleteRegistration",
+        "Contact",
+        "Lead"
+      ]
+    }
+  }
+}

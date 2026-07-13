@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "created": "2026-07-13",
+  "comment": "Золотой корпус испытательного стенда. См. TESTBED-PLAN.md. step1 заморожен (golden/<domain>/step1.json) — step2 всегда бежит по одному и тому же списку URL. Обновление step1 только сознательное: eval_run.py --refresh-step1.",
+  "domains": {
+    "tinytronics.nl":      {"platform": "opencart",  "lang": "NL", "tags": ["fast"], "why": "быстрый эталон; to_scan замороженного step1 усечён до 2 страниц (OK + GAP кейсы); consent-first кейс"},
+    "garage.suspenair.fr": {"platform": "wordpress", "lang": "FR", "tags": ["fast"], "why": "второй fast-домен; FR lead-form кейс"},
+    "allbirds.com":        {"platform": "shopify",   "lang": "EN", "tags": [], "why": "бывший Snapchat/Bing false positive (A1); TikTok POST-события"},
+    "bombas.com":          {"platform": "shopify",   "lang": "EN", "tags": [], "why": "кейс 404-страницы (C9) + гео-модал (C10); headless Next.js без CTA в статике"},
+    "fritz-kola.de":       {"platform": "shopify",   "lang": "DE", "tags": [], "why": "кейс redirect-слепоты (C8): все пути 301 → fritz-kola.com/"},
+    "gymshark.com":        {"platform": "shopify",   "lang": "EN", "tags": [], "why": "реальный дубль Meta-пикселя; Snapchat в GTM-контейнере (B6)"},
+    "pipsnacks.com":       {"platform": "shopify",   "lang": "EN", "tags": [], "why": "Pinterest-пропуск (B5); Cal.com false positive (A3); AddToCart по клику"},
+    "artbouquet.shop":     {"platform": "shopify",   "lang": "RU", "tags": [], "why": "POST-слепота парсера событий (BUGS-2026-07-13): 6/7 страниц false GAP"},
+    "studioaplus.ca":      {"platform": "wordpress", "lang": "EN", "tags": [], "why": "средний WP, 9 страниц"},
+    "nissan.ie":           {"platform": "generic",   "lang": "EN", "tags": [], "why": "корпоративный; кейс unverified-статуса; headless A/B кейс 2026-06-27"},
+    "plurio.ai":           {"platform": "framer",    "lang": "EN", "tags": [], "why": "SaaS/generic"}
+  }
+}

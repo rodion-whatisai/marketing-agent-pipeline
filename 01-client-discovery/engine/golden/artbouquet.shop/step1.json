@@ -1,0 +1,1818 @@
+{
+  "base_url": "https://artbouquet.shop",
+  "status": "ok",
+  "scan_url_base": "https://artbouquet.shop",
+  "scan_language": "en",
+  "languages_available": {},
+  "language_switch_source": null,
+  "external_en": null,
+  "sitemap_source": "https://artbouquet.shop/sitemap.xml",
+  "platform": {
+    "platform": "shopify",
+    "confidence": "high",
+    "score": 54,
+    "signals": [
+      "cdn.shopify.com",
+      "Shopify.theme",
+      "shopify_pay",
+      "myshopify.com",
+      "shopify-section",
+      "data-shopify",
+      "window.Shopify",
+      "Shopify.routes",
+      "sitemap:/collections/×3",
+      "sitemap:/products/×3",
+      "sitemap:/pages/×3",
+      "sitemap:/blogs/×3"
+    ],
+    "all_scores": {
+      "shopify": 54
+    },
+    "profile": {
+      "description": "Shopify e-commerce",
+      "url_patterns": {
+        "/products/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/collections/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/cart": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/checkout": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/pages/": {
+          "type": "general",
+          "priority": 5
+        },
+        "/blogs/": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/account": {
+          "type": "technical",
+          "priority": 5
+        },
+        "/search": {
+          "type": "search_results",
+          "priority": 3
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "InitiateCheckout",
+          "begin_checkout",
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Shopify /pages/* = static pages, classify by slug keywords"
+    }
+  },
+  "site_language": {
+    "lang": "en",
+    "is_english": true,
+    "source": "Content-Language header"
+  },
+  "lang_removed": 252,
+  "lang_prefixes": [
+    "es",
+    "fr"
+  ],
+  "total_found": 127,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/artbouquetmtl/",
+    "instagram": "https://www.instagram.com/art_bouquet_mtl/",
+    "tiktok": "https://www.tiktok.com/@artbouquet.shop/",
+    "youtube": "https://www.youtube.com/@ArtBouquetStudio/",
+    "facebook_accounts": {
+      "target": "https://artbouquet.shop",
+      "brand_name": "artbouquet",
+      "site_country": "CA",
+      "site_country_source": "content-language-header (en-CA)",
+      "accounts": [
+        {
+          "handle": "artbouquetmtl",
+          "display_name": "art_bouquet_mtl",
+          "url": "https://www.facebook.com/artbouquetmtl",
+          "page_id": "110853834864219",
+          "alive": true,
+          "total_ever": 0,
+          "active": null,
+          "inactive": null,
+          "active_ads_count": 0,
+          "partnership_ads": false,
+          "partnership_count": 0,
+          "ad_texts": [],
+          "saved_images": [],
+          "structured_ads": [],
+          "ads_library_mode": "unknown",
+          "raw_keyword_total": 0,
+          "extraction_method": "unknown",
+          "ads_search_term": "art_bouquet_mtl",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&view_all_page_id=110853834864219&search_type=page&media_type=all",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&view_all_page_id=110853834864219&search_type=page&media_type=all",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&view_all_page_id=110853834864219&search_type=page&media_type=all"
+            }
+          },
+          "discovery_method": "homepage_link"
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://www.artbouquet.shop/pages/contact-flower-shop-montreal",
+      "path": "/pages/contact-flower-shop-montreal",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "platform_shopify",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/100-200-flowers-delivery-montreal",
+      "path": "/collections/100-200-flowers-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/add-to-your-order-florist-montreal",
+      "path": "/collections/add-to-your-order-florist-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/anniversary-flowers-montreal",
+      "path": "/collections/anniversary-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/bestsellers",
+      "path": "/collections/bestsellers",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/birthday-flowers-montreal",
+      "path": "/collections/birthday-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/christmas-collection",
+      "path": "/collections/christmas-collection",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/flowers-for-men-delivery-montreal",
+      "path": "/collections/flowers-for-men-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/get-well-flowers-montreal",
+      "path": "/collections/get-well-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/graduation-flowers-gift-montreal",
+      "path": "/collections/graduation-flowers-gift-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/hanukkah-montreal",
+      "path": "/collections/hanukkah-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/luxury-flowers-montreal",
+      "path": "/collections/luxury-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/mothers-day-flower-delivery",
+      "path": "/collections/mothers-day-flower-delivery",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/orchids-florist-verdun-montreal",
+      "path": "/collections/orchids-florist-verdun-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/over-200",
+      "path": "/collections/over-200",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/roses-montreal",
+      "path": "/collections/roses-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/subscription",
+      "path": "/collections/subscription",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/sympathy-flowers-montreal",
+      "path": "/collections/sympathy-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/under-100-flowers-delivery-montreal",
+      "path": "/collections/under-100-flowers-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/valentines-day-free-flower-delivery-montreal",
+      "path": "/collections/valentines-day-free-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/wedding",
+      "path": "/collections/wedding",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/pages/subscription-flower-delivery-online-montreal",
+      "path": "/pages/subscription-flower-delivery-online-montreal",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/21-tulips-in-a-vase",
+      "path": "/products/21-tulips-in-a-vase",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/51-pink-roses-vase-luxury-delivery-montreal",
+      "path": "/products/51-pink-roses-vase-luxury-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/a-bouquet-of-selected-flowers",
+      "path": "/products/a-bouquet-of-selected-flowers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/alstroemeria-flowers-symphony",
+      "path": "/products/alstroemeria-flowers-symphony",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/berry-luxurious-rose-bouquet",
+      "path": "/products/berry-luxurious-rose-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/blushing-beauty-birthday-flowers-montreal-delivery",
+      "path": "/products/blushing-beauty-birthday-flowers-montreal-delivery",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/bridal-bouquet-montreal-florist-wedding",
+      "path": "/products/bridal-bouquet-montreal-florist-wedding",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/bridal-flower-bouquet-designers-choice",
+      "path": "/products/bridal-flower-bouquet-designers-choice",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/bright-carnations-same-day-flower-delivery-montreal",
+      "path": "/products/bright-carnations-same-day-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/bright-garden-flowers",
+      "path": "/products/bright-garden-flowers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/bright-juicy-flowers-delivery-montreal",
+      "path": "/products/bright-juicy-flowers-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/carnations-bouquet-delivery-flowers-montreal",
+      "path": "/products/carnations-bouquet-delivery-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/centerpiece-blue-arrangement-flower-delivery-hanukkah",
+      "path": "/products/centerpiece-blue-arrangement-flower-delivery-hanukkah",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/chocolate-ferrero-rocher-collection-gift-shop-montreal",
+      "path": "/products/chocolate-ferrero-rocher-collection-gift-shop-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/chocolate-online-flower-shop-montreal",
+      "path": "/products/chocolate-online-flower-shop-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/cloud-kissed-mixed-bouquet-montreal-florist",
+      "path": "/products/cloud-kissed-mixed-bouquet-montreal-florist",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/custom-arrangement-best-flower-shop-near-me",
+      "path": "/products/custom-arrangement-best-flower-shop-near-me",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/delicate-flower-bouquet",
+      "path": "/products/delicate-flower-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/designers-choice-mixed-bouquet-montreal",
+      "path": "/products/designers-choice-mixed-bouquet-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/desire-premium-flower-bouquet-montreal",
+      "path": "/products/desire-premium-flower-bouquet-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/dream-red-roses-in-a-pot-montreal",
+      "path": "/products/dream-red-roses-in-a-pot-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/eternal-red-roses-free-delivery-montreal",
+      "path": "/products/eternal-red-roses-free-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/feelings-mixed-bouquet-flower-delivery-montreal",
+      "path": "/products/feelings-mixed-bouquet-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/flame-of-love-stunning-fresh-roses-bouquet-montreal",
+      "path": "/products/flame-of-love-stunning-fresh-roses-bouquet-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/flower-bouquet-florist-mtl-fleuriste-verdun-livraison-montreal",
+      "path": "/products/flower-bouquet-florist-mtl-fleuriste-verdun-livraison-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/golden-bouquet-red-roses-delivery-montreal",
+      "path": "/products/golden-bouquet-red-roses-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/golden-hour",
+      "path": "/products/golden-hour",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/graduation-topper",
+      "path": "/products/graduation-topper",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/grande-rose-basket-premium-flower-delivery-montreal",
+      "path": "/products/grande-rose-basket-premium-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/handcrafted-heart-crystal-keychain",
+      "path": "/products/handcrafted-heart-crystal-keychain",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/happy-birthday-topper-luxury-flowers-montreal",
+      "path": "/products/happy-birthday-topper-luxury-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/heart-of-roses-delivery-montreal-florist-valentines-day-gift",
+      "path": "/products/heart-of-roses-delivery-montreal-florist-valentines-day-gift",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/heart-topper-balloon-florist-montreal",
+      "path": "/products/heart-topper-balloon-florist-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/hot-gossip-flower-bouquet-montreal",
+      "path": "/products/hot-gossip-flower-bouquet-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/ivory-elegance-white-roses-bouquet",
+      "path": "/products/ivory-elegance-white-roses-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/large-card-for-your-wishes",
+      "path": "/products/large-card-for-your-wishes",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/lavender-blush",
+      "path": "/products/lavender-blush",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/lavender-dream",
+      "path": "/products/lavender-dream",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/lemon-blush-orchid",
+      "path": "/products/lemon-blush-orchid",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/love-and-cuddles-roses-flowers-delivery-montreal",
+      "path": "/products/love-and-cuddles-roses-flowers-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/love-symphony-19-red-roses-delivery-montreal",
+      "path": "/products/love-symphony-19-red-roses-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/love-you",
+      "path": "/products/love-you",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/modern-garden-peony-bouquet",
+      "path": "/products/modern-garden-peony-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/my-love-bouquet-of-red-roses-montreal-flower-delivery",
+      "path": "/products/my-love-bouquet-of-red-roses-montreal-flower-delivery",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/new-baby-flower-gift",
+      "path": "/products/new-baby-flower-gift",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/orchids-in-a-pot",
+      "path": "/products/orchids-in-a-pot",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/pastel-reverie-bouquet-montreal",
+      "path": "/products/pastel-reverie-bouquet-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/peony-fresh-flower-delivery-montreal-online",
+      "path": "/products/peony-fresh-flower-delivery-montreal-online",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/peony-royale",
+      "path": "/products/peony-royale",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/personalised-card-florist-montreal-near-me",
+      "path": "/products/personalised-card-florist-montreal-near-me",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/personalized-red-roses-florist-delivery-montreal",
+      "path": "/products/personalized-red-roses-florist-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/petites-orchidees",
+      "path": "/products/petites-orchidees",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/pink-citrus-burst-flower-delivery-montreal",
+      "path": "/products/pink-citrus-burst-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/pink-roses-delivery-montreal-romantic",
+      "path": "/products/pink-roses-delivery-montreal-romantic",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/pink-roses-mono-bouquet",
+      "path": "/products/pink-roses-mono-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/pink-tenderness",
+      "path": "/products/pink-tenderness",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/premium-red-rose-bouquet-montreal-same-day-delivery",
+      "path": "/products/premium-red-rose-bouquet-montreal-same-day-delivery",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/puff-whyte-vase",
+      "path": "/products/puff-whyte-vase",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/pure-elegance-wedding-arrangement",
+      "path": "/products/pure-elegance-wedding-arrangement",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/raffaello-chocolate-box-celebration-florist-near-me-verdun-mtl",
+      "path": "/products/raffaello-chocolate-box-celebration-florist-near-me-verdun-mtl",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-expression-red-roses-delivery-montreal",
+      "path": "/products/red-expression-red-roses-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-romance-valentines-day",
+      "path": "/products/red-romance-valentines-day",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-roses-orchids-flower-shop-verdun",
+      "path": "/products/red-roses-orchids-flower-shop-verdun",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-roses-round-box-free-delivery-montreal",
+      "path": "/products/red-roses-round-box-free-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-tulips-verdun-flower-delivery-online",
+      "path": "/products/red-tulips-verdun-flower-delivery-online",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-velvet-hug",
+      "path": "/products/red-velvet-hug",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/red-white-roses-bouquet-delivery-montreal-online-flowers",
+      "path": "/products/red-white-roses-bouquet-delivery-montreal-online-flowers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/romance-bouquet-of-red-roses-florist-montreal",
+      "path": "/products/romance-bouquet-of-red-roses-florist-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/rose-charm",
+      "path": "/products/rose-charm",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/roses-florist-delivery-near-me",
+      "path": "/products/roses-florist-delivery-near-me",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/rosy-chic-birthday-thank-you-flowers-montreal",
+      "path": "/products/rosy-chic-birthday-thank-you-flowers-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/royal-peonies-same-day-flower-delivery-montreal",
+      "path": "/products/royal-peonies-same-day-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/ruby-blush-red-white-roses-delivery-montreal",
+      "path": "/products/ruby-blush-red-white-roses-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/ruby-rhapsody",
+      "path": "/products/ruby-rhapsody",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/signature-petals-red-rose-box",
+      "path": "/products/signature-petals-red-rose-box",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/spring-joy",
+      "path": "/products/spring-joy",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/summer-breeze-florist-montreal",
+      "path": "/products/summer-breeze-florist-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/summer-day-bouquet-delivery-montreal",
+      "path": "/products/summer-day-bouquet-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/sunny-glow-florist-montreal",
+      "path": "/products/sunny-glow-florist-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/sweet-cream-flower-box-delivery-montreal",
+      "path": "/products/sweet-cream-flower-box-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/teddy-bear-gift-florist-near-me-montreal-mtl",
+      "path": "/products/teddy-bear-gift-florist-near-me-montreal-mtl",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/teddy-bear-large",
+      "path": "/products/teddy-bear-large",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/the-infinite-pulse-montreal-flower-delivery",
+      "path": "/products/the-infinite-pulse-montreal-flower-delivery",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/the-serenity-wreath-sympathy-arrangement",
+      "path": "/products/the-serenity-wreath-sympathy-arrangement",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/vase-flower-delivery-montreal",
+      "path": "/products/vase-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/white-bouquet",
+      "path": "/products/white-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/white-roses-bouquet-free-flower-delivery-montreal",
+      "path": "/products/white-roses-bouquet-free-flower-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/white-roses-flower-bouquet",
+      "path": "/products/white-roses-flower-bouquet",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/white-swan-orchid-montreal-free-flower-delivery",
+      "path": "/products/white-swan-orchid-montreal-free-flower-delivery",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal",
+      "path": "/blogs/all-about-flowers-florist-montreal",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/best-flowers-for-rosh-hashanah-in-montreal-flower-delivery",
+      "path": "/blogs/all-about-flowers-florist-montreal/best-flowers-for-rosh-hashanah-in-montreal-flower-delivery",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/blooming-with-happiness",
+      "path": "/blogs/all-about-flowers-florist-montreal/blooming-with-happiness",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/celebrate-graduation-with-the-perfect-flower-bouquet",
+      "path": "/blogs/all-about-flowers-florist-montreal/celebrate-graduation-with-the-perfect-flower-bouquet",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/custom-floral-design-bringing-your-vision-to-life",
+      "path": "/blogs/all-about-flowers-florist-montreal/custom-floral-design-bringing-your-vision-to-life",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/floral-trends-2026-what-montreals-most-stylish-are-sending-this-year",
+      "path": "/blogs/all-about-flowers-florist-montreal/floral-trends-2026-what-montreals-most-stylish-are-sending-this-year",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/flower-arrangements-for-events-how-to-make-every-occasion-bloom",
+      "path": "/blogs/all-about-flowers-florist-montreal/flower-arrangements-for-events-how-to-make-every-occasion-bloom",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/fresh-cut-flowers-montreal-delivery-guide",
+      "path": "/blogs/all-about-flowers-florist-montreal/fresh-cut-flowers-montreal-delivery-guide",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/plan-ahead-send-flowers-in-montreal-for-these-special-holidays",
+      "path": "/blogs/all-about-flowers-florist-montreal/plan-ahead-send-flowers-in-montreal-for-these-special-holidays",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/spring-has-sprung-celebrate-with-fresh-vibrant-blooms",
+      "path": "/blogs/all-about-flowers-florist-montreal/spring-has-sprung-celebrate-with-fresh-vibrant-blooms",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/stunning-flowers-valentines-day-delivery-montreal-florist-near-me",
+      "path": "/blogs/all-about-flowers-florist-montreal/stunning-flowers-valentines-day-delivery-montreal-florist-near-me",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/blogs/all-about-flowers-florist-montreal/wedding-bouquets-and-boutonnieres-a-symbol-of-love-and-commitment",
+      "path": "/blogs/all-about-flowers-florist-montreal/wedding-bouquets-and-boutonnieres-a-symbol-of-love-and-commitment",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/pages/about",
+      "path": "/pages/about",
+      "type": "about",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/about(?:/|$)",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.artbouquet.shop/agents.md",
+      "path": "/agents.md",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.artbouquet.shop/pages/data-sharing-opt-out",
+      "path": "/pages/data-sharing-opt-out",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://www.artbouquet.shop/pages/contact-flower-shop-montreal",
+      "path": "/pages/contact-flower-shop-montreal",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "platform_shopify",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/100-200-flowers-delivery-montreal",
+      "path": "/collections/100-200-flowers-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/collections/add-to-your-order-florist-montreal",
+      "path": "/collections/add-to-your-order-florist-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/pages/subscription-flower-delivery-online-montreal",
+      "path": "/pages/subscription-flower-delivery-online-montreal",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/21-tulips-in-a-vase",
+      "path": "/products/21-tulips-in-a-vase",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.artbouquet.shop/products/51-pink-roses-vase-luxury-delivery-montreal",
+      "path": "/products/51-pink-roses-vase-luxury-delivery-montreal",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1632 @@
+{
+  "base_url": "https://tinytronics.nl",
+  "status": "ok",
+  "scan_url_base": "https://tinytronics.nl",
+  "scan_language": "en",
+  "languages_available": {},
+  "language_switch_source": null,
+  "external_en": null,
+  "sitemap_source": "robots.txt html-fallback → https://tinytronics.nl/index.php?route=information/sitemap",
+  "platform": {
+    "platform": "opencart",
+    "confidence": "high",
+    "score": 20,
+    "signals": [
+      "index.php?route=",
+      "catalog/view/theme",
+      "catalog/view/javascript",
+      "image/cache/",
+      "header:OCSESSID"
+    ],
+    "all_scores": {
+      "opencart": 20
+    },
+    "profile": {
+      "description": "OpenCart e-commerce",
+      "url_patterns": {
+        "route=product/product": {
+          "type": "product",
+          "priority": 2
+        },
+        "route=product/category": {
+          "type": "product",
+          "priority": 2
+        },
+        "route=checkout/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "route=information/contact": {
+          "type": "lead_form",
+          "priority": 1
+        },
+        "route=account": {
+          "type": "technical",
+          "priority": 5
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "InitiateCheckout",
+          "begin_checkout",
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "SEO-rewrite прячет ?route= из фронтовых URL (tinytronics) — тогда детект по catalog/view/* asset-путям и OCSESSID-куке."
+    }
+  },
+  "site_language": {
+    "lang": "en",
+    "is_english": true,
+    "source": "html lang attr"
+  },
+  "lang_removed": 0,
+  "lang_prefixes": [],
+  "total_found": 468,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/tinytronics/",
+    "instagram": "https://www.instagram.com/tinytronics/",
+    "linkedin": "https://www.linkedin.com/company/tinytronicsnl/",
+    "facebook_accounts": {
+      "target": "https://tinytronics.nl",
+      "brand_name": "tinytronics",
+      "site_country": "NL",
+      "site_country_source": "tld (.nl)",
+      "accounts": [
+        {
+          "handle": "tinytronics",
+          "display_name": "TinyTronics",
+          "url": "https://www.facebook.com/tinytronics",
+          "page_id": "305826849785637",
+          "alive": true,
+          "total_ever": 0,
+          "active": null,
+          "inactive": null,
+          "active_ads_count": 0,
+          "partnership_ads": false,
+          "partnership_count": 0,
+          "ad_texts": [],
+          "saved_images": [],
+          "structured_ads": [],
+          "ads_library_mode": "unknown",
+          "raw_keyword_total": 0,
+          "extraction_method": "unknown",
+          "ads_search_term": "TinyTronics",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=TinyTronics&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=TinyTronics&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=TinyTronics&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            }
+          },
+          "discovery_method": "homepage_link"
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://www.tinytronics.nl/en/apply-for-a-business-account-with-payment-on-account",
+      "path": "/en/apply-for-a-business-account-with-payment-on-account",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "business account application form",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/business-account-application-with-vat-reverse-charge",
+      "path": "/en/business-account-application-with-vat-reverse-charge",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "business account application with VAT",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/comment-or-suggestion",
+      "path": "/en/comment-or-suggestion",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "comment or suggestion form",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/custom-cable-request",
+      "path": "/en/custom-cable-request",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "custom cable request form",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/custom-led-strip-request",
+      "path": "/en/custom-led-strip-request",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "custom LED strip request form",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/invoice-request",
+      "path": "/en/invoice-request",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "/en/invoice-request - form submission/request page",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/new-prices",
+      "path": "/en/new-prices",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "/en/new-prices - pricing/quote request page",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/new-products",
+      "path": "/en/new-products",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "/en/new-products - new product inquiry/notification page",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/old-for-new-arrangement",
+      "path": "/en/old-for-new-arrangement",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "/en/old-for-new-arrangement - warranty/claim page",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/product-not-findable-on-website",
+      "path": "/en/product-not-findable-on-website",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "/en/product-not-findable-on-website - product search/help request",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/request-volume-discount",
+      "path": "/en/request-volume-discount",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "/en/request-volume-discount - quote/discount request",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/10-10-10-deals",
+      "path": "/en/10-10-10-deals",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "promotional category listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/3d-printing",
+      "path": "/en/3d-printing",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/3d-printing/electronics",
+      "path": "/en/3d-printing/electronics",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/3d-printing/electronics/accessories",
+      "path": "/en/3d-printing/electronics/accessories",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory depth 3",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/all-categories",
+      "path": "/en/all-categories",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "all-categories listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/arduino-uno-q",
+      "path": "/en/arduino-uno-q",
+      "type": "product",
+      "priority": 2,
+      "reason": "specific product (Arduino Uno)",
+      "method": "claude",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ],
+      "description": "Product"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/audio",
+      "path": "/en/audio",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/audio/accessories",
+      "path": "/en/audio/accessories",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/audio/accessories/enclosures",
+      "path": "/en/audio/accessories/enclosures",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory depth 3",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/best-sellers",
+      "path": "/en/best-sellers",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "best-sellers listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/business",
+      "path": "/en/business",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "business/B2B category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/cables-and-connectors",
+      "path": "/en/cables-and-connectors",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/cables-and-connectors/cables-and-adapters",
+      "path": "/en/cables-and-connectors/cables-and-adapters",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/cables-and-connectors/cables-and-adapters/alligator-clip",
+      "path": "/en/cables-and-connectors/cables-and-adapters/alligator-clip",
+      "type": "product",
+      "priority": 2,
+      "reason": "specific product (alligator clip)",
+      "method": "claude",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ],
+      "description": "Product"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/clearance",
+      "path": "/en/clearance",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "clearance/sale category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/clearance/b-stock",
+      "path": "/en/clearance/b-stock",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "clearance subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/clearance/last-chance",
+      "path": "/en/clearance/last-chance",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "clearance subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/communication-and-signals",
+      "path": "/en/communication-and-signals",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/communication-and-signals/ethernet",
+      "path": "/en/communication-and-signals/ethernet",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/communication-and-signals/ethernet/cables",
+      "path": "/en/communication-and-signals/ethernet/cables",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory depth 3",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/components",
+      "path": "/en/components",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/components/capacitors",
+      "path": "/en/components/capacitors",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/components/coils-and-transformers",
+      "path": "/en/components/coils-and-transformers",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/computer-accessories",
+      "path": "/en/computer-accessories",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/computer-accessories/ethernet-adapters",
+      "path": "/en/computer-accessories/ethernet-adapters",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/computer-accessories/mice-and-keyboards",
+      "path": "/en/computer-accessories/mice-and-keyboards",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/data-storage",
+      "path": "/en/data-storage",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/data-storage/hard-disks",
+      "path": "/en/data-storage/hard-disks",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/data-storage/modules",
+      "path": "/en/data-storage/modules",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/deals",
+      "path": "/en/deals",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "deals/promotions listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/development-boards",
+      "path": "/en/development-boards",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product category",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/development-boards/3d-printing",
+      "path": "/en/development-boards/3d-printing",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/development-boards/accessories",
+      "path": "/en/development-boards/accessories",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "product subcategory",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/displays",
+      "path": "/en/displays",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/displays - category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/displays/e-ink",
+      "path": "/en/displays/e-ink",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/displays/e-ink - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/displays/embedded",
+      "path": "/en/displays/embedded",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/displays/embedded - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/home-automation",
+      "path": "/en/home-automation",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/home-automation - category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/home-automation/control-panels",
+      "path": "/en/home-automation/control-panels",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/home-automation/control-panels - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/home-automation/lighting",
+      "path": "/en/home-automation/lighting",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/home-automation/lighting - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/lighting",
+      "path": "/en/lighting",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/lighting - category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/lighting/individual-leds",
+      "path": "/en/lighting/individual-leds",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/lighting/individual-leds - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/lighting/lasers",
+      "path": "/en/lighting/lasers",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/lighting/lasers - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/location",
+      "path": "/en/location",
+      "type": "location",
+      "priority": 2,
+      "reason": "/en/location - location/store locator page",
+      "method": "claude",
+      "expect_events": [
+        "ViewContent",
+        "Search"
+      ],
+      "description": "Location"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/mechanics-and-actuators",
+      "path": "/en/mechanics-and-actuators",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/mechanics-and-actuators - category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/mechanics-and-actuators/electromagnets",
+      "path": "/en/mechanics-and-actuators/electromagnets",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/mechanics-and-actuators/electromagnets - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/mechanics-and-actuators/fans",
+      "path": "/en/mechanics-and-actuators/fans",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/mechanics-and-actuators/fans - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/platforms-and-systems",
+      "path": "/en/platforms-and-systems",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/platforms-and-systems - category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/platforms-and-systems/bitcraze-crazyflie",
+      "path": "/en/platforms-and-systems/bitcraze-crazyflie",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/platforms-and-systems/bitcraze-crazyflie - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/platforms-and-systems/m5stack",
+      "path": "/en/platforms-and-systems/m5stack",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/platforms-and-systems/m5stack - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/power",
+      "path": "/en/power",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/power - category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/power/batteries",
+      "path": "/en/power/batteries",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/power/batteries - subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/power/batteries/14500",
+      "path": "/en/power/batteries/14500",
+      "type": "product",
+      "priority": 2,
+      "reason": "/en/power/batteries/14500 - specific battery product",
+      "method": "claude",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ],
+      "description": "Product"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/sensors",
+      "path": "/en/sensors",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/sensors is a category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/sensors/acceleration-rotation",
+      "path": "/en/sensors/acceleration-rotation",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/sensors/acceleration-rotation is a subcategory/filtered listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/sensors/air",
+      "path": "/en/sensors/air",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/sensors/air is a subcategory/filtered listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/switches",
+      "path": "/en/switches",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/switches is a category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/switches/ac-dimmers",
+      "path": "/en/switches/ac-dimmers",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/switches/ac-dimmers is a subcategory/filtered listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/switches/endstops",
+      "path": "/en/switches/endstops",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/switches/endstops is a subcategory/filtered listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/tools-and-mounting",
+      "path": "/en/tools-and-mounting",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/tools-and-mounting is a category listing page",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/tools-and-mounting/consumables",
+      "path": "/en/tools-and-mounting/consumables",
+      "type": "search_results",
+      "priority": 2,
+      "reason": "/en/tools-and-mounting/consumables is a subcategory listing",
+      "method": "claude",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ],
+      "description": "Search Results"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/tools-and-mounting/consumables/glue",
+      "path": "/en/tools-and-mounting/consumables/glue",
+      "type": "product",
+      "priority": 2,
+      "reason": "/en/tools-and-mounting/consumables/glue is a specific product item",
+      "method": "claude",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ],
+      "description": "Product"
+    },
+    {
+      "url": "https://www.tinytronics.nl/index.php",
+      "path": "/index.php",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/index\\.",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/about-us",
+      "path": "/en/about-us",
+      "type": "about",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/about-us",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/becoming-a-reseller-of-tinytronics",
+      "path": "/en/becoming-a-reseller-of-tinytronics",
+      "type": "about",
+      "priority": 3,
+      "reason": "reseller program information",
+      "method": "claude",
+      "expect_events": [],
+      "description": "About"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/collaborations",
+      "path": "/en/collaborations",
+      "type": "about",
+      "priority": 3,
+      "reason": "collaborations/partnerships page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "About"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/country-of-delivery-is-not-among-the-shipping-options",
+      "path": "/en/country-of-delivery-is-not-among-the-shipping-options",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "shipping country/delivery limitation support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/customer-support",
+      "path": "/en/customer-support",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "customer support page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/delivery",
+      "path": "/en/delivery",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "patterns_json",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/delivery-information",
+      "path": "/en/delivery-information",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "shipping information page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/delivery-time-of-a-product",
+      "path": "/en/delivery-time-of-a-product",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "product delivery time support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/drivers-for-usb-to-serial-converters",
+      "path": "/en/drivers-for-usb-to-serial-converters",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/drivers-for-usb-to-serial-converters - technical documentation/support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/invisibly-damaged-product",
+      "path": "/en/invisibly-damaged-product",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/invisibly-damaged-product - support/help page for damage issues",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/missing-product-in-order",
+      "path": "/en/missing-product-in-order",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/missing-product-in-order - support for order issues",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/order",
+      "path": "/en/order",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/order - order support/help page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/other-business-questions",
+      "path": "/en/other-business-questions",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/other-business-questions - support page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/other-delivery-questions",
+      "path": "/en/other-delivery-questions",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/other-delivery-questions - delivery support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/other-ordering-questions",
+      "path": "/en/other-ordering-questions",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/other-ordering-questions - ordering support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/other-return-requests",
+      "path": "/en/other-return-requests",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/other-return-requests - return/support page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/other-warranty-and-problem-questions",
+      "path": "/en/other-warranty-and-problem-questions",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/other-warranty-and-problem-questions - warranty support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/overige-productvragen",
+      "path": "/en/overige-productvragen",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/overige-productvragen - product questions/support (Dutch)",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/partners",
+      "path": "/en/partners",
+      "type": "about",
+      "priority": 3,
+      "reason": "/en/partners - partnerships/about page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "About"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/payment",
+      "path": "/en/payment",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/payment - payment support/help page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/pickup",
+      "path": "/en/pickup",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/pickup - pickup support/help page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/problem-new-product",
+      "path": "/en/problem-new-product",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/problem-new-product - support for new product issues",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/problems-with-delivery",
+      "path": "/en/problems-with-delivery",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/problems-with-delivery - delivery support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/product-discontinued",
+      "path": "/en/product-discontinued",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/product-discontinued - product support/information",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/product-is-not-working-anymore",
+      "path": "/en/product-is-not-working-anymore",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/product-is-not-working-anymore - product support/troubleshooting",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/product-questions",
+      "path": "/en/product-questions",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/product-questions - product support/help page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/question-or-advice-on-a-product",
+      "path": "/en/question-or-advice-on-a-product",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/question-or-advice-on-a-product - product support/advice page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/questions-about-delivery",
+      "path": "/en/questions-about-delivery",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/questions-about-delivery - delivery support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/received-damaged-package",
+      "path": "/en/received-damaged-package",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/received-damaged-package - damage claim/support",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/return",
+      "path": "/en/return",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "/en/return - return/support page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/selling-products-to-tinytronics",
+      "path": "/en/selling-products-to-tinytronics",
+      "type": "about",
+      "priority": 3,
+      "reason": "selling-products-to-tinytronics is a business partnership/vendor page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "About"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/sponsoring",
+      "path": "/en/sponsoring",
+      "type": "about",
+      "priority": 3,
+      "reason": "sponsoring is a brand partnership/company information page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "About"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/test-costumer-support",
+      "path": "/en/test-costumer-support",
+      "type": "faq_support",
+      "priority": 3,
+      "reason": "test-costumer-support appears to be a support/help page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Faq Support"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/vacancies",
+      "path": "/en/vacancies",
+      "type": "careers",
+      "priority": 3,
+      "reason": "vacancies indicates job listings page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Careers"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/vacancy-platform",
+      "path": "/en/vacancy-platform",
+      "type": "careers",
+      "priority": 3,
+      "reason": "vacancy-platform is a careers/jobs page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Careers"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/blog",
+      "path": "/en/blog",
+      "type": "blog_content",
+      "priority": 4,
+      "reason": "blog index",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Blog Content"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en",
+      "path": "/en",
+      "type": "general",
+      "priority": 5,
+      "reason": "locale root without further path",
+      "method": "claude",
+      "expect_events": [],
+      "description": "General"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/account",
+      "path": "/en/account",
+      "type": "technical",
+      "priority": 5,
+      "method": "patterns_json",
+      "description": "Technical",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/cancel-order",
+      "path": "/en/cancel-order",
+      "type": "technical",
+      "priority": 5,
+      "reason": "order management function",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Technical"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/change-addres",
+      "path": "/en/change-addres",
+      "type": "technical",
+      "priority": 5,
+      "reason": "address management function",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Technical"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/change-order",
+      "path": "/en/change-order",
+      "type": "technical",
+      "priority": 5,
+      "reason": "order modification function",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Technical"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/disclaimer",
+      "path": "/en/disclaimer",
+      "type": "legal",
+      "priority": 5,
+      "reason": "disclaimer/legal page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Legal"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/gdpr-tools",
+      "path": "/en/gdpr-tools",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/gdpr",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/loose-categories",
+      "path": "/en/loose-categories",
+      "type": "general",
+      "priority": 5,
+      "reason": "/en/loose-categories - general category page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "General"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/other",
+      "path": "/en/other",
+      "type": "general",
+      "priority": 5,
+      "reason": "/en/other - miscellaneous page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "General"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/pm",
+      "path": "/en/pm",
+      "type": "general",
+      "priority": 5,
+      "reason": "/en/pm - miscellaneous page (ambiguous abbreviation)",
+      "method": "claude",
+      "expect_events": [],
+      "description": "General"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/privacy-policy",
+      "path": "/en/privacy-policy",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/privacy",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/return-request",
+      "path": "/en/return-request",
+      "type": "legal",
+      "priority": 5,
+      "reason": "return-request indicates return/refund policy page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Legal"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/terms-and-conditions",
+      "path": "/en/terms-and-conditions",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/terms",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/visibly-damaged-product",
+      "path": "/en/visibly-damaged-product",
+      "type": "legal",
+      "priority": 5,
+      "reason": "visibly-damaged-product relates to damage/return policy",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Legal"
+    },
+    {
+      "url": "https://www.tinytronics.nl/en/warranty-and-problems",
+      "path": "/en/warranty-and-problems",
+      "type": "legal",
+      "priority": 5,
+      "reason": "warranty-and-problems indicates warranty/support policy page",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Legal"
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://www.tinytronics.nl/en/comment-or-suggestion",
+      "path": "/en/comment-or-suggestion",
+      "type": "lead_form",
+      "priority": 1,
+      "reason": "comment or suggestion form",
+      "method": "claude",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ],
+      "description": "Lead Form"
+    },
+    {
+      "url": "https://www.tinytronics.nl",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    }
+  ],
+  "_testbed_note": "to_scan усечён до 2 страниц (fast-эталон): / (кейс OK) + /en/comment-or-suggestion (кейс GAP). Полный список — в classified. Усечение сделано при заморозке 2026-07-13, см. golden/README.md."
+}

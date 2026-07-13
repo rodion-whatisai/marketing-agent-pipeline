@@ -1,0 +1,182 @@
+{
+  "base_url": "https://garage.suspenair.fr",
+  "sitemap_source": "https://garage.suspenair.fr/sitemap.xml",
+  "platform": {
+    "platform": "wordpress",
+    "confidence": "high",
+    "score": 18,
+    "signals": [
+      "wp-content",
+      "wp-includes",
+      "wp-json",
+      "wordpress",
+      "elementor"
+    ],
+    "all_scores": {
+      "wordpress": 18
+    },
+    "profile": {
+      "description": "WordPress CMS",
+      "url_patterns": {
+        "/shop/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/product/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/cart/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/checkout/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/blog/": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/?p=": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/wp-admin": {
+          "type": "technical",
+          "priority": 5
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Often uses GTM. Check for WooCommerce events."
+    }
+  },
+  "site_language": {
+    "lang": "fr",
+    "is_english": false,
+    "source": "html lang attr"
+  },
+  "lang_removed": 0,
+  "lang_prefixes": [],
+  "total_found": 3,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/Suspenair.fr/",
+    "instagram": "https://www.instagram.com/suspen.air/",
+    "facebook_accounts": {
+      "target": "https://garage.suspenair.fr",
+      "brand_name": "garage",
+      "site_country": "FR",
+      "site_country_source": "html-lang-attr (fr-FR)",
+      "accounts": [
+        {
+          "handle": "suspenair.fr",
+          "display_name": "SuspenAir Expert en Suspension Pneumatique",
+          "url": "https://www.facebook.com/suspenair.fr",
+          "alive": true,
+          "active_ads_count": 2,
+          "partnership_ads": true,
+          "partnership_count": 1,
+          "ad_texts": [
+            "Réparation et restauration de suspension pneumatique pour toutes les marques de voitures."
+          ],
+          "saved_images": [
+            "scans\\garage.suspenair.fr\\fb_ads_images\\ad_1.jpg",
+            "scans\\garage.suspenair.fr\\fb_ads_images\\ad_2.jpg"
+          ],
+          "ads_search_term": "SuspenAir Expert en Suspension Pneumatique",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=SuspenAir%20Expert%20en%20Suspension%20Pneumatique&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=SuspenAir%20Expert%20en%20Suspension%20Pneumatique&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://garage.suspenair.fr/prendre-rendez-vous-en-ligne",
+      "path": "/prendre-rendez-vous-en-ligne",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/prendre-rendez-vous",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://garage.suspenair.fr",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://garage.suspenair.fr/politique-de-confidentialite",
+      "path": "/politique-de-confidentialite",
+      "type": "legal",
+      "priority": 5,
+      "reason": "privacy policy page (French: politique-de-confidentialite)",
+      "method": "claude",
+      "expect_events": [],
+      "description": "Legal"
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://garage.suspenair.fr/prendre-rendez-vous-en-ligne",
+      "path": "/prendre-rendez-vous-en-ligne",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/prendre-rendez-vous",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://garage.suspenair.fr",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    }
+  ]
+}

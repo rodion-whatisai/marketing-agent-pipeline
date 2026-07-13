@@ -1,0 +1,2605 @@
+{
+  "base_url": "https://pipsnacks.com",
+  "sitemap_source": "https://pipsnacks.com/sitemap.xml",
+  "platform": {
+    "platform": "shopify",
+    "confidence": "high",
+    "score": 54,
+    "signals": [
+      "cdn.shopify.com",
+      "Shopify.theme",
+      "shopify_pay",
+      "myshopify.com",
+      "shopify-section",
+      "data-shopify",
+      "window.Shopify",
+      "Shopify.routes",
+      "sitemap:/collections/×3",
+      "sitemap:/products/×3",
+      "sitemap:/pages/×3",
+      "sitemap:/blogs/×3"
+    ],
+    "all_scores": {
+      "shopify": 54
+    },
+    "profile": {
+      "description": "Shopify e-commerce",
+      "url_patterns": {
+        "/products/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/collections/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/cart": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/checkout": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/pages/": {
+          "type": "general",
+          "priority": 5
+        },
+        "/blogs/": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/account": {
+          "type": "technical",
+          "priority": 5
+        },
+        "/search": {
+          "type": "search_results",
+          "priority": 3
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "InitiateCheckout",
+          "begin_checkout",
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Shopify /pages/* = static pages, classify by slug keywords"
+    }
+  },
+  "site_language": {
+    "lang": "en",
+    "is_english": true,
+    "source": "Content-Language header"
+  },
+  "lang_removed": 0,
+  "lang_prefixes": [],
+  "total_found": 155,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/pipsheirloomsnacks/",
+    "instagram": "https://www.instagram.com/pipsnacks/",
+    "twitter": "https://twitter.com/Pipsnacks/",
+    "facebook_accounts": {
+      "target": "https://pipsnacks.com",
+      "brand_name": "pipsnacks",
+      "site_country": "ALL",
+      "site_country_source": "no signals found — defaulting to ALL",
+      "accounts": [
+        {
+          "handle": "pipsheirloomsnacks",
+          "display_name": "Pip's Heirloom Snacks",
+          "url": "https://www.facebook.com/pipsheirloomsnacks",
+          "page_id": "359385810761715",
+          "alive": true,
+          "total_ever": 19,
+          "active": {
+            "count": 19,
+            "status": "active",
+            "ad_texts": [
+              "Fresh off the line 👀 Our Crunchies in production! Perfectly crisped for that signature Pip’s texture.\n\nBuilt with care, dialed for crunch, and now made with avocado oil 🥑",
+              "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+              "Irresistibly cheesy. Perfectly crunchy. 🧀\n\nOur heirloom corn Cheddar Cheese Balls are baked, not fried, and made with avocado oil and real cheddar cheese. 🥑"
+            ],
+            "partnership_ads": false,
+            "partnership_count": 0,
+            "structured_ads": [
+              {
+                "library_id": "1500319365168001",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1778742000,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Fresh off the line 👀 Our Crunchies in production! Perfectly crisped for that signature Pip’s texture.\n\nBuilt with care, dialed for crunch, and now made with avocado oil 🥑",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/699804351_4416864625298204_3310815507599116771_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=x6YAJ9j9GgIQ7kNvwEbM3q8&_nc_oc=AdrYVHJQX1NhAPPZSHCKejKegITRLOko9eFSzQs_89vBN4sWl5iM6_2Yu112Wpyx9EA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQA_vbpi_1OSpk3qTqQoiroJM-oHM7wn_7-sdN3Ud-VNyA&oe=6A54724C",
+                "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/698239122_26981750774798912_4772696483167171409_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=RZQ9GnfYrQ4Q7kNvwF7m19S&_nc_oc=Adrnsz3QpafiCBSOQ2kaqsroOGpD5MlPgHj4DTHvE8PVcH_YChU7UEzhOxg2y818Ezo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQAQQHMTCsvY74BETT8QmUidZS-n-8N7avXEiw_Qn0Mj4A&oe=6A548F10",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1500319365168001",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_1500319365168001.jpg"
+              },
+              {
+                "library_id": "1992857154657317",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1778742000,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Fresh off the line 👀 Our Crunchies in production! Perfectly crisped for that signature Pip’s texture.\n\nBuilt with care, dialed for crunch, and now made with avocado oil 🥑",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/699804351_4416864625298204_3310815507599116771_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=x6YAJ9j9GgIQ7kNvwEbM3q8&_nc_oc=AdrYVHJQX1NhAPPZSHCKejKegITRLOko9eFSzQs_89vBN4sWl5iM6_2Yu112Wpyx9EA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQA_vbpi_1OSpk3qTqQoiroJM-oHM7wn_7-sdN3Ud-VNyA&oe=6A54724C",
+                "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/698239122_26981750774798912_4772696483167171409_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=RZQ9GnfYrQ4Q7kNvwF7m19S&_nc_oc=Adrnsz3QpafiCBSOQ2kaqsroOGpD5MlPgHj4DTHvE8PVcH_YChU7UEzhOxg2y818Ezo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQAQQHMTCsvY74BETT8QmUidZS-n-8N7avXEiw_Qn0Mj4A&oe=6A548F10",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1992857154657317",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_1992857154657317.jpg"
+              },
+              {
+                "library_id": "2074058013173684",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1780038000,
+                "end_date": 1783234800,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "",
+                "caption": "www.pipsnacks.com",
+                "link_description": "Find Pip’s Heirloom Snacks at a store near you and explore the full lineup in the snack aisle.",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/698536569_1768144337488166_5268334982798785581_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=uIAY7KiRhQMQ7kNvwFiqZIX&_nc_oc=Adrfg7f9N_qKhzMjX3l5ZqHAy_iqYqFutC70M6D2FhGU_1axrOQ5c2Jmo9lyPskdPlw&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQAXxwKTE1fZTWECpcyrXWIpdLERXc8txsU14CytUYBnKQ&oe=6A548A2F",
+                "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/699355135_980163264506653_4521964865643092484_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=WNRy2XoTO9kQ7kNvwF4JBqb&_nc_oc=Adrb_N98A47JNbjUvEWTrJ2CCV3Zh2WrpE_CKlOXmWDLKabvN_oZw_faxy1AbUOcoSU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCkfXStaOm1OfVbcE0-zI-hXoJKsXjmGWjh_H1gVGbuZw&oe=6A547573",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2074058013173684",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_2074058013173684.jpg"
+              },
+              {
+                "library_id": "1564691141799215",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782975600,
+                "end_date": 1783407600,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "",
+                "caption": "www.pipsnacks.com",
+                "link_description": "Find Pip’s Heirloom Snacks at a store near you and explore the full lineup in the snack aisle.",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/689015830_1266621888795100_2537088569844497752_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=HF7Xk5Vf-cYQ7kNvwFnVWun&_nc_oc=Adph4vEu5Tj64kNzzYu7RsjXpyquYNIDJjdnKgjotuM2rpc2qUBkQP79XvcnQPy-Zis&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQChol2J8sEVq-kADqibb2yNPfPZtZxXu0sCuFoqj4K_eg&oe=6A546A7D",
+                "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/689015409_1662947435105311_2531851896315285231_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Zrwp5yH2V9YQ7kNvwGfOEBX&_nc_oc=AdoA0NGFcm0YG8jGNx1t7sEQXYRG3VDZ6c78dTaN2xwT4LTvS3Sh6hTLJ8ErY6yeB0s&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCvzjKJjNcJwHR81S5NtjoQiC_IAIsx0NfwNJEFYP2J2A&oe=6A5470ED",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1564691141799215",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1564691141799215.jpg"
+              },
+              {
+                "library_id": "2470376153426323",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1779778800,
+                "end_date": 1783321200,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "",
+                "caption": "www.pipsnacks.com",
+                "link_description": "Find Pip’s Heirloom Snacks at a store near you and explore the full lineup in the snack aisle.",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/700430871_1716236366223020_8406290091377396322_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=loKvGaB1FckQ7kNvwHwl-yp&_nc_oc=AdpYCtkRqD4Jo9F4lfvfGY2Ohq3WG34LPPJjywMC9DoA7VkOU7zYyWcKslB-8BG7ofE&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCsTFmX1mDvFQ3-HuCpmPYvIz1OILH3uLnE4ydg4tgFZg&oe=6A548CCC",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPZzEWIylVDdeRRQsPVDTpYimESTluFxYB8wEVu1DCQ9-BQKSsPbAAVx2N91Td-lnOcsRh6mJua5B41pWW5lLwstjEt-rNRvsMN1t7dn_EShw.mp4?_nc_cat=107&_nc_oc=AdpyMcrxzQSCmXSFkTxd5ETqvCwuUb6In2lTY0dS0b8DgAZVc2YcCVB_HIVpxoS93-s&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=2J_DQf43aKEQ7kNvwEDyELd&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjQzOTYwNjM4NzQwNTQzNzEsImFzc2V0X2FnZV9kYXlzIjo1NCwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjIxLCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=bc08308379b71894&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC84MjQ2MUUzNzREREE4NDhBRDIzRTUzRjhDMjEzQTE5M19tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzgyNDgzNDREMTRCMDVGQTY4MjkwRkIxMEM1MkVFM0E1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbG4_uZzIzPDxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQA3Fpo8iq_TtrE2OvmhogRRuWtKy9ndAt-JafPvBxjPPA&oe=6A54880D",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/700971218_980401798100324_2190780299248844952_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=8V7iuGoc524Q7kNvwGk1HSS&_nc_oc=AdoGXkvKQZDDQWCa-z5kW-FS-zLSJm6Zhlhtstw7_JKzf-AyGc2E8gf0Ev9U3v5fB7o&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQDrEH-VLWZdok-ZVybSgRGGPunAcDOQ4MAcsKhOFnYHEA&oe=6A5488E3",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=2470376153426323",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_2470376153426323.jpg"
+              },
+              {
+                "library_id": "1037223342066223",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1781074800,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/720282875_1497288582192718_6090473870713771122_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=h7tj7Qqgk1MQ7kNvwGcAIub&_nc_oc=AdpyEJrva_6YuuKbnD8K2FqvW_qoK4j9It1018IFwAccFD5p1EOsz874ZU3QgP8VIAA&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCqxQLb3FI1GRRAQrEfvcngrU4c1x2nyBkTLy5jvu7zrA&oe=6A548568",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPgbLAPxF54xhfIw4n61r36NRZ5b8eOmhXxWY25suallUOLtV9r-ks0TRWcOz96peC1x5NXN3HrlKGINyYWTge8cDv2I9RJP2KoKdFlL6q17A.mp4?_nc_cat=101&_nc_oc=AdrZWB9N-1rkl5VKZIz_a6GMp4HjaFcPHwtVUuGwCQQVIOYf8WMU-ZENbVCRvaFTseY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=wQm7d5fNZlUQ7kNvwEiO_wa&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEzNTI1NTE3ODY2NDIyNDgsImFzc2V0X2FnZV9kYXlzIjoxMzIsInZpX3VzZWNhc2VfaWQiOjEwNzk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=39e0fc4c4086b7d0&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83NzRDNkQzQzQ5QUM5RkQwRjVENzZCQjA1ODEyNUFBRV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzFFNDU0Q0QzQzgwN0I5OEJCMTQ2RTY2NEQ5RTc2MUIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACaQ7cOM8IjnBBUCKAJDMywXQCUAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQColDPZ27SF-4YJJUs3HJPHXQ24vlbpvEuKa6wZgClvPg&oe=6A547C17",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/719970018_1729341441426905_6385267230226525731_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=3kePOj_Ku9cQ7kNvwFkrnsf&_nc_oc=AdqjWv6o8GIfOAKdw4wDzGOSuD2GnKtqD0O40dxvn62wD0y6KGp7eAWJhGZ_hDpZ4ZU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBzG11__UskcWqg_d0UiY-1LJCN_htqgN6hYMSnhbfpRA&oe=6A5467B8",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1037223342066223",
+                "n_card_variants": 2,
+                "image_local": "fb_ads_images/active/ad_1037223342066223.jpg"
+              },
+              {
+                "library_id": "1013253051641291",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1781074800,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/720495507_1649302599458584_344651350457354461_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=91Yerrj3ggsQ7kNvwGWE12V&_nc_oc=AdqKjaTd1xpFlRT5JTmeNEMI_c_ZyHiYrFLlvxU8FG2fSGHmSuOkvsJ5uDO5GY_P_uw&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQDVuIp0o6pVeQA6KJZkbvQQZ1Dpu7Cp1oI5Wb859WuiJw&oe=6A548192",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPgbLAPxF54xhfIw4n61r36NRZ5b8eOmhXxWY25suallUOLtV9r-ks0TRWcOz96peC1x5NXN3HrlKGINyYWTge8cDv2I9RJP2KoKdFlL6q17A.mp4?_nc_cat=101&_nc_oc=AdrZWB9N-1rkl5VKZIz_a6GMp4HjaFcPHwtVUuGwCQQVIOYf8WMU-ZENbVCRvaFTseY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=wQm7d5fNZlUQ7kNvwEiO_wa&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEzNTI1NTE3ODY2NDIyNDgsImFzc2V0X2FnZV9kYXlzIjoxMzIsInZpX3VzZWNhc2VfaWQiOjEwNzk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=39e0fc4c4086b7d0&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83NzRDNkQzQzQ5QUM5RkQwRjVENzZCQjA1ODEyNUFBRV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzFFNDU0Q0QzQzgwN0I5OEJCMTQ2RTY2NEQ5RTc2MUIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACaQ7cOM8IjnBBUCKAJDMywXQCUAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQColDPZ27SF-4YJJUs3HJPHXQ24vlbpvEuKa6wZgClvPg&oe=6A547C17",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/722204874_1578383813705539_8262285373714642731_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=tqgIDmFGoEwQ7kNvwE1Ger7&_nc_oc=AdpA6eogGt3ugm7YrfuLPL83hlTjvV1bDpg-7Rl6PchlpjWEwBazOOZZ5RNPfFrMG3g&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQD6BS5CNOBtYEMZ_hVnUgFW1N1m5kmoEDGBuf5ZPdqNBQ&oe=6A547DC6",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1013253051641291",
+                "n_card_variants": 2,
+                "image_local": "fb_ads_images/active/ad_1013253051641291.jpg"
+              },
+              {
+                "library_id": "1505521351309214",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1781074800,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/722162731_1496114464783387_924311722760971301_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=93N-U6kTfw4Q7kNvwEYen_r&_nc_oc=AdrvKlEAbf4lkGdIXm9wkQpQvroy0wECz5aTq3JF6rdf2SeM6ZTbyYD8oA3XG1kvJX8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCuClUbBF-Wxt3ISfG5217SqX333ei1Xd_f48l9Vr0RDw&oe=6A547335",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPgbLAPxF54xhfIw4n61r36NRZ5b8eOmhXxWY25suallUOLtV9r-ks0TRWcOz96peC1x5NXN3HrlKGINyYWTge8cDv2I9RJP2KoKdFlL6q17A.mp4?_nc_cat=101&_nc_oc=AdrZWB9N-1rkl5VKZIz_a6GMp4HjaFcPHwtVUuGwCQQVIOYf8WMU-ZENbVCRvaFTseY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=wQm7d5fNZlUQ7kNvwEiO_wa&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEzNTI1NTE3ODY2NDIyNDgsImFzc2V0X2FnZV9kYXlzIjoxMzIsInZpX3VzZWNhc2VfaWQiOjEwNzk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=39e0fc4c4086b7d0&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83NzRDNkQzQzQ5QUM5RkQwRjVENzZCQjA1ODEyNUFBRV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzFFNDU0Q0QzQzgwN0I5OEJCMTQ2RTY2NEQ5RTc2MUIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACaQ7cOM8IjnBBUCKAJDMywXQCUAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQColDPZ27SF-4YJJUs3HJPHXQ24vlbpvEuKa6wZgClvPg&oe=6A547C17",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/721468372_1470273858473006_5284026051653250141_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=BIzxnYO71OAQ7kNvwGAk1OY&_nc_oc=Adpyt3ku9Q0jo8YFrsjqt8a1uQkp3KxDpyyFRw41wLDWOWiTz-dppq3l5cBmz2gt_UA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBNGq9URsysv6qTKQ7GyLQwHw902MAfhqMdiBbwQbVfjg&oe=6A547339",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1505521351309214",
+                "n_card_variants": 2,
+                "image_local": "fb_ads_images/active/ad_1505521351309214.jpg"
+              },
+              {
+                "library_id": "893394489736026",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1782111600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Irresistibly cheesy. Perfectly crunchy. 🧀\n\nOur heirloom corn Cheddar Cheese Balls are baked, not fried, and made with avocado oil and real cheddar cheese. 🥑",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/727457426_1504497427262947_5801169274267729352_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=X5JlkE04XbAQ7kNvwFgIUg_&_nc_oc=AdpMwBVjKWk1Kc-FdFuxYJ7356CKnASyAWj8tlbC1YWbASofQet6gFM-vEIYVGkyUeI&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBzgw6hpKoQGMSpE1wOR2OTxeAXLy2RZIoUDVobD-uJfQ&oe=6A548F5E",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMLgkzIOiypHFe3-E9oFpWFC0v6-JiqTI7vaqzskR0JjxoXQFY-28ONsbmbYmW0P6RdZ7jr66VJv6UwV1lS9pFI5i86DvmFODUlhmu7wR7mKA.mp4?_nc_cat=103&_nc_oc=Ado1IhTjDI0g40rMSXCI_3si5zgWLdsge2ffPcavPV5IdLV73ynTbA1YcD0be8U6JnY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=7GsH9t2aSHoQ7kNvwFbVzTe&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEwMTIyMzkxMjQ4NjEwNTMsImFzc2V0X2FnZV9kYXlzIjoyMCwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjYsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=393a24aaf59ad77a&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83RjQ1ODRBNTdENTE5QkNEQzlEMzcxMzhCNzU0MjNBRF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U1NDMwNTE4RTdFQjBGMTBFQTQ0Rjc3M0RBNTdBN0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb6wbiXiajMAxUCKAJDMywXQBgAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAQhgY3f_2Azgx1HU3qSr3CYs0nCnaUwHFlVRVHWK-avA&oe=6A5486F9",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/729716401_2571345443326142_1932158680180454438_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=3ocvaVtk6kMQ7kNvwE79KX3&_nc_oc=AdouZMnG8a_t9-xjGeSEDb75AwFM3Sex5p_wG_ybcI9cWzkoqFHf1bK-3FtNLPxb9PM&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQC-zarL_-VHfoHMOQLsTYyKjAeY7lJiUXAzawBlypgAPA&oe=6A5464C6",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=893394489736026",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_893394489736026.jpg"
+              },
+              {
+                "library_id": "27859942426962700",
+                "page_name": "Pip's Heirloom Snacks",
+                "display_format": "DCO",
+                "is_active": true,
+                "start_date": 1782111600,
+                "end_date": 1783494000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "Find A Store Near You",
+                "body_text": "Irresistibly cheesy. Perfectly crunchy. 🧀\n\nOur heirloom corn Cheddar Cheese Balls are baked, not fried, and made with avocado oil and real cheddar cheese. 🥑",
+                "caption": "www.pipsnacks.com",
+                "link_description": "{{product.description}}",
+                "link_url": "https://www.pipsnacks.com/pages/store-locator",
+                "cta_text": "Shop now",
+                "cta_type": "SHOP_NOW",
+                "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/727312766_1923889991611880_1886253734237022311_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=qoTMhIHLWz8Q7kNvwEl_PNF&_nc_oc=AdoACdHU7m3dSlLz-eINPstVj1C4I_JYMA-loYZSQbV2KbHQavcaSg4v97LoR0xAgcs&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBXG14wyXbSRsP2Pziy0CDvz3VJnytrZUyT5zXHiy3Jcg&oe=6A548025",
+                "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMLgkzIOiypHFe3-E9oFpWFC0v6-JiqTI7vaqzskR0JjxoXQFY-28ONsbmbYmW0P6RdZ7jr66VJv6UwV1lS9pFI5i86DvmFODUlhmu7wR7mKA.mp4?_nc_cat=103&_nc_oc=Ado1IhTjDI0g40rMSXCI_3si5zgWLdsge2ffPcavPV5IdLV73ynTbA1YcD0be8U6JnY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=7GsH9t2aSHoQ7kNvwFbVzTe&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEwMTIyMzkxMjQ4NjEwNTMsImFzc2V0X2FnZV9kYXlzIjoyMCwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjYsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=393a24aaf59ad77a&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83RjQ1ODRBNTdENTE5QkNEQzlEMzcxMzhCNzU0MjNBRF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U1NDMwNTE4RTdFQjBGMTBFQTQ0Rjc3M0RBNTdBN0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb6wbiXiajMAxUCKAJDMywXQBgAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAQhgY3f_2Azgx1HU3qSr3CYs0nCnaUwHFlVRVHWK-avA&oe=6A5486F9",
+                "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/727519301_2585419658581912_1969414047579257934_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=3xK-WkanB-gQ7kNvwGWmzbA&_nc_oc=AdoEHIM15NLFOnuH54lfTJUt45L6Ysbv1-LNCgYzU_q-En9pC6Gzaz-PUIbKgIjnZ4Q&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCNeuP-BiMTRzDsSCnC5mPPBF8YDACjszA88zrCuFQdbA&oe=6A547896",
+                "page_like_count": 18511,
+                "detail_url": "https://www.facebook.com/ads/library/?id=27859942426962700",
+                "n_card_variants": 4,
+                "image_local": "fb_ads_images/active/ad_27859942426962700.jpg"
+              }
+            ],
+            "ads_library_mode": "keyword_filtered_by_pid_or_name",
+            "raw_keyword_total": 40,
+            "method": "json_keyword_filtered_by_pid_or_name",
+            "extraction_method": "json",
+            "search_term": "Pip's Heirloom Snacks",
+            "status_filter": "active",
+            "saved_images": [
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1500319365168001.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1992857154657317.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_2074058013173684.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1564691141799215.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_2470376153426323.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1037223342066223.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1013253051641291.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1505521351309214.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_893394489736026.jpg",
+              "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_27859942426962700.jpg"
+            ],
+            "saved_texts_path": "scans\\pipsnacks.com\\fb_ads_images\\ad_texts_active.txt"
+          },
+          "inactive": null,
+          "active_ads_count": 19,
+          "partnership_ads": false,
+          "partnership_count": 0,
+          "ad_texts": [
+            "Fresh off the line 👀 Our Crunchies in production! Perfectly crisped for that signature Pip’s texture.\n\nBuilt with care, dialed for crunch, and now made with avocado oil 🥑",
+            "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+            "Irresistibly cheesy. Perfectly crunchy. 🧀\n\nOur heirloom corn Cheddar Cheese Balls are baked, not fried, and made with avocado oil and real cheddar cheese. 🥑"
+          ],
+          "saved_images": [
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1500319365168001.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1992857154657317.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_2074058013173684.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1564691141799215.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_2470376153426323.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1037223342066223.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1013253051641291.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_1505521351309214.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_893394489736026.jpg",
+            "scans\\pipsnacks.com\\fb_ads_images\\active\\ad_27859942426962700.jpg"
+          ],
+          "structured_ads": [
+            {
+              "library_id": "1500319365168001",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1778742000,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Fresh off the line 👀 Our Crunchies in production! Perfectly crisped for that signature Pip’s texture.\n\nBuilt with care, dialed for crunch, and now made with avocado oil 🥑",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/699804351_4416864625298204_3310815507599116771_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=x6YAJ9j9GgIQ7kNvwEbM3q8&_nc_oc=AdrYVHJQX1NhAPPZSHCKejKegITRLOko9eFSzQs_89vBN4sWl5iM6_2Yu112Wpyx9EA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQA_vbpi_1OSpk3qTqQoiroJM-oHM7wn_7-sdN3Ud-VNyA&oe=6A54724C",
+              "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/698239122_26981750774798912_4772696483167171409_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=RZQ9GnfYrQ4Q7kNvwF7m19S&_nc_oc=Adrnsz3QpafiCBSOQ2kaqsroOGpD5MlPgHj4DTHvE8PVcH_YChU7UEzhOxg2y818Ezo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQAQQHMTCsvY74BETT8QmUidZS-n-8N7avXEiw_Qn0Mj4A&oe=6A548F10",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1500319365168001",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_1500319365168001.jpg"
+            },
+            {
+              "library_id": "1992857154657317",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1778742000,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Fresh off the line 👀 Our Crunchies in production! Perfectly crisped for that signature Pip’s texture.\n\nBuilt with care, dialed for crunch, and now made with avocado oil 🥑",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/699804351_4416864625298204_3310815507599116771_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=x6YAJ9j9GgIQ7kNvwEbM3q8&_nc_oc=AdrYVHJQX1NhAPPZSHCKejKegITRLOko9eFSzQs_89vBN4sWl5iM6_2Yu112Wpyx9EA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQA_vbpi_1OSpk3qTqQoiroJM-oHM7wn_7-sdN3Ud-VNyA&oe=6A54724C",
+              "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/698239122_26981750774798912_4772696483167171409_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=RZQ9GnfYrQ4Q7kNvwF7m19S&_nc_oc=Adrnsz3QpafiCBSOQ2kaqsroOGpD5MlPgHj4DTHvE8PVcH_YChU7UEzhOxg2y818Ezo&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQAQQHMTCsvY74BETT8QmUidZS-n-8N7avXEiw_Qn0Mj4A&oe=6A548F10",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1992857154657317",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_1992857154657317.jpg"
+            },
+            {
+              "library_id": "2074058013173684",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1780038000,
+              "end_date": 1783234800,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "",
+              "caption": "www.pipsnacks.com",
+              "link_description": "Find Pip’s Heirloom Snacks at a store near you and explore the full lineup in the snack aisle.",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/698536569_1768144337488166_5268334982798785581_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=uIAY7KiRhQMQ7kNvwFiqZIX&_nc_oc=Adrfg7f9N_qKhzMjX3l5ZqHAy_iqYqFutC70M6D2FhGU_1axrOQ5c2Jmo9lyPskdPlw&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQAXxwKTE1fZTWECpcyrXWIpdLERXc8txsU14CytUYBnKQ&oe=6A548A2F",
+              "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/699355135_980163264506653_4521964865643092484_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=WNRy2XoTO9kQ7kNvwF4JBqb&_nc_oc=Adrb_N98A47JNbjUvEWTrJ2CCV3Zh2WrpE_CKlOXmWDLKabvN_oZw_faxy1AbUOcoSU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCkfXStaOm1OfVbcE0-zI-hXoJKsXjmGWjh_H1gVGbuZw&oe=6A547573",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2074058013173684",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_2074058013173684.jpg"
+            },
+            {
+              "library_id": "1564691141799215",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782975600,
+              "end_date": 1783407600,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "",
+              "caption": "www.pipsnacks.com",
+              "link_description": "Find Pip’s Heirloom Snacks at a store near you and explore the full lineup in the snack aisle.",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/689015830_1266621888795100_2537088569844497752_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=HF7Xk5Vf-cYQ7kNvwFnVWun&_nc_oc=Adph4vEu5Tj64kNzzYu7RsjXpyquYNIDJjdnKgjotuM2rpc2qUBkQP79XvcnQPy-Zis&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQChol2J8sEVq-kADqibb2yNPfPZtZxXu0sCuFoqj4K_eg&oe=6A546A7D",
+              "video_url": "https://video.fyhu2-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_sd6W4Vd6TCiLSYSGA-U3T3fabi8oiPv27qaGiwloI2BId3xwTM3N2MWSyCptNS2kNgx64XAY3uV0JCKK0z2tnFwx4RVxZHTRuAbn0_g3fw.mp4?_nc_cat=110&_nc_oc=AdpwdlLZgrRuvTC2fNtNle2i2aFKgvSUlFN_HKlfCTRCnY4KmrLHPRZCszFa5SEusFQ&_nc_sid=b66105&_nc_ht=video.fyhu2-1.fna.fbcdn.net&_nc_ohc=RAK7en_daDIQ7kNvwEKPRnl&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjk4NDc4OTA3MDYxNDYzMSwiYXNzZXRfYWdlX2RheXMiOjU0LCJ2aV91c2VjYXNlX2lkIjoxMDc5OSwiZHVyYXRpb25fcyI6MjEsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=4b133fede62c3e8b&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC9GMDQ0MTE4RDA0M0EyREU4OTQwQUU5RTM0RTgxNDg4NF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzIyNEZGNTBFRjRBQURCMTdCRjcyNDU1RTRGOTlEN0IzX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbOwdyrouq_AxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAAamZa5L15vmDjNASPqbssS7V9KPmixi4olY-cjUi9NQ&oe=6A547B2E",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/689015409_1662947435105311_2531851896315285231_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=107&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=Zrwp5yH2V9YQ7kNvwGfOEBX&_nc_oc=AdoA0NGFcm0YG8jGNx1t7sEQXYRG3VDZ6c78dTaN2xwT4LTvS3Sh6hTLJ8ErY6yeB0s&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCvzjKJjNcJwHR81S5NtjoQiC_IAIsx0NfwNJEFYP2J2A&oe=6A5470ED",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1564691141799215",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1564691141799215.jpg"
+            },
+            {
+              "library_id": "2470376153426323",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1779778800,
+              "end_date": 1783321200,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "",
+              "caption": "www.pipsnacks.com",
+              "link_description": "Find Pip’s Heirloom Snacks at a store near you and explore the full lineup in the snack aisle.",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/700430871_1716236366223020_8406290091377396322_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=loKvGaB1FckQ7kNvwHwl-yp&_nc_oc=AdpYCtkRqD4Jo9F4lfvfGY2Ohq3WG34LPPJjywMC9DoA7VkOU7zYyWcKslB-8BG7ofE&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCsTFmX1mDvFQ3-HuCpmPYvIz1OILH3uLnE4ydg4tgFZg&oe=6A548CCC",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPZzEWIylVDdeRRQsPVDTpYimESTluFxYB8wEVu1DCQ9-BQKSsPbAAVx2N91Td-lnOcsRh6mJua5B41pWW5lLwstjEt-rNRvsMN1t7dn_EShw.mp4?_nc_cat=107&_nc_oc=AdpyMcrxzQSCmXSFkTxd5ETqvCwuUb6In2lTY0dS0b8DgAZVc2YcCVB_HIVpxoS93-s&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=2J_DQf43aKEQ7kNvwEDyELd&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjQzOTYwNjM4NzQwNTQzNzEsImFzc2V0X2FnZV9kYXlzIjo1NCwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjIxLCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&ccb=17-1&vs=bc08308379b71894&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC84MjQ2MUUzNzREREE4NDhBRDIzRTUzRjhDMjEzQTE5M19tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzgyNDgzNDREMTRCMDVGQTY4MjkwRkIxMEM1MkVFM0E1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbG4_uZzIzPDxUCKAJDMywXQDWQ5WBBiTcYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQA3Fpo8iq_TtrE2OvmhogRRuWtKy9ndAt-JafPvBxjPPA&oe=6A54880D",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/700971218_980401798100324_2190780299248844952_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=8V7iuGoc524Q7kNvwGk1HSS&_nc_oc=AdoGXkvKQZDDQWCa-z5kW-FS-zLSJm6Zhlhtstw7_JKzf-AyGc2E8gf0Ev9U3v5fB7o&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQDrEH-VLWZdok-ZVybSgRGGPunAcDOQ4MAcsKhOFnYHEA&oe=6A5488E3",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=2470376153426323",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_2470376153426323.jpg"
+            },
+            {
+              "library_id": "1037223342066223",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1781074800,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/720282875_1497288582192718_6090473870713771122_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=h7tj7Qqgk1MQ7kNvwGcAIub&_nc_oc=AdpyEJrva_6YuuKbnD8K2FqvW_qoK4j9It1018IFwAccFD5p1EOsz874ZU3QgP8VIAA&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCqxQLb3FI1GRRAQrEfvcngrU4c1x2nyBkTLy5jvu7zrA&oe=6A548568",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPgbLAPxF54xhfIw4n61r36NRZ5b8eOmhXxWY25suallUOLtV9r-ks0TRWcOz96peC1x5NXN3HrlKGINyYWTge8cDv2I9RJP2KoKdFlL6q17A.mp4?_nc_cat=101&_nc_oc=AdrZWB9N-1rkl5VKZIz_a6GMp4HjaFcPHwtVUuGwCQQVIOYf8WMU-ZENbVCRvaFTseY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=wQm7d5fNZlUQ7kNvwEiO_wa&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEzNTI1NTE3ODY2NDIyNDgsImFzc2V0X2FnZV9kYXlzIjoxMzIsInZpX3VzZWNhc2VfaWQiOjEwNzk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=39e0fc4c4086b7d0&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83NzRDNkQzQzQ5QUM5RkQwRjVENzZCQjA1ODEyNUFBRV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzFFNDU0Q0QzQzgwN0I5OEJCMTQ2RTY2NEQ5RTc2MUIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACaQ7cOM8IjnBBUCKAJDMywXQCUAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQColDPZ27SF-4YJJUs3HJPHXQ24vlbpvEuKa6wZgClvPg&oe=6A547C17",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/719970018_1729341441426905_6385267230226525731_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=3kePOj_Ku9cQ7kNvwFkrnsf&_nc_oc=AdqjWv6o8GIfOAKdw4wDzGOSuD2GnKtqD0O40dxvn62wD0y6KGp7eAWJhGZ_hDpZ4ZU&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBzG11__UskcWqg_d0UiY-1LJCN_htqgN6hYMSnhbfpRA&oe=6A5467B8",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1037223342066223",
+              "n_card_variants": 2,
+              "image_local": "fb_ads_images/active/ad_1037223342066223.jpg"
+            },
+            {
+              "library_id": "1013253051641291",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1781074800,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/720495507_1649302599458584_344651350457354461_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=91Yerrj3ggsQ7kNvwGWE12V&_nc_oc=AdqKjaTd1xpFlRT5JTmeNEMI_c_ZyHiYrFLlvxU8FG2fSGHmSuOkvsJ5uDO5GY_P_uw&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQDVuIp0o6pVeQA6KJZkbvQQZ1Dpu7Cp1oI5Wb859WuiJw&oe=6A548192",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPgbLAPxF54xhfIw4n61r36NRZ5b8eOmhXxWY25suallUOLtV9r-ks0TRWcOz96peC1x5NXN3HrlKGINyYWTge8cDv2I9RJP2KoKdFlL6q17A.mp4?_nc_cat=101&_nc_oc=AdrZWB9N-1rkl5VKZIz_a6GMp4HjaFcPHwtVUuGwCQQVIOYf8WMU-ZENbVCRvaFTseY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=wQm7d5fNZlUQ7kNvwEiO_wa&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEzNTI1NTE3ODY2NDIyNDgsImFzc2V0X2FnZV9kYXlzIjoxMzIsInZpX3VzZWNhc2VfaWQiOjEwNzk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=39e0fc4c4086b7d0&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83NzRDNkQzQzQ5QUM5RkQwRjVENzZCQjA1ODEyNUFBRV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzFFNDU0Q0QzQzgwN0I5OEJCMTQ2RTY2NEQ5RTc2MUIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACaQ7cOM8IjnBBUCKAJDMywXQCUAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQColDPZ27SF-4YJJUs3HJPHXQ24vlbpvEuKa6wZgClvPg&oe=6A547C17",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/722204874_1578383813705539_8262285373714642731_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=tqgIDmFGoEwQ7kNvwE1Ger7&_nc_oc=AdpA6eogGt3ugm7YrfuLPL83hlTjvV1bDpg-7Rl6PchlpjWEwBazOOZZ5RNPfFrMG3g&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQD6BS5CNOBtYEMZ_hVnUgFW1N1m5kmoEDGBuf5ZPdqNBQ&oe=6A547DC6",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1013253051641291",
+              "n_card_variants": 2,
+              "image_local": "fb_ads_images/active/ad_1013253051641291.jpg"
+            },
+            {
+              "library_id": "1505521351309214",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1781074800,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Crunch without compromise. Non GMO verified and made with real ingredients, Pip’s delivers big flavor in every bite.",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/722162731_1496114464783387_924311722760971301_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=93N-U6kTfw4Q7kNvwEYen_r&_nc_oc=AdrvKlEAbf4lkGdIXm9wkQpQvroy0wECz5aTq3JF6rdf2SeM6ZTbyYD8oA3XG1kvJX8&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCuClUbBF-Wxt3ISfG5217SqX333ei1Xd_f48l9Vr0RDw&oe=6A547335",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQPgbLAPxF54xhfIw4n61r36NRZ5b8eOmhXxWY25suallUOLtV9r-ks0TRWcOz96peC1x5NXN3HrlKGINyYWTge8cDv2I9RJP2KoKdFlL6q17A.mp4?_nc_cat=101&_nc_oc=AdrZWB9N-1rkl5VKZIz_a6GMp4HjaFcPHwtVUuGwCQQVIOYf8WMU-ZENbVCRvaFTseY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=wQm7d5fNZlUQ7kNvwEiO_wa&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEzNTI1NTE3ODY2NDIyNDgsImFzc2V0X2FnZV9kYXlzIjoxMzIsInZpX3VzZWNhc2VfaWQiOjEwNzk5LCJkdXJhdGlvbl9zIjoxMCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&vs=39e0fc4c4086b7d0&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83NzRDNkQzQzQ5QUM5RkQwRjVENzZCQjA1ODEyNUFBRV9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50LzFFNDU0Q0QzQzgwN0I5OEJCMTQ2RTY2NEQ5RTc2MUIyX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACaQ7cOM8IjnBBUCKAJDMywXQCUAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQColDPZ27SF-4YJJUs3HJPHXQ24vlbpvEuKa6wZgClvPg&oe=6A547C17",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/721468372_1470273858473006_5284026051653250141_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=BIzxnYO71OAQ7kNvwGAk1OY&_nc_oc=Adpyt3ku9Q0jo8YFrsjqt8a1uQkp3KxDpyyFRw41wLDWOWiTz-dppq3l5cBmz2gt_UA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBNGq9URsysv6qTKQ7GyLQwHw902MAfhqMdiBbwQbVfjg&oe=6A547339",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1505521351309214",
+              "n_card_variants": 2,
+              "image_local": "fb_ads_images/active/ad_1505521351309214.jpg"
+            },
+            {
+              "library_id": "893394489736026",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1782111600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Irresistibly cheesy. Perfectly crunchy. 🧀\n\nOur heirloom corn Cheddar Cheese Balls are baked, not fried, and made with avocado oil and real cheddar cheese. 🥑",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/727457426_1504497427262947_5801169274267729352_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=X5JlkE04XbAQ7kNvwFgIUg_&_nc_oc=AdpMwBVjKWk1Kc-FdFuxYJ7356CKnASyAWj8tlbC1YWbASofQet6gFM-vEIYVGkyUeI&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBzgw6hpKoQGMSpE1wOR2OTxeAXLy2RZIoUDVobD-uJfQ&oe=6A548F5E",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMLgkzIOiypHFe3-E9oFpWFC0v6-JiqTI7vaqzskR0JjxoXQFY-28ONsbmbYmW0P6RdZ7jr66VJv6UwV1lS9pFI5i86DvmFODUlhmu7wR7mKA.mp4?_nc_cat=103&_nc_oc=Ado1IhTjDI0g40rMSXCI_3si5zgWLdsge2ffPcavPV5IdLV73ynTbA1YcD0be8U6JnY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=7GsH9t2aSHoQ7kNvwFbVzTe&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEwMTIyMzkxMjQ4NjEwNTMsImFzc2V0X2FnZV9kYXlzIjoyMCwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjYsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=393a24aaf59ad77a&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83RjQ1ODRBNTdENTE5QkNEQzlEMzcxMzhCNzU0MjNBRF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U1NDMwNTE4RTdFQjBGMTBFQTQ0Rjc3M0RBNTdBN0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb6wbiXiajMAxUCKAJDMywXQBgAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAQhgY3f_2Azgx1HU3qSr3CYs0nCnaUwHFlVRVHWK-avA&oe=6A5486F9",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/729716401_2571345443326142_1932158680180454438_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=3ocvaVtk6kMQ7kNvwE79KX3&_nc_oc=AdouZMnG8a_t9-xjGeSEDb75AwFM3Sex5p_wG_ybcI9cWzkoqFHf1bK-3FtNLPxb9PM&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQC-zarL_-VHfoHMOQLsTYyKjAeY7lJiUXAzawBlypgAPA&oe=6A5464C6",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=893394489736026",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_893394489736026.jpg"
+            },
+            {
+              "library_id": "27859942426962700",
+              "page_name": "Pip's Heirloom Snacks",
+              "display_format": "DCO",
+              "is_active": true,
+              "start_date": 1782111600,
+              "end_date": 1783494000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "Find A Store Near You",
+              "body_text": "Irresistibly cheesy. Perfectly crunchy. 🧀\n\nOur heirloom corn Cheddar Cheese Balls are baked, not fried, and made with avocado oil and real cheddar cheese. 🥑",
+              "caption": "www.pipsnacks.com",
+              "link_description": "{{product.description}}",
+              "link_url": "https://www.pipsnacks.com/pages/store-locator",
+              "cta_text": "Shop now",
+              "cta_type": "SHOP_NOW",
+              "image_url": "https://scontent.fyhu2-1.fna.fbcdn.net/v/t39.35426-6/727312766_1923889991611880_1886253734237022311_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=qoTMhIHLWz8Q7kNvwEl_PNF&_nc_oc=AdoACdHU7m3dSlLz-eINPstVj1C4I_JYMA-loYZSQbV2KbHQavcaSg4v97LoR0xAgcs&_nc_zt=14&_nc_ht=scontent.fyhu2-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQBXG14wyXbSRsP2Pziy0CDvz3VJnytrZUyT5zXHiy3Jcg&oe=6A548025",
+              "video_url": "https://video.fymq3-1.fna.fbcdn.net/o1/v/t2/f2/m366/AQMLgkzIOiypHFe3-E9oFpWFC0v6-JiqTI7vaqzskR0JjxoXQFY-28ONsbmbYmW0P6RdZ7jr66VJv6UwV1lS9pFI5i86DvmFODUlhmu7wR7mKA.mp4?_nc_cat=103&_nc_oc=Ado1IhTjDI0g40rMSXCI_3si5zgWLdsge2ffPcavPV5IdLV73ynTbA1YcD0be8U6JnY&_nc_sid=b66105&_nc_ht=video.fymq3-1.fna.fbcdn.net&_nc_ohc=7GsH9t2aSHoQ7kNvwFbVzTe&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHAiLCJ4cHZfYXNzZXRfaWQiOjEwMTIyMzkxMjQ4NjEwNTMsImFzc2V0X2FnZV9kYXlzIjoyMCwidmlfdXNlY2FzZV9pZCI6MTA3OTksImR1cmF0aW9uX3MiOjYsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&vs=393a24aaf59ad77a&_nc_vs=HBksFQIYRWZiX2VwaGVtZXJhbC83RjQ1ODRBNTdENTE5QkNEQzlEMzcxMzhCNzU0MjNBRF9tdF8xX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhAZmJfcGVybWFuZW50L0U1NDMwNTE4RTdFQjBGMTBFQTQ0Rjc3M0RBNTdBN0I1X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACb6wbiXiajMAxUCKAJDMywXQBgAAAAAAAAYGWRhc2hfaDI2NC1iYXNpYy1nZW4yXzcyMHARAHUAZd6oAQA&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&_nc_zt=28&oh=00_AQAQhgY3f_2Azgx1HU3qSr3CYs0nCnaUwHFlVRVHWK-avA&oe=6A5486F9",
+              "page_profile_uri": "https://www.facebook.com/pipsheirloomsnacks/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/727519301_2585419658581912_1969414047579257934_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=3xK-WkanB-gQ7kNvwGWmzbA&_nc_oc=AdoEHIM15NLFOnuH54lfTJUt45L6Ysbv1-LNCgYzU_q-En9pC6Gzaz-PUIbKgIjnZ4Q&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=FigiBWWtqH4nkcXG6ljG1Q&_nc_ss=7b289&oh=00_AQCNeuP-BiMTRzDsSCnC5mPPBF8YDACjszA88zrCuFQdbA&oe=6A547896",
+              "page_like_count": 18511,
+              "detail_url": "https://www.facebook.com/ads/library/?id=27859942426962700",
+              "n_card_variants": 4,
+              "image_local": "fb_ads_images/active/ad_27859942426962700.jpg"
+            }
+          ],
+          "ads_library_mode": "keyword_filtered_by_pid_or_name",
+          "raw_keyword_total": 40,
+          "extraction_method": "json",
+          "ads_search_term": "Pip's Heirloom Snacks",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=Pip's%20Heirloom%20Snacks&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=Pip's%20Heirloom%20Snacks&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=Pip's%20Heirloom%20Snacks&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            }
+          },
+          "discovery_method": "homepage_link"
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://www.pipsnacks.com/pages/contact-us",
+      "path": "/pages/contact-us",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/contact-us",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/wholesale-contact",
+      "path": "/pages/wholesale-contact",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "platform_shopify",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/all-products",
+      "path": "/collections/all-products",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/best-sellers",
+      "path": "/collections/best-sellers",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/best-selling",
+      "path": "/collections/best-selling",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/bundles",
+      "path": "/collections/bundles",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/bundles-1",
+      "path": "/collections/bundles-1",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/cheese-balls",
+      "path": "/collections/cheese-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/crunchies",
+      "path": "/collections/crunchies",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/dippers-and-crunchies",
+      "path": "/collections/dippers-and-crunchies",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/fan-favorites",
+      "path": "/collections/fan-favorites",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/gift-cards",
+      "path": "/collections/gift-cards",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/new-fries",
+      "path": "/collections/new-fries",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/popcorn",
+      "path": "/collections/popcorn",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/shop-all",
+      "path": "/collections/shop-all",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/snack-crackers",
+      "path": "/collections/snack-crackers",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/snack-size",
+      "path": "/collections/snack-size",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/spicy-cheddar-with-tabasco-sauce-flavor",
+      "path": "/collections/spicy-cheddar-with-tabasco-sauce-flavor",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/twists",
+      "path": "/collections/twists",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/vegan",
+      "path": "/collections/vegan",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/pip15-subscribe-page",
+      "path": "/pages/pip15-subscribe-page",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/snack-subscribe-page",
+      "path": "/pages/snack-subscribe-page",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/store-locator",
+      "path": "/pages/store-locator",
+      "type": "location",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Location",
+      "expect_events": [
+        "ViewContent",
+        "Search"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/subscription",
+      "path": "/pages/subscription",
+      "type": "pricing",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/subscription(?:/|$)",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/wholefoods-subscribe-page",
+      "path": "/pages/wholefoods-subscribe-page",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cbdp45c12-dill-pickle-balls",
+      "path": "/products/cbdp45c12-dill-pickle-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cbkm45c12-classic-kimchi-balls",
+      "path": "/products/cbkm45c12-classic-kimchi-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cbwc45c12-white-cheddar-cheese-balls",
+      "path": "/products/cbwc45c12-white-cheddar-cheese-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cdcc925c12-chili-cheese-corn-dippers",
+      "path": "/products/cdcc925c12-chili-cheese-corn-dippers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cdlm925c12-lime-corn-dippers",
+      "path": "/products/cdlm925c12-lime-corn-dippers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cdss925c12-sea-salt-corn-dippers",
+      "path": "/products/cdss925c12-sea-salt-corn-dippers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cheddar-cheese-balls",
+      "path": "/products/cheddar-cheese-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cheddar-cheese-balls-snack-size-24-pack",
+      "path": "/products/cheddar-cheese-balls-snack-size-24-pack",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cheddar-crunchies",
+      "path": "/products/cheddar-crunchies",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cheddar-crunchies-24-bags-snack-size",
+      "path": "/products/cheddar-crunchies-24-bags-snack-size",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cheddar-fries",
+      "path": "/products/cheddar-fries",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cheddar-heirloom-cheese-balls",
+      "path": "/products/cheddar-heirloom-cheese-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/chili-cheese-corn-dippers",
+      "path": "/products/chili-cheese-corn-dippers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cinnamon-sugar-twists-1",
+      "path": "/products/cinnamon-sugar-twists-1",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cinnamon-sugar-twists-snack-size-24-pack",
+      "path": "/products/cinnamon-sugar-twists-snack-size-24-pack",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/classic-kimchi-balls",
+      "path": "/products/classic-kimchi-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/copy-of-cuch7c12-cheddar-cheese-crunchies",
+      "path": "/products/copy-of-cuch7c12-cheddar-cheese-crunchies",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/dill-pickle-balls",
+      "path": "/products/dill-pickle-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/fiery-fries-snack-size-24-pack",
+      "path": "/products/fiery-fries-snack-size-24-pack",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/firey-fries",
+      "path": "/products/firey-fries",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/frych50c12-cheddar-fries",
+      "path": "/products/frych50c12-cheddar-fries",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/fryfc50c12-firey-fries",
+      "path": "/products/fryfc50c12-firey-fries",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/kernel",
+      "path": "/products/kernel",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/kettle-popcorn",
+      "path": "/products/kettle-popcorn",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/kettle-popcorn-1",
+      "path": "/products/kettle-popcorn-1",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/kettle-popcorn-snack-size",
+      "path": "/products/kettle-popcorn-snack-size",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/lime-corn-dippers",
+      "path": "/products/lime-corn-dippers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/mini-heirloom-popcorn-family-pack",
+      "path": "/products/mini-heirloom-popcorn-family-pack",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/sea-salt-corn-dippers-snack-size-1-75-oz-24-count",
+      "path": "/products/sea-salt-corn-dippers-snack-size-1-75-oz-24-count",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/sea-salt-heirloom-corn-dippers",
+      "path": "/products/sea-salt-heirloom-corn-dippers",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/sea-salt-mini-heirloom-popcorn",
+      "path": "/products/sea-salt-mini-heirloom-popcorn",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/sea-salt-mini-popcorn",
+      "path": "/products/sea-salt-mini-popcorn",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/sea-salt-popcorn-snack-size",
+      "path": "/products/sea-salt-popcorn-snack-size",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/shark-tank-sampler-pack",
+      "path": "/products/shark-tank-sampler-pack",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/truffle-mini-heirloom-popcorn",
+      "path": "/products/truffle-mini-heirloom-popcorn",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/truffle-mini-popcorn",
+      "path": "/products/truffle-mini-popcorn",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/truffle-popcorn-snack-size-24-pack",
+      "path": "/products/truffle-popcorn-snack-size-24-pack",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/twcinn45c12-cinnamon-sugar-twist",
+      "path": "/products/twcinn45c12-cinnamon-sugar-twist",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/white-cheddar-cheese-balls",
+      "path": "/products/white-cheddar-cheese-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv",
+      "path": "/blogs/dv",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/5-essentials-including-the-1-snack-for-a-comfy-outdoor-movie-night",
+      "path": "/blogs/dv/5-essentials-including-the-1-snack-for-a-comfy-outdoor-movie-night",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/5-summer-activities-and-1-snack-to-bring-out-your-inner-child",
+      "path": "/blogs/dv/5-summer-activities-and-1-snack-to-bring-out-your-inner-child",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/5-years-since-shark-tank",
+      "path": "/blogs/dv/5-years-since-shark-tank",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/6-ways-pipcorn-is-better-than-movie-theater-style-popcorn",
+      "path": "/blogs/dv/6-ways-pipcorn-is-better-than-movie-theater-style-popcorn",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/adventure",
+      "path": "/blogs/dv/adventure",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/avocado-hummus-dip",
+      "path": "/blogs/dv/avocado-hummus-dip",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/backyard-game-night-activities-all-ages",
+      "path": "/blogs/dv/backyard-game-night-activities-all-ages",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/best-snacks-road-trips",
+      "path": "/blogs/dv/best-snacks-road-trips",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/black-entrepreneur-spotlight-chris-oates-waju",
+      "path": "/blogs/dv/black-entrepreneur-spotlight-chris-oates-waju",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/black-founder-spotlight-meet-delisa-and-zach-harper-founders-ceo-of-funky-mello",
+      "path": "/blogs/dv/black-founder-spotlight-meet-delisa-and-zach-harper-founders-ceo-of-funky-mello",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/black-founder-spotlight-meet-toyin-founders-ceo-of-iya-foods",
+      "path": "/blogs/dv/black-founder-spotlight-meet-toyin-founders-ceo-of-iya-foods",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/buy-1-give-1-promotion",
+      "path": "/blogs/dv/buy-1-give-1-promotion",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/celebrities-pipcorn-fans",
+      "path": "/blogs/dv/celebrities-pipcorn-fans",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/charred-avocado-guacamole-recipe-lime-zest-corn-dippers",
+      "path": "/blogs/dv/charred-avocado-guacamole-recipe-lime-zest-corn-dippers",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/cheese-balls-modernized-better-ingredients",
+      "path": "/blogs/dv/cheese-balls-modernized-better-ingredients",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/chili-cheese-dip-recipe-corn-dippers",
+      "path": "/blogs/dv/chili-cheese-dip-recipe-corn-dippers",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/design",
+      "path": "/blogs/dv/design",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/diy-valentines-snack-board",
+      "path": "/blogs/dv/diy-valentines-snack-board",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/family-game-night-ideas",
+      "path": "/blogs/dv/family-game-night-ideas",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/final-logo-decisions",
+      "path": "/blogs/dv/final-logo-decisions",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/fresh-bbq-ideas-for-memorial-day-weekend",
+      "path": "/blogs/dv/fresh-bbq-ideas-for-memorial-day-weekend",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/healthy-road-trip-snacks",
+      "path": "/blogs/dv/healthy-road-trip-snacks",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/heirloom-pipcorn-vs-hybrid-popcorn",
+      "path": "/blogs/dv/heirloom-pipcorn-vs-hybrid-popcorn",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/heirloom-tomato-salsa-recipe-sea-salt-corn-dippers",
+      "path": "/blogs/dv/heirloom-tomato-salsa-recipe-sea-salt-corn-dippers",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/how-about-a-little-pipcorn-astrology",
+      "path": "/blogs/dv/how-about-a-little-pipcorn-astrology",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/how-heirloom-corn-dippers-are-made",
+      "path": "/blogs/dv/how-heirloom-corn-dippers-are-made",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/inspiration",
+      "path": "/blogs/dv/inspiration",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/introducing-heirloom-crunchies",
+      "path": "/blogs/dv/introducing-heirloom-crunchies",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/me-and-the-bees",
+      "path": "/blogs/dv/me-and-the-bees",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/meet-denise-woodard-founder-ceo-of-partake",
+      "path": "/blogs/dv/meet-denise-woodard-founder-ceo-of-partake",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/meet-ibraheem-founder-ceo-of-a-dozen-cousins",
+      "path": "/blogs/dv/meet-ibraheem-founder-ceo-of-a-dozen-cousins",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/meet-julia-collins-founder-ceo-of-moonshot-snacks",
+      "path": "/blogs/dv/meet-julia-collins-founder-ceo-of-moonshot-snacks",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/meet-lilian-umurungi-jung-founder-ceo-of-mumgry",
+      "path": "/blogs/dv/meet-lilian-umurungi-jung-founder-ceo-of-mumgry",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/meet-pierre-thiam-founder-ceo-of-yolele",
+      "path": "/blogs/dv/meet-pierre-thiam-founder-ceo-of-yolele",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/message-from-founders",
+      "path": "/blogs/dv/message-from-founders",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/new-pipcorn-heirloom-snack-crackers",
+      "path": "/blogs/dv/new-pipcorn-heirloom-snack-crackers",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/new-years-resolution-quiz-2020",
+      "path": "/blogs/dv/new-years-resolution-quiz-2020",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/our-5-favorite-national-parks-for-camping",
+      "path": "/blogs/dv/our-5-favorite-national-parks-for-camping",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/our-prices-are-changing",
+      "path": "/blogs/dv/our-prices-are-changing",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/pantry-prep-is-the-new-meal-prep",
+      "path": "/blogs/dv/pantry-prep-is-the-new-meal-prep",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/pip-pip-packing-up",
+      "path": "/blogs/dv/pip-pip-packing-up",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/pipcorn-best-holiday-gift",
+      "path": "/blogs/dv/pipcorn-best-holiday-gift",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/pipcorn-snack-and-sandwich-pairings",
+      "path": "/blogs/dv/pipcorn-snack-and-sandwich-pairings",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/pipcorn-truffle-mini-heirloom-popcorn",
+      "path": "/blogs/dv/pipcorn-truffle-mini-heirloom-popcorn",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/pizza-to-polls-partnership-2020",
+      "path": "/blogs/dv/pizza-to-polls-partnership-2020",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/quiz-best-pipcorn-snacks-winter-personality",
+      "path": "/blogs/dv/quiz-best-pipcorn-snacks-winter-personality",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/quiz-pipcorn-snack-soulmate",
+      "path": "/blogs/dv/quiz-pipcorn-snack-soulmate",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/quiz-pipcorn-snacks-college-experience",
+      "path": "/blogs/dv/quiz-pipcorn-snacks-college-experience",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/reasons-love-cheddar-cheese-balls",
+      "path": "/blogs/dv/reasons-love-cheddar-cheese-balls",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/recipe-loaded-autumn-nachos",
+      "path": "/blogs/dv/recipe-loaded-autumn-nachos",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/roasted-beet-hummus-recipe-truffle-corn-dippers",
+      "path": "/blogs/dv/roasted-beet-hummus-recipe-truffle-corn-dippers",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/salty-sweet-holiday-popcorn",
+      "path": "/blogs/dv/salty-sweet-holiday-popcorn",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/save-with-stories-awareness",
+      "path": "/blogs/dv/save-with-stories-awareness",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/snack-crackers-animal-shapes-worksheets",
+      "path": "/blogs/dv/snack-crackers-animal-shapes-worksheets",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/snack-hacks-creative-recipes-using-pipcorn",
+      "path": "/blogs/dv/snack-hacks-creative-recipes-using-pipcorn",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/solar-popper",
+      "path": "/blogs/dv/solar-popper",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/spinach-artichoke-party-dip",
+      "path": "/blogs/dv/spinach-artichoke-party-dip",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/the-best-snacks-to-eat-and-things-to-do-at-the-beach",
+      "path": "/blogs/dv/the-best-snacks-to-eat-and-things-to-do-at-the-beach",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/top-snack-moments-in-movie-history",
+      "path": "/blogs/dv/top-snack-moments-in-movie-history",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/truffle-heirloom-corn-dippers",
+      "path": "/blogs/dv/truffle-heirloom-corn-dippers",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/virtual-date-night",
+      "path": "/blogs/dv/virtual-date-night",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/we-re-definitely-not-in-brooklyn-anymore",
+      "path": "/blogs/dv/we-re-definitely-not-in-brooklyn-anymore",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/were-going-to-the-hottest-place-on-earth",
+      "path": "/blogs/dv/were-going-to-the-hottest-place-on-earth",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/what-is-upcycling",
+      "path": "/blogs/dv/what-is-upcycling",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/what-the-solar-cooker",
+      "path": "/blogs/dv/what-the-solar-cooker",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/why-heirloom",
+      "path": "/blogs/dv/why-heirloom",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/dv/work-from-home-tips-zoom-backgrounds-contest",
+      "path": "/blogs/dv/work-from-home-tips-zoom-backgrounds-contest",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/blogs/what-pipcorn-snack-are-you",
+      "path": "/blogs/what-pipcorn-snack-are-you",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/blogs/",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/about-us",
+      "path": "/pages/about-us",
+      "type": "about",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/about-us",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/cleveland-kitchen-collab",
+      "path": "/pages/cleveland-kitchen-collab",
+      "type": "about",
+      "priority": 3,
+      "method": "platform_shopify",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/faq",
+      "path": "/pages/faq",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "patterns_json",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/press",
+      "path": "/pages/press",
+      "type": "about",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/press(?:/|$)",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/wholesale",
+      "path": "/pages/wholesale",
+      "type": "about",
+      "priority": 3,
+      "method": "platform_shopify",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/agents.md",
+      "path": "/agents.md",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/2025-pipcorn-spudsy-sell-sheets",
+      "path": "/pages/2025-pipcorn-spudsy-sell-sheets",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/best-sellers",
+      "path": "/pages/best-sellers",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/builder",
+      "path": "/pages/builder",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/bundle",
+      "path": "/pages/bundle",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/data-sharing-opt-out",
+      "path": "/pages/data-sharing-opt-out",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/heirloom",
+      "path": "/pages/heirloom",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/lead-generation-lp",
+      "path": "/pages/lead-generation-lp",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/pip-squad",
+      "path": "/pages/pip-squad",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/privacy-policy",
+      "path": "/pages/privacy-policy",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/privacy",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/privacy-policy-1",
+      "path": "/pages/privacy-policy-1",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/privacy",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/refund-policy",
+      "path": "/pages/refund-policy",
+      "type": "legal",
+      "priority": 5,
+      "method": "patterns_json",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/search-results-v-next",
+      "path": "/pages/search-results-v-next",
+      "type": "general",
+      "priority": 5,
+      "description": "General page",
+      "expect_events": [],
+      "method": "regex_only"
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/terms-of-service",
+      "path": "/pages/terms-of-service",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/terms",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/terms-of-use",
+      "path": "/pages/terms-of-use",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/terms",
+      "description": "Legal",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/terms-of-use-and-sales",
+      "path": "/pages/terms-of-use-and-sales",
+      "type": "legal",
+      "priority": 5,
+      "method": "regex",
+      "matched_pattern": "/terms",
+      "description": "Legal",
+      "expect_events": []
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://www.pipsnacks.com/pages/contact-us",
+      "path": "/pages/contact-us",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/contact-us",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/wholesale-contact",
+      "path": "/pages/wholesale-contact",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "platform_shopify",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/all-products",
+      "path": "/collections/all-products",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/collections/best-sellers",
+      "path": "/collections/best-sellers",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/pip15-subscribe-page",
+      "path": "/pages/pip15-subscribe-page",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/snack-subscribe-page",
+      "path": "/pages/snack-subscribe-page",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/store-locator",
+      "path": "/pages/store-locator",
+      "type": "location",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Location",
+      "expect_events": [
+        "ViewContent",
+        "Search"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/subscription",
+      "path": "/pages/subscription",
+      "type": "pricing",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/subscription(?:/|$)",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/pages/wholefoods-subscribe-page",
+      "path": "/pages/wholefoods-subscribe-page",
+      "type": "pricing",
+      "priority": 2,
+      "method": "platform_shopify",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cbdp45c12-dill-pickle-balls",
+      "path": "/products/cbdp45c12-dill-pickle-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.pipsnacks.com/products/cbkm45c12-classic-kimchi-balls",
+      "path": "/products/cbkm45c12-classic-kimchi-balls",
+      "type": "product",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/products/[^/]",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    }
+  ]
+}

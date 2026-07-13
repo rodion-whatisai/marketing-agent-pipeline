@@ -1,0 +1,1497 @@
+{
+  "base_url": "https://studioaplus.ca",
+  "sitemap_source": "https://studioaplus.ca/sitemap.xml",
+  "platform": {
+    "platform": "wordpress",
+    "confidence": "high",
+    "score": 19,
+    "signals": [
+      "wp-content",
+      "wp-includes",
+      "wp-json",
+      "woocommerce",
+      "elementor"
+    ],
+    "all_scores": {
+      "wordpress": 19
+    },
+    "profile": {
+      "description": "WordPress CMS",
+      "url_patterns": {
+        "/shop/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/product/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/cart/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/checkout/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/blog/": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/?p=": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/wp-admin": {
+          "type": "technical",
+          "priority": 5
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Often uses GTM. Check for WooCommerce events."
+    }
+  },
+  "site_language": {
+    "lang": "en",
+    "is_english": true,
+    "source": "html lang attr"
+  },
+  "lang_removed": 0,
+  "lang_prefixes": [],
+  "total_found": 64,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/StudioAplus.ca/",
+    "instagram": "https://www.instagram.com/studioaplus.ca/",
+    "youtube": "https://www.youtube.com/@Studioaplus/",
+    "facebook_accounts": {
+      "target": "https://studioaplus.ca",
+      "brand_name": "studioaplus",
+      "site_country": "CA",
+      "site_country_source": "tld (.ca)",
+      "accounts": [
+        {
+          "handle": "studioaplus.ca",
+          "display_name": "Studio A.plus",
+          "url": "https://www.facebook.com/studioaplus.ca",
+          "page_id": "239857499820462",
+          "alive": true,
+          "total_ever": 1,
+          "active": {
+            "count": 2,
+            "status": "active",
+            "ad_texts": [
+              "Bita & Omid\n\nPhoto&Video : @studioaplus.ca \nMakeup: @makeupbyellymokary \nDj: @dj.rezza \n\n#torontowedding #torontoweddingphotographer #studioaplus #montrealweddingphotographer #persianwedding"
+            ],
+            "partnership_ads": false,
+            "partnership_count": 0,
+            "structured_ads": [
+              {
+                "library_id": "4551389371775335",
+                "page_name": "Studio A.plus",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782111600,
+                "end_date": 1782457200,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "Bita & Omid\n\nPhoto&Video : @studioaplus.ca \nMakeup: @makeupbyellymokary \nDj: @dj.rezza \n\n#torontowedding #torontoweddingphotographer #studioaplus #montrealweddingphotographer #persianwedding",
+                "caption": "instagram.com",
+                "link_description": "",
+                "link_url": "http://instagram.com/studioaplus.ca",
+                "cta_text": "Visit Instagram profile",
+                "cta_type": "VIEW_INSTAGRAM_PROFILE",
+                "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/728254916_1709925826866805_2379259995920287741_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=xTNNK7H7OXMQ7kNvwFFYeex&_nc_oc=Adrq1_rQ2_JyjBUGJoJjJ72OebsGFen8sFMHgie_x_FS8wP6E852kmtdz6NIGsBkM3w&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af8WtbIp_7jLbEzbRbKdez_FTcPPfy1lOvHCilsEcvUj4w&oe=6A44B6BD",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQMFH0HhcFP8B4R76rf9-4qStxgXRz3O1f4KMFEhIdV2s_d-4xxhXG4ge5R8bN9Ty6deeoANZgiYQD92kBj8rf5aI9Hz3LQgMMl5xLuL2A.mp4?_nc_cat=100&_nc_oc=AdpA0U5C9Q2Bv28C5osaAxA_3bDmzi0VWQJlUPPp7gFxsoH7K-0QZz7W7PrPsgfIn7Q&_nc_sid=ef5aa3&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=L539kRYGYoIQ7kNvwHenaid&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMTI3Ni5wcm9ncmVzc2l2ZV9oMjY0LWJhc2ljLWdlbjJfNzIwcCIsInhwdl9hc3NldF9pZCI6MjA1NTM2MzgxODcxMjMyMSwiYXNzZXRfYWdlX2RheXMiOjExLCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6NjQsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&_nc_zt=28&oh=00_Af9sngpnhSl4R9uJqc0x-qUGDLOQdoElPVL174y3YSjEAg&oe=6A4489AA",
+                "page_profile_uri": "https://www.facebook.com/StudioAplus.ca/",
+                "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728243429_1048439637866880_3916957519589201283_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=8ille-5lCckQ7kNvwFu_EHA&_nc_oc=AdqAjSSlic-HUzpVK3M_cuMC51stAYRogg8eYUHv4lKB3kNcxwRN6kuhmSuCTf1J6gA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af_mBBT1YsGrg7wWMp4rUMIbZhpmjdbqgdqBMSHSNeC7LA&oe=6A4499C7",
+                "page_like_count": 357,
+                "detail_url": "https://www.facebook.com/ads/library/?id=4551389371775335",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_4551389371775335.jpg"
+              },
+              {
+                "library_id": "1785417156206122",
+                "page_name": "Studio A.plus",
+                "display_format": "VIDEO",
+                "is_active": true,
+                "start_date": 1782198000,
+                "end_date": 1782198000,
+                "platforms": [
+                  "FACEBOOK",
+                  "INSTAGRAM"
+                ],
+                "branded_content": null,
+                "title": "",
+                "body_text": "Bita & Omid\n\nPhoto&Video : @studioaplus.ca \nMakeup: @makeupbyellymokary \nDj: @dj.rezza \n\n#torontowedding #torontoweddingphotographer #studioaplus #montrealweddingphotographer #persianwedding",
+                "caption": "instagram.com",
+                "link_description": "",
+                "link_url": "http://instagram.com/studioaplus.ca",
+                "cta_text": "Visit Instagram profile",
+                "cta_type": "VIEW_INSTAGRAM_PROFILE",
+                "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728893203_27480877241555006_1959049488576608740_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=n_NP57mQKykQ7kNvwELz2mq&_nc_oc=AdqVEzziNKy2t2vtZKdqF-O8vOlnd9wHj54QJFu-vbMUVvyM5l8s6sBokK2trmgtIKg&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af_qNkR0lhHcaV9zvUdz-PsJemSj0zrw3kkS8ZdNaugZbg&oe=6A44B2CB",
+                "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQMFH0HhcFP8B4R76rf9-4qStxgXRz3O1f4KMFEhIdV2s_d-4xxhXG4ge5R8bN9Ty6deeoANZgiYQD92kBj8rf5aI9Hz3LQgMMl5xLuL2A.mp4?_nc_cat=100&_nc_oc=AdpA0U5C9Q2Bv28C5osaAxA_3bDmzi0VWQJlUPPp7gFxsoH7K-0QZz7W7PrPsgfIn7Q&_nc_sid=ef5aa3&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=L539kRYGYoIQ7kNvwHenaid&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMTI3Ni5wcm9ncmVzc2l2ZV9oMjY0LWJhc2ljLWdlbjJfNzIwcCIsInhwdl9hc3NldF9pZCI6MjA1NTM2MzgxODcxMjMyMSwiYXNzZXRfYWdlX2RheXMiOjExLCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6NjQsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&_nc_zt=28&oh=00_Af9sngpnhSl4R9uJqc0x-qUGDLOQdoElPVL174y3YSjEAg&oe=6A4489AA",
+                "page_profile_uri": "https://www.facebook.com/StudioAplus.ca/",
+                "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/727519930_1031798979796905_2848933796691035443_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=34yuO4oYz9wQ7kNvwFuIxJ3&_nc_oc=AdpSYiXeySJSNYQV9WisMAf74QMwDgYW1XzwCfdpcKgIHbn_cEtQUjgQrtiQpZI4pRk&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af8K-EX5ZGqNBfyeJh0mdUSHoRrmYpSKoqRJGrd89tkkwg&oe=6A44A90A",
+                "page_like_count": 357,
+                "detail_url": "https://www.facebook.com/ads/library/?id=1785417156206122",
+                "n_card_variants": 0,
+                "image_local": "fb_ads_images/active/ad_1785417156206122.jpg"
+              }
+            ],
+            "ads_library_mode": "keyword_filtered_by_pid_or_name",
+            "raw_keyword_total": 50001,
+            "method": "json_keyword_filtered_by_pid_or_name",
+            "extraction_method": "json",
+            "search_term": "Studio A.plus",
+            "status_filter": "active",
+            "saved_images": [
+              "scans\\studioaplus.ca\\fb_ads_images\\active\\ad_4551389371775335.jpg",
+              "scans\\studioaplus.ca\\fb_ads_images\\active\\ad_1785417156206122.jpg"
+            ],
+            "saved_texts_path": "scans\\studioaplus.ca\\fb_ads_images\\ad_texts_active.txt"
+          },
+          "inactive": null,
+          "active_ads_count": 2,
+          "partnership_ads": false,
+          "partnership_count": 0,
+          "ad_texts": [
+            "Bita & Omid\n\nPhoto&Video : @studioaplus.ca \nMakeup: @makeupbyellymokary \nDj: @dj.rezza \n\n#torontowedding #torontoweddingphotographer #studioaplus #montrealweddingphotographer #persianwedding"
+          ],
+          "saved_images": [
+            "scans\\studioaplus.ca\\fb_ads_images\\active\\ad_4551389371775335.jpg",
+            "scans\\studioaplus.ca\\fb_ads_images\\active\\ad_1785417156206122.jpg"
+          ],
+          "structured_ads": [
+            {
+              "library_id": "4551389371775335",
+              "page_name": "Studio A.plus",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782111600,
+              "end_date": 1782457200,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "Bita & Omid\n\nPhoto&Video : @studioaplus.ca \nMakeup: @makeupbyellymokary \nDj: @dj.rezza \n\n#torontowedding #torontoweddingphotographer #studioaplus #montrealweddingphotographer #persianwedding",
+              "caption": "instagram.com",
+              "link_description": "",
+              "link_url": "http://instagram.com/studioaplus.ca",
+              "cta_text": "Visit Instagram profile",
+              "cta_type": "VIEW_INSTAGRAM_PROFILE",
+              "image_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/728254916_1709925826866805_2379259995920287741_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=xTNNK7H7OXMQ7kNvwFFYeex&_nc_oc=Adrq1_rQ2_JyjBUGJoJjJ72OebsGFen8sFMHgie_x_FS8wP6E852kmtdz6NIGsBkM3w&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af8WtbIp_7jLbEzbRbKdez_FTcPPfy1lOvHCilsEcvUj4w&oe=6A44B6BD",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQMFH0HhcFP8B4R76rf9-4qStxgXRz3O1f4KMFEhIdV2s_d-4xxhXG4ge5R8bN9Ty6deeoANZgiYQD92kBj8rf5aI9Hz3LQgMMl5xLuL2A.mp4?_nc_cat=100&_nc_oc=AdpA0U5C9Q2Bv28C5osaAxA_3bDmzi0VWQJlUPPp7gFxsoH7K-0QZz7W7PrPsgfIn7Q&_nc_sid=ef5aa3&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=L539kRYGYoIQ7kNvwHenaid&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMTI3Ni5wcm9ncmVzc2l2ZV9oMjY0LWJhc2ljLWdlbjJfNzIwcCIsInhwdl9hc3NldF9pZCI6MjA1NTM2MzgxODcxMjMyMSwiYXNzZXRfYWdlX2RheXMiOjExLCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6NjQsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&_nc_zt=28&oh=00_Af9sngpnhSl4R9uJqc0x-qUGDLOQdoElPVL174y3YSjEAg&oe=6A4489AA",
+              "page_profile_uri": "https://www.facebook.com/StudioAplus.ca/",
+              "page_profile_picture_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728243429_1048439637866880_3916957519589201283_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=102&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=8ille-5lCckQ7kNvwFu_EHA&_nc_oc=AdqAjSSlic-HUzpVK3M_cuMC51stAYRogg8eYUHv4lKB3kNcxwRN6kuhmSuCTf1J6gA&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af_mBBT1YsGrg7wWMp4rUMIbZhpmjdbqgdqBMSHSNeC7LA&oe=6A4499C7",
+              "page_like_count": 357,
+              "detail_url": "https://www.facebook.com/ads/library/?id=4551389371775335",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_4551389371775335.jpg"
+            },
+            {
+              "library_id": "1785417156206122",
+              "page_name": "Studio A.plus",
+              "display_format": "VIDEO",
+              "is_active": true,
+              "start_date": 1782198000,
+              "end_date": 1782198000,
+              "platforms": [
+                "FACEBOOK",
+                "INSTAGRAM"
+              ],
+              "branded_content": null,
+              "title": "",
+              "body_text": "Bita & Omid\n\nPhoto&Video : @studioaplus.ca \nMakeup: @makeupbyellymokary \nDj: @dj.rezza \n\n#torontowedding #torontoweddingphotographer #studioaplus #montrealweddingphotographer #persianwedding",
+              "caption": "instagram.com",
+              "link_description": "",
+              "link_url": "http://instagram.com/studioaplus.ca",
+              "cta_text": "Visit Instagram profile",
+              "cta_type": "VIEW_INSTAGRAM_PROFILE",
+              "image_url": "https://scontent.fymq3-1.fna.fbcdn.net/v/t39.35426-6/728893203_27480877241555006_1959049488576608740_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=n_NP57mQKykQ7kNvwELz2mq&_nc_oc=AdqVEzziNKy2t2vtZKdqF-O8vOlnd9wHj54QJFu-vbMUVvyM5l8s6sBokK2trmgtIKg&_nc_zt=14&_nc_ht=scontent.fymq3-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af_qNkR0lhHcaV9zvUdz-PsJemSj0zrw3kkS8ZdNaugZbg&oe=6A44B2CB",
+              "video_url": "https://video.fymq2-1.fna.fbcdn.net/o1/v/t2/f2/m367/AQMFH0HhcFP8B4R76rf9-4qStxgXRz3O1f4KMFEhIdV2s_d-4xxhXG4ge5R8bN9Ty6deeoANZgiYQD92kBj8rf5aI9Hz3LQgMMl5xLuL2A.mp4?_nc_cat=100&_nc_oc=AdpA0U5C9Q2Bv28C5osaAxA_3bDmzi0VWQJlUPPp7gFxsoH7K-0QZz7W7PrPsgfIn7Q&_nc_sid=ef5aa3&_nc_ht=video.fymq2-1.fna.fbcdn.net&_nc_ohc=L539kRYGYoIQ7kNvwHenaid&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMTI3Ni5wcm9ncmVzc2l2ZV9oMjY0LWJhc2ljLWdlbjJfNzIwcCIsInhwdl9hc3NldF9pZCI6MjA1NTM2MzgxODcxMjMyMSwiYXNzZXRfYWdlX2RheXMiOjExLCJ2aV91c2VjYXNlX2lkIjoxMDA5OSwiZHVyYXRpb25fcyI6NjQsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%3D%3D&ccb=17-1&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&_nc_zt=28&oh=00_Af9sngpnhSl4R9uJqc0x-qUGDLOQdoElPVL174y3YSjEAg&oe=6A4489AA",
+              "page_profile_uri": "https://www.facebook.com/StudioAplus.ca/",
+              "page_profile_picture_url": "https://scontent.fymq2-1.fna.fbcdn.net/v/t39.35426-6/727519930_1031798979796905_2848933796691035443_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=34yuO4oYz9wQ7kNvwFuIxJ3&_nc_oc=AdpSYiXeySJSNYQV9WisMAf74QMwDgYW1XzwCfdpcKgIHbn_cEtQUjgQrtiQpZI4pRk&_nc_zt=14&_nc_ht=scontent.fymq2-1.fna&_nc_gid=CnDjzdYHpOLHyz3WXhSJ6g&_nc_ss=7b289&oh=00_Af8K-EX5ZGqNBfyeJh0mdUSHoRrmYpSKoqRJGrd89tkkwg&oe=6A44A90A",
+              "page_like_count": 357,
+              "detail_url": "https://www.facebook.com/ads/library/?id=1785417156206122",
+              "n_card_variants": 0,
+              "image_local": "fb_ads_images/active/ad_1785417156206122.jpg"
+            }
+          ],
+          "ads_library_mode": "keyword_filtered_by_pid_or_name",
+          "raw_keyword_total": 50001,
+          "extraction_method": "json",
+          "ads_search_term": "Studio A.plus",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=Studio%20A.plus&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=Studio%20A.plus&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&is_targeted_country=false&media_type=all&q=Studio%20A.plus&search_type=keyword_unordered&sort_data[direction]=desc&sort_data[mode]=total_impressions"
+            }
+          },
+          "discovery_method": "homepage_link"
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://studioaplus.ca/book-a-wedding-consultation",
+      "path": "/book-a-wedding-consultation",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/contact-us",
+      "path": "/contact-us",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/contact-us",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/package",
+      "path": "/package",
+      "type": "pricing",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery",
+      "path": "/photo-gallery",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/asal-felix",
+      "path": "/photo-gallery/asal-felix",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/audrey-joel",
+      "path": "/photo-gallery/audrey-joel",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/bahar-josh",
+      "path": "/photo-gallery/bahar-josh",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/bianca-florian",
+      "path": "/photo-gallery/bianca-florian",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/cheryl-arthur",
+      "path": "/photo-gallery/cheryl-arthur",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/christina-issa",
+      "path": "/photo-gallery/christina-issa",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/cynthia-parm",
+      "path": "/photo-gallery/cynthia-parm",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement",
+      "path": "/photo-gallery/engagement",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/alessia-sati",
+      "path": "/photo-gallery/engagement/alessia-sati",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/bianca-florian",
+      "path": "/photo-gallery/engagement/bianca-florian",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/ghazal-ebi",
+      "path": "/photo-gallery/engagement/ghazal-ebi",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/hana-maz",
+      "path": "/photo-gallery/engagement/hana-maz",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/hana-maz-2",
+      "path": "/photo-gallery/engagement/hana-maz-2",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/nagar-ali",
+      "path": "/photo-gallery/engagement/nagar-ali",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/nazanin-ashkan",
+      "path": "/photo-gallery/engagement/nazanin-ashkan",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/sam-sanaz",
+      "path": "/photo-gallery/engagement/sam-sanaz",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/seela-eddy",
+      "path": "/photo-gallery/engagement/seela-eddy",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/fatima-miramir",
+      "path": "/photo-gallery/fatima-miramir",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/hana-maz",
+      "path": "/photo-gallery/hana-maz",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/isabel-phil",
+      "path": "/photo-gallery/isabel-phil",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/jinny-dominic",
+      "path": "/photo-gallery/jinny-dominic",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/julie-ann-antonio",
+      "path": "/photo-gallery/julie-ann-antonio",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/kevin-juel",
+      "path": "/photo-gallery/kevin-juel",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/kiana-nabeel",
+      "path": "/photo-gallery/kiana-nabeel",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/maria-andrei",
+      "path": "/photo-gallery/maria-andrei",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/maternity",
+      "path": "/photo-gallery/maternity",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/mehrnaz-marc",
+      "path": "/photo-gallery/mehrnaz-marc",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/michelle-jovan",
+      "path": "/photo-gallery/michelle-jovan",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/moojan-shervin",
+      "path": "/photo-gallery/moojan-shervin",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/mursal-syd",
+      "path": "/photo-gallery/mursal-syd",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/negar-ali",
+      "path": "/photo-gallery/negar-ali",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/olivia-elijah",
+      "path": "/photo-gallery/olivia-elijah",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/parisa-amir",
+      "path": "/photo-gallery/parisa-amir",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/portratitfamily",
+      "path": "/photo-gallery/portratitfamily",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/sabrina-kamal",
+      "path": "/photo-gallery/sabrina-kamal",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/shokoufeh-sohrab",
+      "path": "/photo-gallery/shokoufeh-sohrab",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/yasmin-rafik",
+      "path": "/photo-gallery/yasmin-rafik",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/video-gallery",
+      "path": "/video-gallery",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/faq",
+      "path": "/faq",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/faq(?:/|$)",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/hiring-a-montreal-wedding-photographer",
+      "path": "/hiring-a-montreal-wedding-photographer",
+      "type": "careers",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/hiring",
+      "description": "Careers",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/how-to-capture-the-magic-of-your-montreal-wedding-in-photos",
+      "path": "/how-to-capture-the-magic-of-your-montreal-wedding-in-photos",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/how-to",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/how-to-choose-the-right-wedding-photographer-in-montreal",
+      "path": "/how-to-choose-the-right-wedding-photographer-in-montreal",
+      "type": "faq_support",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/how-to",
+      "description": "Faq Support",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/our-team",
+      "path": "/our-team",
+      "type": "about",
+      "priority": 3,
+      "method": "patterns_json",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/beautiful-montreal-wedding-photography-locations",
+      "path": "/beautiful-montreal-wedding-photography-locations",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/best-montreal-wedding-photography-trends-for-2025",
+      "path": "/best-montreal-wedding-photography-trends-for-2025",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/category/montreal-wedding-photographer",
+      "path": "/category/montreal-wedding-photographer",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/category/montreal-wedding-photography",
+      "path": "/category/montreal-wedding-photography",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/choosing-a-montreal-wedding-photographer",
+      "path": "/choosing-a-montreal-wedding-photographer",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/interesting-montreal-wedding-photographer-photoshoot-locations",
+      "path": "/interesting-montreal-wedding-photographer-photoshoot-locations",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/montreal-wedding-photographer-amir-ghazi",
+      "path": "/montreal-wedding-photographer-amir-ghazi",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/montreal-wedding-photographer-capturing-moments",
+      "path": "/montreal-wedding-photographer-capturing-moments",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/montreal-wedding-photography-trends-2026",
+      "path": "/montreal-wedding-photography-trends-2026",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/our-blog",
+      "path": "/our-blog",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/the-best-montreal-wedding-photographer",
+      "path": "/the-best-montreal-wedding-photographer",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/the-challenges-of-wedding-photography-in-montreal",
+      "path": "/the-challenges-of-wedding-photography-in-montreal",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/the-evolution-of-montreal-wedding-photography",
+      "path": "/the-evolution-of-montreal-wedding-photography",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/tips-from-a-top-montreal-wedding-photographer",
+      "path": "/tips-from-a-top-montreal-wedding-photographer",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/top-montreal-wedding-photographer-must-have-photos",
+      "path": "/top-montreal-wedding-photographer-must-have-photos",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://studioaplus.ca/under-construction",
+      "path": "/under-construction",
+      "type": "general",
+      "priority": 5,
+      "reason": "Under construction page - utility/status page, not fitting other categories",
+      "method": "claude",
+      "expect_events": [],
+      "description": "General"
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://studioaplus.ca/book-a-wedding-consultation",
+      "path": "/book-a-wedding-consultation",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/contact-us",
+      "path": "/contact-us",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/contact-us",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/package",
+      "path": "/package",
+      "type": "pricing",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Pricing",
+      "expect_events": [
+        "ViewContent",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery",
+      "path": "/photo-gallery",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/asal-felix",
+      "path": "/photo-gallery/asal-felix",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/audrey-joel",
+      "path": "/photo-gallery/audrey-joel",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/bahar-josh",
+      "path": "/photo-gallery/bahar-josh",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/bianca-florian",
+      "path": "/photo-gallery/bianca-florian",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/cheryl-arthur",
+      "path": "/photo-gallery/cheryl-arthur",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/christina-issa",
+      "path": "/photo-gallery/christina-issa",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/cynthia-parm",
+      "path": "/photo-gallery/cynthia-parm",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement",
+      "path": "/photo-gallery/engagement",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/alessia-sati",
+      "path": "/photo-gallery/engagement/alessia-sati",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/bianca-florian",
+      "path": "/photo-gallery/engagement/bianca-florian",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/ghazal-ebi",
+      "path": "/photo-gallery/engagement/ghazal-ebi",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/hana-maz",
+      "path": "/photo-gallery/engagement/hana-maz",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/hana-maz-2",
+      "path": "/photo-gallery/engagement/hana-maz-2",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/nagar-ali",
+      "path": "/photo-gallery/engagement/nagar-ali",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/nazanin-ashkan",
+      "path": "/photo-gallery/engagement/nazanin-ashkan",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/sam-sanaz",
+      "path": "/photo-gallery/engagement/sam-sanaz",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/engagement/seela-eddy",
+      "path": "/photo-gallery/engagement/seela-eddy",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/fatima-miramir",
+      "path": "/photo-gallery/fatima-miramir",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/hana-maz",
+      "path": "/photo-gallery/hana-maz",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/isabel-phil",
+      "path": "/photo-gallery/isabel-phil",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/jinny-dominic",
+      "path": "/photo-gallery/jinny-dominic",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/julie-ann-antonio",
+      "path": "/photo-gallery/julie-ann-antonio",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/kevin-juel",
+      "path": "/photo-gallery/kevin-juel",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/kiana-nabeel",
+      "path": "/photo-gallery/kiana-nabeel",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/maria-andrei",
+      "path": "/photo-gallery/maria-andrei",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/maternity",
+      "path": "/photo-gallery/maternity",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/mehrnaz-marc",
+      "path": "/photo-gallery/mehrnaz-marc",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/michelle-jovan",
+      "path": "/photo-gallery/michelle-jovan",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/moojan-shervin",
+      "path": "/photo-gallery/moojan-shervin",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/mursal-syd",
+      "path": "/photo-gallery/mursal-syd",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/negar-ali",
+      "path": "/photo-gallery/negar-ali",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/olivia-elijah",
+      "path": "/photo-gallery/olivia-elijah",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/parisa-amir",
+      "path": "/photo-gallery/parisa-amir",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/portratitfamily",
+      "path": "/photo-gallery/portratitfamily",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/sabrina-kamal",
+      "path": "/photo-gallery/sabrina-kamal",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/shokoufeh-sohrab",
+      "path": "/photo-gallery/shokoufeh-sohrab",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/photo-gallery/yasmin-rafik",
+      "path": "/photo-gallery/yasmin-rafik",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://studioaplus.ca/video-gallery",
+      "path": "/video-gallery",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    }
+  ]
+}
