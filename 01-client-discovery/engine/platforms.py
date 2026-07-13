@@ -301,3 +301,50 @@ def as_gtm_platform_signatures() -> dict:
         else:
             out[PLATFORMS[entry]["gtm_name"]] = PLATFORMS[entry]["gtm_signatures"]
     return out
+
+
+# ─── Отчётные view'ы (шаг B, день 6) ─────────────────────────────────────────
+# До 2026-07-13 report.py и generate_report_html.py держали СВОИ копии списков —
+# уже разъехавшиеся (ревью дня 5: клиентский HTML рендерил noise-пинги как живые
+# события). Теперь оба отчёта читают реестр + явную презентационную надбавку.
+
+# Презентационный шум: сканер считает эти события СИГНАЛОМ (PageView = «пиксель
+# жив», влияет на статус), но отчёты не перечисляют их в списках «событий» —
+# осознанное решение подачи, не сканерный шум.
+_REPORT_PRESENTATION_NOISE = {
+    "Meta": ["PageView"],
+    "Pinterest": ["pagevisit"],
+    "Bing/Microsoft": ["track"],
+}
+
+# Отчётные «стандартные события» сверх tier1/tier2 сканера: в статусной
+# лестнице не участвуют, но в отчётах перечисляются как стандартные для платформы
+_REPORT_EXTRA_STANDARD = {
+    "Meta": ["StartTrial"],
+    "Google Analytics": ["sign_up", "login"],
+    "TikTok": ["CompletePayment", "AddPaymentInfo"],
+    "LinkedIn": ["conversion"],
+}
+
+
+def as_report_noise_events() -> dict:
+    """NOISE_EVENTS для отчётов: сканерный шум + презентационная надбавка."""
+    out = {}
+    for plat, noise in as_noise_events().items():
+        extra = _REPORT_PRESENTATION_NOISE.get(plat, [])
+        out[plat] = list(dict.fromkeys(list(noise) + extra))
+    return out
+
+
+def as_report_standard_events() -> dict:
+    """STANDARD_CONVERSION_EVENTS для отчётов: tier1 + (tier2 минус сканерный шум)
+    + отчётные дополнения. Вычитание шума убирает противоречия вида «form_start
+    одновременно шум для сканера и конверсия для отчёта» (ревью дня 5)."""
+    tier1, tier2, noise = as_conversion_tier1(), as_conversion_tier2(), as_noise_events()
+    out = {}
+    plats = list(dict.fromkeys(list(tier1) + list(tier2) + list(_REPORT_EXTRA_STANDARD)))
+    for plat in plats:
+        t2_clean = [e for e in tier2.get(plat, []) if e not in noise.get(plat, [])]
+        out[plat] = list(dict.fromkeys(
+            tier1.get(plat, []) + t2_clean + _REPORT_EXTRA_STANDARD.get(plat, [])))
+    return out

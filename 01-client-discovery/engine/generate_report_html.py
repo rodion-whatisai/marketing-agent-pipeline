@@ -105,14 +105,13 @@ def page_label(path: str, ptype: str) -> str:
     return labels.get(ptype, path)
 
 
-NOISE_EVENTS = {
-    "Meta": ["PageView", "fired"],
-    "Google Analytics": ["gtm.init", "gtm.js", "page_view", "user_engagement",
-                         "session_start", "first_visit", "scroll", "fired"],
-    "Google Ads": [],
-    "TikTok": ["fired"],
-    "Bing/Microsoft": ["fired"],
-}
+# Шаг B (2026-07-13): локальная копия убрана — единый реестр platforms.py
+# (ревью дня 5: копия разъехалась — в клиентском HTML noise-пинги
+# «fired → LinkedIn/Snapchat», «page_view → Google Ads» рендерились как
+# живые события). Презентационная надбавка (PageView и т.п.) — в реестре.
+import platforms as _platforms
+
+NOISE_EVENTS = _platforms.as_report_noise_events()
 
 def is_noise(plat, ev):
     return ev in NOISE_EVENTS.get(plat, [])

@@ -39,15 +39,30 @@ NON_COMMERCE_TYPES = {
 # Clamp-to-0 — на случай сайтов, переприсваивающих window.dataLayer на лету.
 # Tested: 2026-07-07 on tinytronics.nl homepage — до фикса Verlanglijst и Next slide
 #         наследовали add_to_cart от Toevoegen (3 byte-identical записи в step2.json)
+
+# Шаг B (2026-07-13): платформенная часть шума — из единого реестра platforms.py
+# (была четвёртой локальной копией). dataLayer-специфика (GTM-этапы, записи CMP
+# и приложений — не платформенные события) остаётся явной надбавкой здесь.
+import json as _json
+import platforms as _platforms
+
+_DATALAYER_EXTRA_NOISE = [
+    "gtm.load", "gtm.dom",
+    "OneTrustLoaded", "OptanonLoaded", "OneTrustGroupsUpdated",
+    "dl_intelligems_script_loaded", "dl_user_data",
+]
+_JS_NOISE_JSON = _json.dumps(sorted(
+    set(_platforms.as_noise_events()["Google Analytics"]) | set(_DATALAYER_EXTRA_NOISE)))
+
 _READ_JS_EVENTS_JS = """
 ([dlOff, fbqOff]) => {
     const events = [];
-    const NOISE = new Set(['gtm.js','gtm.init','gtm.load','gtm.dom','gtm.init_consent','page_view','user_engagement','session_start','first_visit','OneTrustLoaded','OptanonLoaded','OneTrustGroupsUpdated','dl_intelligems_script_loaded','dl_user_data','scroll','click','form_start','form_close']);
+    const NOISE = new Set(__NOISE_JSON__);
     if (window.dataLayer){ const arr = window.dataLayer; const start = (dlOff <= arr.length) ? dlOff : 0; const seen=new Set(); for(const item of arr.slice(start)){ if(item && item.event && !NOISE.has(item.event) && !seen.has(item.event)){ seen.add(item.event); events.push({platform:'Google Analytics', event:item.event}); } } }
     if (window.fbq && window.fbq.queue){ const q = window.fbq.queue; const qs = (fbqOff <= q.length) ? fbqOff : 0; const seen=new Set(); for(const item of q.slice(qs)){ if(Array.isArray(item) && item[0]==='track' && !seen.has(item[1])){ seen.add(item[1]); events.push({platform:'Meta', event:item[1]}); } } }
     return events;
 }
-"""
+""".replace("__NOISE_JSON__", _JS_NOISE_JSON)
 
 def _js_watermarks(page) -> list:
     """Длины dataLayer/fbq.queue ПЕРЕД кликом — _read_js_events прочтёт только новое."""

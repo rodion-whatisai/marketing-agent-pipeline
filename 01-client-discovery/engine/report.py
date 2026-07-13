@@ -24,35 +24,15 @@ from log import log_warn, log_error, log_debug
 
 
 # ─── Стандартные события по платформам ───────────────────────────────────────
+# Шаг B (2026-07-13): локальные копии убраны — списки читаются из единого
+# реестра platforms.py (ревью дня 5: копии разъехались — form_start был
+# одновременно шумом для сканера и «конверсией» для отчёта, Google Ads
+# page_view-пинги печатались как события). Презентационные отличия отчёта
+# (PageView не перечисляем и т.п.) — явной надбавкой в реестре.
+import platforms as _platforms
 
-STANDARD_CONVERSION_EVENTS = {
-    "Meta": [
-        "Purchase", "Lead", "InitiateCheckout", "ViewContent",
-        "AddToCart", "CompleteRegistration", "Schedule", "Contact",
-        "Search", "Subscribe", "AddPaymentInfo", "StartTrial",
-    ],
-    "Google Analytics": [
-        "purchase", "begin_checkout", "add_to_cart", "view_item",
-        "generate_lead", "form_submit", "form_start", "conversion",
-        "sign_up", "login",
-    ],
-    "Google Ads": ["conversion"],
-    "Bing/Microsoft": ["purchase", "lead", "conversion"],
-    "TikTok": ["Purchase", "AddToCart", "InitiateCheckout", "CompletePayment",
-               "ViewContent", "AddPaymentInfo", "PlaceAnOrder"],
-    "LinkedIn": ["conversion"],
-}
-
-NOISE_EVENTS = {
-    "Meta": ["PageView", "fired"],
-    "Google Analytics": ["gtm.init", "gtm.init_consent", "gtm.js",
-                         "page_view", "user_engagement", "fired", "scroll",
-                         "session_start", "first_visit"],
-    "Google Ads": [],
-    "Bing/Microsoft": ["fired", "track"],
-    "TikTok": ["fired"],
-    "LinkedIn": ["fired"],
-}
+STANDARD_CONVERSION_EVENTS = _platforms.as_report_standard_events()
+NOISE_EVENTS = _platforms.as_report_noise_events()
 
 
 def load(path: str) -> dict:
