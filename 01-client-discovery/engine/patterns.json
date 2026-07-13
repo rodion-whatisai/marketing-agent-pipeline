@@ -513,7 +513,8 @@
       "https://keepbloomingflowers.ca/testimonials",
       "https://taxdome.com/testimonials",
       "https://spines.com/testimonials",
-      "https://www.plurio.ai/testimonials"
+      "https://www.plurio.ai/testimonials",
+      "https://akvelon.com/testimonials"
     ],
     "added": "2026-04-09",
     "source": "manual"
@@ -1121,7 +1122,8 @@
     "priority": 2,
     "description": "Manually typed from nissan.ie: /first-responders.html",
     "examples": [
-      "https://www.nissan.ie/first-responders.html"
+      "https://www.nissan.ie/first-responders.html",
+      "https://americor.com/first-responders"
     ],
     "added": "2026-06-26",
     "source": "manual"
@@ -1341,7 +1343,8 @@
     "priority": 4,
     "description": "Manually classified from redacted-prospect.example: /reviews",
     "examples": [
-      "https://redacted-prospect.example/reviews"
+      "https://redacted-prospect.example/reviews",
+      "https://americor.com/reviews"
     ],
     "added": "2026-06-28",
     "source": "manual"
