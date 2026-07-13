@@ -1,9 +1,9 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "domain": "garage.suspenair.fr",
   "verified_by": "rodion",
   "verified_against": "ответы в чате 2026-07-13: ручная сверка Meta Pixel Helper + Google Tag Assistant",
-  "notes": "Rodion подтвердил 2026-07-13: теги G-NH36SNC14N (x2) + AW-480621483 + GTM-MWCVH5SD стоят, конфигурация правильная (Ads и GA на одном теге). В свежем прогоне на загрузке летит только en=user_engagement (не конверсия) → GAP корректен. В браузере Rodion (старые куки) Tag Assistant показывает больше — env-разница, CMP-warning у сайта. RDV-страница: кнопки живут ВНУТРИ Calendly-iframe (NO CTA корректен by design); calendy_* события есть только в dataLayer, в network не уходят — GA-теги на них не настроены (питч-возможность для клиента; ловить можно только dataLayer-инспекцией — будущая фича). missing_events с Meta-именами убраны: Meta-пикселя нет.",
+  "notes": "Rodion подтвердил 2026-07-13: теги G-NH36SNC14N (x2) + AW-480621483 + GTM-MWCVH5SD стоят, конфигурация правильная (Ads и GA на одном теге). В свежем прогоне на загрузке летит только en=user_engagement (не конверсия) → GAP корректен. В браузере Rodion (старые куки) Tag Assistant показывает больше — env-разница, CMP-warning у сайта. RDV-страница: кнопки живут ВНУТРИ Calendly-iframe (NO CTA корректен by design); calendy_* события есть только в dataLayer, в network не уходят — GA-теги на них не настроены (питч-возможность для клиента; ловить можно только dataLayer-инспекцией — будущая фича). missing_events с Meta-именами убраны: Meta-пикселя нет. ГЕЙТ 2026-07-13: has_cta главной подтверждён (Prendre rendez-vous, Envoyer votre demande); NO_CTA страницы записи подтверждён (5 кликабельных — все служебные, запись внутри Calendly-iframe). Stripe подтверждён живым трафиком js.stripe.com (не только html).",
   "verified_date": "2026-07-13",
   "scanner_commit": "b8f2beb",
   "site": {
@@ -44,5 +44,10 @@
         "Stripe"
       ]
     }
+  },
+  "verified_via": {
+    "witness": "golden/garage.suspenair.fr/witness_2026-07-13.json",
+    "rodion_gate": "чат 2026-07-13, гейт-раунд №1: подтвердил GA4+Ads присутствуют (обе страницы), Calendly+Stripe (хосты в трафике), has_cta главной, NO_CTA страницы записи",
+    "rodion_manual": "чат 2026-07-13: ручная сверка Meta Pixel Helper + Google Tag Assistant"
   }
 }

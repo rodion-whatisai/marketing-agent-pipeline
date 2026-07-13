@@ -15,17 +15,41 @@
 - Состав корпуса и причины выбора каждого сайта — `corpus.json`.
 - История счёта по прогонам — `history.csv` (коммитится, это кривая доверия).
 
-## Формат expected_<domain>.json
+## Правило гейта и два сорта полей (ревизия 2026-07-13)
+
+**Любая правда записывается сюда ТОЛЬКО после явного «да» Rodion'а** — с уликой
+свидетеля в вопросе. Кто что подтверждает:
+
+| Сорт | Поля | Кто подтверждает |
+|---|---|---|
+| **«Правда о сайте»** — существует независимо от нашего кода | `platforms_detected`, `platforms_forbidden`, `gtm_platforms`, `conversion_events_min`, `external_services`, `has_cta`, redirect/HTTP- и consent-факты | **только Rodion, явным «да»**; улики — witness-файлы рядом; запись — в `verified_via` |
+| **«Контракт сканера»** — договорённость, как ярлычить правду | `page_type` (конвенция классификации), `status` (ярлык при данной правде), `counters`, `missing_events` | скан-derived — допустимо, честно подписано «контракт» |
+
+Файлы свидетеля: `golden/<domain>/witness_<date>.json` (обход страниц: финальный
+URL+статус, пиксель-запросы с методами и POST-телами, сырые кликабельные тексты,
+сторонние хосты) и `witness_journey_<date>.json` (e-com путь product→ATC→cart→
+checkout). Сырьё (скриншоты, полные тела) — `scans/_witness_<date>/`, gitignored.
+
+Машинная проверка: `python witness_check.py <domain>` — «эталон не противоречит
+сырому трафику»: ✅ подтверждено / ⚠ не засвидетельствовано (на гейт) /
+❌ противоречие (exit 1).
+
+## Формат expected_<domain>.json (schema_version 2)
 
 Проверяются ТОЛЬКО стабильные поля. Отсутствующее в эталоне поле = не проверяется.
 
 ```json
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "domain": "fritz-kola.de",
-  "verified_by": "rodion",          // "draft" = черновик, ждёт апрува
+  "verified_by": "rodion",          // "draft" = черновик, правды в нём НЕТ
   "verified_date": "2026-07-15",
-  "verified_against": "shakedown README + просмотр report.html",
+  "verified_against": "гейт-раунд в чате + ручная сверка",
+  "verified_via": {                 // чем подтверждали (schema v2)
+    "witness": "golden/fritz-kola.de/witness_2026-07-15.json",
+    "rodion_gate": "чат 2026-07-15: подтвердил платформы, запреты, кнопки",
+    "rodion_manual": "Pixel Helper / Tag Assistant"
+  },
   "scanner_commit": "f7e9a6b",
   "notes": "Домен 301-ит на fritz-kola.com, пути схлопываются на главную.",
   "site": {

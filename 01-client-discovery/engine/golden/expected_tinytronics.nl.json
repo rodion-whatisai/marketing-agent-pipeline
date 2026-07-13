@@ -1,9 +1,9 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "domain": "tinytronics.nl",
   "verified_by": "rodion",
   "verified_against": "ответы в чате 2026-07-13: ручная сверка Meta Pixel Helper + Google Tag Assistant",
-  "notes": "Rodion проверил вручную 2026-07-13: Meta/TikTok пикселей НЕТ (запинено forbidden). Google-теги (GTM + 2 Ads-кабинета + GA4) появляются ТОЛЬКО после принятия куков — consent-first обязателен. GA4 ходит через consent-mode endpoints (ccm/collect). На форме сконфигурирован Ads-тег «отправленные обращения» — стрельнёт только на реальном сабмите, мы формы не сабмитим. missing_events с Meta-именами убраны из эталона: бессмысленны без Meta-пикселя (feedback Rodion).",
+  "notes": "Rodion проверил вручную 2026-07-13: Meta/TikTok пикселей НЕТ (запинено forbidden). Google-теги (GTM + 2 Ads-кабинета + GA4) появляются ТОЛЬКО после принятия куков — consent-first обязателен. GA4 ходит через consent-mode endpoints (ccm/collect). На форме сконфигурирован Ads-тег «отправленные обращения» — стрельнёт только на реальном сабмите, мы формы не сабмитим. missing_events с Meta-именами убраны из эталона: бессмысленны без Meta-пикселя (feedback Rodion). ГЕЙТ 2026-07-13: главная / редиректит на /en (языковой редирект) — Rodion: норма, скан аудирует EN-версию той же главной, статус OK остаётся. 71 сырых кликабельных у свидетеля — это перепись ВСЕГО; кликер работает по отфильтрованным CTA сканера (≤8).",
   "verified_date": "2026-07-13",
   "scanner_commit": "b8f2beb",
   "site": {
@@ -48,5 +48,10 @@
         "TikTok"
       ]
     }
+  },
+  "verified_via": {
+    "witness": "golden/tinytronics.nl/witness_2026-07-13.json",
+    "rodion_gate": "чат 2026-07-13, гейт-раунд №1: подтвердил Google Ads+GA4 присутствуют (обе страницы), пины Meta/TikTok-отсутствуют, has_cta обе страницы, редирект /→/en = норма",
+    "rodion_manual": "чат 2026-07-13: ручная сверка Meta Pixel Helper + Google Tag Assistant"
   }
 }

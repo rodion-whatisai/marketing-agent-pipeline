@@ -1,0 +1,428 @@
+{
+ "schema_version": 1,
+ "domain": "garage.suspenair.fr",
+ "mode": "pages",
+ "date": "2026-07-13",
+ "witness_commit": "26349e6",
+ "headless": true,
+ "consent": {
+  "clicked": "selector:#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll",
+  "on_page": "/prendre-rendez-vous-en-ligne"
+ },
+ "pages": [
+  {
+   "path": "/prendre-rendez-vous-en-ligne",
+   "requested_url": "https://garage.suspenair.fr/prendre-rendez-vous-en-ligne",
+   "http_status": 200,
+   "final_url": "https://garage.suspenair.fr/prendre-rendez-vous-en-ligne/",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-NH36SNC14N",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-NH36SNC14N",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/480621483/?random=1783964358489&cv=11&fst=1783964358489&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gd",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/480621483/?random=1783964358489&cv=11&fst=1783964358489&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=w",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-MWCVH5SD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&auid=862102937.1783964358&dt=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&en=page_view&dl=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&scrsrc=www.googletagmanager.com&rnd=1483400100.1783964358&navt=n&npa=0&us_privacy=1---&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&_tu=CA&gtm=45je6790v888743851za200zd888743851xec&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-NH36SNC14N&gtm=45je6790v888743851za200zd888743851&_p=1783964354447&_gaz=1&gcs=G111&gcd=13r3r3X3r5l1&npa=0&dma=0&gdid=dMWZhNz.dZTNiMT&ecid=1973144595&_eu=AAAAAGAC&are=1&cid=939834650.1783964359&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938466~115938468~118395334~118826209~118897920~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/480621483/?random=1783964358489&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/480621483/?random=1783964358489&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=w",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&ae=g&auid=862102937.1783964358&dt=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&en=page_view&dl=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&scrsrc=www.googletagmanager.com&rnd=1483400100.1783964358&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=1&gdid=dMWZhNz&_tu=CA&gtm=45He6790v9200024829za200zd9200024829xea&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395333~118826210~118897920~1188",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/480621483/?random=1783964358707&cv=11&fst=1783964358707&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/480621483/?random=1783964358707&cv=11&fst=1783964358707&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/480621483/?random=1783964358714&cv=11&fst=1783964358714&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za200zd888743851xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/480621483/?random=1783964358714&cv=11&fst=1783964358714&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za200zd888743851xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=www.",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&auid=862102937.1783964358&dt=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&en=page_view&dl=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&scrsrc=www.googletagmanager.com&rnd=1483400100.1783964358&navt=n&npa=0&us_privacy=1---&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&_tu=CA&gtm=45je6790v888743851z89200024829za200zd888743851xec&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~1188",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&ae=g&auid=862102937.1783964358&dt=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&dl=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&scrsrc=www.googletagmanager.com&rnd=1483400100.1783964358&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=1&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&_tu=CA&gtm=45je6790v888743851z89200024829za200zd888743851xea&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~11839533",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/480621483/?random=1783964358707&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/480621483/?random=1783964358707&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za200zd888743851xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/480621483/?random=1783964358714&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za200zd888743851xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=www",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/480621483/?random=1783964358714&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za200zd888743851xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938466~115938468~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2Fprendre-rendez-vous-en-ligne%2F&rcb=6&frm=0&tiba=RDV%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=www.",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-NH36SNC14N&gtm=45je6790v888743851z89200024829za200zd888743851&_p=1783964354447&gcs=G111&gcd=13r3r3X3r5l1&npa=0&dma=0&gdid=dMWZhNz.dZTNiMT&ecid=1973144595&_eu=AAACAGQC&are=1&cid=939834650.1783964359&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938468~118395334~118826209~118897",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-NH36SNC14N&gtm=45je6790v888743851z89200024829za200zd888743851&_p=1783964354447&gcs=G111&gcd=13r3r3X3r5l1&npa=0&dma=0&gdid=dMWZhNz.dZTNiMT&ecid=1973144595&_eu=AAAAAGQC&are=1&cid=939834650.1783964359&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938466~115938468~118395334~118826209~118897920~1",
+     "query_event": "",
+     "body_events": [
+      "calendy_page_height"
+     ],
+     "body_sha1": "6ee7cb18ae",
+     "body_snippet": "en=calendy_page_height&_et=1650\r\nen=calendy_page_height&_et=754\r\nen=calendy_event_type_viewed&_et=357\r\nen=calendy_event_type_viewed&_et=1\r\nen=calendy_page_height&_et=11",
+     "body_file": "scans/_witness_2026-07-13/garage.suspenair.fr/fixtures/garage.suspenair.fr_Google Analytics_prendre-rendez-vous-en-ligne_6ee7cb18ae.txt"
+    }
+   ],
+   "clickables": [
+    "Aller au contenu",
+    "07 57 69 05 87",
+    "01 89 48 02 67",
+    "Politique de confidentialité",
+    "Ouvrir le widget de paramètres des cookies"
+   ],
+   "third_party_hosts": [
+    "accounts.google.com",
+    "ad.doubleclick.net",
+    "analytics.google.com",
+    "api.zadarma.com",
+    "assets.calendly.com",
+    "calendly.com",
+    "cdn.cookielaw.org",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "d3v0px0pttie1i.cloudfront.net",
+    "dfp.calendly.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "geolocation.onetrust.com",
+    "googleads.g.doubleclick.net",
+    "js.stripe.com",
+    "m.stripe.com",
+    "m.stripe.network",
+    "my.zadarma.com",
+    "notifier-configs.airbrake.io",
+    "stats.g.doubleclick.net",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.gstatic.com",
+    "www.recaptcha.net"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/garage.suspenair.fr/01_prendre-rendez-vous-en-ligne.png"
+  },
+  {
+   "path": "/",
+   "requested_url": "https://garage.suspenair.fr",
+   "http_status": 200,
+   "final_url": "https://garage.suspenair.fr/",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-NH36SNC14N&gtm=45je6790v888743851za200zd888743851&_p=1783964354447&gcs=G111&gcd=13r3r3X3r5l1&npa=0&dma=0&gdid=dMWZhNz.dZTNiMT&ecid=1973144595&_eu=AAAAAGQC&_prs=ok&are=1&cid=939834650.1783964359&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=4&tag_exp=115938466~115938468~118395334~118826209~118897920~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-NH36SNC14N",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-MWCVH5SD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-NH36SNC14N&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=7&frm=0&ae=g&auid=862102937.1783964358&dt=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&en=page_view&dl=https%3A%2F%2Fgarage.suspenair.fr%2F&scrsrc=www.googletagmanager.com&rnd=827891689.1783964371&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v9200024829za200zd9200024829xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=f&ga",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/480621483/?random=1783964370847&cv=11&fst=1783964370847&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=w",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/480621483/?random=1783964370847&cv=11&fst=1783964370847&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/480621483/?random=1783964370870&cv=11&fst=1783964370870&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadserv",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/480621483/?random=1783964370870&cv=11&fst=1783964370870&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_priva",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-NH36SNC14N&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829&_p=1783964370625&gcs=G111&gcd=13r3r3X3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1973144595&_eu=AAAAAGQC&are=1&cid=939834650.1783964359&frm=0&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938468~118395335~118826209~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/480621483/?random=1783964370877&cv=11&fst=1783964370877&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiM",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/480621483/?random=1783964370877&cv=11&fst=1783964370877&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=www.googleadservic",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&auid=862102937.1783964358&dt=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&en=page_view&dl=https%3A%2F%2Fgarage.suspenair.fr%2F&scrsrc=www.googletagmanager.com&rnd=827891689.1783964371&navt=n&npa=0&us_privacy=1---&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xec&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&apve=1&apv",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&ae=g&auid=862102937.1783964358&dt=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&dl=https%3A%2F%2Fgarage.suspenair.fr%2F&scrsrc=www.googletagmanager.com&rnd=827891689.1783964371&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xea&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~1190",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&auid=862102937.1783964358&dt=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&en=page_view&dl=https%3A%2F%2Fgarage.suspenair.fr%2F&scrsrc=www.googletagmanager.com&rnd=827891689.1783964371&navt=n&npa=0&us_privacy=1---&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&_tu=CA&gtm=45je6790v888743851za20gzb9200024829zd9200024829xec&gcs=G111&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&apve",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/480621483/?random=1783964370847&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.co",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/480621483/?random=1783964370847&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/480621483/?random=1783964370877&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=www.googleadservi",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/480621483/?random=1783964370877&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45je6790v888743851za20gzb9200024829zd9200024829xec&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz%2CdZTNiMT&gdid=dMWZhNz.dZTNiMT&hn=www.googleadservic",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/480621483/?random=1783964370870&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_priv",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/480621483/?random=1783964370870&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45je6790v888743851z89200024829za20gzb9200024829zd9200024829xea&gcd=13r3r3X3r5l1&dma=0&tag_exp=115938465~115938468~118395335~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fgarage.suspenair.fr%2F&rcb=5&frm=0&tiba=Home%20-%20Suspenair%20-%20Expert%20en%20suspension%20pneumatique&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_priva",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/id",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-NH36SNC14N&gtm=45je6790v888743851za20gzb9200024829zd9200024829&_p=1783964370625&gcs=G111&gcd=13r3r3X3r5l1&npa=0&dma=0&gdid=dMWZhNz.dZTNiMT&ecid=1973144595&_eu=AAACAGQC&are=1&cid=939834650.1783964359&frm=0&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938468~118395335~118826209~11889",
+     "query_event": "page_view",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Aller au contenu",
+    "07 57 69 05 87",
+    "01 89 48 02 67",
+    "Prendre rendez-vous",
+    "previous arrow",
+    "next arrow",
+    "Slide1",
+    "Slide2",
+    "Slide3",
+    "Demandez votre diagnostic",
+    "Envoyer votre demande",
+    "Antoine Pagano",
+    "Sergiu Les",
+    "Antoine Piette",
+    "Olivier Rougemont",
+    "Prendre rendez-vous diagnostic",
+    "contact@suspenair.fr",
+    "Politique de confidentialité",
+    "Ouvrir le widget de paramètres des cookies"
+   ],
+   "third_party_hosts": [
+    "analytics.google.com",
+    "api.zadarma.com",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "i.ytimg.com",
+    "jnn-pa.googleapis.com",
+    "my.zadarma.com",
+    "privacyportal.onetrust.com",
+    "static.doubleclick.net",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.youtube.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/garage.suspenair.fr/02_home.png"
+  }
+ ]
+}

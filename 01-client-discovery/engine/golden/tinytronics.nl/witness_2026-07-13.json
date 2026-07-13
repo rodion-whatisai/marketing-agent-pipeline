@@ -1,0 +1,365 @@
+{
+ "schema_version": 1,
+ "domain": "tinytronics.nl",
+ "mode": "pages",
+ "date": "2026-07-13",
+ "witness_commit": "26349e6",
+ "headless": true,
+ "consent": {
+  "clicked": "text:accept",
+  "on_page": "/en/comment-or-suggestion"
+ },
+ "pages": [
+  {
+   "path": "/en/comment-or-suggestion",
+   "requested_url": "https://www.tinytronics.nl/en/comment-or-suggestion",
+   "http_status": 200,
+   "final_url": "https://www.tinytronics.nl/en/comment-or-suggestion",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-5J5MZQKQ",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-963953247&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=15&frm=0&ae=g&auid=1146206776.1783964322&dt=Comment%20or%20suggestion&en=page_view&dl=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&scrsrc=www.googletagmanager.com&rnd=1535708174.1783964322&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6790v9250146619za200zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616985~115938465~115938468~118395335~118826210~118897920~118897930~119027224~119709549&apve=1&apvf=f&apvc=1&tft=1783964321578&tfd=10207&fmt=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-G-TY2ZCS2MBT&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/963953247/?random=1783964321825&cv=11&fst=1783964321825&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=11&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/963953247/?random=1783964321825&cv=11&fst=1783964321825&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=11&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&ua",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&auid=1146206776.1783964322&dt=Comment%20or%20suggestion&en=page_view&dl=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&scrsrc=www.googletagmanager.com&rnd=1535708174.1783964322&navt=n&npa=0&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=AW-963953247&tid=AW-963953247&tft=1783964321839&tfd=10468&fmt=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/G-TY2ZCS2MBT/?random=1783964321996&cv=11&fst=1783964321996&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=15&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&ua",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/G-TY2ZCS2MBT/?random=1783964321996&cv=11&fst=1783964321996&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=15&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&uaa=x86&uab=64&uafvl=Not%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=15&frm=0&ae=g&auid=1146206776.1783964322&dt=Comment%20or%20suggestion&dl=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&scrsrc=www.googletagmanager.com&rnd=1535708174.1783964322&navt=n&npa=0&_tu=CA&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=AW-G-TY2ZCS2MBT&tid=AW-G-TY2ZCS2MBT&tft=1783964322023&tfd=10652&fmt=8",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/963953247/?random=1783964321825&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=11&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&u",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/963953247/?random=1783964321825&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=11&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&ua",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/G-TY2ZCS2MBT/?random=1783964321996&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=15&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&uaa=x86&uab=64&uafvl=Not",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/G-TY2ZCS2MBT/?random=1783964321996&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen%2Fcomment-or-suggestion&rcb=15&frm=0&tiba=Comment%20or%20suggestion&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&uaa=x86&uab=64&uafvl=Not%",
+     "query_event": "",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Login",
+    "Register",
+    "Wishlist",
+    "ALL CATEGORIES",
+    "NEW PRODUCTS",
+    "BEST SELLERS",
+    "CUSTOMER SUPPORT",
+    "PICKUP LOCATION",
+    "0 PRODUCT(S) - €0.00",
+    "Comment or suggestion",
+    "Account",
+    "Pick up",
+    "Order",
+    "Payment",
+    "Delivery",
+    "Warranty and problems",
+    "Product question",
+    "Return",
+    "Collaborations",
+    "Business",
+    "Other",
+    "UPLOAD FILE",
+    "Privacy Policy",
+    "SUBMIT",
+    "E-mail techsupport@tinytronics.nl",
+    "Phone number +31850048800 Mon-Fri between 13:00-18:00",
+    "Pickup location",
+    "Delivery information",
+    "Customer support",
+    "Old-for-new arrangement",
+    "Returns",
+    "For business",
+    "My account",
+    "My orders",
+    "Terms & conditions",
+    "GDPR tools",
+    "Disclaimer",
+    "About us",
+    "Packaging material",
+    "Chamber of Commerce number: 83192425",
+    "VAT-number: NL862763198B01",
+    "© TinyTronics B.V. 2014 - 2026"
+   ],
+   "third_party_hosts": [
+    "ad.doubleclick.net",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.gstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/tinytronics.nl/01_en_comment-or-suggestion.png"
+  },
+  {
+   "path": "/",
+   "requested_url": "https://www.tinytronics.nl",
+   "http_status": 200,
+   "final_url": "https://www.tinytronics.nl/en",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-5J5MZQKQ",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-963953247&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&ae=g&auid=1146206776.1783964322&dt=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&en=page_view&dl=https%3A%2F%2Fwww.tinytronics.nl%2Fen&scrsrc=www.googletagmanager.com&rnd=1808619987.1783964337&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6790v9250146619za200zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938468~118395335~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=1783964336900&tfd=4534&fmt=8",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-G-TY2ZCS2MBT&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/963953247/?random=1783964336910&cv=11&fst=1783964336910&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=12&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&psc",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/963953247/?random=1783964336910&cv=11&fst=1783964336910&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=12&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=114620677",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=12&frm=0&auid=1146206776.1783964322&dt=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&en=page_view&dl=https%3A%2F%2Fwww.tinytronics.nl%2Fen&scrsrc=www.googletagmanager.com&rnd=1808619987.1783964337&navt=n&npa=0&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=AW-963953247&tid=AW-963953247&tft=1783964336915",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/G-TY2ZCS2MBT/?random=1783964336982&cv=11&fst=1783964336982&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=13&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=114620677",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/G-TY2ZCS2MBT/?random=1783964336982&cv=11&fst=1783964336982&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=13&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&uaa=x86&ua",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=13&frm=0&ae=g&auid=1146206776.1783964322&dt=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&dl=https%3A%2F%2Fwww.tinytronics.nl%2Fen&scrsrc=www.googletagmanager.com&rnd=1808619987.1783964337&navt=n&npa=0&_tu=CA&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=AW-G-TY2ZCS2MBT&tid=AW-G-TY2ZCS2MBT&tft=1783964336986&tfd=4",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/963953247/?random=1783964336910&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=12&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=11462067",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/963953247/?random=1783964336910&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6790v9179230404z89250146619za20gzb9250146619zd9250146619xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=12&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=114620677",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/G-TY2ZCS2MBT/?random=1783964336982&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=13&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&uaa=x86&u",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/G-TY2ZCS2MBT/?random=1783964336982&cv=11&fst=1783962000000&bg=ffffff&guid=ON&async=1&gtm=45be6790z89250146619za20gzb9250146619zd9250146619xea&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.tinytronics.nl%2Fen&rcb=13&frm=0&tiba=TinyTronics%3A%20Electronics%20for%20a%20tiny%20price!&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1146206776.1783964322&uaa=x86&ua",
+     "query_event": "",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Login",
+    "Register",
+    "Wishlist",
+    "ALL CATEGORIES",
+    "NEW PRODUCTS",
+    "BEST SELLERS",
+    "CUSTOMER SUPPORT",
+    "PICKUP LOCATION",
+    "0 PRODUCT(S) - €0.00",
+    "Pick up possible Pick-up point available on business days between 13:00 - 18:00.",
+    "Rated with a 9.7 We have been rated by our customers with a 9.7 on Kiyoh!",
+    "3D PRINTING",
+    "AUDIO",
+    "CABLES AND CONNECTORS",
+    "CLEARANCE",
+    "COMMUNICATION AND SIGNALS",
+    "COMPONENTS",
+    "COMPUTER ACCESSORIES",
+    "DATA STORAGE",
+    "DEVELOPMENT BOARDS",
+    "DISPLAYS",
+    "HOME AUTOMATION",
+    "LIGHTING",
+    "MECHANICS AND ACTUATORS",
+    "PLATFORMS AND SYSTEMS",
+    "POWER",
+    "SENSORS",
+    "SWITCHES",
+    "TOOLS AND MOUNTING",
+    "Universal Digital LED Strip Controller V2 - ESP32-S3",
+    "Polymaker PolyDryer Drying Dock",
+    "CC1101 RF Transceiver Module - 868MHz - THT",
+    "XTAR MX4 Mini Mixer Battery Charger - Li-ion - LiFePO4 - Ni-MH",
+    "2P Jumper - with Notch - 100 pieces",
+    "2P Jumper - with Notch - 10 pieces",
+    "XTAR VX4 V2 Battery Charger - Li-ion - LiFePO4 - Ni-MH",
+    "XTAR 18650 Li-ion Battery with with Protection Circuit - 3500mAh - 10A",
+    "Kingston DataTraveler Exodia DTXG2 64GB USB Stick",
+    "JST-PH 3p Compatible Cable - 30cm",
+    "16MHz Crystal - HC49S",
+    "XTAR PB2SL V2 Li-ion Battery Charger - Powerbank",
+    "XTAR 18650 Li-ion Battery with with Protection Circuit - 4000mAh - 10A",
+    "Power Strip 4 Outlets with Child Protection - Black - 1.5m",
+    "DFRobot Gravity 64x8 Matrix dToF LiDAR Sensor Module",
+    "Light Slot Sensor Module - for Car Kit",
+    "ULN2003 Stepper Motor Driver Module",
+    "RGB LED - 5mm Clear - Blinking - 100 pieces",
+    "Previous slide",
+    "Next slide",
+    "Go to slide 1",
+    "Go to slide 2",
+    "Go to slide 3",
+    "Pickup location",
+    "Order",
+    "Payment",
+    "Delivery information",
+    "Customer support",
+    "Old-for-new arrangement",
+    "Returns",
+    "For business",
+    "My account",
+    "My orders",
+    "Terms & conditions",
+    "GDPR tools",
+    "Disclaimer",
+    "About us",
+    "Privacy Policy",
+    "Packaging material",
+    "Chamber of Commerce number: 83192425",
+    "VAT-number: NL862763198B01",
+    "© TinyTronics B.V. 2014 - 2026"
+   ],
+   "third_party_hosts": [
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/tinytronics.nl/02_home.png"
+  }
+ ]
+}

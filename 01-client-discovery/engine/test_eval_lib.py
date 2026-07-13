@@ -345,6 +345,17 @@ def test_compare_site_gtm_missing_with_pagelevel_evidence_is_fail():
     assert len(gtm) == 1 and gtm[0]["verdict"] == ev.FAIL
 
 
+def test_schema_v2_tolerated():
+    # schema v2 добавляет verified_via и прочие top-level ключи — compare_site
+    # обязан их игнорировать и сравнивать как раньше
+    expected = _mini_expected()
+    expected["schema_version"] = 2
+    expected["verified_via"] = {"witness": "golden/x/witness_2026-07-13.json",
+                                "rodion_gate": "чат 2026-07-13"}
+    res = ev.compare_site(expected, _mini_actual(), _mini_step1())
+    assert res["summary"]["fail"] == 0 and res["summary"]["pct"] == 100.0
+
+
 def test_summarize_pct():
     checks = [
         {"verdict": ev.MATCH}, {"verdict": ev.MATCH}, {"verdict": ev.MATCH},
