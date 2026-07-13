@@ -6,7 +6,8 @@ Webflow, Squarespace, Wix, кастомные сайты, и т.д.
 """
 
 from .base_scanner import (
-    base_scan_page, make_listeners, detect_external_services, discover_buttons
+    base_scan_page, make_listeners, detect_external_services, discover_buttons,
+    capture_pixel_hit,
 )
 from log import log_debug, log_warn, log_info
 
@@ -22,6 +23,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     web_pixel_urls   = []
     web_pixel_bodies = {}
     request_urls_all = []
+    pixel_hits       = []   # {url, method, body_snippet} — улики стенда (POST-тела)
 
     on_request, on_response = make_listeners(
         pixel_events, web_pixel_urls, web_pixel_bodies, all_html_parts, pixel_ids
@@ -29,6 +31,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     def on_request_extended(request):
         request_urls_all.append(request.url)
+        capture_pixel_hit(request, pixel_hits)
         on_request(request)
 
     page.on("request", on_request_extended)
@@ -94,6 +97,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     # Сырьё для постмортемов: без него дебаг «почему пиксели не пойманы» требует
     # живого перескана (2026-07-07: 76 URL tinytronics были потеряны — пришлось переезжать)
     result["network_requests"] = request_urls_all[:300]
+    result["pixel_hits"] = pixel_hits                          # улики стенда: метод+тело
     result["cta_buttons"] = cta_buttons                       # полный список (помечен в DOM) — для кликера
     result["cta_elements"] = cta_elements[:8]                 # порядок приоритета сохранён (JS уже дедупит)
     result["has_cta"] = bool(cta_buttons) or result["content_analysis"]["is_page_of_interest"]

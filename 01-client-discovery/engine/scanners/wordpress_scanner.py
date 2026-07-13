@@ -292,8 +292,9 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     web_pixel_urls   = []
     web_pixel_bodies = {}
     request_urls_all = []
+    pixel_hits       = []   # {url, method, body_snippet} — улики стенда (POST-тела)
 
-    from .base_scanner import make_listeners, PIXEL_RULES
+    from .base_scanner import make_listeners, PIXEL_RULES, capture_pixel_hit
 
     on_request_base, on_response = make_listeners(
         pixel_events, web_pixel_urls, web_pixel_bodies, all_html_parts, pixel_ids
@@ -306,6 +307,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
             log_debug(f"on_request: пропускаем WordPress internal pixel — {req_url}")
             return
         request_urls_all.append(req_url)
+        capture_pixel_hit(request, pixel_hits)
         on_request_base(request)
 
     page.on("request", on_request)
@@ -409,6 +411,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
     result["network_requests"] = request_urls_all[:300]   # сырьё для постмортемов (см. generic_scanner)
+    result["pixel_hits"] = pixel_hits                     # улики стенда: метод+тело
     result["cta_elements"] = list(set(cta_elements))[:8]
     result["has_iframe_form"] = has_iframe_form
     result["iframe_forms"] = iframe_providers

@@ -8,7 +8,7 @@ CTA детектор знает про Shopify drawers, cart, mobile menu.
 import re
 from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services,
-    PIXEL_RULES
+    PIXEL_RULES, capture_pixel_hit
 )
 from log import log_debug
 
@@ -304,6 +304,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     web_pixel_urls   = []
     web_pixel_bodies = {}
     request_urls_all = []
+    pixel_hits       = []   # {url, method, body_snippet} — улики стенда (POST-тела)
 
     on_request_base, on_response = make_listeners(
         pixel_events, web_pixel_urls, web_pixel_bodies, all_html_parts, pixel_ids
@@ -311,6 +312,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     def on_request(request):
         request_urls_all.append(request.url)
+        capture_pixel_hit(request, pixel_hits)
         on_request_base(request)
 
     page.on("request", on_request)
@@ -376,6 +378,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
 
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
     result["network_requests"] = request_urls_all[:300]   # сырьё для постмортемов (см. generic_scanner)
+    result["pixel_hits"] = pixel_hits                     # улики стенда: метод+тело
     result["cta_elements"] = list(set(cta_elements))[:8]
     result["has_cta"] = bool(cta_elements) or result["content_analysis"]["is_page_of_interest"]
     result["has_iframe_form"] = False

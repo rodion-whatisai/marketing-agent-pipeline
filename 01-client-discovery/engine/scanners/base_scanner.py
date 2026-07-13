@@ -348,6 +348,53 @@ def detect_external_services(html: str, requests_urls: list = None) -> dict:
     return found
 
 
+# ─── Pixel hits — сырьё улик для испытательного стенда ───────────────────────
+# Meta шлёт содержательные события multipart-POST'ом, TikTok всё в JSON-телах
+# (BUGS-2026-07-13) — network_requests (только URL) для улик стенда недостаточно.
+# capture_pixel_hit пишет {url, method, body_snippet} для запросов к известным
+# пиксель-хостам. Это НЕ детекция (не влияет на вердикты сканера) — только сырьё
+# для eval_lib.find_event_evidence / гейта Rodion'а. См. TESTBED-PLAN.md.
+
+PIXEL_HIT_HOSTS = (
+    "facebook.com/tr", "connect.facebook.net",
+    "analytics.tiktok.com",
+    "ct.pinterest.com",
+    "tr.snapchat.com", "sc-static.net",
+    "bat.bing.com",
+    "google-analytics.com", "analytics.google.com",
+    "googleadservices.com", "googleads.g.doubleclick.net",
+    "google.com/ccm/collect", "google.com/pagead", "google.com/rmkt",
+    "google.com/measurement", "googletagmanager.com/gtag",
+    "px.ads.linkedin.com", "snap.licdn.com",
+)
+
+PIXEL_HIT_CAP = 200          # запросов на страницу
+PIXEL_HIT_URL_CAP = 1000     # символов URL — event-параметр (en=/ev=) у GET-пикселей
+                             # живёт глубоко в query, 300 символов его отрезало (ревью 2026-07-13)
+PIXEL_HIT_BODY_CAP = 3000    # символов тела (Meta multipart ~2KB — влезает целиком)
+
+
+def capture_pixel_hit(request, out: list):
+    """Записать запрос к пиксель-хосту с методом и телом. Тихо молчит на прочем.
+
+    Известное ограничение: слушатели сканеров снимаются ДО клик-фазы (кликер
+    держит собственный listener), поэтому клик-события сюда не попадают —
+    их улики собирает witness.py --journey (день 3 плана, TESTBED-PLAN.md)."""
+    url = request.url
+    if len(out) >= PIXEL_HIT_CAP or not any(h in url for h in PIXEL_HIT_HOSTS):
+        return
+    body = None
+    try:
+        body = request.post_data
+    except Exception:
+        pass  # бинарное/недоступное тело — фиксируем хотя бы url+method
+    out.append({
+        "url": url[:PIXEL_HIT_URL_CAP],
+        "method": request.method,
+        "body_snippet": (body or "")[:PIXEL_HIT_BODY_CAP] or None,
+    })
+
+
 # ─── Network listeners ────────────────────────────────────────────────────────
 
 def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: dict,
