@@ -10,7 +10,7 @@
     "rodion_gate": "чат 2026-07-13, гейт №2: ЧАСТИЧНО — подтвердил TikTok-отсутствие; ОПРОВЕРГ отсутствие Pinterest (Pixel Helper видит тег 2612751672311, свидетель запросов не видел); полное заверение отложено"
   },
   "scanner_commit": "bbc5c93",
-  "notes": "ГЕЙТ 2026-07-13: НЕ ЗАВЕРЁН (Rodion: «надо дебажить»). Его наблюдения: Meta-пиксель появился ТОЛЬКО после перезагрузки страницы после принятия куки (ложное 'нет пикселя' — TODO consent-reload); AddToCart не стреляет (только SubscribedButtonClick); чекаут без пикселя; Tag Assistant: 'CMP блокирует часть тегов', DC=DoubleClick Floodlight с 4 конверсиями. Свидетель: 2 страницы корпуса — реальные 404 (known fail C9 после заверения); главная почти без тегов; value=NaN в товарных событиях (питч). Pinterest: тег есть (Rodion), сетевых событий свидетель не видел. HTTP_ERROR на двух 404-страницах — машинный факт свидетеля (HTTP-код 404), заменил сканерный NO_CTA; сканер аудирует их как живые — known fail C9.",
+  "notes": "ГЕЙТ 2026-07-13: НЕ ЗАВЕРЁН (Rodion: «надо дебажить»). Его наблюдения: Meta-пиксель появился ТОЛЬКО после перезагрузки страницы после принятия куки (ложное 'нет пикселя' — TODO consent-reload); AddToCart не стреляет (только SubscribedButtonClick); чекаут без пикселя; Tag Assistant: 'CMP блокирует часть тегов', DC=DoubleClick Floodlight с 4 конверсиями. Свидетель: 2 страницы корпуса — реальные 404 (known fail C9 после заверения); главная почти без тегов; value=NaN в товарных событиях (питч). Pinterest: тег есть (Rodion), сетевых событий свидетель не видел. HTTP_ERROR на двух 404-страницах — машинный факт свидетеля (HTTP-код 404), заменил сканерный NO_CTA; сканер аудирует их как живые — known fail C9. День 7: у HTTP_ERROR-страниц оставлен только статус — после шлюза мёртвые страницы не аудируются, детекционных фактов у них нет by design.",
   "site": {
     "gtm_platforms": [
       "Bing/Microsoft",
@@ -48,21 +48,7 @@
       ]
     },
     "/collections/200-Giving-Back-Page-Test": {
-      "status": "HTTP_ERROR",
-      "page_type": "product",
-      "has_cta": true,
-      "platforms_detected": [
-        "Bing/Microsoft",
-        "Google Ads",
-        "Google Analytics",
-        "Meta"
-      ],
-      "external_services": [
-        "Jotform"
-      ],
-      "platforms_forbidden": [
-        "TikTok"
-      ]
+      "status": "HTTP_ERROR"
     },
     "/collections/200test": {
       "status": "NO_CTA",
@@ -117,21 +103,7 @@
       ]
     },
     "/products/adult-mickey-mouse-calf-socks": {
-      "status": "HTTP_ERROR",
-      "page_type": "product",
-      "has_cta": true,
-      "platforms_detected": [
-        "Bing/Microsoft",
-        "Google Ads",
-        "Google Analytics",
-        "Meta"
-      ],
-      "external_services": [
-        "Jotform"
-      ],
-      "platforms_forbidden": [
-        "TikTok"
-      ]
+      "status": "HTTP_ERROR"
     }
   }
 }

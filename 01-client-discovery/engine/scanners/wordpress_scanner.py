@@ -344,18 +344,14 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     except Exception as e:
         log_debug(f"scan_page: не удалось повесить postMessage listener: {e}")
 
-    log_debug(f"scan_page: goto {url} (попытка 1, timeout=20000)")
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=20000)
-        page.wait_for_timeout(2500)
-    except Exception as e:
-        log_debug(f"scan_page: goto попытка 1 не удалась ({e}) — повтор с timeout=10000")
-        try:
-            page.goto(url, wait_until="domcontentloaded", timeout=10000)
-            page.wait_for_timeout(1500)
-        except Exception as e2:
-            log_debug(f"scan_page: goto попытка 2 тоже не удалась: {e2}")
-            errors.append(str(e2)[:100])
+    # Шлюз (день 7): goto с ретраем + вердикт «жива ли и та ли страница»
+    from .base_scanner import navigate_and_gate, gated_result
+    gate = navigate_and_gate(page, url, settle_ms=2500, retry_settle_ms=1500)
+    errors.extend(gate.get("errors", []))
+    if gate.get("http_error") or gate.get("redirected"):
+        page.remove_listener("request", on_request)
+        page.remove_listener("response", on_response)
+        return gated_result(url, page_type, gate)
 
     # Scroll — запускаем lazy-load Elementor виджетов и WPForms
     log_debug("scan_page: scroll-проход (lazy-load Elementor/WPForms)")
@@ -412,6 +408,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
     result["network_requests"] = request_urls_all[:300]   # сырьё для постмортемов (см. generic_scanner)
     result["pixel_hits"] = pixel_hits                     # улики стенда: метод+тело
+    result["gate"] = gate                                 # шлюз: финальный URL/статус
     result["cta_elements"] = list(set(cta_elements))[:8]
     result["has_iframe_form"] = has_iframe_form
     result["iframe_forms"] = iframe_providers

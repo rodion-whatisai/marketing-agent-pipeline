@@ -353,6 +353,99 @@ def capture_pixel_hit(request, out: list):
     })
 
 
+# ─── Navigate & gate — редиректы и мёртвые страницы (день 7, C8/C9) ──────────
+# C8 (fritz-kola): все пути .de 301-ят на fritz-kola.com/ — сканер трижды
+# аудировал одну главную под видом cart/contact/product и не замечал.
+# C9 (bombas): 404-страницы аудировались как живые.
+# Правила (гейт-раунды 2026-07-13):
+# - смена РЕГИСТРИРУЕМОГО домена (последние 2 метки) = редирект-блок
+#   (fritz-kola.de→.com — да; us.checkout.gymshark.com→www.gymshark.com — НЕТ,
+#   георедирект внутри одного домена контент не подменяет)
+# - схлопывание непустого пути в '/' = редирект-блок
+# - трейлинг-слэш, http→https, языковой префикс (/→/en, tinytronics: Rodion
+#   решил «норма») — НЕ редирект
+# - HTTP-статус финального документа >= 400 = мёртвая страница
+# Ограничение: «последние 2 метки» наивны для co.uk-подобных зон — для корпуса
+# (.com/.de/.nl/.fr/.ca/.ie/.shop/.ai) достаточно.
+
+
+def _registrable(host: str) -> str:
+    parts = (host or "").lower().split(":")[0].split(".")
+    return ".".join(parts[-2:]) if len(parts) >= 2 else (host or "").lower()
+
+
+def gate_verdict(requested_url: str, final_url: str, http_status) -> dict:
+    """Чистая функция вердикта шлюза — тестируется без браузера (test_detection)."""
+    out = {"http_status": http_status, "final_url": (final_url or "")[:300],
+           "redirected": False, "http_error": False}
+    if isinstance(http_status, int) and http_status >= 400:
+        out["http_error"] = True
+    if not final_url:
+        return out
+    req, fin = urlparse(requested_url), urlparse(final_url)
+    host_changed = bool(fin.netloc) and _registrable(req.netloc) != _registrable(fin.netloc)
+    req_path = req.path.rstrip("/") or "/"
+    fin_path = fin.path.rstrip("/") or "/"
+    path_collapsed = req_path != "/" and fin_path == "/"
+    if host_changed or path_collapsed:
+        out["redirected"] = True
+    return out
+
+
+def navigate_and_gate(page, url: str, settle_ms: int = 1500, retry_settle_ms: int = 1000) -> dict:
+    """goto с ретраем (общий паттерн трёх сканеров) + вердикт шлюза.
+    Возвращает gate_verdict(...) + 'errors' (список ошибок навигации)."""
+    errors = []
+    response = None
+    try:
+        log_debug(f"navigate_and_gate: goto try1 (20s) {url}")
+        response = page.goto(url, wait_until="domcontentloaded", timeout=20000)
+        page.wait_for_timeout(settle_ms)
+    except Exception as e:
+        log_debug(f"navigate_and_gate: try1 failed ({str(e)[:80]}) — retry 10s")
+        try:
+            response = page.goto(url, wait_until="domcontentloaded", timeout=10000)
+            page.wait_for_timeout(retry_settle_ms)
+        except Exception as e2:
+            log_warn(f"navigate_and_gate: navigation failed for {url}: {str(e2)[:100]}")
+            errors.append(str(e2)[:100])
+    status = None
+    try:
+        status = response.status if response else None
+    except Exception:
+        pass
+    final_url = ""
+    try:
+        final_url = page.url or ""
+    except Exception:
+        pass
+    verdict = gate_verdict(url, final_url, status)
+    verdict["errors"] = errors
+    if verdict["redirected"] or verdict["http_error"]:
+        log_debug(f"navigate_and_gate: ШЛЮЗ redirected={verdict['redirected']} "
+                  f"http_status={status} final={final_url[:80]}")
+    return verdict
+
+
+def gated_result(url: str, page_type: str, gate: dict) -> dict:
+    """Минимальный результат для страницы, не прошедшей шлюз: аудита не было,
+    все детекционные поля пустые. Статус проставит step2 (⛔/↪)."""
+    return {
+        "url": url, "path": urlparse(url).path or "/", "page_type": page_type,
+        "gate": gate,
+        "pixel_events": {}, "pixel_ids": {},
+        "conversion_events_found": [], "partial_events_found": [],
+        "missing_events": [], "only_noise_events": False,
+        "external_services": {}, "network_requests": [], "pixel_hits": [],
+        "cta_buttons": [], "cta_elements": [], "ctas_in_html": {},
+        "has_cta": False, "has_iframe_form": False, "iframe_forms": [],
+        "forms_count": 0, "shopify_pixel_platforms": [],
+        "content_analysis": {"ctas": {}, "forms_count": 0,
+                             "is_page_of_interest": False, "poi_reason": ""},
+        "errors": list(gate.get("errors", [])),
+    }
+
+
 # ─── Network listeners ────────────────────────────────────────────────────────
 
 def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: dict,

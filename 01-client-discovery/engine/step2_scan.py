@@ -92,6 +92,8 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     no_ctas = []
     no_tracking_pages = []
     unverified_pages = []
+    redirected_pages = []    # день 7: страницы, уехавшие на другой домен/в корень (C8)
+    http_error_pages = []    # день 7: мёртвые страницы, HTTP >= 400 (C9)
     gtm_insights = {}
     gtm_platforms = set()
     all_tag_ids = []
@@ -189,6 +191,20 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
             result = scanner(page, url, ptype, expect, platform=platform)
             result["gtm_expected_platforms"] = list(expected_platforms)
             log_debug(f"run: [{i}] scanner вернул pixel_events={list(result.get('pixel_events', {}).keys())} conv={result.get('conversion_events_found')} cta={len(result.get('cta_elements', []))}")
+
+            # ── Шлюз (день 7): мёртвые/уехавшие страницы не аудируем и не кликаем ──
+            _gate = result.get("gate") or {}
+            if _gate.get("http_error") or _gate.get("redirected"):
+                if _gate.get("http_error"):
+                    result["status"] = f"⛔ HTTP {_gate.get('http_status')}"
+                    http_error_pages.append(result)
+                    print(f"  → {result['status']} — страница мертва, аудит пропущен")
+                else:
+                    result["status"] = "↪ REDIRECTED"
+                    redirected_pages.append(result)
+                    print(f"  → ↪ REDIRECTED → {_gate.get('final_url', '')[:80]} — аудит пропущен")
+                results.append(result)
+                continue
 
             if click_mode:
                 try:
@@ -497,12 +513,16 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
         "no_ctas": len(no_ctas),
         "no_tracking": len(no_tracking_pages),
         "unverified": len(unverified_pages),
+        "redirected": len(redirected_pages),     # день 7 (C8)
+        "http_errors": len(http_error_pages),    # день 7 (C9)
         "gtm_platforms": list(expected_platforms),
         "external_services": all_external,
         "gap_pages": gaps,
         "ok_pages": oks,
         "no_tracking_pages": no_tracking_pages,
         "unverified_pages": unverified_pages,
+        "redirected_pages": redirected_pages,
+        "http_error_pages": http_error_pages,
         "all_pages": results,
     }
 

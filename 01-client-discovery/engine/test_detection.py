@@ -120,6 +120,46 @@ def test_snapchat_gtm_signature_matches_live_container_js():
     assert any(re.search(s, container_js) for s in sigs)
 
 
+# ─── День 7: вердикт redirect/404-шлюза (C8/C9) ──────────────────────────────
+
+def test_gate_verdict_rules():
+    from scanners.base_scanner import gate_verdict
+    # C8 fritz-kola: смена регистрируемого домена = редирект-блок
+    v = gate_verdict("https://fritz-kola.de/cart", "https://fritz-kola.com/", 200)
+    assert v["redirected"] and not v["http_error"]
+    # gymshark: георедирект ВНУТРИ одного домена (us.checkout→www) — НЕ блок
+    v = gate_verdict("https://us.checkout.gymshark.com/collections/2-inch",
+                     "https://www.gymshark.com/en-ca/collections/2-inch", 200)
+    assert not v["redirected"]
+    # tinytronics: языковой редирект / → /en — НЕ блок (гейт №1: Rodion, норма)
+    assert not gate_verdict("https://www.tinytronics.nl/",
+                            "https://www.tinytronics.nl/en", 200)["redirected"]
+    # схлопывание непустого пути в корень того же домена — блок
+    assert gate_verdict("https://x.com/deep/page", "https://x.com/", 200)["redirected"]
+    # трейлинг-слэш и http→https — не блок
+    assert not gate_verdict("http://x.com/a/", "https://x.com/a", 200)["redirected"]
+    # C9 bombas: HTTP 404 = мёртвая страница
+    v = gate_verdict("https://bombas.com/collections/200-Giving-Back-Page-Test",
+                     "https://bombas.com/404", 404)
+    assert v["http_error"]
+    # смена пути НЕ в корень (bombas /pages/find-a-store → /find-a-store) — не блок
+    assert not gate_verdict("https://bombas.com/pages/find-a-store",
+                            "https://bombas.com/find-a-store", 200)["redirected"]
+    # нет финального URL (навигация умерла) — без вердикта, не падаем
+    v = gate_verdict("https://x.com/a", "", None)
+    assert not v["redirected"] and not v["http_error"]
+
+
+def test_gated_result_shape():
+    # минимальный результат шлюза совместим со step2/eval (path из url, пустая детекция)
+    from scanners.base_scanner import gated_result
+    r = gated_result("https://fritz-kola.de/cart", "checkout",
+                     {"redirected": True, "final_url": "https://fritz-kola.com/",
+                      "http_status": 200, "http_error": False, "errors": []})
+    assert r["path"] == "/cart" and r["pixel_events"] == {} and r["has_cta"] is False
+    assert r["gate"]["redirected"]
+
+
 # ─── Hotjar: слияние без слабого hj\( (он матчил GTM-рантайм) ────────────────
 
 def test_hotjar_merged_signatures():

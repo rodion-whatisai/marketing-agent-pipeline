@@ -7,7 +7,7 @@ Webflow, Squarespace, Wix, кастомные сайты, и т.д.
 
 from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services, discover_buttons,
-    capture_pixel_hit,
+    capture_pixel_hit, navigate_and_gate, gated_result,
 )
 from log import log_debug, log_warn, log_info
 
@@ -38,20 +38,13 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     page.on("response", on_response)
     log_debug(f"scan_page: listeners attached, navigating to {url}")
 
-    errors = []
-    try:
-        log_debug(f"scan_page: goto attempt 1 (timeout=20000) url={url}")
-        page.goto(url, wait_until="domcontentloaded", timeout=20000)
-        page.wait_for_timeout(1500)
-    except Exception as e:
-        log_debug(f"scan_page: goto attempt 1 failed, retrying ({url}): {e}")
-        try:
-            log_debug(f"scan_page: goto attempt 2 (timeout=10000) url={url}")
-            page.goto(url, wait_until="domcontentloaded", timeout=10000)
-            page.wait_for_timeout(1000)
-        except Exception as e2:
-            log_warn(f"scan_page: navigation failed for {url}: {str(e2)[:100]}")
-            errors.append(str(e2)[:100])
+    # Шлюз (день 7): goto с ретраем + вердикт «жива ли и та ли страница»
+    gate = navigate_and_gate(page, url, settle_ms=1500, retry_settle_ms=1000)
+    errors = list(gate.get("errors", []))
+    if gate.get("http_error") or gate.get("redirected"):
+        page.remove_listener("request", on_request_extended)
+        page.remove_listener("response", on_response)
+        return gated_result(url, page_type, gate)
 
     try:
         log_debug(f"scan_page: capturing page content for {url}")
@@ -98,6 +91,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     # живого перескана (2026-07-07: 76 URL tinytronics были потеряны — пришлось переезжать)
     result["network_requests"] = request_urls_all[:300]
     result["pixel_hits"] = pixel_hits                          # улики стенда: метод+тело
+    result["gate"] = gate                                      # шлюз: финальный URL/статус
     result["cta_buttons"] = cta_buttons                       # полный список (помечен в DOM) — для кликера
     result["cta_elements"] = cta_elements[:8]                 # порядок приоритета сохранён (JS уже дедупит)
     result["has_cta"] = bool(cta_buttons) or result["content_analysis"]["is_page_of_interest"]

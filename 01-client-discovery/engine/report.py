@@ -414,6 +414,20 @@ def print_report(data: dict, gtm_data: dict = None):
     n_oks   = data.get("oks",     len(ok_pages))
     n_nocta = data.get("no_ctas", total - n_gaps - n_oks)
 
+    # День 7: страницы, не прошедшие шлюз — рендерим отдельной строкой,
+    # НЕ смешиваем с аудированными (принцип «статусы не смешиваются»)
+    n_redirected = data.get("redirected", 0)
+    n_http_err = data.get("http_errors", 0)
+    if n_redirected or n_http_err:
+        print(f"\nℹ️  Не аудировано: "
+              + (f"{n_redirected} стр. — редирект на другой домен/в корень" if n_redirected else "")
+              + ("; " if n_redirected and n_http_err else "")
+              + (f"{n_http_err} стр. — HTTP-ошибка (мертвы)" if n_http_err else ""))
+        for r in data.get("redirected_pages", []):
+            print(f"    ↪ {r.get('path')} → {(r.get('gate') or {}).get('final_url', '')[:70]}")
+        for r in data.get("http_error_pages", []):
+            print(f"    ⛔ {r.get('path')} — HTTP {(r.get('gate') or {}).get('http_status')}")
+
     platforms = analyze_platform_data(all_pages)
     domain = urlparse(base_url).netloc
 

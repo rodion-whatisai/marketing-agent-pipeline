@@ -8,7 +8,7 @@ CTA детектор знает про Shopify drawers, cart, mobile menu.
 import re
 from .base_scanner import (
     base_scan_page, make_listeners, detect_external_services,
-    PIXEL_RULES, capture_pixel_hit
+    PIXEL_RULES, capture_pixel_hit, navigate_and_gate, gated_result
 )
 from log import log_debug
 
@@ -304,19 +304,13 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     page.on("request", on_request)
     page.on("response", on_response)
 
-    errors = []
-    try:
-        log_debug(f"scan_page: goto (try1, 20s) url={url}")
-        page.goto(url, wait_until="domcontentloaded", timeout=20000)
-        page.wait_for_timeout(3000)
-    except Exception as e:
-        log_debug(f"scan_page: goto try1 failed: {e} — retry 10s")
-        try:
-            page.goto(url, wait_until="domcontentloaded", timeout=10000)
-            page.wait_for_timeout(2000)
-        except Exception as e2:
-            log_debug(f"scan_page: goto try2 failed: {e2}")
-            errors.append(str(e2)[:100])
+    # Шлюз (день 7): goto с ретраем + вердикт «жива ли и та ли страница»
+    gate = navigate_and_gate(page, url, settle_ms=3000, retry_settle_ms=2000)
+    errors = list(gate.get("errors", []))
+    if gate.get("http_error") or gate.get("redirected"):
+        page.remove_listener("request", on_request)
+        page.remove_listener("response", on_response)
+        return gated_result(url, page_type, gate)
 
     try:
         main_html = page.content()
@@ -365,6 +359,7 @@ def scan_page(page, url: str, page_type: str, expect_events: list,
     result["external_services"] = detect_external_services(combined_html, request_urls_all)
     result["network_requests"] = request_urls_all[:300]   # сырьё для постмортемов (см. generic_scanner)
     result["pixel_hits"] = pixel_hits                     # улики стенда: метод+тело
+    result["gate"] = gate                                 # шлюз: финальный URL/статус
     result["cta_elements"] = list(set(cta_elements))[:8]
     result["has_cta"] = bool(cta_elements) or result["content_analysis"]["is_page_of_interest"]
     result["has_iframe_form"] = False
