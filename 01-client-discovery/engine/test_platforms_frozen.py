@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""ЗАМОРОЖЕННЫЕ копии таблиц платформ (сняты 2026-07-13, ДО platforms.py).
-Репер эквивалентности шага A: derived views реестра обязаны быть == этим.
-НЕ ПРАВИТЬ РУКАМИ."""
+"""СНАПШОТ view-таблиц реестра platforms.py (перегенерирован после шага B, 2026-07-13).
+Детектор СЛУЧАЙНЫХ изменений: при сознательной правке реестра перегенерировать
+(см. шапку platforms.py) и закоммитить вместе с ней. НЕ ПРАВИТЬ РУКАМИ."""
 
 FROZEN_PIXEL_RULES = {'Meta': {'domains': ['facebook.com/tr',
                       'connect.facebook.net/en_US/fbevents',
@@ -31,9 +31,10 @@ FROZEN_PIXEL_RULES = {'Meta': {'domains': ['facebook.com/tr',
  'TikTok': {'domains': ['tiktok.com/api/v2/pixel', 'tiktok.com/i18n/pixel/'],
             'event_param': 'event',
             'id_param': 'sdkid'},
- 'Snapchat': {'domains': ['tr.snapchat.com', 'sc-static.net/scevent'], 'event_param': None}}
+ 'Snapchat': {'domains': ['tr.snapchat.com', 'sc-static.net/scevent'], 'event_param': None},
+ 'Pinterest': {'domains': ['ct.pinterest.com'], 'event_param': 'event', 'id_param': 'tid'}}
 
-FROZEN_PIXEL_RULES_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'LinkedIn', 'TikTok', 'Snapchat']
+FROZEN_PIXEL_RULES_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'LinkedIn', 'TikTok', 'Snapchat', 'Pinterest']
 
 FROZEN_TIER1 = {'Meta': ['Purchase',
           'Lead',
@@ -52,17 +53,19 @@ FROZEN_TIER1 = {'Meta': ['Purchase',
  'Google Ads': ['conversion'],
  'Bing/Microsoft': ['purchase', 'lead', 'conversion'],
  'TikTok': ['Purchase', 'AddToCart', 'InitiateCheckout', 'PlaceAnOrder'],
- 'Snapchat': ['PURCHASE', 'START_CHECKOUT', 'ADD_CART', 'SIGN_UP', 'LEAD']}
+ 'Snapchat': ['PURCHASE', 'START_CHECKOUT', 'ADD_CART', 'SIGN_UP', 'LEAD'],
+ 'Pinterest': ['checkout', 'addtocart', 'signup', 'lead']}
 
-FROZEN_TIER1_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'TikTok', 'Snapchat']
+FROZEN_TIER1_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'TikTok', 'Snapchat', 'Pinterest']
 
 FROZEN_TIER2 = {'Meta': ['ViewContent', 'Search', 'Subscribe'],
  'Google Analytics': ['view_item', 'view_item_list', 'search', 'select_item', 'view_promotion'],
  'Google Ads': [],
  'Bing/Microsoft': [],
- 'TikTok': ['ViewContent']}
+ 'TikTok': ['ViewContent'],
+ 'Pinterest': ['viewcategory', 'search', 'watchvideo']}
 
-FROZEN_TIER2_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'TikTok']
+FROZEN_TIER2_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'TikTok', 'Pinterest']
 
 FROZEN_NOISE = {'Meta': ['fired'],
  'Google Analytics': ['gtm.init',
@@ -82,9 +85,10 @@ FROZEN_NOISE = {'Meta': ['fired'],
  'Bing/Microsoft': ['fired'],
  'TikTok': ['fired'],
  'LinkedIn': ['fired'],
- 'Snapchat': ['fired']}
+ 'Snapchat': ['fired'],
+ 'Pinterest': ['fired', 'init']}
 
-FROZEN_NOISE_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'TikTok', 'LinkedIn', 'Snapchat']
+FROZEN_NOISE_KEY_ORDER = ['Meta', 'Google Analytics', 'Google Ads', 'Bing/Microsoft', 'TikTok', 'LinkedIn', 'Snapchat', 'Pinterest']
 
 FROZEN_SHOPIFY_APP_IDS = {'550306007': 'Meta',
  '2179629271': 'Google Analytics',
@@ -118,7 +122,7 @@ FROZEN_GTM_SIGNATURES = {'Meta Pixel': ['fbq\\s*\\(',
                       '_linkedin_partner_id',
                       'px\\.ads\\.linkedin\\.com'],
  'TikTok Pixel': ['analytics\\.tiktok\\.com', 'ttq\\.', 'TiktokAnalyticsObject'],
- 'Hotjar': ['hotjar\\.com', 'hjSetting'],
+ 'Hotjar': ['hotjar\\.com', 'hjid\\s*[:=]', 'hj\\s*\\(', 'hjSetting'],
  'Microsoft/Bing': ['bat\\.bing\\.com', 'uetq\\s*=', 'bing\\.com/action'],
  'Intercom': ['intercom\\.com', 'intercomSettings'],
  'HubSpot': ['hubspot\\.com', 'hs-scripts', 'hbspt\\.'],
@@ -134,7 +138,8 @@ FROZEN_GTM_SIGNATURES = {'Meta Pixel': ['fbq\\s*\\(',
  'VWO': ['vwo\\.com', 'visualwebsiteoptimizer'],
  'Stripe': ['stripe\\.com', 'stripe\\.js'],
  'Crisp': ['crisp\\.chat'],
- 'Freshchat': ['freshchat\\.com', 'freshworks\\.com']}
+ 'Freshchat': ['freshchat\\.com', 'freshworks\\.com'],
+ 'Snapchat Pixel': ['snaptr\\s*\\(', 'tr\\.snapchat\\.com', 'sc-static\\.net']}
 
-FROZEN_GTM_SIGNATURES_KEY_ORDER = ['Meta Pixel', 'Google Analytics GA4', 'Google Ads', 'LinkedIn Insight', 'TikTok Pixel', 'Hotjar', 'Microsoft/Bing', 'Intercom', 'HubSpot', 'Drift', 'Zendesk', 'Clarity', 'Segment', 'Mixpanel', 'Amplitude', 'Klaviyo', 'Mailchimp', 'Optimizely', 'VWO', 'Stripe', 'Crisp', 'Freshchat']
+FROZEN_GTM_SIGNATURES_KEY_ORDER = ['Meta Pixel', 'Google Analytics GA4', 'Google Ads', 'LinkedIn Insight', 'TikTok Pixel', 'Hotjar', 'Microsoft/Bing', 'Intercom', 'HubSpot', 'Drift', 'Zendesk', 'Clarity', 'Segment', 'Mixpanel', 'Amplitude', 'Klaviyo', 'Mailchimp', 'Optimizely', 'VWO', 'Stripe', 'Crisp', 'Freshchat', 'Snapchat Pixel']
 
