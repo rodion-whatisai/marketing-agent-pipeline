@@ -192,7 +192,10 @@ ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory", "Lucky Orange"}
 #         app.cal.com/ и "https://cal.com/..." матчятся.
 
 def _boundary_pattern(domain: str):
-    return re.compile(r"(?<![a-z0-9-])" + re.escape(domain.lower()))
+    # (?<=%2f) — URL-encoded слэш: '?redirect=https%3A%2F%2Fcalendly.com' легитимен,
+    # но после lower() перед доменом стоит 'f' и голый lookbehind его резал
+    # (ревью дня 6). Оба lookbehind фиксированной ширины — re это допускает.
+    return re.compile(r"(?:(?<=%2f)|(?<![a-z0-9-]))" + re.escape(domain.lower()))
 
 
 _SERVICE_PATTERNS = {
@@ -204,6 +207,19 @@ _PIXEL_DOMAIN_PATTERNS = {
     platform: [_boundary_pattern(d) for d in rule["domains"]]
     for platform, rule in PIXEL_RULES.items()
 }
+
+
+def match_pixel_platform(url: str):
+    """Платформа по network-правилам (границы слов + lowercase) или None.
+    ЕДИНЫЙ матчер для load-фазы (make_listeners) и клик-фазы (clicker) —
+    до 2026-07-13 кликер матчил голой подстрокой по оригинальному URL и
+    расходился с load-фазой в обе стороны (ревью дня 6)."""
+    u = url.lower()
+    for platform, patterns in _PIXEL_DOMAIN_PATTERNS.items():
+        for p in patterns:
+            if p.search(u):
+                return platform
+    return None
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────

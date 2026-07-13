@@ -81,14 +81,10 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     scanner = get_scanner(platform)
     log_debug(f"run: scanner resolved for platform={platform}")
 
-    GTM_TO_SCAN = {
-        "Meta Pixel": "Meta",
-        "Google Analytics GA4": "Google Analytics",
-        "Google Ads": "Google Ads",
-        "TikTok Pixel": "TikTok",
-        "LinkedIn Insight": "LinkedIn",
-        "Microsoft/Bing": "Bing/Microsoft",
-    }
+    # GTM-имя → скан-имя: из реестра (ревью дня 6 — локальная копия не знала
+    # Snapchat Pixel/Pinterest Tag, expected_platforms их не канонизировал)
+    import platforms as _platforms
+    GTM_TO_SCAN = _platforms.as_gtm_to_scan()
 
     results = []
     gaps = []

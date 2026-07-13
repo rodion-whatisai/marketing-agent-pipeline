@@ -87,7 +87,7 @@ DL_CONVERSION_MAP = {
 def make_pixel_listener(holder: dict, debug: bool = False):
     """on_request handler, пишущий в holder['buf']. Буфер свопается на каждую кнопку
     (без detach/attach) — так события привязываются к конкретному клику."""
-    from scanners.base_scanner import (PIXEL_RULES, get_event_from_url,
+    from scanners.base_scanner import (PIXEL_RULES, get_event_from_url, match_pixel_platform,
                                         is_conversion_event, is_partial_event, is_noise_event)
 
     def on_request(request):
@@ -95,28 +95,31 @@ def make_pixel_listener(holder: dict, debug: bool = False):
         if buf is None:
             return
         req_url = request.url
-        for platform, rules in PIXEL_RULES.items():
-            for domain in rules["domains"]:
-                if domain in req_url:
-                    event = get_event_from_url(req_url, platform)
-                    # Какой именно пиксель стрельнул: id из ?id=<pixel> (для дубль-пикселей критично)
-                    pid = None
-                    id_param = rules.get("id_param")
-                    if id_param:
-                        _vals = parse_qs(urlparse(req_url).query).get(id_param)
-                        if _vals:
-                            pid = _vals[0]
-                    buf.setdefault(platform, [])
-                    if not any(e["event"] == event for e in buf[platform]):
-                        buf[platform].append({
-                            "event": event,
-                            "is_conversion": is_conversion_event(platform, event),
-                            "is_partial": is_partial_event(platform, event),
-                            "is_noise": is_noise_event(platform, event),
-                            "source": "click",
-                            "pixel_id": pid,
-                        })
-                    return
+        # единый матчер с load-фазой: границы слов + lowercase (ревью дня 6 —
+        # голая подстрока по оригинальному URL расходилась с base_scanner в обе
+        # стороны и приписывала кнопке чужие конверсионные события, класс A3)
+        platform = match_pixel_platform(req_url)
+        if platform is None:
+            return
+        rules = PIXEL_RULES[platform]
+        event = get_event_from_url(req_url, platform)
+        # Какой именно пиксель стрельнул: id из ?id=<pixel> (для дубль-пикселей критично)
+        pid = None
+        id_param = rules.get("id_param")
+        if id_param:
+            _vals = parse_qs(urlparse(req_url).query).get(id_param)
+            if _vals:
+                pid = _vals[0]
+        buf.setdefault(platform, [])
+        if not any(e["event"] == event for e in buf[platform]):
+            buf[platform].append({
+                "event": event,
+                "is_conversion": is_conversion_event(platform, event),
+                "is_partial": is_partial_event(platform, event),
+                "is_noise": is_noise_event(platform, event),
+                "source": "click",
+                "pixel_id": pid,
+            })
     return on_request
 
 

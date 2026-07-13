@@ -74,6 +74,43 @@ def test_pixel_domain_boundary_no_false_platform():
     assert "Pinterest" not in pixel_events
 
 
+# ─── Ревью дня 6: единый матчер клик-фазы + %2f-граница + gtm-маппинг ────────
+
+def test_match_pixel_platform_boundary_and_case():
+    # клик-фаза теперь матчит тем же матчером, что load-фаза
+    from scanners.base_scanner import match_pixel_platform
+    assert match_pixel_platform("https://notct.pinterest.com.evil.example/x") is None
+    assert match_pixel_platform("https://CT.PINTEREST.COM/v3/?event=checkout") == "Pinterest"
+    assert match_pixel_platform("https://www.facebook.com/tr/?id=1&ev=PageView") == "Meta"
+    assert match_pixel_platform("https://example.com/style.css") is None
+
+
+def test_url_encoded_service_still_detected():
+    # ревью дня 6: %2F%2Fcalendly.com после lower() начинался с 'f' — lookbehind резал
+    html = '<a href="https://x.com/?redirect=https%3A%2F%2Fcalendly.com%2Fdemo">book</a>'
+    assert "Calendly" in detect_external_services(html.lower())
+    # а чужое слово по-прежнему блокируется
+    assert "Cal.com" not in detect_external_services('<script src="https://tetralogical.com/w.js">')
+
+
+def test_gtm_to_scan_knows_new_platforms():
+    # три локальные мини-копии маппинга не знали Snapchat Pixel / Pinterest Tag
+    import platforms as P
+    m = P.as_gtm_to_scan()
+    assert m["Snapchat Pixel"] == "Snapchat"
+    assert m["Pinterest Tag"] == "Pinterest"
+    assert m["Google Analytics GA4"] == "Google Analytics"
+    assert m["Microsoft/Bing"] == "Bing/Microsoft"
+
+
+def test_report_noise_covers_pagevisit_for_headline_metric():
+    # ревью дня 6 (high): Pinterest pagevisit раздувал «X of N имеют пиксель+событие»
+    import generate_report_html as grh
+    assert grh.is_noise("Pinterest", "pagevisit")
+    assert grh.is_noise("Meta", "PageView")
+    assert not grh.is_noise("Pinterest", "checkout")
+
+
 # ─── B6: Snapchat в GTM-сигнатурах ───────────────────────────────────────────
 
 def test_snapchat_gtm_signature_matches_live_container_js():

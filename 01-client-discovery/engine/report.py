@@ -503,16 +503,11 @@ def print_report(data: dict, gtm_data: dict = None):
         if flags:
             print(f"\n  ℹ️  Дополнительно: {', '.join(flags)}")
 
-        # Платформы в GTM но не видные при сканировании
+        # Платформы в GTM но не видные при сканировании.
+        # Маппинг — из реестра (ревью дня 6: локальная копия не знала Snapchat
+        # Pixel → ложное «в GTM есть, но не видно» при живом Snapchat network)
         scanned_platforms = set(platforms.keys())
-        gtm_platform_map = {
-            "Google Analytics GA4": "Google Analytics",
-            "Google Ads": "Google Ads",
-            "Meta Pixel": "Meta",
-            "TikTok Pixel": "TikTok",
-            "LinkedIn Insight": "LinkedIn",
-            "Microsoft/Bing": "Bing/Microsoft",
-        }
+        gtm_platform_map = _platforms.as_gtm_to_scan()
         hidden = []
         for gtm_plat in gtm["all_platforms"]:
             scan_name = gtm_platform_map.get(gtm_plat, gtm_plat)

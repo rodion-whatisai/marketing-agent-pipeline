@@ -303,6 +303,15 @@ def as_gtm_platform_signatures() -> dict:
     return out
 
 
+def as_gtm_to_scan() -> dict:
+    """GTM-имя → скан-имя платформы. До 2026-07-13 жило ТРЕМЯ локальными
+    мини-копиями (step2_scan.GTM_TO_SCAN, report.gtm_platform_map,
+    generate_report_html.PLAT_NORM) — ни одна не знала Snapchat Pixel /
+    Pinterest Tag, из-за чего GTM-детекция B6 не доходила до отчётов."""
+    return {spec["gtm_name"]: name
+            for name, spec in PLATFORMS.items() if "gtm_name" in spec}
+
+
 # ─── Отчётные view'ы (шаг B, день 6) ─────────────────────────────────────────
 # До 2026-07-13 report.py и generate_report_html.py держали СВОИ копии списков —
 # уже разъехавшиеся (ревью дня 5: клиентский HTML рендерил noise-пинги как живые

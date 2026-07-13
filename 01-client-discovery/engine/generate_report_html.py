@@ -155,12 +155,9 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
         for p in container.get("platforms_found", {}):
             gtm_container_platforms.add(p)
 
-    # Нормализация названий
-    PLAT_NORM = {
-        "Google Analytics GA4": "Google Analytics",
-        "Meta Pixel": "Meta",
-        "Microsoft/Bing": "Bing/Microsoft",
-    }
+    # Нормализация названий — из реестра (ревью дня 6: локальная копия не знала
+    # Snapchat Pixel/Pinterest Tag — GTM-детекция B6 не доходила до блока платформ)
+    PLAT_NORM = _platforms.as_gtm_to_scan()
     gtm_platforms = {PLAT_NORM.get(p, p) for p in gtm_platforms_raw}
     gtm_container_norm = {PLAT_NORM.get(p, p) for p in gtm_container_platforms}
 
@@ -189,14 +186,18 @@ def generate_html(data: dict, gtm_data: dict = None) -> str:
         1 for p in all_pages
         if p.get("pixel_events") or p.get("shopify_pixel_platforms") or p.get("pixel_ids")
     )
+    # baseline-пинги отсекаем отчётным шумом (is_noise: реестр + презентационная
+    # надбавка PageView/pagevisit/track) — ревью дня 6: Pinterest pagevisit
+    # (сканерный is_noise=False, «пиксель жив») раздувал метрику до ~N of N
     pages_with_conversion = sum(
         1 for p in all_pages
         if any(
             ev.get("is_conversion") or (
-                ev.get("event", "") not in ("PageView", "fired", "track", "unknown")
+                ev.get("event", "") not in ("fired", "unknown")
                 and not ev.get("is_noise")
+                and not is_noise(plat, ev.get("event", ""))
             )
-            for evs in p.get("pixel_events", {}).values()
+            for plat, evs in p.get("pixel_events", {}).items()
             for ev in evs
         )
     )
