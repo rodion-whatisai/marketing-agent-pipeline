@@ -1,0 +1,225 @@
+{
+  "schema_version": 2,
+  "domain": "nissan.ie",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/nissan.ie/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/nissan.ie/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил ДВА Meta-пикселя, TikTok, GA+Ads+DC×2+GTM (+Adobe), отсутствие Pinterest; LinkedIn его Helper НЕ видит (свидетель видит network-запросы) — не записан; «дебажить глубже»"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion): 2 Meta-пикселя 1063725220370121+555620591299258 — дубль PageView. LinkedIn: collect-запросы в сыром трафике (свидетель), Pixel Helper тег НЕ видит — расхождение, дебаг отдельно, в platforms_detected НЕ включён. TikTok EnrichAM с SHA-256 email — наблюдение свидетеля, глазами не валидируется (урок: такое не на гейт). Meta FindLocation на загрузке dealer-locator. Confirmation-страницы редиректят на формы. Cookiebot: у свидетеля трекинг шёл БЕЗ клика согласия; у Rodion баннер был. Два тег-менеджера (GTM + Adobe DTM). Rodion: «картина не устраивает, дебажить» — заверены только платформы выше.",
+  "site": {
+    "gtm_platforms": [
+      "Google Ads",
+      "Google Analytics",
+      "LinkedIn",
+      "Meta",
+      "TikTok"
+    ],
+    "counters": {
+      "gaps": 3,
+      "oks": 8,
+      "no_ctas": 1,
+      "no_tracking": 0,
+      "unverified": 0
+    },
+    "platform": "unknown"
+  },
+  "pages": {
+    "/": {
+      "status": "GAP",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/dealer-call-back-request.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/nissan-forms/dealer-call-back-request.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/ownership/accessories/accessory-enquiry.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/services/contact-us.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/services/contact-us/contact-us-confirmation.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/services/dealer-contact-form.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/services/dealer-contact-form/contact-us-confirmation.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/services/service-enquiry.html": {
+      "status": "OK",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/services/service-enquiry/service-enquiry-confirmation.html": {
+      "status": "NO_CTA",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/dealer-locator.html": {
+      "status": "GAP",
+      "page_type": "location",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/electric-vehicles.html": {
+      "status": "GAP",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    }
+  }
+}

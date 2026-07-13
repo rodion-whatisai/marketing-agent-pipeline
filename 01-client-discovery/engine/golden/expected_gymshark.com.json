@@ -1,0 +1,145 @@
+{
+  "schema_version": 2,
+  "domain": "gymshark.com",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/gymshark.com/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/gymshark.com/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил ДВА Meta-пикселя (дубль; один появляется только ПОСЛЕ принятия куки — второй вне consent!), ViewContent дублируется, AddToCart×2 при выборе размера, TikTok+Pinterest работают"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion): 2 Meta-пикселя 1263319854288554+293240424340622 — двойной счёт подтверждён; ДО принятия куки виден один, после — два (один вне CMP — новый класс проблемы, TODO). Чекаут: пиксель 'исчезает и появляется один', InitiateCheckout есть; Pay now стреляет purchase-подобное БЕЗ данных (misconfig). SubscribedButtonClick на загрузке без клика. Пиксель стрельнул ДО согласия (minor). Свидетель: 6/11 страниц корпуса — soft-404 (HTTP 200, контент 'Not found'); оба товара OUT OF STOCK; witness-клик add-to-bag без выбора размера не дал событий (Rodion с размером получил AddToCart×2). Snapchat/Klaviyo/Hotjar — ноль у свидетеля, Rodion не проверял — пинов нет.",
+  "site": {
+    "gtm_platforms": [
+      "Bing/Microsoft",
+      "Google Ads",
+      "Google Analytics",
+      "Intercom",
+      "Meta",
+      "TikTok"
+    ],
+    "counters": {
+      "gaps": 7,
+      "oks": 0,
+      "no_ctas": 4,
+      "no_tracking": 0,
+      "unverified": 0
+    },
+    "platform": "shopify"
+  },
+  "pages": {
+    "/": {
+      "status": "NO_CTA",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": []
+    },
+    "/collections/2-in-1-shorts": {
+      "status": "NO_CTA",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": []
+    },
+    "/collections/2-inch": {
+      "status": "NO_CTA",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": []
+    },
+    "/pages/gymshark-gift-card-prize-tandcs": {
+      "status": "NO_CTA",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Analytics",
+        "TikTok"
+      ],
+      "external_services": []
+    },
+    "/pages/gymshark-tiktok-gift-card-prize-draw": {
+      "status": "GAP",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": []
+    },
+    "/pages/gymshark-we-gift-the-city-gift-youtube-gift-card-prize-draw": {
+      "status": "GAP",
+      "page_type": "location",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": []
+    },
+    "/pages/promo-details-test": {
+      "status": "GAP",
+      "page_type": "search_results",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": []
+    },
+    "/pages/summer-sale-post-sale-q-and-a": {
+      "status": "GAP",
+      "page_type": "search_results",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": []
+    },
+    "/pages/we-gift-the-city-gift-card-prize-draw-terms-and-conditions": {
+      "status": "GAP",
+      "page_type": "location",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": []
+    },
+    "/products/adapt-animal-mini-lifestyle-backpack-white-cream": {
+      "status": "GAP",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": []
+    },
+    "/products/arrival-marl-tank-black": {
+      "status": "GAP",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": []
+    }
+  }
+}

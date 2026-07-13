@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "domain": "studioaplus.ca",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/studioaplus.ca/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/studioaplus.ca/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: полное «да» — только GA (pageview), нет Meta/TikTok/Pinterest/LinkedIn/Ads (проверил сам); Jotform-форма не трекает сабмиты"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion): единственный трекинг — GA4 pageview + WordPress Stats (Jetpack). Форма Jotform на /book-a-wedding-consultation НЕ шлёт событий при заполнении/сабмите; ПУСТАЯ форма принимается и показывает 'Thank you for your interest' (баг сайта + TODO: детект thank-you состояния после сабмита — новая идея проверки). Питч-аргумент для фотостудий: записи с рекламы не считаются. Баннера consent нет.",
+  "site": {
+    "gtm_platforms": [
+      "Google Analytics"
+    ],
+    "counters": {
+      "gaps": 3,
+      "oks": 0,
+      "no_ctas": 2,
+      "no_tracking": 0,
+      "unverified": 0
+    },
+    "platform": "wordpress"
+  },
+  "pages": {
+    "/": {
+      "status": "GAP",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Analytics"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "LinkedIn"
+      ]
+    },
+    "/book-a-wedding-consultation": {
+      "status": "GAP",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Analytics"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "LinkedIn"
+      ]
+    },
+    "/contact-us": {
+      "status": "GAP",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Analytics"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "LinkedIn"
+      ]
+    },
+    "/package": {
+      "status": "NO_CTA",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Analytics"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "LinkedIn"
+      ]
+    },
+    "/photo-gallery": {
+      "status": "NO_CTA",
+      "page_type": "search_results",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Analytics"
+      ],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "LinkedIn"
+      ]
+    }
+  }
+}

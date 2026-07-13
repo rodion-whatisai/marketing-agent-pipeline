@@ -1,0 +1,200 @@
+{
+  "schema_version": 2,
+  "domain": "pipsnacks.com",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/pipsnacks.com/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/pipsnacks.com/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил Meta+TikTok+Pinterest+GA(GT)+Ads; consent-gated (пиксель работает только после принятия); AddToCart: Meta×2 + TikTok; второй пиксель на store-locator — факт зарегистрирован"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion): пиксели не работают до принятия куки. AddToCart: Meta стреляет ДВА события (Shopify-особенность?), TikTok стреляет. Continue-to-checkout: Meta стреляет, TikTok на чекауте работает, Pinterest чекаут-событий не шлёт. ПРАВИЛО Rodion'а: факт второго пикселя (721514255128765 на store-locator, от Destini-виджета) регистрируем всегда, но события на неприоритетных страницах не важны. НЕ в эталоне (он не смог проверить, «нужны ссылки»): редиректы товарных URL на bundle-builder, пустые subscribe-страницы — разбор отдельно (см. facts_2026-07-13.md). Klaviyo: массовые запросы у свидетеля, Rodion не проверял.",
+  "site": {
+    "gtm_platforms": [],
+    "counters": {
+      "gaps": 1,
+      "oks": 3,
+      "no_ctas": 0,
+      "no_tracking": 0,
+      "unverified": 8
+    },
+    "platform": "shopify"
+  },
+  "pages": {
+    "/": {
+      "status": "OK",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Analytics",
+        "Meta"
+      ],
+      "external_services": []
+    },
+    "/pages/contact-us": {
+      "status": "UNVERIFIED",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/pages/wholesale-contact": {
+      "status": "UNVERIFIED",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/collections/all-products": {
+      "status": "OK",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/collections/best-sellers": {
+      "status": "OK",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/pages/pip15-subscribe-page": {
+      "status": "UNVERIFIED",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/pages/snack-subscribe-page": {
+      "status": "UNVERIFIED",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/pages/store-locator": {
+      "status": "GAP",
+      "page_type": "location",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": []
+    },
+    "/pages/subscription": {
+      "status": "UNVERIFIED",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/pages/wholefoods-subscribe-page": {
+      "status": "UNVERIFIED",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/products/cbdp45c12-dill-pickle-balls": {
+      "status": "UNVERIFIED",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    },
+    "/products/cbkm45c12-classic-kimchi-balls": {
+      "status": "UNVERIFIED",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "Pinterest",
+        "TikTok"
+      ],
+      "external_services": [
+        "Cal.com"
+      ]
+    }
+  }
+}

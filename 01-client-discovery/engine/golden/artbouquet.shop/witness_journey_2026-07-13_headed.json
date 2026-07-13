@@ -1,0 +1,360 @@
+{
+ "domain": "artbouquet.shop",
+ "product_url": "https://www.artbouquet.shop/products/modern-garden-peony-bouquet?variant=49983562416405",
+ "headed": true,
+ "steps": {
+  "consent": "no banner clicked",
+  "load": "ok",
+  "atc_click": "selector:button[name='add']",
+  "url_after_atc": "https://www.artbouquet.shop/cart",
+  "cart": "https://www.artbouquet.shop/cart",
+  "checkout_click": "selector:button[name='checkout']",
+  "url_after_checkout": "https://www.artbouquet.shop/cart"
+ },
+ "captured": [
+  {
+   "ts": 0.7,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 0.8,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 0.9,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 0.9,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 1.0,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_TikTok_load_5ff00fc9e8.txt"
+  },
+  {
+   "ts": 1.0,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_TikTok_load_a6fd699a8d.txt"
+  },
+  {
+   "ts": 1.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6781v9192907426za200zb9192865001zd9192865001&_p=1783916333281&_gaz=1&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 1.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6781v9192907426za200zb9192865001zd9192865001&_p=1783916333281&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 1.1,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&auid=982902791.1783916334&dt=MODERN%20GARDEN%20PEONY%20BOUQUET%20%E2%80%93%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouqu",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 1.1,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "PageView"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_Meta_load_ac4c550c33.txt"
+  },
+  {
+   "ts": 1.2,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_Meta_load_0cdc6b36ce.txt"
+  },
+  {
+   "ts": 1.2,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6781v9178531514za200zd9178531514&_p=1783916333278&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=27889223",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 6.2,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6781v9178531514za200zd9178531514&_p=1783916333278&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=278892231&_eu=A",
+   "query_event": "scroll",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 12.8,
+   "phase": "atc",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "SubscribedButtonClick"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_Meta_atc_c217ab79d8.txt"
+  },
+  {
+   "ts": 13.2,
+   "phase": "atc",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6781v9192907426za200zb9192865001zd9192865001&_p=1783916333281&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj",
+   "query_event": "add_to_cart",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.2,
+   "phase": "atc",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "AddToCart"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_Meta_atc_f7213fd399.txt"
+  },
+  {
+   "ts": 13.2,
+   "phase": "atc",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "AddToCart"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_TikTok_atc_f2fcd153a6.txt"
+  },
+  {
+   "ts": 13.6,
+   "phase": "atc",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.7,
+   "phase": "atc",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.8,
+   "phase": "atc",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.8,
+   "phase": "atc",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.googleadservices.com/pagead/conversion/758888242/?random=1783916346316&cv=11&fst=1783916346316&fmt=7&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45je6781v9192907426za200",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.8,
+   "phase": "atc",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6781v9192907426za200zd9192907426&_p=1783916346131&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYm",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.8,
+   "phase": "atc",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&auid=982902791.1783916334&dt=Your%20Shopping%20Cart%20%E2%80%93%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fc",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.8,
+   "phase": "atc",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.8,
+   "phase": "atc",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "artbouquet.shop_TikTok_atc_fb393624c5.txt"
+  },
+  {
+   "ts": 13.9,
+   "phase": "atc",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6781v9178531514za200zd9178531514&_p=1783916346212&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=278892231&_eu=A",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 14.0,
+   "phase": "atc",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=PageView&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcart&rl=https%3A%2F%2Fwww.artbouquet.shop%2Fproducts%2Fmodern-garden-peony-bouqu",
+   "query_event": "PageView",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 14.1,
+   "phase": "atc",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.com/pagead/1p-conversion/758888242/?random=2052414358&cv=11&fst=1783916346316&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45je6781v9192907426za200zd91929074",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 14.1,
+   "phase": "atc",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.ca/pagead/1p-conversion/758888242/?random=2052414358&cv=11&fst=1783916346316&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45je6781v9192907426za200zd919290742",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 18.9,
+   "phase": "atc",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6781v9178531514za200zd9178531514&_p=1783916346212&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=278892231&_eu=A",
+   "query_event": "scroll",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 28.0,
+   "phase": "checkout",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=SubscribedButtonClick&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcart&rl=https%3A%2F%2Fwww.artbouquet.shop%2Fproducts%2Fmodern-garde",
+   "query_event": "SubscribedButtonClick",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 58.0,
+   "phase": "checkout",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=SubscribedButtonClick&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcart&rl=https%3A%2F%2Fwww.artbouquet.shop%2Fproducts%2Fmodern-garde",
+   "query_event": "SubscribedButtonClick",
+   "body_events": [],
+   "has_body": false
+  }
+ ]
+}

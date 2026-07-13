@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "domain": "artbouquet.shop",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/artbouquet.shop/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/artbouquet.shop/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил Meta+TikTok, отсутствие Pinterest, GT+GA+Ads; Meta:AddToCart — его исходный кейс 2026-07-12 (Pixel Helper) + witness journey POST-тела; сегодня: InitiateCheckout и AddPaymentInfo на кликах чекаута без данных"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13: пин Meta:AddToCart на продуктовой странице — ГЛАВНЫЙ known fail POST-слепоты (сканер не читает POST-тела; чинит параллельный чат). Второй GA-тег G-R6PH1ESB46 виден ТОЛЬКО в сыром трафике (Shopify web-pixel сэндбокс) — Tag Assistant его не показывает, Rodion валидировать не может; двойной page_view задокументирован свидетелем. Его сегодняшний клик-путь: PageView→ViewContent→(cart PageView)→InitiateCheckout→AddPaymentInfo на 'Поймал' без ввода данных. Sold-out товар (21-tulips): события стреляют, кнопки нет. Баннера consent нет.",
+  "site": {
+    "gtm_platforms": [
+      "Google Ads",
+      "Google Analytics"
+    ],
+    "counters": {
+      "gaps": 6,
+      "oks": 1,
+      "no_ctas": 0,
+      "no_tracking": 0,
+      "unverified": 0
+    },
+    "platform": "shopify"
+  },
+  "pages": {
+    "/": {
+      "status": "GAP",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/pages/contact-flower-shop-montreal": {
+      "status": "GAP",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/collections/100-200-flowers-delivery-montreal": {
+      "status": "GAP",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/collections/add-to-your-order-florist-montreal": {
+      "status": "GAP",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/pages/subscription-flower-delivery-online-montreal": {
+      "status": "GAP",
+      "page_type": "pricing",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/products/21-tulips-in-a-vase": {
+      "status": "GAP",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ]
+    },
+    "/products/51-pink-roses-vase-luxury-delivery-montreal": {
+      "status": "OK",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "Meta",
+        "TikTok"
+      ],
+      "external_services": [
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "Pinterest"
+      ],
+      "conversion_events_min": [
+        "Meta:AddToCart"
+      ]
+    }
+  }
+}

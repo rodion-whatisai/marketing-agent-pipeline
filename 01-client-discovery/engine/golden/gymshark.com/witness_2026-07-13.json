@@ -1,0 +1,2502 @@
+{
+ "schema_version": 1,
+ "domain": "gymshark.com",
+ "mode": "pages",
+ "date": "2026-07-13",
+ "witness_commit": "bbc5c93",
+ "headless": true,
+ "consent": {
+  "clicked": "selector:#onetrust-accept-btn-handler",
+  "on_page": "/"
+ },
+ "pages": [
+  {
+   "path": "/",
+   "requested_url": "https://us.checkout.gymshark.com",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WQXVFFG&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-823557903&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-933026149&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966122789&gcs=G100&gcd=13q3q3q3q5l1&npa=1&dma_cps=-&dma=0&_eu=AAAAAGAC&_prs=ok&are=1&cid=17473326.1783966123&frm=0&pscdl=denied&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938466~115938469~118826210~118897920~118897930~119",
+     "query_event": "",
+     "body_events": [
+      "view_item_list"
+     ],
+     "body_sha1": "90c05272a7",
+     "body_snippet": "en=view_item_list&_fv=1&_nsi=1&_ss=2&pr1=id6806582624458~nmminimal%20sports%20bra%202.0~lp1~cawomens%3Eapparel%3Esports%20bras%3Escoop_neck~lnhome~vaespresso%20brown~pr30.00~k0cd_listpos~v01~k1cd_path~v1%2F&pr2=id6806580330698~nmminimal%20sports%20bra%202.0~lp2~cawomens%3Eapparel%3Esports%20bras%3Es",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Google Analytics_home_90c05272a7.txt"
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/bat.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966122789&gcs=G100&gcd=13q3q3q3q5l1&npa=1&dma_cps=-&dma=0&_eu=AAAAAGAC&are=1&cid=17473326.1783966123&frm=0&pscdl=denied&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=17",
+     "query_event": "",
+     "body_events": [
+      "view_item_list"
+     ],
+     "body_sha1": "63f0a2ba01",
+     "body_snippet": "en=view_item_list&pr1=id6806680142026~nmaccent%20conditioning%20shorts~lp1~camens%3Eapparel%3Eshorts%3Etraining~lnhome~vaforce%20blue~pr36.00~k0cd_listpos~v01~k1cd_path~v1%2F&pr2=id6806689972426~nmaccent%20graphic%20sweat%20shorts~lp2~camens%3Eapparel%3Eshorts%3Elifestyle~lnhome~vaheavy%20blue~pr44.",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Google Analytics_home_63f0a2ba01.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966122789&_gaz=1&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&gcut=3&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=17",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Official%20Store%20-%20Gym%20Clothes%20%26%20Workout%20Clothes&en=consent_update&dl=https%3A%2F%2Fwww.gymshark.com%2F&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=689643514.1783966123&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gcu=1&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826210~118897920~118897930~119027224&apve=1&apvf=f&",
+     "query_event": "consent_update",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1263319854288554&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2F&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783966123353&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966123340.346402441540985854&ler=other&pmd[title]=Gymshark%20Official%20Store%20-%20Gym%20Clothes%20%26%20Workout%20Clothes&pmd[locale]=en-US&pmd[description]=Unlock%20your%20full%20potential%20with%20our%20game-changing%20workout%20clothes.%20Shop%20g",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=293240424340622&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2F&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783966123357&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966123340.346402441540985854&ler=other&pmd[title]=Gymshark%20Official%20Store%20-%20Gym%20Clothes%20%26%20Workout%20Clothes&pmd[locale]=en-US&pmd[description]=Unlock%20your%20full%20potential%20with%20our%20game-changing%20workout%20clothes.%20Shop%20gy",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/823557903/?random=1783966123442&cv=11&fst=1783966123442&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224~119896803&rcb=7&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/823557903/?random=1783966123442&cv=11&fst=1783966123442&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224~119896803&rcb=7&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Windows&uapv=10.0&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966122789&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=4&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=1783966123&s",
+     "query_event": "user_bucket",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966122789&_gaz=1&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&gcut=3&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=5&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=17",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/933026149/?random=1783966123499&cv=11&fst=1783966123499&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&rcb=19&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/933026149/?random=1783966123499&cv=11&fst=1783966123499&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&rcb=19&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Windows&uapv=10.0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966122789&_gaz=1&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&gcut=3&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=6&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=17",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&cb=1783966123611&dep=2%2CPAGE_LOAD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A1195435315%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966123613&dep=5%2CEVENT_TAGS_ABSENT",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2F%22%2C%22ref%22%3A%22https%3A%2F%2Fus.checkout.gymshark.com%2F%22%2C%22if%22%3Afalse%2C%22sh%22%3A900%2C%22sw%22%3A1440%2C%22mh%22%3A%223c5b736e%22%2C%22is_eu%22%3Atrue%2C%22architecture%22%3A%22x86%22%2C%22bitness%22%3A%2264%22%2C%22brands%22%3A%5B%7B%22brand%22%3A%22Not%3AA-Brand%22%2C%22version%22%3A%2299%22%7D%2C%7B%2",
+     "query_event": "init",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/p/action/134606084.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/823557903/?random=1783966123442&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224~119896803&rcb=7&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Windows&uapv=10.0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/823557903/?random=1783966123442&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224~119896803&rcb=7&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Windows&uapv=10.0&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "LandingPageView"
+     ],
+     "body_sha1": "1ac7b279eb",
+     "body_snippet": "{\"event\":\"LandingPageView\",\"event_id\":\"\",\"message_id\":\"messageId-1783966123713-5272937127457-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:43.713Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAY",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_home_1ac7b279eb.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "95891ba5d3",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966123709-7807615548740-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:43.709Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_home_95891ba5d3.txt"
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=8f446b43-30ea-4c0e-9d1c-6affa272f20b&bo=3&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=1&msclkid=N&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/action/0?ti=134606084&tm=gtm002&Ver=2&mid=8f446b43-30ea-4c0e-9d1c-6affa272f20b&bo=4&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&uach=pv%3D10.0&pi=0&lg=ru&sw=1440&sh=900&sc=24&nwd=1&tl=Gymshark%20Official%20Store%20-%20Gym%20Clothes%20%26%20Workout%20Clothes&p=https%3A%2F%2Fwww.gymshark.com%2F&r=https%3A%2F%2Fus.checkout.gymshark.com%2F&lt=903&evt=pageLoad&sv=2&asc=G&cdb=AQET&rn=768548",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/933026149/?random=1783966123499&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&rcb=19&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Windows&uapv=10.",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/933026149/?random=1783966123499&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&rcb=19&frm=0&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966123&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uamb=0&uam=&uap=Windows&uapv=10.0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A1195435315%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966123807&dep=5%2CEVENT_TAGS_ABSENT&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2F%22%2C%22ref%22%3A%22https%3A%2F%2Fus.checkout.gymshark.com%2F%22%2C%22if%22%3Afalse%2C%22sh%22%3A900%2C%22sw%22%3A1440%2C%22mh%22%3A%223c5b736e%22%2C%22is_eu%22%3Atrue%2C%22is_res",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/ct.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "e1e6f7b2ce",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966124020-9347453609167\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:44.020Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_home_e1e6f7b2ce.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "862c4e4180",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966126701-3699209316377\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:46.701Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_home_862c4e4180.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "SubscribedButtonClick"
+     ],
+     "body_sha1": "4c19f7370e",
+     "body_snippet": "------WebKitFormBoundaryuOq8obRlDTXbtGwF\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n1263319854288554\r\n------WebKitFormBoundaryuOq8obRlDTXbtGwF\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nSubscribedButtonClick\r\n------WebKitFormBoundaryuOq8obRlDTXbtGwF\r\nContent-Disposition: form-data; name=\"dl\"\r\n",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_home_4c19f7370e.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "SubscribedButtonClick"
+     ],
+     "body_sha1": "d73fa10a82",
+     "body_snippet": "------WebKitFormBoundarysOfsW2GH3A21AAXm\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n293240424340622\r\n------WebKitFormBoundarysOfsW2GH3A21AAXm\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nSubscribedButtonClick\r\n------WebKitFormBoundarysOfsW2GH3A21AAXm\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_home_d73fa10a82.txt"
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=8f446b43-30ea-4c0e-9d1c-6affa272f20b&bo=5&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Official%20Store%20-%20Gym%20Clothes%20%26%20Workout%20Clothes&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2F&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=689643514.1783966123&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tft=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966122789&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=7&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=1783966123&s",
+     "query_event": "user_bucket",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/inter",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "b1190cac30",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966133709-4749127928281\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:53.709Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_home_b1190cac30.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "EngagedSession"
+     ],
+     "body_sha1": "afa3ca2151",
+     "body_snippet": "{\"event\":\"EngagedSession\",\"event_id\":\"\",\"message_id\":\"messageId-1783966133726-7736508141518-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:53.726Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZ",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_home_afa3ca2151.txt"
+    }
+   ],
+   "clickables": [
+    "CA",
+    "US",
+    "Pause slide rotation",
+    "Get 10% off when you sign up for emails",
+    "Free standard shipping on orders over $75",
+    "Students get an extra 12% off",
+    "Get $10 off when you refer a friend",
+    "Accessibility Statement",
+    "Skip to content",
+    "skip to Women",
+    "Women",
+    "Expand Women",
+    "skip to Men",
+    "Men",
+    "Expand Men",
+    "Accessories",
+    "Expand Accessories",
+    "search",
+    "View your wishlist",
+    "View your account",
+    "undefined items in cart",
+    "Shop sports bras",
+    "Shop new in",
+    "View All",
+    "Show previous",
+    "Show next",
+    "Minimal Sports Bra 2.0",
+    "add to wishlist",
+    "Ruched Sports Bra 2.0",
+    "Washed Minimal Sports Bra",
+    "Shop tank tops",
+    "Accent Conditioning Shorts",
+    "Accent Graphic Sweat Shorts",
+    "Accent Boxy T-Shirt",
+    "Accent Capped Sleeve T-Shirt",
+    "WOMEN",
+    "MEN",
+    "ONYX V1 RETURNS JULY 16TH And this time, we’re dropping women’s too.",
+    "SUMMER BESTSELLERS Bestselling styles you’ll reach for every single session.",
+    "FOR EVERY RUN Comfy, breathable kit that keeps your focus where you need it.",
+    "LEGGINGS",
+    "SPORTS BRAS",
+    "SHORTS",
+    "T-SHIRTS & TOPS",
+    "GUIDES",
+    "TRENDING",
+    "TRAINING",
+    "APPS",
+    "Gym Leggings",
+    "Leggings With Pockets",
+    "High Waisted Leggings",
+    "Scrunch Bum Leggings",
+    "Black Leggings",
+    "Flare Leggings",
+    "Seamless Leggings",
+    "Petite Gym Leggings",
+    "Women's Gym Wear",
+    "Womens Gym Shorts",
+    "Running Shorts",
+    "Sports Bras",
+    "High Impact Sports Bras",
+    "Black Sports Bras",
+    "Matching Sets",
+    "Loungewear",
+    "Men's Gymwear",
+    "Mens Gym Shorts",
+    "Shorts with Pockets",
+    "Men's Running Shorts",
+    "Gym Shirts",
+    "Sleeveless T-Shirts",
+    "Gym Stringers",
+    "Men's Baselayers",
+    "Women's Underwear",
+    "Men's Underwear",
+    "Workout Bags",
+    "Duffel Bags",
+    "Gym Socks",
+    "Crew Socks",
+    "Caps",
+    "Beanies"
+   ],
+   "third_party_hosts": [
+    "10ef4229c7d0.edge.sdk.awswaf.com",
+    "2deaes0cuo-dsn.algolia.net",
+    "ad.doubleclick.net",
+    "alb.reddit.com",
+    "analytics-ipv6.tiktokw.us",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "api-iam.intercom.io",
+    "ara.paa-reporting-advertising.amazon",
+    "async-px.dynamicyield.com",
+    "b.applovin.com",
+    "bat.bing.com",
+    "bat.bing.net",
+    "browser-intake-datadoghq.eu",
+    "c.albss.com",
+    "c.amazon-adsystem.com",
+    "cdn.cookielaw.org",
+    "cdn.dynamicyield.com",
+    "cdn.shopify.com",
+    "cm.g.doubleclick.net",
+    "connect.facebook.net",
+    "ct.pinterest.com",
+    "geolocation.onetrust.com",
+    "googleads.g.doubleclick.net",
+    "gymshark-privacy.my.onetrust.com",
+    "ib.adnxs.com",
+    "identity.mparticle.com",
+    "insight.adsrvr.org",
+    "js.adsrvr.org",
+    "js.intercomcdn.com",
+    "jssdkcdns.mparticle.com",
+    "jssdks.mparticle.com",
+    "match.adsrvr.org",
+    "nativesdks.mparticle.com",
+    "pagead2.googlesyndication.com",
+    "pixel-config.reddit.com",
+    "pixel.rubiconproject.com",
+    "re.applovin.com",
+    "res4.applovin.com",
+    "s.amazon-adsystem.com",
+    "s.axon.ai",
+    "s.pinimg.com",
+    "shop.app",
+    "st.dynamicyield.com",
+    "stats.g.doubleclick.net",
+    "widget.intercom.io",
+    "www.facebook.com",
+    "www.google-analytics.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.redditstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/01_home.png"
+  },
+  {
+   "path": "/collections/2-in-1-shorts",
+   "requested_url": "https://us.checkout.gymshark.com/collections/2-in-1-shorts",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/collections/2-in-1-shorts",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966122789&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=8&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224&sid=1783966123&sct=1&seg=1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/inter",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "7112da9d50",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966139441-4763594157571\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:08:59.441Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_collections_2-in-1-shorts_7112da9d50.txt"
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=8f446b43-30ea-4c0e-9d1c-6affa272f20b&bo=6&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=pageHide&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WQXVFFG&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/bat.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&ae=g&auid=244663930.1783966123&dt=2%20in%201%20Shorts&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1600289634.1783966142&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=1783966141988&tfd",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-823557903&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-933026149&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/p/action/134606084.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&ae=g&auid=244663930.1783966123&dt=2%20in%201%20Shorts&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1600289634.1783966142&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tft=1783966142409&tfd",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/823557903/?random=1783966142639&cv=11&fst=1783966142639&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/823557903/?random=1783966142639&cv=11&fst=1783966142639&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&ae=g&auid=244663930.1783966123&dt=2%20in%201%20Shorts&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1600289634.1783966142&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=AW-823557903&tid=AW-8235579",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/933026149/?random=1783966142687&cv=11&fst=1783966142687&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/933026149/?random=1783966142687&cv=11&fst=1783966142687&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.17839661",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=1&frm=0&ae=g&auid=244663930.1783966123&dt=2%20in%201%20Shorts&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1600289634.1783966142&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=AW-933026149&tid=AW-93302614",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9USTBOMk0wWmpBdE1Ea3dNaTAwWW1aaExXRTJPV0l0TURFNFpEbGlPV0V3WWpsbA%22%7D&cb=1783966142726&dep=2%2CPAGE_LOAD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A33296948%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966142734&dep=5%2CEVENT_TAGS_ABSENT",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9USTBOMk0wWmpBdE1Ea3dNaTAwWW1aaExXRTJPV0l0TURFNFpEbGlPV0V3WWpsbA%22%7D&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts%22%2C%22ref%22%3A%22https%3A%2F%2Fus.checkout.gymshark.com%2F%22%2C%22if%22%3Afalse%2C%22sh%22%3A900%2C%22sw%22%3A1440%2C%22mh%22%3A%223c5b736e%22%2C%22is_eu%22%3Afalse%2C%22epikDataSource%22%3Anul",
+     "query_event": "init",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=4103237d-b1a1-41d9-ae89-c35173b42419&bo=1&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=4103237d-b1a1-41d9-ae89-c35173b42419&bo=2&evt=consent&src=default&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=4103237d-b1a1-41d9-ae89-c35173b42419&bo=3&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/action/0?ti=134606084&tm=gtm002&Ver=2&mid=4103237d-b1a1-41d9-ae89-c35173b42419&bo=4&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&uach=pv%3D10.0&pi=0&lg=ru&sw=1440&sh=900&sc=24&nwd=1&tl=2%20in%201%20Shorts&p=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&r=https%3A%2F%2Fus.checkout.gymshark.com%2F&lt=1329&evt=pageLoad&sv=2&asc=G&cdb=AQET&rn=202433",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A33296948%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966142878&dep=5%2CEVENT_TAGS_ABSENT&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9USTBOMk0wWmpBdE1Ea3dNaTAwWW1aaExXRTJPV0l0TURFNFpEbGlPV0V3WWpsbA%22%2C%22external_id%22%3A%5B%22aafbb4830e58ac211983f8598aa66d2f42ffab0e98c999735a065fd51850ee08%22%5D%7D&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1263319854288554&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783966142911&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966123340.346402441540985854&ler=other&pmd[title]=2%20in%201%20Shorts&pmd[locale]=en-US&plt=1329&iss=1&imft=1&tz=-240&it=1783966142082&coo=false&ss=%7B%22page_description%22%3A%5B%7B%22rid%22%3A%221642664790411952%22%2C%22v%2",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=293240424340622&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783966142919&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966123340.346402441540985854&ler=other&pmd[title]=2%20in%201%20Shorts&pmd[locale]=en-US&plt=1329&iss=1&imft=1&tz=-240&hmd=8751e0ba4ac2869ade4cd1bf&it=1783966142082&coo=false&ss=%7B%22page_description%22%3A%5B%7B%22rid%22%3A%22",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "53770caa0b",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966142946-5371315599703-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:09:02.946Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_collections_2-in-1-shorts_53770caa0b.txt"
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/823557903/?random=1783966142639&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.178396",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/823557903/?random=1783966142639&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/933026149/?random=1783966142687&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.1783966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/933026149/?random=1783966142687&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-in-1-shorts&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=2%20in%201%20Shorts&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=244663930.17839661",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/ct.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "0a99517b09",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966143228-7728568691105\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:09:03.228Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_collections_2-in-1-shorts_0a99517b09.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966141497&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=3&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115616985~115938466~115938468~118395333~118826209~118897920~118897930~119027224&si",
+     "query_event": "",
+     "body_events": [
+      "view_item_list"
+     ],
+     "body_sha1": "72f2bbd02a",
+     "body_snippet": "en=view_item_list&pr1=id6806099525834~nmrunning%202-in-1%20shorts~lp1~cawomens%3Eapparel%3Eshorts%3Eloose~lnplp%202%20in%201%20shorts~vablack~pr38.40~k0cd_listpos~v01~k1cd_path~v1%2Fcollections%2F2-in-1-shorts&pr2=id6806396895434~nmrunning%204%202in1%20shorts~lp2~camens%3Eapparel%3Eshorts%3E2_in_1~l",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Google Analytics_collections_2-in-1-shorts_72f2bbd02a.txt"
+    }
+   ],
+   "clickables": [
+    "CA",
+    "US",
+    "Pause slide rotation",
+    "Get 10% off when you sign up for emails",
+    "Free standard shipping on orders over $75",
+    "Students get an extra 12% off",
+    "Get $10 off when you refer a friend",
+    "Accessibility Statement",
+    "Skip to content",
+    "skip to Women",
+    "Women",
+    "Expand Women",
+    "skip to Men",
+    "Men",
+    "Expand Men",
+    "Accessories",
+    "Expand Accessories",
+    "What are you looking for today?",
+    "View your wishlist",
+    "View your account",
+    "undefined items in cart",
+    "Clear All",
+    "SORT BY",
+    "SIZE",
+    "GENDER",
+    "FEATURES",
+    "FIT",
+    "RISE",
+    "ACTIVITY",
+    "COLLECTION",
+    "COLOR",
+    "DISCOUNT",
+    "PRICE",
+    "Running 2-in-1 Shorts",
+    "add to wishlist",
+    "Running 2-In-1 Shorts",
+    "Running 4\" 2in1 Shorts",
+    "Sport 5\" 2 in 1 Shorts",
+    "Sport 5\" 2 In 1 Shorts",
+    "Running Elite 2 in 1 5\" Shorts",
+    "Running Elite 2 In 1 5\" Shorts",
+    "Crossover 2-in-1 Shorts",
+    "Crossover 2-In-1 Shorts",
+    "Sport 7\" 2 in 1 Shorts",
+    "Sport 7\" 2 In 1 Shorts",
+    "FAQ",
+    "Track Your Order",
+    "Delivery Information",
+    "Returns Policy",
+    "Make A Return",
+    "Orders",
+    "Submit a Fake",
+    "Login",
+    "Register",
+    "Stores",
+    "Refer a Friend",
+    "Gymshark Central",
+    "Gymshark Loyalty",
+    "About Us",
+    "Careers",
+    "Student Discount",
+    "Military and Government Discount",
+    "Factory List",
+    "Sustainability",
+    "BLOG",
+    "STUDENTS GET AN EXTRA 12% OFF",
+    "EMAIL SIGN UP",
+    "Klarna",
+    "Afterpay",
+    "discord",
+    "facebook",
+    "pinterest",
+    "youtube",
+    "instagram",
+    "twitter",
+    "tiktok",
+    "Terms & Conditions",
+    "Terms of Use",
+    "Privacy Notice",
+    "Cookie Policy"
+   ],
+   "third_party_hosts": [
+    "10ef4229c7d0.edge.sdk.awswaf.com",
+    "2deaes0cuo-dsn.algolia.net",
+    "alb.reddit.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "api-iam.intercom.io",
+    "ara.paa-reporting-advertising.amazon",
+    "async-px.dynamicyield.com",
+    "b.applovin.com",
+    "bat.bing.com",
+    "browser-intake-datadoghq.eu",
+    "c.albss.com",
+    "c.amazon-adsystem.com",
+    "cdn.cookielaw.org",
+    "cdn.dynamicyield.com",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "ct.pinterest.com",
+    "dsum-sec.casalemedia.com",
+    "geolocation.onetrust.com",
+    "googleads.g.doubleclick.net",
+    "insight.adsrvr.org",
+    "js.adsrvr.org",
+    "js.intercomcdn.com",
+    "jssdkcdns.mparticle.com",
+    "jssdks.mparticle.com",
+    "match.adsrvr.org",
+    "nativesdks.mparticle.com",
+    "pixel-config.reddit.com",
+    "re.applovin.com",
+    "res4.applovin.com",
+    "s.amazon-adsystem.com",
+    "s.axon.ai",
+    "s.pinimg.com",
+    "shop.app",
+    "simage2.pubmatic.com",
+    "st.dynamicyield.com",
+    "widget.intercom.io",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.redditstatic.com",
+    "x.bidswitch.net"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/02_collections_2-in-1-shorts.png"
+  },
+  {
+   "path": "/collections/2-inch",
+   "requested_url": "https://us.checkout.gymshark.com/collections/2-inch",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/collections/2-inch",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966141497&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=3&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616985~115938466~115938468~118395333~118826209~118897920~118897930~119027224&sid=178",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=4103237d-b1a1-41d9-ae89-c35173b42419&bo=5&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=pageHide&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WQXVFFG&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/bat.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&ae=g&auid=244663930.1783966123&dt=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=607150521.1783966155&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=f&",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&ae=g&auid=244663930.1783966123&dt=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=607150521.1783966155&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=f&",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-823557903&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-933026149&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/p/action/134606084.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1263319854288554&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783966155679&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966123340.346402441540985854&ler=other&pmd[title]=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&pmd[locale]=en-US&plt=1040.2999999523163&iss=1&imft=1&tz=-240&it=1783966154994&coo=false&ss=%7B%22page_description%22%3A%5B%7B%",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=293240424340622&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783966155685&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966123340.346402441540985854&ler=other&pmd[title]=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&pmd[locale]=en-US&plt=1040.2999999523163&iss=1&imft=1&tz=-240&hmd=4ce6336cb9baf879692c0151&it=1783966154994&coo=false&ss=%7B%22p",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/823557903/?random=1783966155706&cv=11&fst=1783966155706&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118012009~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=2&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/823557903/?random=1783966155706&cv=11&fst=1783966155706&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118012009~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=2&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.goog",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=2&frm=0&ae=g&auid=244663930.1783966123&dt=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=607150521.1783966155&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118012009~118395333~118826209~118897920~118897930~1190272",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/933026149/?random=1783966155735&cv=11&fst=1783966155735&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=19&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/933026149/?random=1783966155735&cv=11&fst=1783966155735&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=19&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.googleadservices.com&np",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&ae=g&auid=244663930.1783966123&dt=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=607150521.1783966155&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224~119896803&apve=1&apvf=f&ap",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%7D&cb=1783966155753&dep=2%2CPAGE_LOAD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A2071840641%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966155756&dep=5%2CEVENT_TAGS_ABSENT",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%7D&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch%22%2C%22ref%22%3A%22https%3A%2F%2Fus.checkout.gymshark.com%2F%22%2C%22if%22%3Afalse%2C%22sh%22%3A900%2C%22sw%22%3A1440%2C%22mh%22%3A%223c5b736e%22%2C%22is_eu%22%3Afalse%2C%22epikDataSource%22%3Anull%2C%22",
+     "query_event": "init",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=21fda623-0749-42d6-9e05-463e3b4f01bd&bo=2&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=21fda623-0749-42d6-9e05-463e3b4f01bd&bo=3&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/action/0?ti=134606084&tm=gtm002&Ver=2&mid=21fda623-0749-42d6-9e05-463e3b4f01bd&bo=4&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&uach=pv%3D10.0&pi=0&lg=ru&sw=1440&sh=900&sc=24&nwd=1&tl=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&p=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&r=https%3A%2F%2Fus.checkout.gymshark.com%2F&lt=1041&evt=pageLoad&sv=2&asc=G&cdb=AQET&rn=632562",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "229637abf2",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966155882-2936013039103-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:09:15.882Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_collections_2-inch_229637abf2.txt"
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A2071840641%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966155899&dep=5%2CEVENT_TAGS_ABSENT&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%2C%22external_id%22%3A%5B%22aafbb4830e58ac211983f8598aa66d2f42ffab0e98c999735a065fd51850ee08%22%5D%7D&ad=%7B%22loc%22%3A%22https%3A%2F%2Fww",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/823557903/?random=1783966155706&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118012009~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=2&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.goo",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/823557903/?random=1783966155706&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118012009~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=2&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.goog",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/933026149/?random=1783966155735&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=19&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.googleadservices.com&n",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/933026149/?random=1783966155735&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fcollections%2F2-inch&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=19&frm=0&tiba=2%20Inch%20Workout%20%26%20Gym%20Shorts%20-%20Gymshark&hn=www.googleadservices.com&np",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/ct.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "f558ff92c4",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966156167-3274203259168\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:09:16.167Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_collections_2-inch_f558ff92c4.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966154944&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&sid=1783966123&sct=1&",
+     "query_event": "",
+     "body_events": [
+      "page_view"
+     ],
+     "body_sha1": "0e6243b1c9",
+     "body_snippet": "en=page_view&ep.cd_website=us&ep.cd_pageCategory=plp&ep.cd_pageCategory_plp=plp_no-gender%2F2-inch&ep.test_data_55=gs-test_web_t55.1&ep.test_data_45=gs-test_web_t45.2&ep.test_data_46=gs-test_web_t46.1&ep.test_data_28=gs-test_web_t28.1&ep.test_data_23=gs-test_web_t23.1&ep.content_group=us&ep.test_dat",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Google Analytics_collections_2-inch_0e6243b1c9.txt"
+    }
+   ],
+   "clickables": [
+    "CA",
+    "US",
+    "Pause slide rotation",
+    "Get 10% off when you sign up for emails",
+    "Free standard shipping on orders over $75",
+    "Students get an extra 12% off",
+    "Get $10 off when you refer a friend",
+    "Accessibility Statement",
+    "Skip to content",
+    "skip to Women",
+    "Women",
+    "Expand Women",
+    "skip to Men",
+    "Men",
+    "Expand Men",
+    "Accessories",
+    "Expand Accessories",
+    "What are you looking for today?",
+    "View your wishlist",
+    "View your account",
+    "undefined items in cart",
+    "Clear All",
+    "SORT BY",
+    "GENDER",
+    "GO TO OUR SUPPORT HUB",
+    "CHAT TO AN ADVISOR",
+    "FAQ",
+    "Track Your Order",
+    "Delivery Information",
+    "Returns Policy",
+    "Make A Return",
+    "Orders",
+    "Submit a Fake",
+    "Login",
+    "Register",
+    "Stores",
+    "Refer a Friend",
+    "Gymshark Central",
+    "Gymshark Loyalty",
+    "About Us",
+    "Careers",
+    "Student Discount",
+    "Military and Government Discount",
+    "Factory List",
+    "Sustainability",
+    "BLOG",
+    "STUDENTS GET AN EXTRA 12% OFF",
+    "EMAIL SIGN UP",
+    "Klarna",
+    "Afterpay",
+    "discord",
+    "facebook",
+    "pinterest",
+    "youtube",
+    "instagram",
+    "twitter",
+    "tiktok",
+    "Terms & Conditions",
+    "Terms of Use",
+    "Privacy Notice",
+    "Cookie Policy",
+    "Modern Slavery"
+   ],
+   "third_party_hosts": [
+    "10ef4229c7d0.edge.sdk.awswaf.com",
+    "2deaes0cuo-dsn.algolia.net",
+    "alb.reddit.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "api-iam.intercom.io",
+    "ara.paa-reporting-advertising.amazon",
+    "async-px.dynamicyield.com",
+    "b.applovin.com",
+    "bat.bing.com",
+    "bat.bing.net",
+    "browser-intake-datadoghq.eu",
+    "c.albss.com",
+    "c.amazon-adsystem.com",
+    "cdn.cookielaw.org",
+    "cdn.dynamicyield.com",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "ct.pinterest.com",
+    "googleads.g.doubleclick.net",
+    "insight.adsrvr.org",
+    "js.adsrvr.org",
+    "js.intercomcdn.com",
+    "jssdkcdns.mparticle.com",
+    "jssdks.mparticle.com",
+    "nativesdks.mparticle.com",
+    "pixel-config.reddit.com",
+    "re.applovin.com",
+    "res4.applovin.com",
+    "s.amazon-adsystem.com",
+    "s.axon.ai",
+    "s.pinimg.com",
+    "shop.app",
+    "st.dynamicyield.com",
+    "widget.intercom.io",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.redditstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/03_collections_2-inch.png"
+  },
+  {
+   "path": "/pages/gymshark-gift-card-prize-tandcs",
+   "requested_url": "https://us.checkout.gymshark.com/pages/gymshark-gift-card-prize-tandcs",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/pages/gymshark-gift-card-prize-tandcs",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966154944&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&sid=1783966123&sct=1&seg=1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=21fda623-0749-42d6-9e05-463e3b4f01bd&bo=5&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=pageHide&asc=G",
+     "query_event": "",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "BACK TO HOME"
+   ],
+   "third_party_hosts": [
+    "10ef4229c7d0.edge.sdk.awswaf.com",
+    "analytics.google.com",
+    "api-iam.intercom.io",
+    "b.applovin.com",
+    "bat.bing.com",
+    "browser-intake-datadoghq.eu",
+    "cdn.shopify.com",
+    "shop.app",
+    "www.google.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/04_pages_gymshark-gift-card-prize-tandcs.png"
+  },
+  {
+   "path": "/pages/gymshark-tiktok-gift-card-prize-draw",
+   "requested_url": "https://us.checkout.gymshark.com/pages/gymshark-tiktok-gift-card-prize-draw",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/pages/gymshark-tiktok-gift-card-prize-draw",
+   "redirected": true,
+   "pixel_requests": [],
+   "clickables": [
+    "BACK TO HOME"
+   ],
+   "third_party_hosts": [
+    "cdn.shopify.com",
+    "shop.app"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/05_pages_gymshark-tiktok-gift-card-prize-draw.png"
+  },
+  {
+   "path": "/pages/gymshark-we-gift-the-city-gift-youtube-gift-card-prize-draw",
+   "requested_url": "https://us.checkout.gymshark.com/pages/gymshark-we-gift-the-city-gift-youtube-gift-card-prize-draw",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/pages/gymshark-we-gift-the-city-gift-youtube-gift-card-prize-draw",
+   "redirected": true,
+   "pixel_requests": [],
+   "clickables": [
+    "BACK TO HOME"
+   ],
+   "third_party_hosts": [
+    "cdn.shopify.com",
+    "shop.app"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/06_pages_gymshark-we-gift-the-city-gift-youtube-gift-card-prize.png"
+  },
+  {
+   "path": "/pages/promo-details-test",
+   "requested_url": "https://us.checkout.gymshark.com/pages/promo-details-test",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/pages/promo-details-test",
+   "redirected": true,
+   "pixel_requests": [],
+   "clickables": [
+    "BACK TO HOME"
+   ],
+   "third_party_hosts": [
+    "cdn.shopify.com",
+    "shop.app"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/07_pages_promo-details-test.png"
+  },
+  {
+   "path": "/pages/summer-sale-post-sale-q-and-a",
+   "requested_url": "https://us.checkout.gymshark.com/pages/summer-sale-post-sale-q-and-a",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/pages/summer-sale-post-sale-q-and-a",
+   "redirected": true,
+   "pixel_requests": [],
+   "clickables": [
+    "BACK TO HOME"
+   ],
+   "third_party_hosts": [
+    "cdn.shopify.com",
+    "shop.app"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/08_pages_summer-sale-post-sale-q-and-a.png"
+  },
+  {
+   "path": "/pages/we-gift-the-city-gift-card-prize-draw-terms-and-conditions",
+   "requested_url": "https://us.checkout.gymshark.com/pages/we-gift-the-city-gift-card-prize-draw-terms-and-conditions",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/pages/we-gift-the-city-gift-card-prize-draw-terms-and-conditions",
+   "redirected": true,
+   "pixel_requests": [],
+   "clickables": [
+    "BACK TO HOME"
+   ],
+   "third_party_hosts": [
+    "browser-intake-datadoghq.eu",
+    "cdn.shopify.com",
+    "shop.app"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/09_pages_we-gift-the-city-gift-card-prize-draw-terms-and-condit.png"
+  },
+  {
+   "path": "/products/adapt-animal-mini-lifestyle-backpack-white-cream",
+   "requested_url": "https://us.checkout.gymshark.com/products/adapt-animal-mini-lifestyle-backpack-white-cream",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/products/adapt-animal-mini-lifestyle-backpack-white-cream",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WQXVFFG&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/bat.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=9&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-%20White%2FCream%20-%20White%2FCream%20%7C%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1793908977.1783966248&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-823557903&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-933026149&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966247991&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=10&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&cu=USD&si",
+     "query_event": "view_item",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/p/action/134606084.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=9&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-%20White%2FCream%20-%20White%2FCream%20%7C%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1793908977.1783966248&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "ViewContent"
+     ],
+     "body_sha1": "3d4afc5b21",
+     "body_snippet": "------WebKitFormBoundaryebBOE8XRaYSfHJa2\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n1263319854288554\r\n------WebKitFormBoundaryebBOE8XRaYSfHJa2\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nViewContent\r\n------WebKitFormBoundaryebBOE8XRaYSfHJa2\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_products_adapt-animal-mini-lifestyle-backpack-white-cream_3d4afc5b21.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/823557903/?random=1783966249016&cv=11&fst=1783966249016&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=14&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/823557903/?random=1783966249016&cv=11&fst=1783966249016&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=14&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-%20White%2FCream%20-%20White%2FCream%20%7C%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1793908977.1783966248&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/933026149/?random=1783966249057&cv=11&fst=1783966249057&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=16&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/933026149/?random=1783966249057&cv=11&fst=1783966249057&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=16&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=16&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-%20White%2FCream%20-%20White%2FCream%20%7C%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=1793908977.1783966248&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%7D&cb=1783966249083&dep=2%2CPAGE_LOAD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A1679773547%2C%22sku%22%3A39245969391818%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22line_items%22%3A%5B%7B%22product_id%22%3A6535209287882%7D%5D%7D&tid=2618098611272&cb=1783966249086&dep=5%2CEVENT_TAGS_ABSENT",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=viewcontent&ed=%7B%22sku%22%3A%5B%7B%22id%22%3A39245969391818%2C%22inStock%22%3Afalse%2C%22inventoryQuantity%22%3A0%2C%22price%22%3A8%2C%22size%22%3A%22one%20size%22%2C%22sku%22%3A%22GABG5751-WH%2FCWP-OS%22%2C%22barcode%22%3A%225063167839598%22%7D%5D%2C%22event_id%22%3A297966501%2C%22currency%22%3A%22USD%22%2C%22value%22%3A8.4%2C%22order_quantity%22%3A%221%22%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966249087&dep=5",
+     "query_event": "viewcontent",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%7D&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream%22%2C%22ref%22%3A%22https%3A%2F%2Fus.checkout.gymshark.com%2F%22%2C%22if%22%3Afalse%2C%22sh%22%3A900%2C%22sw%22%3A1440%2C%22mh%22%3A%223c5b736e%22%2C%22is_eu%22%3Afa",
+     "query_event": "init",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=cfb4ef8e-ec95-44fd-99ee-0c4ebad38b28&bo=1&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=cfb4ef8e-ec95-44fd-99ee-0c4ebad38b28&bo=2&evt=consent&src=default&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=cfb4ef8e-ec95-44fd-99ee-0c4ebad38b28&bo=3&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/action/0?ti=134606084&tm=gtm002&Ver=2&mid=cfb4ef8e-ec95-44fd-99ee-0c4ebad38b28&bo=4&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&uach=pv%3D10.0&pi=0&lg=ru&sw=1440&sh=900&sc=24&nwd=1&tl=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-%20White%2FCream%20-%20White%2FCream%20%7C%20Gymshark&p=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&r=https%3A%2F%2Fus.checkout.gymshark.com%2F",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "PageView"
+     ],
+     "body_sha1": "d9859c1e31",
+     "body_snippet": "------WebKitFormBoundaryeTM6Izs0LflVsZXl\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n1263319854288554\r\n------WebKitFormBoundaryeTM6Izs0LflVsZXl\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nPageView\r\n------WebKitFormBoundaryeTM6Izs0LflVsZXl\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://www",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_products_adapt-animal-mini-lifestyle-backpack-white-cream_d9859c1e31.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "PageView"
+     ],
+     "body_sha1": "7cb91801b5",
+     "body_snippet": "------WebKitFormBoundarydIajTuH61XvpbHBO\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n293240424340622\r\n------WebKitFormBoundarydIajTuH61XvpbHBO\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nPageView\r\n------WebKitFormBoundarydIajTuH61XvpbHBO\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://www.",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_products_adapt-animal-mini-lifestyle-backpack-white-cream_7cb91801b5.txt"
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A1679773547%2C%22sku%22%3A39245969391818%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22line_items%22%3A%5B%7B%22product_id%22%3A6535209287882%7D%5D%7D&tid=2618098611272&cb=1783966249251&dep=5%2CEVENT_TAGS_ABSENT&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%2C%22external_id%22%3A%5B%22aafbb4830e58ac21",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?event=viewcontent&ed=%7B%22sku%22%3A%5B%7B%22id%22%3A39245969391818%2C%22inStock%22%3Afalse%2C%22inventoryQuantity%22%3A0%2C%22price%22%3A8%2C%22size%22%3A%22one%20size%22%2C%22sku%22%3A%22GABG5751-WH%2FCWP-OS%22%2C%22barcode%22%3A%225063167839598%22%7D%5D%2C%22event_id%22%3A297966501%2C%22currency%22%3A%22USD%22%2C%22value%22%3A8.4%2C%22order_quantity%22%3A%221%22%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783966249254&dep=5%2",
+     "query_event": "viewcontent",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "59f5386845",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966249347-1280449433209-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:10:49.347Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_products_adapt-animal-mini-lifestyle-backpack-white-cream_59f5386845.txt"
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/823557903/?random=1783966249016&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=14&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/823557903/?random=1783966249016&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=14&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/933026149/?random=1783966249057&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=16&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/933026149/?random=1783966249057&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fadapt-animal-mini-lifestyle-backpack-white-cream&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=16&frm=0&tiba=Gymshark%20Adapt%20Animal%20Mini%20Lifestyle%20Backpack-",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/ct.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "4db20f7c4e",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966249899-1265129638002\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:10:49.899Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_products_adapt-animal-mini-lifestyle-backpack-white-cream_4db20f7c4e.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "4db20f7c4e",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966249899-1265129638002\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:10:49.899Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_products_adapt-animal-mini-lifestyle-backpack-white-cream_4db20f7c4e.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966247991&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=10&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&sid=1783966123&sct=1&",
+     "query_event": "",
+     "body_events": [
+      "page_view"
+     ],
+     "body_sha1": "ac47445297",
+     "body_snippet": "en=page_view&ep.cd_website=us&ep.cd_pageCategory=pdp&ep.cd_pageCategory_plp=products&ep.test_data_55=gs-test_web_t55.1&ep.test_data_45=gs-test_web_t45.2&ep.test_data_46=gs-test_web_t46.1&ep.test_data_28=gs-test_web_t28.1&ep.test_data_23=gs-test_web_t23.1&ep.content_group=us&ep.test_data_58=gs-test_w",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Google Analytics_products_adapt-animal-mini-lifestyle-backpack-white-cream_ac47445297.txt"
+    }
+   ],
+   "clickables": [
+    "CA",
+    "US",
+    "Pause slide rotation",
+    "Get 10% off when you sign up for emails",
+    "Free standard shipping on orders over $75",
+    "Students get an extra 12% off",
+    "Get $10 off when you refer a friend",
+    "Accessibility Statement",
+    "Skip to content",
+    "skip to Women",
+    "Women",
+    "Expand Women",
+    "skip to Men",
+    "Men",
+    "Expand Men",
+    "Accessories",
+    "Expand Accessories",
+    "What are you looking for today?",
+    "View your wishlist",
+    "View your account",
+    "undefined items in cart",
+    "Zoom on image",
+    "Scroll up",
+    "Scroll down",
+    "4.7 (7)",
+    "add to wishlist",
+    "Share",
+    "NOTIFY ME",
+    "Learn more",
+    "Unlock Access to Exclusive Rewards & Benefits",
+    "DESCRIPTION",
+    "DELIVERY & RETURNS",
+    "QUALITY",
+    "VALUE",
+    "0",
+    "1",
+    "LOAD MORE",
+    "FAQ",
+    "Track Your Order",
+    "Delivery Information",
+    "Returns Policy",
+    "Make A Return",
+    "Orders",
+    "Submit a Fake",
+    "Login",
+    "Register",
+    "Stores",
+    "Refer a Friend",
+    "Gymshark Central",
+    "Gymshark Loyalty",
+    "About Us",
+    "Careers",
+    "Student Discount",
+    "Military and Government Discount",
+    "Factory List",
+    "Sustainability",
+    "BLOG",
+    "STUDENTS GET AN EXTRA 12% OFF",
+    "EMAIL SIGN UP",
+    "Klarna",
+    "Afterpay",
+    "discord",
+    "facebook",
+    "pinterest",
+    "youtube",
+    "instagram",
+    "twitter",
+    "tiktok",
+    "Terms & Conditions",
+    "Terms of Use",
+    "Privacy Notice",
+    "Cookie Policy",
+    "Modern Slavery",
+    "Close"
+   ],
+   "third_party_hosts": [
+    "10ef4229c7d0.edge.sdk.awswaf.com",
+    "2deaes0cuo-dsn.algolia.net",
+    "ad.doubleclick.net",
+    "alb.reddit.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "api-iam.intercom.io",
+    "ara.paa-reporting-advertising.amazon",
+    "async-px.dynamicyield.com",
+    "b.applovin.com",
+    "bat.bing.com",
+    "browser-intake-datadoghq.eu",
+    "c.albss.com",
+    "c.amazon-adsystem.com",
+    "cdn.cookielaw.org",
+    "cdn.dynamicyield.com",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "ct.pinterest.com",
+    "engagement-counter.product-engineering.gymsharkapps.io",
+    "googleads.g.doubleclick.net",
+    "images.ctfassets.net",
+    "insight.adsrvr.org",
+    "js.adsrvr.org",
+    "js.intercomcdn.com",
+    "jssdkcdns.mparticle.com",
+    "jssdks.mparticle.com",
+    "nativesdks.mparticle.com",
+    "pixel-config.reddit.com",
+    "re.applovin.com",
+    "res4.applovin.com",
+    "s.amazon-adsystem.com",
+    "s.axon.ai",
+    "s.pinimg.com",
+    "shop.app",
+    "st.dynamicyield.com",
+    "widget.intercom.io",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.redditstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/10_products_adapt-animal-mini-lifestyle-backpack-white-cream.png"
+  },
+  {
+   "path": "/products/arrival-marl-tank-black",
+   "requested_url": "https://us.checkout.gymshark.com/products/arrival-marl-tank-black",
+   "http_status": 200,
+   "final_url": "https://www.gymshark.com/products/arrival-marl-tank-black",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459za20gzb77603973zd77603973&_p=1783966247991&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=10&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&sid=1783966123&sct=1&seg=1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=cfb4ef8e-ec95-44fd-99ee-0c4ebad38b28&bo=5&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&evt=pageHide&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WQXVFFG&gtm_auth=&gtm_preview=&gtm_cookies_win=x",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-PQJ0N2K1QF&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/bat.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=3&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=256245415.1783966262&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&apve",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-823557903&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-933026149&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-11110630210&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/p/action/134606084.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=3&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=256245415.1783966262&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45He6790v77603973za200zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&apve",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "ViewContent"
+     ],
+     "body_sha1": "97835ff879",
+     "body_snippet": "------WebKitFormBoundary3FLLnHmQvdaKAYHg\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n1263319854288554\r\n------WebKitFormBoundary3FLLnHmQvdaKAYHg\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nViewContent\r\n------WebKitFormBoundary3FLLnHmQvdaKAYHg\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_products_arrival-marl-tank-black_97835ff879.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/823557903/?random=1783966263132&cv=11&fst=1783966263132&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/823557903/?random=1783966263132&cv=11&fst=1783966263132&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&hn=www.go",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=256245415.1783966262&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395333~118826209~118897920~118897930~11902",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/933026149/?random=1783966263164&cv=11&fst=1783966263164&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/933026149/?random=1783966263164&cv=11&fst=1783966263164&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&hn=www.go",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=256245415.1783966262&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938468~118826209~118897920~118897930~11902",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/11110630210/?random=1783966263238&cv=11&fst=1783966263238&bg=ffffff&guid=ON&async=1&gtm=45be6790v9104319011z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~118981136~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=Gymshark%20Arrival%20Marl%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/11110630210/?random=1783966263238&cv=11&fst=1783966263238&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9104319011z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~118981136~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=1&frm=0&ae=g&auid=244663930.1783966123&dt=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&en=view_item_list&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&dr=us.checkout.gymshark.com&scrsrc=www.googletagmanager.com&rnd=256245415.1783966262&navt=n&npa=0&ep.ads_data_redaction=0&_tu=CA&gtm=45be6790v9104319011z877603973za20gzb77603973zd77603973xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~1188979",
+     "query_event": "view_item_list",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%7D&cb=1783966263338&dep=2%2CPAGE_LOAD",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A1041326865%2C%22sku%22%3A39245828554954%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22line_items%22%3A%5B%7B%22product_id%22%3A6535182614730%7D%5D%7D&tid=2618098611272&cb=1783966263343&dep=5%2CEVENT_TAGS_ABSENT",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/user/?event=viewcontent&ed=%7B%22sku%22%3A%5B%7B%22id%22%3A39245828554954%2C%22inStock%22%3Afalse%2C%22inventoryQuantity%22%3A0%2C%22price%22%3A20%2C%22size%22%3A%22s%22%2C%22sku%22%3A%22GMTK5506-BK-S%22%2C%22barcode%22%3A%225063167890933%22%7D%2C%7B%22id%22%3A39245828587722%2C%22inStock%22%3Afalse%2C%22inventoryQuantity%22%3A0%2C%22price%22%3A20%2C%22size%22%3A%22m%22%2C%22sku%22%3A%22GMTK5506-BK-M%22%2C%22barcode%22%3A%225063167893095%22%7D%2C%7B%22id%22%3A392458286204",
+     "query_event": "viewcontent",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%7D&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black%22%2C%22ref%22%3A%22https%3A%2F%2Fus.checkout.gymshark.com%2F%22%2C%22if%22%3Afalse%2C%22sh%22%3A900%2C%22sw%22%3A1440%2C%22mh%22%3A%223c5b736e%22%2C%22is_eu%22%3Afalse%2C%22epikDataSource%2",
+     "query_event": "init",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=90192424-0896-4fc1-ac83-cff3bed80bc4&bo=1&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=90192424-0896-4fc1-ac83-cff3bed80bc4&bo=2&evt=consent&src=default&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "POST",
+     "url": "https://bat.bing.com/actionp/0?ti=134606084&tm=gtm002&Ver=2&mid=90192424-0896-4fc1-ac83-cff3bed80bc4&bo=3&evt=consent&src=update&cdb=AQET&asc=G",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Bing/Microsoft",
+     "method": "GET",
+     "url": "https://bat.bing.com/action/0?ti=134606084&tm=gtm002&Ver=2&mid=90192424-0896-4fc1-ac83-cff3bed80bc4&bo=4&sid=e278a6f07ee511f1a39f2936f19b5906&vid=e278d4107ee511f18f55eb7f38c73ebd&vids=0&msclkid=N&uach=pv%3D10.0&pi=0&lg=ru&sw=1440&sh=900&sc=24&nwd=1&tl=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&p=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&r=https%3A%2F%2Fus.checkout.gymshark.com%2F&lt=1385&evt=pageLoad&sv=2&asc=G&cdb=AQET&rn=496368",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "ec0e78b9d0",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966263423-2208407225244-C8PM4U59481U83L7JFP0\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:11:03.423Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_products_arrival-marl-tank-black_ec0e78b9d0.txt"
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A1041326865%2C%22sku%22%3A39245828554954%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22line_items%22%3A%5B%7B%22product_id%22%3A6535182614730%7D%5D%7D&tid=2618098611272&cb=1783966263520&dep=5%2CEVENT_TAGS_ABSENT&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU9XRXdObVJoTldVdE1UY3hZaTAwT1dJNExXRXdaVE10WldVeE4yVmxZbVptTVdRNQ%22%2C%22external_id%22%3A%5B%22aafbb4830e58ac21",
+     "query_event": "pagevisit",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "POST",
+     "url": "https://ct.pinterest.com/v3/",
+     "query_event": "",
+     "body_events": [
+      "viewcontent"
+     ],
+     "body_sha1": "ac791f4722",
+     "body_snippet": "event=viewcontent&ed=%7B%22sku%22%3A%5B%7B%22id%22%3A39245828554954%2C%22inStock%22%3Afalse%2C%22inventoryQuantity%22%3A0%2C%22price%22%3A20%2C%22size%22%3A%22s%22%2C%22sku%22%3A%22GMTK5506-BK-S%22%2C%22barcode%22%3A%225063167890933%22%7D%2C%7B%22id%22%3A39245828587722%2C%22inStock%22%3Afalse%2C%22i",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Pinterest_products_arrival-marl-tank-black_ac791f4722.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "PageView"
+     ],
+     "body_sha1": "154731bbf4",
+     "body_snippet": "------WebKitFormBoundaryAh9ALdT0NO7vxRgo\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n1263319854288554\r\n------WebKitFormBoundaryAh9ALdT0NO7vxRgo\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nPageView\r\n------WebKitFormBoundaryAh9ALdT0NO7vxRgo\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://www",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_products_arrival-marl-tank-black_154731bbf4.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "PageView"
+     ],
+     "body_sha1": "a101a9b825",
+     "body_snippet": "------WebKitFormBoundary7W3LmHjBSDBbH3IZ\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n293240424340622\r\n------WebKitFormBoundary7W3LmHjBSDBbH3IZ\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nPageView\r\n------WebKitFormBoundary7W3LmHjBSDBbH3IZ\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://www.",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Meta_products_arrival-marl-tank-black_a101a9b825.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?redirect=0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "ef1067d21a",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966263631-9967578057053\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:11:03.632Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEANHNS6J3F0TQVNERAYZQV_.tt.1\"},\"pixel\":{\"code\":\"C8PM4U59481U83L7JF",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_TikTok_products_arrival-marl-tank-black_ef1067d21a.txt"
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/823557903/?random=1783966263132&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&hn=www.g",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/823557903/?random=1783966263132&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395333~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&hn=www.go",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/933026149/?random=1783966263164&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&hn=www.g",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/933026149/?random=1783966263164&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=18&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7C%20Gymshark&hn=www.go",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/11110630210/?random=1783966263238&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9104319011z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~118981136~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/11110630210/?random=1783966263238&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9104319011z877603973za20gzb77603973zd77603973xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~118981136~119027224~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Farrival-marl-tank-black&ref=https%3A%2F%2Fus.checkout.gymshark.com%2F&rcb=1&frm=0&tiba=Gymshark%20Arrival%20Marl%20Tank%20-%20Black%20%7",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Pinterest",
+     "method": "GET",
+     "url": "https://ct.pinterest.com/ct.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790v874493459z877603973za20gzb77603973zd77603973&_p=1783966261932&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=17473326.1783966123&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224~119381663&sid=17839661",
+     "query_event": "",
+     "body_events": [
+      "view_item"
+     ],
+     "body_sha1": "9cf675f344",
+     "body_snippet": "en=view_item&pr1=id6535182614730~nmarrival%20marl%20tank~ca~vablack~pr20.00&ep.cd_pageCategory=pdp&ep.cd_pageCategory_plp=products&ep.value=20.00&epn.cd_productRating=3.8&epn.cd_productCountOfRatings=10&ep.cd_productTag=out%20of%20stock&ep.cd_productFeatureVisible=notPresent&ep.cd_stockPercent=0.00&",
+     "body_file": "scans/_witness_2026-07-13/gymshark.com/fixtures/gymshark.com_Google Analytics_products_arrival-marl-tank-black_9cf675f344.txt"
+    }
+   ],
+   "clickables": [
+    "CA",
+    "US",
+    "Pause slide rotation",
+    "Get 10% off when you sign up for emails",
+    "Free standard shipping on orders over $75",
+    "Students get an extra 12% off",
+    "Get $10 off when you refer a friend",
+    "Accessibility Statement",
+    "Skip to content",
+    "skip to Women",
+    "Women",
+    "Expand Women",
+    "skip to Men",
+    "Men",
+    "Expand Men",
+    "Accessories",
+    "Expand Accessories",
+    "What are you looking for today?",
+    "View your wishlist",
+    "View your account",
+    "undefined items in cart",
+    "Zoom on image",
+    "Scroll up",
+    "Scroll down",
+    "3.8 (10)",
+    "add to wishlist",
+    "Share",
+    "Size Guide",
+    "NOTIFY ME",
+    "Learn more",
+    "Unlock Access to Exclusive Rewards & Benefits",
+    "DESCRIPTION",
+    "DELIVERY & RETURNS",
+    "SIZING",
+    "LENGTH",
+    "QUALITY",
+    "COMFORT",
+    "VALUE",
+    "0",
+    "1",
+    "LOAD MORE",
+    "Adapt Animal Mini Lifestyle Backpack- White/Cream",
+    "FAQ",
+    "Track Your Order",
+    "Delivery Information",
+    "Returns Policy",
+    "Make A Return",
+    "Orders",
+    "Submit a Fake",
+    "Login",
+    "Register",
+    "Stores",
+    "Refer a Friend",
+    "Gymshark Central",
+    "Gymshark Loyalty",
+    "About Us",
+    "Careers",
+    "Student Discount",
+    "Military and Government Discount",
+    "Factory List",
+    "Sustainability",
+    "BLOG",
+    "STUDENTS GET AN EXTRA 12% OFF",
+    "EMAIL SIGN UP",
+    "Klarna",
+    "Afterpay",
+    "discord",
+    "facebook",
+    "pinterest",
+    "youtube",
+    "instagram",
+    "twitter",
+    "tiktok",
+    "Terms & Conditions",
+    "Terms of Use",
+    "Privacy Notice",
+    "Cookie Policy",
+    "Modern Slavery",
+    "Close"
+   ],
+   "third_party_hosts": [
+    "10ef4229c7d0.edge.sdk.awswaf.com",
+    "2deaes0cuo-dsn.algolia.net",
+    "alb.reddit.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "api-iam.intercom.io",
+    "ara.paa-reporting-advertising.amazon",
+    "async-px.dynamicyield.com",
+    "b.applovin.com",
+    "bat.bing.com",
+    "browser-intake-datadoghq.eu",
+    "c.albss.com",
+    "c.amazon-adsystem.com",
+    "cdn.cookielaw.org",
+    "cdn.dynamicyield.com",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "ct.pinterest.com",
+    "engagement-counter.product-engineering.gymsharkapps.io",
+    "googleads.g.doubleclick.net",
+    "images.ctfassets.net",
+    "insight.adsrvr.org",
+    "js.adsrvr.org",
+    "js.intercomcdn.com",
+    "jssdkcdns.mparticle.com",
+    "jssdks.mparticle.com",
+    "nativesdks.mparticle.com",
+    "pixel-config.reddit.com",
+    "re.applovin.com",
+    "res4.applovin.com",
+    "s.amazon-adsystem.com",
+    "s.axon.ai",
+    "s.pinimg.com",
+    "shop.app",
+    "st.dynamicyield.com",
+    "widget.intercom.io",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.redditstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/gymshark.com/11_products_arrival-marl-tank-black.png"
+  }
+ ]
+}

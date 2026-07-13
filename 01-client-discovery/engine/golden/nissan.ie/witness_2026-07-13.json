@@ -1,0 +1,3627 @@
+{
+ "schema_version": 1,
+ "domain": "nissan.ie",
+ "mode": "pages",
+ "date": "2026-07-13",
+ "witness_commit": "bbc5c93",
+ "headless": true,
+ "consent": {
+  "clicked": null,
+  "on_page": "/dealer-call-back-request.html"
+ },
+ "pages": [
+  {
+   "path": "/dealer-call-back-request.html",
+   "requested_url": "https://www.nissan.ie/dealer-call-back-request.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/dealer-call-back-request.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&auid=163909420.1783966635&dt=Dealer%20Call%20Back%20Request&en=consent_update&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&scrsrc=www.googletagmanager.com&rnd=1904830890.1783966635&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gcu=1&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tids=",
+     "query_event": "consent_update",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&ae=g&auid=163909420.1783966635&dt=Dealer%20Call%20Back%20Request&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&scrsrc=www.googletagmanager.com&rnd=1904830890.1783966635&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395333~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tft=178396",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966633686&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGAC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=13&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938469~118",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966635679&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966635679&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966635766&cv=11&fst=1783966635766&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395335~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&rcb=15&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966635766&cv=11&fst=1783966635766&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395335~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&rcb=15&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=n",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=15&frm=0&ae=g&auid=163909420.1783966635&dt=Dealer%20Call%20Back%20Request&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&scrsrc=www.googletagmanager.com&rnd=1904830890.1783966635&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395335~118826210~118897920~118897930~119027224&apve=1&ap",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "LandingPageView"
+     ],
+     "body_sha1": "5cb496894d",
+     "body_snippet": "{\"event\":\"LandingPageView\",\"event_id\":\"\",\"message_id\":\"messageId-1783966635952-1534691832926-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:15.952Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWY",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-call-back-request.html_5cb496894d.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "7d3aa994bf",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966635944-7611650767669-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:15.944Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-call-back-request.html_7d3aa994bf.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&rl=&if=false&ts=1783966636188&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Dealer%20Call%20Back%20Request&pmd[locale]=en-IE&plt=7545.300000071526&iss=1&imft=1&tz=-240&it=1783966635671&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=ct3&expv2[6]",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966635766&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395335~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&rcb=15&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966635766&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118395335~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&rcb=15&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=n",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "5371905afd",
+     "body_snippet": "H4sIAAAAAAAACj2Py2oCMRiFX0XOOtEZZ4xpdvYmA12UOnRTSvkniRrMxHQSKUV896IWl+fCxzlHRGcS1IeQ1ayW00+GpAcX87sdktsHqKqQDNn1Fqqcy+pOCFGJsqwYzL4nF6AQXEoUxs6C4TB4KGxzjklNJrdkYix5O3BN3vOO9I4P9vtgUx5vc+/BEGljW5e9hcLjpTt6IO9H96R3o7drFww/tksu25XbBPL/dmOgUM1NUa9lzWfS1Lwr5Zp3QhdckC60FnU1lTMwuNQOFJKnbA3UmnyyDN4905WCs1g6",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_dealer-call-back-request.html_5371905afd.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "251e93b24a",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966636218-8436526910184\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:16.218Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-call-back-request.html_251e93b24a.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "eb5091a7dd",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":1268,\"time_to_navigation_start\":10206,\"latency\":0,\"page_url\":\"https://www.nissan.ie/",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-call-back-request.html_eb5091a7dd.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-call-back-request.html&rl=&if=false&ts=1783966636756&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Dealer%20Call%20Back%20Request&pmd[locale]=en-IE&plt=7545.300000071526&iss=1&imft=1&tz=-240&it=1783966635671&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=ct3&expv2[6]=",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "EngagedSession"
+     ],
+     "body_sha1": "786912b650",
+     "body_snippet": "{\"event\":\"EngagedSession\",\"event_id\":\"\",\"message_id\":\"messageId-1783966645957-2200787186098-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:25.957Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-call-back-request.html_786912b650.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "Dealer Call Back Request",
+    "privacy statement",
+    "SEARCH",
+    "Use my Current Location",
+    "clicking here",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics-ipv6.tiktokw.us",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "pagead2.googlesyndication.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "stats.g.doubleclick.net",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/01_dealer-call-back-request.html.png"
+  },
+  {
+   "path": "/nissan-forms/dealer-call-back-request.html",
+   "requested_url": "https://www.nissan.ie/nissan-forms/dealer-call-back-request.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/nissan-forms/dealer-call-back-request.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966633686&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=13&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938469~118826209~118897920~118897930~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=9&frm=0&ae=g&auid=163909420.1783966635&dt=Dealer%20Call%20Back%20Request&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&scrsrc=www.googletagmanager.com&rnd=841005682.1783966653&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224~119773332&apve=1&apvf=f&apv",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=1&frm=0&auid=163909420.1783966635&dt=Dealer%20Call%20Back%20Request&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&scrsrc=www.googletagmanager.com&rnd=841005682.1783966653&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=DC-15334",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966653057&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938466~115938469~118826209~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966653788&cv=11&fst=1783966653788&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&rcb=4&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservi",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966653788&cv=11&fst=1783966653788&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&rcb=4&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privac",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=4&frm=0&ae=g&auid=163909420.1783966635&dt=Dealer%20Call%20Back%20Request&dl=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&scrsrc=www.googletagmanager.com&rnd=841005682.1783966653&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826209~118897920~118897930~119027",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&rl=&if=false&ts=1783966653842&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Dealer%20Call%20Back%20Request&pmd[locale]=en-IE&plt=3863&iss=1&imft=1&tz=-240&it=1783966653680&coo=false&exp=s1&expv2[0]=pl1&expv2[1]=el2&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=im1",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966653866&url=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966653866&url=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "a5250201d1",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966653912-8093562919282-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:33.912Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_nissan-forms_dealer-call-back-request.html_a5250201d1.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&rl=&if=false&ts=1783966653964&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Dealer%20Call%20Back%20Request&pmd[locale]=en-IE&plt=3863&iss=1&imft=1&tz=-240&it=1783966653680&coo=false&exp=s1&expv2[0]=pl1&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=im1&",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966653788&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&rcb=4&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_priva",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966653788&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fnissan-forms%2Fdealer-call-back-request.html&rcb=4&frm=0&tiba=Dealer%20Call%20Back%20Request&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privac",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "e6efdf031d",
+     "body_snippet": "H4sIAAAAAAAACj2PS2/CMBCE/wqasw2BBHB8oy8UqYeqRFyqqlonC1g4xo2Nqgrx3yse6m1mdvRp54Rg2wj9MVP5tFCTT4HY9DakNffRHjx0nimBZDuGHs9VXs5ms2mRZWOB9tCR9dDwNkbyQ8sQOPYOGruUQtSj0f/lruTm0Hdx1DI57mVDzklDzV72/H3kmIa71DkIBNpybZNjaDxdu4NHcm7wQM1+8H7rQuCHTbSJV3bryd3jqoVG3s4nhTGZNG1RSjWe5rLZGCMVmblRqlEllxCwse7JR0eJW+gNucgC",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_nissan-forms_dealer-call-back-request.html_e6efdf031d.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "a92f193c38",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966654181-3941828652929\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:34.181Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_nissan-forms_dealer-call-back-request.html_a92f193c38.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "5bd69a42db",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":991,\"time_to_navigation_start\":5091,\"latency\":0,\"page_url\":\"https://www.nissan.ie/ni",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_nissan-forms_dealer-call-back-request.html_5bd69a42db.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "Nissan Forms",
+    "Dealer Call Back Request",
+    "New Qashqai 2021",
+    "privacy statement",
+    "SEARCH",
+    "Use my Current Location",
+    "clicking here",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/02_nissan-forms_dealer-call-back-request.html.png"
+  },
+  {
+   "path": "/ownership/accessories/accessory-enquiry.html",
+   "requested_url": "https://www.nissan.ie/ownership/accessories/accessory-enquiry.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/ownership/accessories/accessory-enquiry.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966653057&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938469~118826209~118897920~118897930~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&ae=g&auid=163909420.1783966635&dt=Accessory%20Enquiry&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&scrsrc=www.googletagmanager.com&rnd=1516795014.1783966667&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=17839666",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=7&frm=0&auid=163909420.1783966635&dt=Accessory%20Enquiry&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&scrsrc=www.googletagmanager.com&rnd=1516795014.1783966667&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938468~118012007~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=0",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966666275&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938469~118826210~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966667189&cv=11&fst=1783966667189&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&rcb=14&frm=0&tiba=Accessory%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.co",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966667189&cv=11&fst=1783966667189&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&rcb=14&frm=0&tiba=Accessory%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&ae=g&auid=163909420.1783966635&dt=Accessory%20Enquiry&dl=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&scrsrc=www.googletagmanager.com&rnd=1516795014.1783966667&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&a",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&rl=&if=false&ts=1783966667258&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Accessory%20Enquiry&pmd[locale]=en-IE&plt=936.7000000476837&iss=1&imft=1&tz=-240&it=1783966667083&coo=false&expv2[0]=pl1&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=ct2&",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966667268&url=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966667268&url=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "be2c93fe2d",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966667415-5074917251075-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:47.415Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_ownership_accessories_accessory-enquiry.html_be2c93fe2d.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&rl=&if=false&ts=1783966667447&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Accessory%20Enquiry&pmd[locale]=en-IE&plt=936.7000000476837&iss=1&imft=1&tz=-240&it=1783966667083&coo=false&expv2[0]=pl1&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=ct2&e",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "d008480b1a",
+     "body_snippet": "H4sIAAAAAAAACj2PT2vCQBTEv0qZ88a0ScyfvXmwIvRQqngppWySF/PoZl3zNoiI371YqbcZZvgxc4HnVqA/8zKdZ2XypSDNyD7saBQ+OOj0uVQIPBD0S1GmVZ7neZEVzwrtYTDsoOFYxLgZExSm0UKjD8GLjuNHEh9Ojkbp2cemaUjkMDLJQ58jcseJx/OsD4OFgjd72nKwBI3Ff+lpeS9B4US1cKAN752xH3ScSMK6hUaRJk1XZl2UZ4WJ8rJuoi5Lqiip8oqoa+ZFWUOBZTsaJ9YEaqE7Y4UULL+aOwU3",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_ownership_accessories_accessory-enquiry.html_d008480b1a.txt"
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966667189&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&rcb=14&frm=0&tiba=Accessory%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1--",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966667189&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fownership%2Faccessories%2Faccessory-enquiry.html&rcb=14&frm=0&tiba=Accessory%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "60d350ecb1",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966667808-5167102683009\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:17:47.808Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_ownership_accessories_accessory-enquiry.html_60d350ecb1.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "13768ea9ad",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":1086,\"time_to_navigation_start\":2516,\"latency\":0,\"page_url\":\"https://www.nissan.ie/o",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_ownership_accessories_accessory-enquiry.html_13768ea9ad.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "Nissan Customer Care",
+    "Maintenance & Repair",
+    "Accessories",
+    "Services",
+    "Recall and Service Campaign updates",
+    "NissanConnect EV",
+    "SHOW MORE",
+    "privacy statement",
+    "SEARCH",
+    "Use my Current Location",
+    "clicking here",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.gstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/03_ownership_accessories_accessory-enquiry.html.png"
+  },
+  {
+   "path": "/services/contact-us.html",
+   "requested_url": "https://www.nissan.ie/services/contact-us.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/services/contact-us.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966666275&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938469~118826210~118897920~118897930~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&scrsrc=www.googletagmanager.com&rnd=927216448.1783966679&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=17",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&scrsrc=www.googletagmanager.com&rnd=927216448.1783966679&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938468~117776796~118395335~118826209~118897920~118897930~119027224&apve=1&apvf=f&",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966679004&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=8&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616986~115938466~115938468~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966679920&cv=11&fst=1783966679920&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224~119527020&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=11&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&np",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966679920&cv=11&fst=1783966679920&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224~119527020&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=11&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&psc",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&scrsrc=www.googletagmanager.com&rnd=927216448.1783966679&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224~119527020&apve=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rl=&if=false&ts=1783966679972&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20quick%20fo",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966679983&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966679983&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "3ce8f45eac",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966680008-7223514082791-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:00.008Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_contact-us.html_3ce8f45eac.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rl=&if=false&ts=1783966680048&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20quick%20for",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966679920&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224~119527020&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=11&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&ps",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966679920&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224~119527020&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=11&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&psc",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "cc2df63d6a",
+     "body_snippet": "H4sIAAAAAAAACj2PXUvDQBRE/0qY502T5rv7VkRLQERs9EVEttlru7jZrrkbRWr/u7SFPg6HOcwc4I1myNeqycuiyd4EuB+NDy80stk7yDxtBIIZCHJeN/miqqomTReFgN4PyjhIOMOs3MwQBKbRQmIXgmeZJFeSMI3fpidO+r0Lqg/xxLNdGCwEvNpSZ4IlSNxcaPTM0V/0cG5H7UhWOQ2BH9qwCbQ2W6fsE31NxKHVkMhKanSj61hVZR1nuk5jness7ouNWpTZvCr7CgKGu1E5tiqQhvxQlknAmjt1seAU",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_services_contact-us.html_cc2df63d6a.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "833e26166f",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966680305-3578194284246\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:00.305Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_contact-us.html_833e26166f.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "deae3aabe7",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":1065,\"time_to_navigation_start\":1998,\"latency\":0,\"page_url\":\"https://www.nissan.ie/s",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_contact-us.html_deae3aabe7.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "sales@nissan.ie",
+    "customer.service@nissan.ie",
+    "SEARCH",
+    "Use my current location",
+    "clicking here.",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "15334545.fls.doubleclick.net",
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.gstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/04_services_contact-us.html.png"
+  },
+  {
+   "path": "/services/contact-us/contact-us-confirmation.html",
+   "requested_url": "https://www.nissan.ie/services/contact-us/contact-us-confirmation.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/services/contact-us.html",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966679004&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=8&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616986~115938466~115938468~118826210~118897920~1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&scrsrc=www.googletagmanager.com&rnd=1531980062.1783966693&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938468~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=17",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966692734&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=3&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938469~118826210~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&scrsrc=www.googletagmanager.com&rnd=1531980062.1783966693&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118012009~118826210~118897920~118897930~119027224~119381664&apve=1&apvf=f&apvc=0&ti",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rl=&if=false&ts=1783966693541&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20quick%20fo",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966693547&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966693547&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966693619&cv=11&fst=1783966693619&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=14&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_pri",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966693619&cv=11&fst=1783966693619&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=14&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=noapi&a",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&scrsrc=www.googletagmanager.com&rnd=1531980062.1783966693&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&apve=1&apvf=f&a",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "bea81cf0c6",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966693725-5023490601054-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:13.725Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_contact-us_contact-us-confirmation.html_bea81cf0c6.txt"
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "ea60794732",
+     "body_snippet": "H4sIAAAAAAAACj2PXUvDQBBF/0qY503TJM3XvhXREhARG/siIpvspB3cbNfMRpHa/y5poY+XyzncewJHmkG+5WWarcrkXQB3Izm/w5HpaEGmy1KApwFBxkWZVnmeV2mR5gL0cVBkQYIlZmUXhCBgGg1IOHjvWEbRrYkYx2/qkKPuaL3qfDjx4uAHAwKc2mND3iBIuLu2wSsHf8HThQ7qEY2yGgT8YMvkcUt7q8wLfk3IvtYgocsyrVWsw0qtsrAq2mWYJH0cxsuiy9qkR13OPHEzKstGedQge2UYBRh6UFcL",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_services_contact-us_contact-us-confirmation.html_ea60794732.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rl=&if=false&ts=1783966693759&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20quick%20for",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966693619&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=14&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=noapi&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966693619&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fcontact-us.html&rcb=14&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=noapi&a",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "90d74ef79a",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966693996-4338144984998\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:13.996Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_contact-us_contact-us-confirmation.html_90d74ef79a.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "d6b02add5b",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":1024,\"time_to_navigation_start\":2634,\"latency\":0,\"page_url\":\"https://www.nissan.ie/s",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_contact-us_contact-us-confirmation.html_d6b02add5b.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "sales@nissan.ie",
+    "customer.service@nissan.ie",
+    "SEARCH",
+    "Use my current location",
+    "clicking here.",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "15334545.fls.doubleclick.net",
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.gstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/05_services_contact-us_contact-us-confirmation.html.png"
+  },
+  {
+   "path": "/services/dealer-contact-form.html",
+   "requested_url": "https://www.nissan.ie/services/dealer-contact-form.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/services/dealer-contact-form.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966692734&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=3&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938469~118826210~118897920~1188",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=8&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&scrsrc=www.googletagmanager.com&rnd=56068578.1783966706&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118395334~118826210~118897920~118897930~119027224&apve=1&apv",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&scrsrc=www.googletagmanager.com&rnd=56068578.1783966706&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118826209~118897920~118897930~118981135~119027224&apve=1&apvf=f&apvc=0&tids=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966705523&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938466~115938469~118395335~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966706239&cv=11&fst=1783966706239&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=6&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservice",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966706239&cv=11&fst=1783966706239&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=6&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&scrsrc=www.googletagmanager.com&rnd=56068578.1783966706&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rl=&if=false&ts=1783966706264&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20q",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966706270&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966706270&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "b9ebfef9a0",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966706284-9096693981394-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:26.284Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_dealer-contact-form.html_b9ebfef9a0.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rl=&if=false&ts=1783966706303&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20qu",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966706239&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=6&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966706239&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=6&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "0a4aa6a2a7",
+     "body_snippet": "H4sIAAAAAAAACj2PUUvDMBRG/8q4z+nama7N8jZER0FEXPVFRO6a2y2YpjE3U2Tuv8s22OPhwOH7DhCsYdBvlZLzUt28C+Au2pBeKbIdPWhZKAHJDgR6Viu5qKq6qKSSAsw4oPWgwVtm9FNLIGAfHWjYpRRY5/nV5Ezx23bEuSF0FLNu9Am7lPVjHKa7NDgQEHBLrU2OQMPtxU9eePI3eTxnJk0kh96AgB/asE20tluP7pm+9sSpMaChXFDRkcEMJWG2mFV9ZuZdmdUklSzqftMpBQIstxE9O0xkQPfomAQ4",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_services_dealer-contact-form.html_0a4aa6a2a7.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "864e68639b",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966706521-2085345284547\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:26.521Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_dealer-contact-form.html_864e68639b.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "252b16d993",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":827,\"time_to_navigation_start\":1739,\"latency\":0,\"page_url\":\"https://www.nissan.ie/se",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_dealer-contact-form.html_252b16d993.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "SEARCH",
+    "Use my Current Location",
+    "clicking here.",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/06_services_dealer-contact-form.html.png"
+  },
+  {
+   "path": "/services/dealer-contact-form/contact-us-confirmation.html",
+   "requested_url": "https://www.nissan.ie/services/dealer-contact-form/contact-us-confirmation.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/services/dealer-contact-form.html",
+   "redirected": true,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966705523&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=14&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938469~118395335~118826209~118897920~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&scrsrc=www.googletagmanager.com&rnd=1479121959.1783966720&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=17",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&scrsrc=www.googletagmanager.com&rnd=1479121959.1783966720&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938465~115938469~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tid",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966719336&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=2&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938468~118826209~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966720154&cv=11&fst=1783966720154&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=0&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966720154&cv=11&fst=1783966720154&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=0&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&ae=g&auid=163909420.1783966635&dt=Contact%20Us%20%7C%20Nissan%20Ireland&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&scrsrc=www.googletagmanager.com&rnd=1479121959.1783966720&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&apve=1&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rl=&if=false&ts=1783966720188&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20q",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966720195&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966720195&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "661fd6ba44",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966720214-5178178310769-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:40.214Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_dealer-contact-form_contact-us-confirmation.html_661fd6ba44.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rl=&if=false&ts=1783966720232&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Contact%20Us%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Take%20the%20next%20step%20and%20contact%20us%20today%20at%20Nissan%20Ireland%20by%20phone%20or%20mail.%20Fill%20out%20our%20qu",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966720154&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=0&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscd",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966720154&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fdealer-contact-form.html&rcb=0&frm=0&tiba=Contact%20Us%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "d51183e8d2",
+     "body_snippet": "H4sIAAAAAAAACj2PXUvDMBSG/0o51+n6aZvlboiOgoi46o2IZMnZdjBNa06myNx/l22wy4cHHt73ABNZBvXWyOqmluW7ADaBpviKgWn0oKpcCog0IKiildW8adoyr4pcgB0HTR4UeGLWfkYIAvbBgYJdjBOrLLuajDF8k0HOLGqHITWjj9rEdDOGYbaLgwMBk95iT9EhKLi9+OSFk7/k8ZxJuoBOewsCfnDNFHFFW6/dM37tkWNnQUFhbK0NtqnEpk7r1uSptLJMi9LaZm6slGUBAoj7oD07HdGC2mjHKMDR",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_services_dealer-contact-form_contact-us-confirmation.html_d51183e8d2.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "713871616b",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966720439-7426689757084\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:40.439Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_dealer-contact-form_contact-us-confirmation.html_713871616b.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "919ad84b15",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":894,\"time_to_navigation_start\":2982,\"latency\":0,\"page_url\":\"https://www.nissan.ie/se",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_dealer-contact-form_contact-us-confirmation.html_919ad84b15.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "SEARCH",
+    "Use my Current Location",
+    "clicking here.",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/07_services_dealer-contact-form_contact-us-confirmation.html.png"
+  },
+  {
+   "path": "/services/service-enquiry.html",
+   "requested_url": "https://www.nissan.ie/services/service-enquiry.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/services/service-enquiry.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966719336&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=2&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938468~118826209~118897920~118897930~1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=12&frm=0&ae=g&auid=163909420.1783966635&dt=Service%20Enquiry&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&scrsrc=www.googletagmanager.com&rnd=635492560.1783966732&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395333~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=1&tft=1783966732375&tfd",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=14&frm=0&auid=163909420.1783966635&dt=Service%20Enquiry&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&scrsrc=www.googletagmanager.com&rnd=635492560.1783966732&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395334~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=DC-15334545&tid=DC-1533",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966731989&em=tv.1~em.ExFh3PmmJKiRmRz6_-WlYU_FqsX6GepyyBLU_9CzcoY&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&u",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966732688&cv=11&fst=1783966732688&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118395333~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&rcb=10&frm=0&tiba=Service%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966732688&cv=11&fst=1783966732688&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118395333~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&rcb=10&frm=0&tiba=Service%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=noapi&auid=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=10&frm=0&ae=g&auid=163909420.1783966635&dt=Service%20Enquiry&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&scrsrc=www.googletagmanager.com&rnd=635492560.1783966732&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118395333~118826210~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&rl=&if=false&ts=1783966732718&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Service%20Enquiry&pmd[locale]=en-IE&plt=507.8000000715256&iss=1&imft=1&tz=-240&it=1783966732575&coo=false&expv2[0]=pl0&expv2[1]=el2&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=im1&expv2[6]=hf1&rqm=GE",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966732725&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966732725&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "59a30bd7eb",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966732744-8292307900207-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:52.744Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_service-enquiry.html_59a30bd7eb.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&rl=&if=false&ts=1783966732759&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Service%20Enquiry&pmd[locale]=en-IE&plt=507.8000000715256&iss=1&imft=1&tz=-240&it=1783966732575&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&expv2[3]=ra2&expv2[4]=rp2&expv2[5]=im1&expv2[6]=hf1&rqm=GET",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966732688&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118395333~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&rcb=10&frm=0&tiba=Service%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=noapi&auid=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966732688&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118395333~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry.html&rcb=10&frm=0&tiba=Service%20Enquiry&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_privacy=1---&pscdl=noapi&auid=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "be935bdaaa",
+     "body_snippet": "H4sIAAAAAAAACj2PTWvCQBiE/0qZ80bNR3fTvXmwEuihNMFLKWWTvOpLN+ua3bSI+N+LlXqbYYaHmTM89wH6XZb5Y1FmHwKhG9nHDY2BDw46X5QCkQeCTlWZP0mp8qzMpEB/GAw7aDgOwbgZEwSm0UJjH6MPej6/J/NA4zd3FP5FQu448Xia7eNgIeDNjhqOlqBR3yoPq1sFAj/UBo5U884Z+0bHiUKsemhQq4zqlEo6tdgmpcxk0m6zNCllodJM5iotSghwaEbjgjWReuitsYEELD+bGwVXs2bj4s0MHDro",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_services_service-enquiry.html_be935bdaaa.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "f04fa6058b",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966733037-3570574601246\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:53.037Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_service-enquiry.html_f04fa6058b.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/monitor",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "3ebd1c0ca7",
+     "body_snippet": "{\"metric_name\":\"custom_info\",\"pixel_code\":\"CUMU7I3C77UC0U8B8IBG\",\"platform\":0,\"app_name\":\"external\",\"net_type\":\"4g\",\"placement\":\"non\",\"lib\":{\"lib_version\":\"2.2.1\",\"ttq_name\":\"ttq\"},\"in_iframe\":1,\"time_to_last_start\":874,\"time_to_navigation_start\":1712,\"latency\":0,\"page_url\":\"https://www.nissan.ie/se",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_service-enquiry.html_3ebd1c0ca7.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "EnrichAM"
+     ],
+     "body_sha1": "556bfc1af7",
+     "body_snippet": "{\"event\":\"EnrichAM\",\"event_id\":\"\",\"message_id\":\"messageId-1783966734787-7547395226110-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:18:54.787Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_service-enquiry.html_556bfc1af7.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "PROTECTING YOUR PERSONAL DATA IS A KEY PRIORITY FOR US.",
+    "SEARCH",
+    "Use my Current Location",
+    "clicking here",
+    "SUBMIT",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics-ipv6.tiktokw.us",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.gstatic.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/08_services_service-enquiry.html.png"
+  },
+  {
+   "path": "/services/service-enquiry/service-enquiry-confirmation.html",
+   "requested_url": "https://www.nissan.ie/services/service-enquiry/service-enquiry-confirmation.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/services/service-enquiry/service-enquiry-confirmation.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966731989&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938469~118395335~118826210~118897920~1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&ae=g&auid=163909420.1783966635&dt=Service%20Enquiry%20Confirmation&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&scrsrc=www.googletagmanager.com&rnd=467921221.1783966748&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395335~118826209~118897920~118897930~119027",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=12&frm=0&auid=163909420.1783966635&dt=Service%20Enquiry%20Confirmation&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&scrsrc=www.googletagmanager.com&rnd=467921221.1783966748&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938468~118826210~118897920~118897930~119027224&apv",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966748068&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938466~115938468~118826209~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966748637&cv=11&fst=1783966748637&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&rcb=11&frm=0&tiba=Service%20Enquiry%20Confirmation&did=dMWZhNz&gdid=dMWZhNz",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966748637&cv=11&fst=1783966748637&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&rcb=11&frm=0&tiba=Service%20Enquiry%20Confirmation&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservice",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&ae=g&auid=163909420.1783966635&dt=Service%20Enquiry%20Confirmation&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&scrsrc=www.googletagmanager.com&rnd=467921221.1783966748&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826210~11889",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&rl=&if=false&ts=1783966748677&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Service%20Enquiry%20Confirmation&pmd[locale]=en-IE&plt=3770.8000000715256&iss=1&imft=1&tz=-240&it=1783966748560&coo=false&expv2[0]=pl0&expv2[1]=el2&expv2[2]=bc1&expv2[3]=ra",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966748688&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966748688&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "20361464de",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966748770-6159803950291-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:08.770Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_service-enquiry_service-enquiry-confirmation.html_20361464de.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&rl=&if=false&ts=1783966748805&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Service%20Enquiry%20Confirmation&pmd[locale]=en-IE&plt=3770.8000000715256&iss=1&imft=1&tz=-240&it=1783966748560&coo=false&expv2[0]=pl0&expv2[1]=el2&expv2[2]=bc1&expv2[3]=ra2",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966748637&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&rcb=11&frm=0&tiba=Service%20Enquiry%20Confirmation&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservic",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966748637&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fservices%2Fservice-enquiry%2Fservice-enquiry-confirmation.html&rcb=11&frm=0&tiba=Service%20Enquiry%20Confirmation&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservice",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "25ea1479da",
+     "body_snippet": "H4sIAAAAAAAACl2Py2rDMBBFfyXctZynX9EulDQYuii1yaaUIluTZKgsK5bcEkL+vaShoXQ3hzkcZs5wrD3ka5ovkjifvwn4pmcXttR77izkYpoLBG4Jcpbli2WaZnGeJ1MB3bWKLSQse6/smAkCQ28gcQjBeTmZ3DcTT/0nN+R/h4jsceD+9J+jprM77lsVuLPjQ2gNBJzaU8XBECTKmz9a3/zRwx8fAl9Uew5U8t4q80LHgXwoNCRmy0zPNalIUZxF86TWUUNxEiV12qR1qvOsziDAvuqV9UYF0pA7ZTwJ",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_services_service-enquiry_service-enquiry-confirmation.html_25ea1479da.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "3ddcd387d3",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966749036-6348087911507\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:09.036Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_services_service-enquiry_service-enquiry-confirmation.html_3ddcd387d3.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966748068&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EEAAAGQC&ae=a&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938468~118826209~118897920~11889",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "Nissan Ireland",
+    "Service Enquiry",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/09_services_service-enquiry_service-enquiry-confirmation.html.png"
+  },
+  {
+   "path": "/",
+   "requested_url": "https://www.nissan.ie",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966748068&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=11&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115938466~115938468~118826209~118897920~118897930~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=3&frm=0&ae=g&auid=163909420.1783966635&dt=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2F&scrsrc=www.googletagmanager.com&rnd=1823924597.1783966762&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=f&",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&auid=163909420.1783966635&dt=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2F&scrsrc=www.googletagmanager.com&rnd=1823924597.1783966762&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826209~118897920~118897930~119027224&apve=1&apvf=f&apvc=0&tids=DC-15",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966761397&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616986~115938466~115938469~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966761984&cv=11&fst=1783966761984&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2F&rcb=17&frm=0&tiba=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadse",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966761984&cv=11&fst=1783966761984&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2F&rcb=17&frm=0&tiba=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_pri",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&ae=g&auid=163909420.1783966635&dt=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&dl=https%3A%2F%2Fwww.nissan.ie%2F&scrsrc=www.googletagmanager.com&rnd=1823924597.1783966762&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395334~118826209~118897920~118897930~11",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2F&rl=&if=false&ts=1783966762037&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&pmd[locale]=en-IE&pmd[description]=Nissan%20Ireland%20Official%20Website.%20Discover%20the%20Nissan%20range%20of%20passenger%20cars%2C%20electric%20vehicles%",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966762043&url=https%3A%2F%2Fwww.nissan.ie%2F",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966762043&url=https%3A%2F%2Fwww.nissan.ie%2F",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "2e51d4e414",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966762074-7633727438570-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:22.074Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_home_2e51d4e414.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2F&rl=&if=false&ts=1783966762107&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&pmd[locale]=en-IE&pmd[description]=Nissan%20Ireland%20Official%20Website.%20Discover%20the%20Nissan%20range%20of%20passenger%20cars%2C%20electric%20vehicles%2",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966761984&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2F&rcb=17&frm=0&tiba=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_pr",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966761984&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938469~118395334~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2F&rcb=17&frm=0&tiba=Nissan%20Ireland%20%7C%20Discover%20Our%20Range%20of%20Vehicles%20for%20Sale&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=0&us_pri",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "8612b1b078",
+     "body_snippet": "H4sIAAAAAAAACj2PXUvDMBiF/0p4r1Pn+pnlbqCOgqisZTcikjVvtxfTNCapInP/XTphl4cHnnPOCRzpAPK1FFmRi/SNQ+g8ubhDH2i0ILNbwSHSgCCXlchWZVmV6bJMOehxUGRBgqUQlL0hBA6TNyDhGKMLcrG4kgVwcOqALUWDIOHpAljt0Sir2S+7o9CNX+jZ8+TZVtkDsrFnOzxSZzCwfvSsUWZu+MZ9oIgNHawyW/ycMMRag4Ry1feqFzopqkoly0JliS7SLMlzLTqhe5FpDRwotF7ZYFREDbJXJiAH",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_home_8612b1b078.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "de991c9bb7",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966762320-2471873472225\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:22.320Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_home_de991c9bb7.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "VIEW 262 NISSAN OFFERS",
+    "DISCOVER MORE",
+    "DISCOVER IT NOW",
+    "VIEW OUR 262 OFFERS",
+    "EXPLORE THE RANGE",
+    "play",
+    "OUR ELECTRIC POWERTRAINS",
+    "OUR IN-CAR TECHNOLOGIES",
+    "OUR CONNECTED APPLICATIONS",
+    "DISCOVER THE DOCUMENTARY",
+    "book a test drive",
+    "Brochures",
+    "FIND A DEALER",
+    "CONTACT US",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "15334545.fls.doubleclick.net",
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/10_home.png"
+  },
+  {
+   "path": "/dealer-locator.html",
+   "requested_url": "https://www.nissan.ie/dealer-locator.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/dealer-locator.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966761397&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616986~115938466~115938469~118826209~118",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&ae=g&auid=163909420.1783966635&dt=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&scrsrc=www.googletagmanager.com&rnd=2137461446.1783966776&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616985~115938466~115938468~1188",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=12&frm=0&auid=163909420.1783966635&dt=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&scrsrc=www.googletagmanager.com&rnd=2137461446.1783966776&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938466~115938468~118826210~118897920~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966775684&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=18&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616985~115938466~115938469~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966776579&cv=11&fst=1783966776579&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rcb=9&frm=0&tiba=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ir",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966776579&cv=11&fst=1783966776579&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rcb=9&frm=0&tiba=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=9&frm=0&ae=g&auid=163909420.1783966635&dt=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&scrsrc=www.googletagmanager.com&rnd=2137461446.1783966776&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~1159",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rl=&if=false&ts=1783966776612&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Find%20car%20showrooms%2C%20service%20centers%2C%20and%20genuine%20parts.",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966776617&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966776617&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "ba0c228ef4",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966776638-1970764388096-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:36.638Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-locator.html_ba0c228ef4.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=FindLocation&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rl=&if=false&ts=1783966776653&iw=false&cd[cs_est]=true&sw=1440&sh=900&v=2.9.349&r=stable&ec=1&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&ler=empty&pmd[locale]=en-IE&pmd[description]=Find%20car%20showrooms%2C%20service%20centers%2C%20and%20genuine%20parts.%20Feel%20new%20cars%20or%20pre-owned%20used%20vehicles%20at%20a%20showroom%20near%20you%0A&plt=1305.5&iss=1&im",
+     "query_event": "FindLocation",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rl=&if=false&ts=1783966776657&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&pmd[locale]=en-IE&pmd[description]=Find%20car%20showrooms%2C%20service%20centers%2C%20and%20genuine%20parts.%",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966776579&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rcb=9&frm=0&tiba=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966776579&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115616986~115938466~115938468~118826209~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Fdealer-locator.html&rcb=9&frm=0&tiba=Find%20a%20Nissan%20Dealer%2C%20locate%20a%20showroom%20or%20a%20service%20center%20%7C%20Nissan%20Ireland&did=dMWZhNz&gdid=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "5041f232c7",
+     "body_snippet": "H4sIAAAAAAAACj2QUWvCMBCA/0q451SnrW3Nm7AphTHGFF/GGNfktMfStEviZGz+99HKfPy4+z6O+4GeTQD1mpfpIivnbxKC9tzHPfnAnQOV3pUSIrcEalaU6TLPiyIvi4UE07XIDhQ4DgHdhAkknLwFBU2MfVDT6W0yNYSWfGI7jbHzkya2FiT0eKQdR0ugYM3OCBRPoyLux30pRoEEitB0Z991rej8QOS/WJPQ5CJ58fuvVZ4sOgMSzlQHjrTlo0P7Qp8nCrEyoAAznZtslidGzxbJYVnrhLTBhObpYVlk",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_dealer-locator.html_5041f232c7.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "5a79f8585d",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966777020-6658792913912\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:37.020Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_dealer-locator.html_5a79f8585d.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966775684&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EEAAAGQC&ae=a&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=18&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616985~115938466~115938469~118826209~11889",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "MENU",
+    "Use my current location",
+    "SHOW FILTERS (0)",
+    "A CLEARY & SONS LIMITED",
+    "094-9381178",
+    "SELECT DEALER",
+    "BARLO NISSAN",
+    "056-7751517",
+    "BLACKSTONE NISSAN",
+    "049-4326111",
+    "CABRA CARS",
+    "042-9667333",
+    "COONEY MOTORS LIMITED",
+    "071-9662258",
+    "DONAL RYAN CAR SALES",
+    "067-43000",
+    "DULICK MOTORS",
+    "065-6823232",
+    "DUNLEA’S OF KILCULLEN",
+    "045-481299",
+    "FERMOY NISSAN",
+    "025-31555",
+    "GRATTAN MOTORS",
+    "01-4533285",
+    "IMOTORS NISSAN",
+    "074-9134567",
+    "JAMES BARRY MOTORS CHARLEVILLE",
+    "063-89222",
+    "JOHN MCCABE NISSAN DUNDALK",
+    "042-9351333",
+    "JOHN MCCABE NISSAN DROGHEDA",
+    "041-9894482",
+    "KEARYS NISSAN",
+    "021-4929850",
+    "MOONEY’S (PARMA MOTORS LTD)",
+    "01-4195800",
+    "MULLINGAR NISSAN",
+    "044-9341404",
+    "NAAS NISSAN",
+    "045-888438",
+    "NAVAN NISSAN LIMITED",
+    "046-9070676",
+    "PAT TIERNAN MOTORS",
+    "061-402000",
+    "RANDLES BROS LIMITED",
+    "066-7124275",
+    "TULLAMORE NISSAN",
+    "057 9329170",
+    "WALSH CAR SALES",
+    "051-376210",
+    "051-832616",
+    "WEXFORD CAR CENTRE",
+    "053-9192247",
+    "WINDSOR AIRSIDE",
+    "01-8708700",
+    "Browse Vehicles",
+    "Keyboard shortcuts",
+    "A Cleary & Sons Limited",
+    "Barlo Nissan",
+    "Blackstone Nissan",
+    "Cabra Cars",
+    "Cooney Motors Limited",
+    "Donal Ryan Car Sales",
+    "Dulick Motors",
+    "Dunlea’s of Kilcullen",
+    "Fermoy Nissan",
+    "Grattan Motors",
+    "iMotors Nissan",
+    "James Barry Motors Charleville",
+    "John McCabe Nissan Dundalk",
+    "John McCabe Nissan Drogheda",
+    "Kearys Nissan",
+    "Mooney’s (Parma Motors Ltd)"
+   ],
+   "third_party_hosts": [
+    "15334545.fls.doubleclick.net",
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "eu.nissan-api.net",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "maps.googleapis.com",
+    "maps.gstatic.com",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "rum-observability.nissanpace.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/11_dealer-locator.html.png"
+  },
+  {
+   "path": "/electric-vehicles.html",
+   "requested_url": "https://www.nissan.ie/electric-vehicles.html",
+   "http_status": 200,
+   "final_url": "https://www.nissan.ie/electric-vehicles.html",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080za20gzb72108309zd72108309&_p=1783966775684&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&frm=0&ir=1&pscdl=noapi&rcb=18&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115616985~115938466~115938469~118826209~118897920~",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-KN5W98&l=googleDataLayer",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5V8TS4MQKD&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=CUMU7I3C77UC0U8B8IBG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&ae=g&auid=163909420.1783966635&dt=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&scrsrc=www.googletagmanager.com&rnd=1167713482.1783966789&navt=n&npa=0&us_privacy=1YYY&ep.ads_data_redaction=0&gdid=dMWZhNz&_tu=CA&gtm=45He6790v72108309za200zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&apve=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=1&frm=0&auid=163909420.1783966635&dt=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&en=page_view&dl=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&scrsrc=www.googletagmanager.com&rnd=1167713482.1783966789&navt=n&npa=0&us_privacy=1---&gdid=dMWZhNz&_tu=CA&gtm=45fe6790v9217208366z872108309za20gzb72108309zd72108309xec&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938469~118826210~118897920~118897930~119027224&apve=1&apvf=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=DC-3403100&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/destination?id=AW-1043506658&l=googleDataLayer&cx=c&gtm=4e6790",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5V8TS4MQKD&gtm=45je6790v874269080z872108309za20gzb72108309zd72108309&_p=1783966789026&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dMWZhNz&ecid=1840866702&_eu=EAAAAGQC&are=1&cid=2023535303.1783966636&ec_mode=a&frm=0&ir=1&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938469~118826210~1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1063725220370121?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1043506658/?random=1783966789704&cv=11&fst=1783966789704&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&rcb=0&frm=0&tiba=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&did=dMWZhNz&gdid=dMWZhNz&hn=www.go",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/1043506658/?random=1783966789704&cv=11&fst=1783966789704&fmt=8&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&rcb=0&frm=0&tiba=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&ae=g&auid=163909420.1783966635&dt=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&dl=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&scrsrc=www.googletagmanager.com&rnd=1167713482.1783966789&navt=n&npa=0&us_privacy=1---&ep.ads_data_redaction=0&did=dMWZhNz&gdid=dMWZhNz&_tu=CA&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcs=G111&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~1188",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/555620591299258?v=2.9.349&r=stable&domain=www.nissan.ie&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C161%2C5",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1063725220370121&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&rl=&if=false&ts=1783966789756&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&pmd[locale]=en-IE&pmd[description]=Get%20to%20grips%20with%20electric%20cars%2C%20mild%20hybrid%20cars%2C%20and%20Nissan%20e-POWER%20techn",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=6835482&time=1783966789773&url=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=6835482&time=1783966789773&url=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "975f757889",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"\",\"message_id\":\"messageId-1783966789802-1110934439891-CUMU7I3C77UC0U8B8IBG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:49.802Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_electric-vehicles.html_975f757889.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=555620591299258&ev=PageView&dl=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&rl=&if=false&ts=1783966789842&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966636172.826159498649652915&cs_est=true&ler=empty&pmd[title]=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&pmd[locale]=en-IE&pmd[description]=Get%20to%20grips%20with%20electric%20cars%2C%20mild%20hybrid%20cars%2C%20and%20Nissan%20e-POWER%20techno",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/1043506658/?random=1783966789704&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&rcb=0&frm=0&tiba=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/1043506658/?random=1783966789704&cv=11&fst=1783965600000&bg=ffffff&guid=ON&async=1&gtm=45be6790v9179239458z872108309za20gzb72108309zd72108309xea&gcd=13r3r3r3r5l1&dma=0&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.nissan.ie%2Felectric-vehicles.html&rcb=0&frm=0&tiba=Nissan%20Electric%20Vehicles%20-%20Advice%20and%20Benefits%20%7C%20Nissan&did=dMWZhNz&gdid=dMWZhNz&hn=www.googleadservices.com&npa=",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "bedbfa3fd2",
+     "body_snippet": "H4sIAAAAAAAACj2P0WrCQBBFf2WZ543GJK7JvlmwEiil1OBLKWXNjmboZt1mVkux/nuxio+XOXO49wSBLIN+U2U+LcrsXQK3A4W4xoFp70HnaSkhUo+gJ7Myr5SaVWlaTCXYfW/IgwZPzMaPCEHCYXCgoYsxsB6P75cxOmzjQG1yxI5ahzzqYu9AQjA7bCg6BA3P/7hY3FixvrEiEXN7pBaF8VY8oMctRRa/4voAEr5xwxRxRTtv3Ct+HZBjbUFD0WbZtiiqRG3QJhOVV0mmJjaZGmVSlad2mluQQNwMxrMz",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_LinkedIn_electric-vehicles.html_bedbfa3fd2.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "a60d1c480e",
+     "body_snippet": "{\"event_id\":\"\",\"message_id\":\"messageId-1783966790065-5189320758001\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:19:50.065Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonymous_id\":\"01KXEB55WXNXTKG5PD6MRWYF6F_.tt.1\"},\"pixel\":{\"code\":\"CUMU7I3C77UC0U8B8I",
+     "body_file": "scans/_witness_2026-07-13/nissan.ie/fixtures/nissan.ie_TikTok_electric-vehicles.html_a60d1c480e.txt"
+    }
+   ],
+   "clickables": [
+    "Skip to main content",
+    "nissan link to homepage",
+    "OUR MODELS",
+    "Close Menu",
+    "GO ELECTRIC",
+    "OWNERS",
+    "DISCOVER NISSAN",
+    "LEARN MORE ABOUT MILD HYBRID",
+    "LEARN MORE ABOUT HYBRID",
+    "LEARN MORE ABOUT E-POWER",
+    "LEARN MORE ABOUT 100% ELECTRIC",
+    "DISCOVER E-4ORCE",
+    "DISCOVER LEAF",
+    "DISCOVER ARIYA",
+    "DISCOVER QASHQAI",
+    "DISCOVER JUKE",
+    "Nissan Ireland",
+    "Passenger Cars",
+    "Crossovers",
+    "Electric Vehicles",
+    "Commercial Vehicles",
+    "Connected vehicle data",
+    "Brochures",
+    "Book a Test Drive",
+    "Offers",
+    "WLTP",
+    "First Responders Information",
+    "Contact Us",
+    "Book a Service",
+    "Glossary",
+    "facebook",
+    "twitter",
+    "instagram",
+    "Home",
+    "Global Site",
+    "About Nissan",
+    "End of Life Vehicles",
+    "Accessibility",
+    "Privacy",
+    "Cookies",
+    "Copyright"
+   ],
+   "third_party_hosts": [
+    "3403100.fls.doubleclick.net",
+    "ad.doubleclick.net",
+    "adservice.google.com",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "analytics.twitter.com",
+    "assets.adobedtm.com",
+    "connect.facebook.net",
+    "consent.cookiebot.com",
+    "consentcdn.cookiebot.com",
+    "ekr.zdassets.com",
+    "googleads.g.doubleclick.net",
+    "libs-europe.nissan-cdn.net",
+    "nissansupport.zendesk.com",
+    "px.ads.linkedin.com",
+    "snap.licdn.com",
+    "static.ads-twitter.com",
+    "static.zdassets.com",
+    "t.co",
+    "www-europe.nissan-cdn.net",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/nissan.ie/12_electric-vehicles.html.png"
+  }
+ ]
+}

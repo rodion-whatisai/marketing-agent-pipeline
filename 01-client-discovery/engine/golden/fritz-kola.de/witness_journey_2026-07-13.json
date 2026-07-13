@@ -1,0 +1,238 @@
+{
+ "domain": "fritz-kola.com",
+ "product_url": "https://www.fritz-kola.com/products/fritz-kola-barmatte-gross?variant=57988165501315",
+ "headed": false,
+ "steps": {
+  "consent": "text:accept",
+  "load": "ok",
+  "atc_click": "NOT CLICKED",
+  "url_after_atc": "https://fritz-kola.com/products/fritz-kola-barmatte-gross?variant=57988165501315",
+  "cart": "https://fritz-kola.com/cart",
+  "checkout_click": "NOT CLICKED",
+  "url_after_checkout": "https://fritz-kola.com/cart"
+ },
+ "captured": [
+  {
+   "ts": 1.3,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916448490&gcs=G100&gcd=13p3p3p3p5l1&npa=1&dma_cps=-&dma=0&gdid=dN2",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.2,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916448490&gcs=G100&gcd=13p3p3p3p5l1&npa=1&dma_cps=-&dma=0&gdid=dN2",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.3,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916448490&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dN2ZkMj",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.4,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.googleadservices.com/pagead/conversion/909118751/?random=1783916452880&cv=11&fst=1783916452880&fmt=7&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6781v9108147728za200",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.googleadservices.com/pagead/conversion/909118751/?random=1783916452884&cv=11&fst=1783916452884&fmt=7&bg=ffffff&guid=ON&async=1&en=view_item&gtm=45be6781v9108147728za200",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&auid=492793919.1783916453&dt=fritz-kola%20Barmatte%20gro%C3%9F&en=page_view&dl=https%3A%2F%2Ffritz-kola.com%2Fproducts%2Ffritz-kola-",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/1950396732097040?v=2.9.349&r=stable&domain=fritz-kola.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.9,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.com/pagead/1p-conversion/909118751/?random=1824295606&cv=11&fst=1783916452880&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6781v9108147728za200zb91898562",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.9,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.ca/pagead/1p-conversion/909118751/?random=1824295606&cv=11&fst=1783916452880&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6781v9108147728za200zb918985625",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.9,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.com/pagead/1p-conversion/909118751/?random=430219487&cv=11&fst=1783916452884&fmt=8&bg=ffffff&guid=ON&async=1&en=view_item&gtm=45be6781v9108147728za200zb918985625",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.9,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.ca/pagead/1p-conversion/909118751/?random=430219487&cv=11&fst=1783916452884&fmt=8&bg=ffffff&guid=ON&async=1&en=view_item&gtm=45be6781v9108147728za200zb9189856258",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 10.3,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916448490&gcs=G111&gcd=13v3v3v3v5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0",
+   "query_event": "",
+   "body_events": [
+    "page_view"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 41.9,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916448490&gcs=G111&gcd=13v3v3v3v5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 42.3,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 42.7,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.googleadservices.com/pagead/conversion/909118751/?random=1783916490034&cv=11&fst=1783916490034&fmt=7&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6781v9108147728za200",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 42.7,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=15&frm=0&auid=492793919.1783916453&dt=Dein%20Warenkorb&en=page_view&dl=https%3A%2F%2Ffritz-kola.com%2Fcart&scrsrc=www.googletagmanager.com&rn",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 42.8,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/1950396732097040?v=2.9.349&r=stable&domain=fritz-kola.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 43.0,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916489575&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.d",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 43.1,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-X2WMVGGWT6&gtm=45je6790h2v9189856258za200zd9189856258&_p=1783916489575&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&gdid=dN2ZkMj.dN",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 43.3,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.com/pagead/1p-conversion/909118751/?random=747458657&cv=11&fst=1783916490034&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6781v9108147728za200zb918985625",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 43.3,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.ca/pagead/1p-conversion/909118751/?random=747458657&cv=11&fst=1783916490034&fmt=8&bg=ffffff&guid=ON&async=1&en=page_view&gtm=45be6781v9108147728za200zb9189856258",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  }
+ ]
+}

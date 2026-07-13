@@ -1,0 +1,438 @@
+{
+ "domain": "allbirds.com",
+ "product_url": "https://www.allbirds.com/products/mens-cruiser-shadow-blue-natural-white-sole?variant=41990816759888",
+ "headed": false,
+ "steps": {
+  "consent": "no banner clicked",
+  "load": "ok",
+  "atc_click": "NOT CLICKED",
+  "url_after_atc": "https://www.allbirds.com/products/mens-cruiser-shadow-blue-natural-white-sole?variant=41990816759888&size=8",
+  "cart": "https://www.allbirds.com/?openCartDrawer=true",
+  "checkout_click": "NOT CLICKED",
+  "url_after_checkout": "https://www.allbirds.com/?openCartDrawer=true"
+ },
+ "captured": [
+  {
+   "ts": 1.7,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 1.9,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/1689016458013442?v=2.9.349&r=stable&domain=www.allbirds.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.0,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "PageView"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_Meta_load_d2d33d7a09.txt"
+  },
+  {
+   "ts": 2.0,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_Meta_load_6ea9358569.txt"
+  },
+  {
+   "ts": 2.4,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-KB1068K0E6&gtm=45je6781v884695022z89239844807za20gzb9239844807zd9239844807&_p=1783916080248&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.googleadservices.com/pagead/conversion/935878905/?random=1783916081714&cv=11&fst=1783916081714&fmt=7&bg=ffffff&guid=ON&async=1&en=conversion&gtm=45be6781v868568392z8923",
+   "query_event": "conversion",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&en=page_view&dl=https%3A%2F%2Fwww.all",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=2&frm=0&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&en=page_view&dl=https%3A%2F%2Fwww.allb",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&ae=g&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&en=page_view&dl=https%3A%2F%2Fww",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&en=page_view&dl=https%3A%2F%2Fwww.allb",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&ae=g&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&en=view_item&dl=https%3A%2F%2Fwww",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&en=page_view&dl=https%3A%2F%2Fwww.allb",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&ae=g&auid=1695562355.1783916082&dt=Men%27s%20Cruiser%20-%20Shadow%20Blue%20(Natural%20White%20Sole)&dl=https%3A%2F%2Fwww.allbirds.com",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.6,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.com/pagead/1p-conversion/935878905/?random=1151995840&cv=11&fst=1783916081714&fmt=8&bg=ffffff&guid=ON&async=1&en=conversion&gtm=45be6781v868568392z89239844807za2",
+   "query_event": "conversion",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.6,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "GET",
+   "url": "https://www.google.ca/pagead/1p-conversion/935878905/?random=1151995840&cv=11&fst=1783916081714&fmt=8&bg=ffffff&guid=ON&async=1&en=conversion&gtm=45be6781v868568392z89239844807za20",
+   "query_event": "conversion",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 7.4,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-KB1068K0E6&gtm=45je6781v884695022z89239844807za20gzb9239844807zd9239844807&_p=1783916080248&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 24.1,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-KB1068K0E6&gtm=45je6781v884695022za20gzb9239844807zd9239844807&_p=1783916080248&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dYWJ",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.1,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C605T0O68TKST8M2ROJ0&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.2,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.3,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?tid=2617168247281&cb=1783916105024&dep=2%2CPAGE_LOAD",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.3,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A%22Y1B0c5OoAxm2oA9g55M1p%22%7D&tid=2617168247281&cb=1783916105025&dep=5%2CEVENT_TAGS_ABSENT",
+   "query_event": "pagevisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.3,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?tid=2617168247281&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.allbirds.com%2F%3FopenCartDrawer%3Dtrue%22%2C%22ref%22%3A%22https%3A%2F%2Fwww.allbi",
+   "query_event": "init",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.3,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.3,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "LandingPageView"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_TikTok_cart_b1b2e0a064.txt"
+  },
+  {
+   "ts": 25.3,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_TikTok_cart_2ed5655707.txt"
+  },
+  {
+   "ts": 25.4,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A%22Y1B0c5OoAxm2oA9g55M1p%22%7D&tid=2617168247281&cb=1783916105089&dep=5%2CEVENT_TAGS_ABSENT&pd=%7B%22pin_unauth%",
+   "query_event": "pagevisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.4,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/ct.html",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.6,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.7,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "allbirds.com_TikTok_cart_902006e50d.txt"
+  },
+  {
+   "ts": 25.7,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/1689016458013442?v=2.9.349&r=stable&domain=www.allbirds.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.7,
+   "phase": "cart",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "PageView"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_Meta_cart_8ec5d4b6a9.txt"
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=4&frm=0&ae=g&auid=1695562355.1783916082&dt=Allbirds%3A%20Comfortable%2C%20Sustainable%20Shoes%20%26%20Apparel&en=page_view&dl=https%3A%2F%2Fw",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=17&frm=0&auid=1695562355.1783916082&dt=Allbirds%3A%20Comfortable%2C%20Sustainable%20Shoes%20%26%20Apparel&en=page_view&dl=https%3A%2F%2Fwww.a",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&auid=1695562355.1783916082&dt=Allbirds%3A%20Comfortable%2C%20Sustainable%20Shoes%20%26%20Apparel&en=page_view&dl=https%3A%2F%2Fwww.al",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=7&frm=0&auid=1695562355.1783916082&dt=Allbirds%3A%20Comfortable%2C%20Sustainable%20Shoes%20%26%20Apparel&en=page_view&dl=https%3A%2F%2Fwww.al",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=7&frm=0&ae=g&auid=1695562355.1783916082&dt=Allbirds%3A%20Comfortable%2C%20Sustainable%20Shoes%20%26%20Apparel&dl=https%3A%2F%2Fwww.allbirds.c",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=7&frm=0&auid=1695562355.1783916082&dt=Allbirds%3A%20Comfortable%2C%20Sustainable%20Shoes%20%26%20Apparel&en=page_view&dl=https%3A%2F%2Fwww.al",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 27.4,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "EnrichAM"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_TikTok_cart_f397461bf7.txt"
+  },
+  {
+   "ts": 31.1,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-KB1068K0E6&gtm=45je6781v884695022z89239844807za20gzb9239844807zd9239844807&_p=1783916104426&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 35.3,
+   "phase": "checkout",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "EngagedSession"
+   ],
+   "has_body": true,
+   "body_file": "allbirds.com_TikTok_checkout_fac9f32b10.txt"
+  }
+ ]
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "domain": "plurio.ai",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/plurio.ai/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/plurio.ai/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил Meta (PageView + кастом BookADemo, стреляет даже на сабмите пустой формы), GA×2 (второй мёртвый), Ads (конверсия на BookADemo), LinkedIn, GTM с битым тегом (Tag Assistant: «код тега не полный/изменён»); отсутствие TikTok и Pinterest"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion): кастомное событие BookADemo стреляет на КЛИК кнопки (в т.ч. пустая форма) — не на успешную отправку: трекинг есть, но некорректный (питч для Кирилла). GTM грузится дважды, второй с пробелом в ID — Tag Assistant ругается на битый тег. Второй GA-тег мёртвый (только pageview). /thank-you: pageview+scroll+get_user_data, конверсии на ней НЕТ (видимо смотрят по pageview — странно). Трекинг работает до согласия (баннер не кликнут). MS Clarity в трафике.",
+  "site": {
+    "gtm_platforms": [
+      "Google Ads",
+      "Google Analytics",
+      "Meta"
+    ],
+    "counters": {
+      "gaps": 1,
+      "oks": 2,
+      "no_ctas": 1,
+      "no_tracking": 0,
+      "unverified": 0
+    },
+    "platform": "framer"
+  },
+  "pages": {
+    "/": {
+      "status": "OK",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta"
+      ],
+      "external_services": [
+        "Calendly",
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "TikTok",
+        "Pinterest"
+      ]
+    },
+    "/connectors/cart": {
+      "status": "OK",
+      "page_type": "checkout",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta"
+      ],
+      "external_services": [
+        "Calendly",
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "TikTok",
+        "Pinterest"
+      ]
+    },
+    "/contacts": {
+      "status": "GAP",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta"
+      ],
+      "external_services": [
+        "Calendly",
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "TikTok",
+        "Pinterest"
+      ]
+    },
+    "/thank-you": {
+      "status": "NO_CTA",
+      "page_type": "booking_confirm",
+      "has_cta": true,
+      "platforms_detected": [
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta"
+      ],
+      "external_services": [
+        "Calendly",
+        "Microsoft Clarity"
+      ],
+      "platforms_forbidden": [
+        "TikTok",
+        "Pinterest"
+      ]
+    }
+  }
+}

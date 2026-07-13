@@ -1,0 +1,699 @@
+{
+ "domain": "gymshark.com",
+ "product_url": "https://gymshark.com/products/gymshark-storm-seamless-top-ss-tops-red-ss26?variant=39799577280714",
+ "headed": false,
+ "steps": {
+  "consent": "selector:#onetrust-accept-btn-handler",
+  "load": "ok",
+  "atc_click": "text:add to bag",
+  "url_after_atc": "https://www.gymshark.com/products/gymshark-storm-seamless-top-ss-tops-red-ss26?variant=39799577280714",
+  "cart": "https://www.gymshark.com/cart",
+  "checkout_click": "NOT CLICKED",
+  "url_after_checkout": "https://www.gymshark.com/cart"
+ },
+ "captured": [
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.5,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.6,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://pagead2.googlesyndication.com/ccm/collect?rcb=19&frm=0&ae=g&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fgymshark-storm-seamless-top-ss-tops-red-ss26&dr=us.c",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.6,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&ae=g&auid=1833364481.1783916184&dt=Gymshark%20Storm%20Seamless%20Top%20-%20Sets%20Red%2FCarmine%20Red%20%7C%20Gymshark&en=consent_up",
+   "query_event": "consent_update",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.7,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459z877603973za20gzb77603973zd77603973&_p=1783916183921&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.7,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459z877603973za20gzb77603973zd77603973&_p=1783916183921&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=A",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.7,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459z877603973za20gzb77603973zd77603973&_p=1783916183921&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=",
+   "query_event": "user_bucket",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.8,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 2.9,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.0,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://pagead2.googlesyndication.com/ccm/collect?rcb=6&frm=0&ae=g&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fgymshark-storm-seamless-top-ss-tops-red-ss26&dr=us.checkout.gymsha",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.0,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459za20gzb77603973zd77603973&_p=1783916183921&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAA",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.0,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459za20gzb77603973zd77603973&_p=1783916183921&_gaz=1&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&_e",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.0,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://pagead2.googlesyndication.com/ccm/collect?rcb=4&frm=0&ae=g&dl=https%3A%2F%2Fwww.gymshark.com%2Fproducts%2Fgymshark-storm-seamless-top-ss-tops-red-ss26&dr=us.checkout.gymsha",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.0,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459za20gzb77603973zd77603973&_p=1783916183921&_gaz=1&gcs=G111&gcu=1&gcd=13r3r3r3r5l1&npa=0&dma=0&_e",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.1,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&cb=1783916184829&dep=2%2CPAGE_LOAD",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.1,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A359619821%2C%22sku%22%3A39799577510090%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22line_ite",
+   "query_event": "pagevisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.1,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?event=viewcontent&ed=%7B%22sku%22%3A%5B%7B%22id%22%3A39799577510090%2C%22inStock%22%3Afalse%2C%22inventoryQuantity%22%3A0%2C%22price%22%3A44%2C%22siz",
+   "query_event": "viewcontent",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.1,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&event=init&ad=%7B%22loc%22%3A%22https%3A%2F%2Fwww.gymshark.com%2Fpro",
+   "query_event": "init",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.2,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.2,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "LandingPageView"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_b8354691d9.txt"
+  },
+  {
+   "ts": 3.2,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_b2ade02d1a.txt"
+  },
+  {
+   "ts": 3.2,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A359619821%2C%22sku%22%3A39799577510090%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22line_items",
+   "query_event": "pagevisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.2,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "POST",
+   "url": "https://ct.pinterest.com/v3/",
+   "query_event": "",
+   "body_events": [
+    "viewcontent"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 3.3,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "PageView"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_Meta_load_0b3331c719.txt"
+  },
+  {
+   "ts": 3.3,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.4,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_3b370ae4e2.txt"
+  },
+  {
+   "ts": 3.4,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_Meta_load_c39dcac7f5.txt"
+  },
+  {
+   "ts": 3.4,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_Meta_load_8668164c2a.txt"
+  },
+  {
+   "ts": 3.4,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_Meta_load_60cb14124b.txt"
+  },
+  {
+   "ts": 3.5,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/ct.html",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 3.6,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_3b370ae4e2.txt"
+  },
+  {
+   "ts": 3.8,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_3b370ae4e2.txt"
+  },
+  {
+   "ts": 6.0,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_e99296a65d.txt"
+  },
+  {
+   "ts": 6.0,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "SubscribedButtonClick"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_Meta_load_8c8fd46d0e.txt"
+  },
+  {
+   "ts": 6.0,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "SubscribedButtonClick"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_Meta_load_f0ea03afac.txt"
+  },
+  {
+   "ts": 6.0,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&ae=g&auid=1833364481.1783916184&dt=Gymshark%20Storm%20Seamless%20Top%20-%20Sets%20Red%2FCarmine%20Red%20%7C%20Gymshark&en=page_view&",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 11.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459z877603973za20gzb77603973zd77603973&_p=1783916183921&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=A",
+   "query_event": "user_bucket",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 13.1,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/inter",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_5920f89838.txt"
+  },
+  {
+   "ts": 13.2,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "EngagedSession"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_load_1256a3fe16.txt"
+  },
+  {
+   "ts": 15.1,
+   "phase": "atc",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_atc_796d5d945e.txt"
+  },
+  {
+   "ts": 20.1,
+   "phase": "atc",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459z877603973za20gzb77603973zd77603973&_p=1783916183921&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=A",
+   "query_event": "pdp",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.1,
+   "phase": "atc",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/inter",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_atc_6af0815374.txt"
+  },
+  {
+   "ts": 25.5,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459za20gzb77603973zd77603973&_p=1783916183921&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=AAAAAGQC&ar",
+   "query_event": "user_engagement",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 25.5,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/inter",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_cart_9e411af0a5.txt"
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.2,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/1263319854288554?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.3,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=C8PM4U59481U83L7JFP0&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.3,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=2&frm=0&ae=g&auid=1833364481.1783916184&dt=Your%20Shopping%20Cart%20%7C%20Gymshark&en=page_view&dl=https%3A%2F%2Fwww.gymshark.com%2Fcart&dr=u",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.4,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/293240424340622?v=2.9.349&r=stable&domain=www.gymshark.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.4,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=4&frm=0&ae=g&auid=1833364481.1783916184&dt=Your%20Shopping%20Cart%20%7C%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fcart&dr=us.checkout.gy",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.4,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=1&frm=0&ae=g&auid=1833364481.1783916184&dt=Your%20Shopping%20Cart%20%7C%20Gymshark&dl=https%3A%2F%2Fwww.gymshark.com%2Fcart&dr=us.checkout.gy",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/main.MTA2MWE1OWMwMQ.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU16ZGtaamRpTURJdFl6SmtPUzAwWlRSbExUbGxNR",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?event=pagevisit&ed=%7B%22event_id%22%3A1966916996%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783916208297&dep",
+   "query_event": "pagevisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?tid=2618098611272&pd=%7B%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%2C%22pin_unauth%22%3A%22dWlkPU16ZGtaamRpTURJdFl6SmtPUzAwWlRSbExUbGxNR01",
+   "query_event": "init",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net//log/error?p=pixel&pn=SmartSetup&sl=1&v=2.9.349&e=Error%3A%20%5BSmartSetup%5D%20Rule%20processing%20issues&s=Error%3A%20%5BSmartSetup%5D%20Rule%20proce",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=1263319854288554&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2Fcart&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783916208311&iw=fals",
+   "query_event": "PageView",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.5,
+   "phase": "cart",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=293240424340622&ev=PageView&dl=https%3A%2F%2Fwww.gymshark.com%2Fcart&rl=https%3A%2F%2Fus.checkout.gymshark.com%2F&if=false&ts=1783916208313&iw=false",
+   "query_event": "PageView",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.6,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?event=pagevisit&ed=%7B%22event_id%22%3A1966916996%2C%22np%22%3A%22gtm%22%2C%22gtm_version%22%3A%22legacy%22%7D&tid=2618098611272&cb=1783916208335&dep=5",
+   "query_event": "pagevisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.6,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/identify_b8133453.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.6,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_cart_770fbe8948.txt"
+  },
+  {
+   "ts": 26.6,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/ct.html",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 26.8,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/pixel/act",
+   "query_event": "",
+   "body_events": [],
+   "has_body": true,
+   "body_file": "gymshark.com_TikTok_cart_eec619a5dc.txt"
+  },
+  {
+   "ts": 31.5,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-PQJ0N2K1QF&gtm=45je6790h2v874493459z877603973za20gzb77603973zd77603973&_p=1783916208011&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&_eu=A",
+   "query_event": "",
+   "body_events": [
+    "user_bucket"
+   ],
+   "has_body": true
+  }
+ ]
+}

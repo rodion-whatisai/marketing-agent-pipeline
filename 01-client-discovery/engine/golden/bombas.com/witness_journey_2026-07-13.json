@@ -1,0 +1,86 @@
+{
+ "domain": "bombas.com",
+ "product_url": "https://bombas.com/products/womens-best-of-bombas-ankle-socks",
+ "headed": false,
+ "steps": {
+  "consent": "selector:#onetrust-accept-btn-handler",
+  "load": "ok",
+  "atc_click": "NOT CLICKED",
+  "url_after_atc": "https://bombas.com/products/womens-best-of-bombas-ankle-socks?variant=shell-pink&size=m",
+  "cart": "https://bombas.com/cart",
+  "checkout_click": "NOT CLICKED",
+  "url_after_checkout": "https://bombas.com/cart"
+ },
+ "captured": [
+  {
+   "ts": 30.0,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=5&frm=0&ae=g&auid=7890790.1783916569&dt=Cart%20-%20Bombas&en=page_view&dl=https%3A%2F%2Fbombas.com%2Fcart&scrsrc=platform.bombas.com&rnd=1869",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.2,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-0E9KH5KEC3&gtm=45je6781v878084388z86742198za20gzb6742198zd6742198&_p=1783916596650&_gaz=1&gcs=G1--&gcd=13l3l3R3l5l1&npa=0&dma=0&_eu",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.2,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&auid=7890790.1783916569&dt=Cart%20-%20Bombas&en=page_view&dl=https%3A%2F%2Fbombas.com%2Fcart&scrsrc=www.googletagmanager.com&rnd=1869",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.3,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.6,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/736675123144744?v=2.9.349&r=stable&domain=bombas.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.8,
+   "phase": "cart",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=736675123144744&ev=PageView&dl=https%3A%2F%2Fbombas.com%2Fcart&rl=&if=false&ts=1783916597547&iw=false&cd[eventID]=29ilwg9x1rj&sw=1440&sh=900&v=2.9.3",
+   "query_event": "PageView",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 35.3,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-0E9KH5KEC3&gtm=45je6781v878084388za20gzb6742198zd6742198&_p=1783916596650&gcs=G1--&gcd=13l3l3R3l5l1&npa=0&dma=0&gdid=dN2ZkMj&_eu=EA",
+   "query_event": "BrandlockShopperType",
+   "body_events": [],
+   "has_body": false
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 2,
+  "domain": "fritz-kola.de",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/fritz-kola.de/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/fritz-kola.de/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил Google-теги (Ads+GA+2 GT) на .com, отсутствие Meta/TikTok/Pinterest пикселей (его Helper'ы); redirect-страницы должны помечаться («сканер должен замечать»)"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13: все пути .de приземляются на fritz-kola.com (статусы REDIRECTED — known fail C8 до фикса). Страница '/' корпуса = jobs.fritz-kola.de (карьерный поддомен, артефакт sitemap) — из проверок исключена; TODO refresh-step1 на EN-версию fritz-kola.com/en. Meta: скрипт грузится, но пиксель НЕ инициализирован — Pixel Helper пуст, событий /tr ноль (Rodion + свидетель) — Meta НЕ РАБОТАЕТ, формулировка «установлен» неверна. Куки-баннер лежит ПОВЕРХ гео-баннера (порядок кликов — TODO). Hotjar+MS Clarity в трафике (свидетель).",
+  "site": {
+    "gtm_platforms": [
+      "Google Ads",
+      "Google Analytics"
+    ],
+    "counters": {
+      "redirected": 7
+    },
+    "platform": "shopify"
+  },
+  "pages": {
+    "/cart": {
+      "status": "REDIRECTED"
+    },
+    "/pages/contact": {
+      "status": "REDIRECTED"
+    },
+    "/collections/accessoires": {
+      "status": "REDIRECTED"
+    },
+    "/collections/bestseller": {
+      "status": "REDIRECTED"
+    },
+    "/products/anjola-bio-limonade-ananas-limette-0-33-l": {
+      "status": "REDIRECTED"
+    },
+    "/products/cocktail-set-doodle": {
+      "status": "REDIRECTED"
+    },
+    "/search": {
+      "status": "REDIRECTED"
+    }
+  }
+}

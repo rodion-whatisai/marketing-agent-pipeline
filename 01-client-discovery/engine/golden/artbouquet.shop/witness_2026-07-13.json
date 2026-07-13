@@ -1,0 +1,1322 @@
+{
+ "schema_version": 1,
+ "domain": "artbouquet.shop",
+ "mode": "pages",
+ "date": "2026-07-13",
+ "witness_commit": "bbc5c93",
+ "headless": true,
+ "consent": {
+  "clicked": null,
+  "on_page": "/pages/contact-flower-shop-montreal"
+ },
+ "pages": [
+  {
+   "path": "/pages/contact-flower-shop-montreal",
+   "requested_url": "https://www.artbouquet.shop/pages/contact-flower-shop-montreal",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/pages/contact-flower-shop-montreal",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC&cx=c&gtm=4e67a1h2",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966449599&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGAC&are=1&cid=509993493.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=1&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616986~115938466~115938468~118826209~118897920~118897",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zb9192865001zd9192865001&_p=1783966449558&_gaz=1&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGAC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=0&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&auid=300511514.1783966450&dt=Contact%20us%20%E2%80%93%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fpages%2Fcontact-flower-shop-montreal&scrsrc=www.googletagmanager.com&rnd=899446386.1783966450&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zb9192865001zd9192865001xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938469~118826210~118897920~118897930~119027224",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "2d5c5efa0b",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cafc18b-A9F9-41F4-DDF6-4D5B8A58D056\",\"message_id\":\"messageId-1783966449962-4294236083618-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:14:09.962Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_pages_contact-flower-shop-montreal_2d5c5efa0b.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=PageView&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fpages%2Fcontact-flower-shop-montreal&rl=&if=false&ts=1783966450029&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&a=shopify_web_pixel&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966450021.530690296598082059&ler=empty&sm=OPEN&se=%7B%22page_url%22%3Atrue%2C%22referrer%22%3Atrue%2C%22fbp%22%3Atrue%2C%22fbc%22%3Atrue%2C%22page_url_empty_legacy%22%3Afalse%2C%22page_url_empty_shopify%22%3Afalse%2C%22referrer_empty_",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966449599&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGAC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=1&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616986~115938466~115938468~118826209~118897920~118897930~1190272",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "Send",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "ad.doubleclick.net",
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics-ipv6.tiktokw.us",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "c.bing.com",
+    "c.clarity.ms",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "stats.g.doubleclick.net",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/01_pages_contact-flower-shop-montreal.png"
+  },
+  {
+   "path": "/",
+   "requested_url": "https://www.artbouquet.shop",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zb9192865001zd9192865001&_p=1783966449558&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=0&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938469~118826210~118897",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966466067&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=15&frm=0&auid=300511514.1783966450&dt=Online%20Flower%20Shop%20Montreal%20%7C%20Same-Day%20Delivery%20%7C%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2F&scrsrc=www.googletagmanager.com&rnd=1722106884.1783966466&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zd9192907426xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938469~118826209~118897920~118897930~11",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966466522&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&si",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "9435014223",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cb002b5-628F-4069-CE35-CC5136005387\",\"message_id\":\"messageId-1783966466920-7272416019061-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:14:26.920Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_home_9435014223.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=PageView&dl=https%3A%2F%2Fwww.artbouquet.shop%2F&rl=&if=false&ts=1783966467156&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&a=shopify_web_pixel&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966450021.530690296598082059&ler=empty&sm=OPEN&se=%7B%22page_url%22%3Atrue%2C%22referrer%22%3Atrue%2C%22fbp%22%3Atrue%2C%22fbc%22%3Atrue%2C%22page_url_empty_legacy%22%3Afalse%2C%22page_url_empty_shopify%22%3Afalse%2C%22referrer_empty_legacy%22%3Atrue%2C%22referrer_empty",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966466522&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938468~118826210~118897920~118897930~119027224&sid=178",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "SEND FLOWERS",
+    "MODERN GARDEN PEONY BOUQUET",
+    "BERRY LUXURIOUS ROSE BOUQUET",
+    "LAVENDER BLUSH",
+    "ROSE CHARM",
+    "DELICATE FLOWER BOUQUET",
+    "GOLDEN HOUR",
+    "ROSY CHIC",
+    "IMPERIAL PEONY RADIANCE",
+    "View all",
+    "Order Anytime, We’ll Deliver",
+    "What our customers say about us",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/02_home.png"
+  },
+  {
+   "path": "/collections/100-200-flowers-delivery-montreal",
+   "requested_url": "https://www.artbouquet.shop/collections/100-200-flowers-delivery-montreal",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/collections/100-200-flowers-delivery-montreal",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966466067&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616985~115938465~115938469~118826209~1188979",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966480357&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=6&frm=0&auid=300511514.1783966450&dt=Premium%20Floral%20Arrangements%20%24100-%24200%20-%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcollections%2F100-200-flowers-delivery-montreal&scrsrc=www.googletagmanager.com&rnd=1696304466.1783966480&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zd9192907426xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938468~118395333~11",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966480703&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&s",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "28542c329c",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cb03a20-C0A1-4DC8-A854-CDF4F3E840CD\",\"message_id\":\"messageId-1783966481004-1071996170224-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:14:41.004Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_collections_100-200-flowers-delivery-montreal_28542c329c.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "collection_viewed"
+     ],
+     "body_sha1": "f83d76443d",
+     "body_snippet": "{\"event\":\"collection_viewed\",\"event_id\":\"sh-5cb03a88-99DB-4CEF-90E2-D8DCCDD7EA66\",\"message_id\":\"messageId-1783966481007-1541455559434-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:14:41.007Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\"",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_collections_100-200-flowers-delivery-montreal_f83d76443d.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=PageView&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcollections%2F100-200-flowers-delivery-montreal&rl=&if=false&ts=1783966481207&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&a=shopify_web_pixel&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966450021.530690296598082059&ler=empty&sm=OPEN&se=%7B%22page_url%22%3Atrue%2C%22referrer%22%3Atrue%2C%22fbp%22%3Atrue%2C%22fbc%22%3Atrue%2C%22page_url_empty_legacy%22%3Afalse%2C%22page_url_empty_shopify%22%3Afalse%2C%22refe",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966480357&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938468~118395333~118826210~118",
+     "query_event": "scroll",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966480703&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938469~118826209~118897920~118897930~119027224&sid=17",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "Availability",
+    "Price",
+    "THE ART OF ROSES",
+    "Choose options",
+    "PERSONALIZED ROSES",
+    "BLUSHING BEAUTY",
+    "Add to cart",
+    "DESIRE",
+    "SUNNY GLOW",
+    "LOVE SYMPHONY",
+    "PINK CITRUS BURST",
+    "GOLDEN SERENITY",
+    "DELICATE FLOWER BOUQUET",
+    "GOLDEN BOUQUET",
+    "ROYAL PEONIES",
+    "GOLDEN HOUR",
+    "HEART OF ROSES",
+    "TULIP BLUSH",
+    "Sold out",
+    "PINK TENDERNESS",
+    "SWEET CREAM",
+    "1",
+    "2",
+    "3",
+    "Next page",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/03_collections_100-200-flowers-delivery-montreal.png"
+  },
+  {
+   "path": "/collections/add-to-your-order-florist-montreal",
+   "requested_url": "https://www.artbouquet.shop/collections/add-to-your-order-florist-montreal",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/collections/add-to-your-order-florist-montreal",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966480357&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115938466~115938468~118395333~118826210~11889792",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966493785&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=0&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=0&frm=0&auid=300511514.1783966450&dt=Add%20To%20Your%20Order%20%E2%80%93%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcollections%2Fadd-to-your-order-florist-montreal&scrsrc=www.googletagmanager.com&rnd=478188554.1783966494&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zd9192907426xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938468~118826209~11889792",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966494149&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616985~115938466~115938468~118826209~118897920~118897930~11",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "703813a83f",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cb06e66-B6D8-40E3-A488-F14BE4F40A02\",\"message_id\":\"messageId-1783966494348-3796402377626-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:14:54.348Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_collections_add-to-your-order-florist-montreal_703813a83f.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "collection_viewed"
+     ],
+     "body_sha1": "d1489ce379",
+     "body_snippet": "{\"event\":\"collection_viewed\",\"event_id\":\"sh-5cb06e80-5D73-4C59-3DF3-43F64132A3B2\",\"message_id\":\"messageId-1783966494350-3598516760509-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:14:54.350Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\"",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_collections_add-to-your-order-florist-montreal_d1489ce379.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=PageView&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fcollections%2Fadd-to-your-order-florist-montreal&rl=&if=false&ts=1783966494451&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&a=shopify_web_pixel&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966450021.530690296598082059&ler=empty&sm=OPEN&se=%7B%22page_url%22%3Atrue%2C%22referrer%22%3Atrue%2C%22fbp%22%3Atrue%2C%22fbc%22%3Atrue%2C%22page_url_empty_legacy%22%3Afalse%2C%22page_url_empty_shopify%22%3Afalse%2C%22ref",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966494149&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616985~115938466~115938468~118826209~118897920~118897930~1190272",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "Availability",
+    "Price",
+    "Personalised card",
+    "Add to cart",
+    "HEART CRYSTAL Keychain",
+    "RAFFAELLO",
+    "Sold out",
+    "FERRERO COLLECTION",
+    "TEDDY BEAR",
+    "RED ROMANCE",
+    "Heart Topper Balloon",
+    "Choose options",
+    "VASE",
+    "Happy Birthday Topper",
+    "Large card for your wishes",
+    "Chocolate MERCI",
+    "GRADUATION TOPPER",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/04_collections_add-to-your-order-florist-montreal.png"
+  },
+  {
+   "path": "/pages/subscription-flower-delivery-online-montreal",
+   "requested_url": "https://www.artbouquet.shop/pages/subscription-flower-delivery-online-montreal",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/pages/subscription-flower-delivery-online-montreal",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966493785&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=0&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616985~115938465~115938468~118826209~11889792",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966506788&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=9&frm=0&auid=300511514.1783966450&dt=Subscription%20%E2%80%93%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fpages%2Fsubscription-flower-delivery-online-montreal&scrsrc=www.googletagmanager.com&rnd=2066279974.1783966507&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zd9192907426xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616986~115938465~115938469~118395333~118826210~1188",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966507090&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&si",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=3546919788950632&ev=PageView&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fpages%2Fsubscription-flower-delivery-online-montreal&rl=&if=false&ts=1783966507358&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&a=shopify_web_pixel&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1783966450021.530690296598082059&ler=empty&sm=OPEN&se=%7B%22page_url%22%3Atrue%2C%22referrer%22%3Atrue%2C%22fbp%22%3Atrue%2C%22fbc%22%3Atrue%2C%22page_url_empty_legacy%22%3Afalse%2C%22page_url_empty_shopify%22%3Afalse%2C%2",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "ea59d4a0cd",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cb0a082-9705-43D3-FA51-20E9B541FC3F\",\"message_id\":\"messageId-1783966507408-7481780113883-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:15:07.408Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_pages_subscription-flower-delivery-online-montreal_ea59d4a0cd.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966507090&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938465~115938468~118826209~118897920~118897930~119027224&sid=178",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "Shop all our flowers",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/05_pages_subscription-flower-delivery-online-montreal.png"
+  },
+  {
+   "path": "/products/21-tulips-in-a-vase",
+   "requested_url": "https://www.artbouquet.shop/products/21-tulips-in-a-vase",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/products/21-tulips-in-a-vase",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966506788&_gaz=1&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616986~115938465~115938469~118395333~1",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966519833&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966519833&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=",
+     "query_event": "view_item",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=19&frm=0&auid=300511514.1783966450&dt=TULIP%20BLUSH%20%7C%20Pink%20Tulips%20in%20Vase%20Montreal%20%7C%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fproducts%2F21-tulips-in-a-vase&scrsrc=www.googletagmanager.com&rnd=1096513150.1783966520&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zd9192907426xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115616985~115938465~115938469~11839",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966520413&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616985~115938466~115938468~118826210~118897920~11889",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966520413&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616985~115938466~115938468~118826210~118897920~118897930~",
+     "query_event": "scroll",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "b13f5ffcb4",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cb0d3d2-DA96-4C86-AFFD-E9CE7083B4B6\",\"message_id\":\"messageId-1783966520659-5013835066407-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:15:20.659Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_products_21-tulips-in-a-vase_b13f5ffcb4.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "ViewContent"
+     ],
+     "body_sha1": "3095f82e9e",
+     "body_snippet": "{\"event\":\"ViewContent\",\"event_id\":\"sh-5cb0d448-F948-4314-8B1A-BF8357426AED\",\"message_id\":\"messageId-1783966520663-4391522739115-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:15:20.663Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"ano",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_products_21-tulips-in-a-vase_3095f82e9e.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "PageView"
+     ],
+     "body_sha1": "b42ea4c351",
+     "body_snippet": "------WebKitFormBoundaryiMgpxAt1BzxVAK0B\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n3546919788950632\r\n------WebKitFormBoundaryiMgpxAt1BzxVAK0B\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nPageView\r\n------WebKitFormBoundaryiMgpxAt1BzxVAK0B\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://www",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_Meta_products_21-tulips-in-a-vase_b42ea4c351.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "ViewContent"
+     ],
+     "body_sha1": "95f7676c35",
+     "body_snippet": "------WebKitFormBoundaryhPYCRrmkqwgqHA5A\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n3546919788950632\r\n------WebKitFormBoundaryhPYCRrmkqwgqHA5A\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nViewContent\r\n------WebKitFormBoundaryhPYCRrmkqwgqHA5A\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_Meta_products_21-tulips-in-a-vase_95f7676c35.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966519833&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115616985~115938465~115938469~118395334~11",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "Skip to product information",
+    "Open media 1 in modal",
+    "Decrease quantity for TULIP BLUSH",
+    "Increase quantity for TULIP BLUSH",
+    "Sold out",
+    "Share",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "ad.doubleclick.net",
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "error-analytics-sessions-production.shopifysvc.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/06_products_21-tulips-in-a-vase.png"
+  },
+  {
+   "path": "/products/51-pink-roses-vase-luxury-delivery-montreal",
+   "requested_url": "https://www.artbouquet.shop/products/51-pink-roses-vase-luxury-delivery-montreal",
+   "http_status": 200,
+   "final_url": "https://www.artbouquet.shop/products/51-pink-roses-vase-luxury-delivery-montreal",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966519833&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&frm=0&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=4&tag_exp=115616985~115938465~115938469~118395334~1188262",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-5QB5QE16ZC",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CS4AO7BC77U2AE2VPIMG&lib=ttq",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-758888242",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "TikTok",
+     "method": "GET",
+     "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966533492&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=18&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-5QB5QE16ZC&gtm=45je6790v9192907426za200zd9192907426&_p=1783966533492&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&ecid=104033605&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=c&excid=shp.a7a555ca-2303-4ffd-9fb2-a62380f5baad&frm=0&pscdl=noapi&rcb=18&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=",
+     "query_event": "view_item",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&auid=300511514.1783966450&dt=51%20Pink%20Roses%20-%20Luxury%20Flower%20Delivery%20Montreal%20%E2%80%93%20ART%20BOUQUET&en=page_view&dl=https%3A%2F%2Fwww.artbouquet.shop%2Fproducts%2F51-pink-roses-vase-luxury-delivery-montreal&scrsrc=www.googletagmanager.com&rnd=1460520460.1783966534&navt=n&npa=0&did=dN2ZkMj%2CdNTU0Yz%2CdYmNjMT&gdid=dN2ZkMj.dNTU0Yz.dYmNjMT&_tu=AAI&gtm=45je6790v9192907426za200zd9192907426xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=11",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966533954&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AAAAAGQC&are=1&cid=1617897793.1783966450&ec_mode=a&frm=2&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616986~115938465~115938468~118826210~118897920~118897930~11",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/3546919788950632?v=2.9.349&r=stable&domain=www.artbouquet.shop&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C8%2C4%2C5%2C7%2C6%2C3%2C94%2C104%2C170%2C175%2C222%2C30%2C75%2C234%2C233%2C232%2C23%2C33%2C55%2C106%2C61%2C10%2C64%2C100%2C101%2C102%2C108%2C133%2C31%2C29%2C135%2C136%2C132%2C131%2C159%2C77%2C162%2C160%2C",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "PageView"
+     ],
+     "body_sha1": "d9b9c92a1e",
+     "body_snippet": "------WebKitFormBoundaryuIJyWNFB7PU3SLPj\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n3546919788950632\r\n------WebKitFormBoundaryuIJyWNFB7PU3SLPj\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nPageView\r\n------WebKitFormBoundaryuIJyWNFB7PU3SLPj\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://www",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_Meta_products_51-pink-roses-vase-luxury-delivery-montreal_d9b9c92a1e.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "ViewContent"
+     ],
+     "body_sha1": "d74edee347",
+     "body_snippet": "------WebKitFormBoundaryErsRpb2jghYQXc4q\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n3546919788950632\r\n------WebKitFormBoundaryErsRpb2jghYQXc4q\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nViewContent\r\n------WebKitFormBoundaryErsRpb2jghYQXc4q\r\nContent-Disposition: form-data; name=\"dl\"\r\n\r\nhttps://",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_Meta_products_51-pink-roses-vase-luxury-delivery-montreal_d74edee347.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "Pageview"
+     ],
+     "body_sha1": "0b1d2c039e",
+     "body_snippet": "{\"event\":\"Pageview\",\"event_id\":\"sh-5cb1096a-F459-42D4-C0F3-EFB4EBD0A676\",\"message_id\":\"messageId-1783966534287-1753974716537-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:15:34.287Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"anonym",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_products_51-pink-roses-vase-luxury-delivery-montreal_0b1d2c039e.txt"
+    },
+    {
+     "platform": "TikTok",
+     "method": "POST",
+     "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+     "query_event": "",
+     "body_events": [
+      "ViewContent"
+     ],
+     "body_sha1": "aa7191e543",
+     "body_snippet": "{\"event\":\"ViewContent\",\"event_id\":\"sh-5cb1099b-0059-48FE-E323-A78D6A05B30F\",\"message_id\":\"messageId-1783966534289-8915780829420-CS4AO7BC77U2AE2VPIMG\",\"is_onsite\":false,\"timestamp\":\"2026-07-13T18:15:34.289Z\",\"context\":{\"ad\":{\"sdk_env\":\"external\",\"jsb_status\":2},\"device\":{\"platform\":\"pc\"},\"user\":{\"ano",
+     "body_file": "scans/_witness_2026-07-13/artbouquet.shop/fixtures/artbouquet.shop_TikTok_products_51-pink-roses-vase-luxury-delivery-montreal_aa7191e543.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-R6PH1ESB46&gtm=45be6790v9178531514za200zd9178531514&_p=1783966533954&gcd=13l3l3l3l1l1&npa=0&dma=0&gdid=dMDg0Yz&ecid=1516846591&_eu=AEAAAGQC&ae=a&are=1&cid=1617897793.1783966450&frm=2&pscdl=noapi&rcb=5&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115616986~115938465~115938468~118826210~118897920~118897930~1190272",
+     "query_event": "scroll",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "Skip to content",
+    "Search",
+    "Close",
+    "Home",
+    "Occasion",
+    "All Flowers",
+    "Under $100",
+    "$100 - $200",
+    "Over $200",
+    "Subscription",
+    "Contact",
+    "Blog",
+    "About us",
+    "Canada | CAD $",
+    "English",
+    "Log in",
+    "Cart",
+    "Skip to product information",
+    "Open media 1 in modal",
+    "Decrease quantity for 51 PINK ROSES IN VASE",
+    "Increase quantity for 51 PINK ROSES IN VASE",
+    "Add to cart",
+    "Share",
+    "+1 (555) 555-0100",
+    "Subscribe",
+    "Facebook",
+    "Instagram",
+    "YouTube",
+    "TikTok",
+    "ART BOUQUET",
+    "Refund policy",
+    "Privacy policy",
+    "Terms of service"
+   ],
+   "third_party_hosts": [
+    "adsagentclientafd-b7hqhjdrf3fpeqh2.b01.azurefd.net",
+    "adsagentserverprod-ekd5fygyhpbvh9bd.b01.azurefd.net",
+    "analytics.google.com",
+    "analytics.tiktok.com",
+    "cdn.birdchime.com",
+    "cdn.senja.io",
+    "cdn.shopify.com",
+    "connect.facebook.net",
+    "d.clarity.ms",
+    "error-analytics-sessions-production.shopifysvc.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "forms.shopifyapps.com",
+    "ik.imagekit.io",
+    "monorail-edge.shopifysvc.com",
+    "otlp-http-production.shopifysvc.com",
+    "scripts.clarity.ms",
+    "shop.app",
+    "widget.senja.io",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.merchant-center-analytics.goog"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/artbouquet.shop/07_products_51-pink-roses-vase-luxury-delivery-montreal.png"
+  }
+ ]
+}

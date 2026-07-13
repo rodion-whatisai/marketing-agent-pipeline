@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "domain": "bombas.com",
+  "verified_by": "draft",
+  "verified_date": "2026-07-13",
+  "verified_against": "гейт-раунд №2 в чате (Pixel Helper'ы + Tag Assistant Rodion'а) + свидетель",
+  "verified_via": {
+    "witness": "golden/bombas.com/witness_2026-07-13.json",
+    "agent_fact_sheet": "golden/bombas.com/facts_2026-07-13.md",
+    "rodion_gate": "чат 2026-07-13, гейт №2: ЧАСТИЧНО — подтвердил TikTok-отсутствие; ОПРОВЕРГ отсутствие Pinterest (Pixel Helper видит тег 2612751672311, свидетель запросов не видел); полное заверение отложено"
+  },
+  "scanner_commit": "bbc5c93",
+  "notes": "ГЕЙТ 2026-07-13: НЕ ЗАВЕРЁН (Rodion: «надо дебажить»). Его наблюдения: Meta-пиксель появился ТОЛЬКО после перезагрузки страницы после принятия куки (ложное 'нет пикселя' — TODO consent-reload); AddToCart не стреляет (только SubscribedButtonClick); чекаут без пикселя; Tag Assistant: 'CMP блокирует часть тегов', DC=DoubleClick Floodlight с 4 конверсиями. Свидетель: 2 страницы корпуса — реальные 404 (known fail C9 после заверения); главная почти без тегов; value=NaN в товарных событиях (питч). Pinterest: тег есть (Rodion), сетевых событий свидетель не видел. HTTP_ERROR на двух 404-страницах — машинный факт свидетеля (HTTP-код 404), заменил сканерный NO_CTA; сканер аудирует их как живые — known fail C9.",
+  "site": {
+    "gtm_platforms": [
+      "Bing/Microsoft",
+      "Google Ads",
+      "Google Analytics",
+      "Hotjar",
+      "Meta"
+    ],
+    "counters": {
+      "gaps": 0,
+      "oks": 0,
+      "no_ctas": 4,
+      "no_tracking": 0,
+      "unverified": 0,
+      "http_errors": 2
+    },
+    "platform": "shopify"
+  },
+  "pages": {
+    "/": {
+      "status": "NO_CTA",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "TikTok"
+      ]
+    },
+    "/collections/200-Giving-Back-Page-Test": {
+      "status": "HTTP_ERROR",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "TikTok"
+      ]
+    },
+    "/collections/200test": {
+      "status": "NO_CTA",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "TikTok"
+      ]
+    },
+    "/pages/find-a-store": {
+      "status": "NO_CTA",
+      "page_type": "location",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "LinkedIn",
+        "Meta"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "TikTok"
+      ]
+    },
+    "/products/adult-eric-carle-calf-sock-4-pack": {
+      "status": "NO_CTA",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "TikTok"
+      ]
+    },
+    "/products/adult-mickey-mouse-calf-socks": {
+      "status": "HTTP_ERROR",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [
+        "Bing/Microsoft",
+        "Google Ads",
+        "Google Analytics",
+        "Meta"
+      ],
+      "external_services": [
+        "Jotform"
+      ],
+      "platforms_forbidden": [
+        "TikTok"
+      ]
+    }
+  }
+}

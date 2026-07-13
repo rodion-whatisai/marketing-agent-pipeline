@@ -1,0 +1,593 @@
+{
+ "domain": "pipsnacks.com",
+ "product_url": "https://www.pipsnacks.com/products/sea-salt-corn-dippers-snack-size-1-75-oz-24-count?variant=45578596614323",
+ "headed": false,
+ "steps": {
+  "consent": "text:accept",
+  "load": "ok",
+  "atc_click": "NOT CLICKED",
+  "url_after_atc": "https://www.pipsnacks.com/products/sea-salt-corn-dippers-snack-size-1-75-oz-24-count?variant=45578596614323",
+  "cart": "https://www.pipsnacks.com/cart",
+  "checkout_click": "selector:a[href*='/checkout']",
+  "url_after_checkout": "https://www.pipsnacks.com/"
+ },
+ "captured": [
+  {
+   "ts": 5.3,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.4,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CRUO3NRC77U7IT1TGH10&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.4,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?cb=1783916289789&ed=%7B%22np%22%3A%22shopify-web-pixel%22%2C%22eventID%22%3A%22sh-59b250b2-B1B4-425B-85B5-AFE6EAD9D785%22%7D&ad=%7B%22mh%22%3A%225802",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.5,
+   "phase": "load",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/856193781519963?v=2.9.349&r=stable&domain=www.pipsnacks.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?cb=1783916289789&ad=%7B%22mh%22%3A%2258027b7f%22%2C%22ua%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KH",
+   "query_event": "init",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "POST",
+   "url": "https://ct.pinterest.com/v3/",
+   "query_event": "",
+   "body_events": [
+    "PageVisit"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?cb=1783916289789&ed=%7B%22np%22%3A%22shopify-web-pixel%22%2C%22eventID%22%3A%22sh-59b250b2-B1B4-425B-85B5-AFE6EAD9D785%22%7D&ad=%7B%22mh%22%3A%2258027b",
+   "query_event": "PageVisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_TikTok_load_98de623606.txt"
+  },
+  {
+   "ts": 5.6,
+   "phase": "load",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_TikTok_load_be5ff18892.txt"
+  },
+  {
+   "ts": 5.7,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=8&frm=2&auid=1853243913.1783916290&dt=Sea%20Salt%20Corn%20Dippers%20Snack%20Size%201.75%20oz%2C%2024-count%20%E2%80%93%20Pip%27s%20Heirloom%2",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.8,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "PageView"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_Meta_load_4f2d1e5b1a.txt"
+  },
+  {
+   "ts": 5.8,
+   "phase": "load",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "ViewContent"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_Meta_load_ceae1e8047.txt"
+  },
+  {
+   "ts": 5.8,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907za200zd9132207907&_p=1783916289888&_gaz=1&gcs=G111&gcd=13n3n3n3n5l1&npa=0&dma=0&gdid=dMDg0Yz.dMmQ",
+   "query_event": "view_item",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.8,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907za200zd9132207907&_p=1783916289888&gcs=G111&gcd=13n3n3n3n5l1&npa=0&dma=0&gdid=dMDg0Yz.dMmQyMD&eci",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 5.9,
+   "phase": "load",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=16&frm=2&ae=g&auid=50355318.1783916290&dt=Sea%20Salt%20Corn%20Dippers%20Snack%20Size%201.75%20oz%2C%2024-count%20%E2%80%93%20Pip%27s%20Heirlo",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 6.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916289915&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 6.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916289915&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "",
+   "body_events": [
+    "scroll_10\r\nen=scroll_25"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 6.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916289915&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "scroll_50",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 11.1,
+   "phase": "load",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916289915&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "",
+   "body_events": [
+    "scroll_75\r\nen=scroll_90"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 23.6,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.7,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CRUO3NRC77U7IT1TGH10&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.8,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?cb=1783916308101&ed=%7B%22np%22%3A%22shopify-web-pixel%22%2C%22eventID%22%3A%22sh-59b2a705-D0B4-4A25-FCEE-3AB0B1E9072F%22%7D&ad=%7B%22mh%22%3A%225802",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.8,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.8,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=6&frm=2&auid=50355318.1783916290&dt=Your%20Shopping%20Cart%20%E2%80%93%20Pip%27s%20Heirloom%20Snacks&en=page_view&dl=https%3A%2F%2Fwww.pipsna",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.8,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907za200zd9132207907&_p=1783916308126&gcs=G111&gcd=13n3n3n3n5l1&npa=0&dma=0&gdid=dMDg0Yz.dMmQyMD&eci",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.8,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907za200zd9132207907&_p=1783916308126&gcs=G111&gcd=13n3n3n3n5l1&npa=0&dma=0&gdid=dMDg0Yz.dMmQyMD&eci",
+   "query_event": "cart_users",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.8,
+   "phase": "cart",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=6&frm=2&ae=g&auid=50355318.1783916290&dt=Your%20Shopping%20Cart%20%E2%80%93%20Pip%27s%20Heirloom%20Snacks&en=page_view&dl=https%3A%2F%2Fwww.p",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916308141&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916308141&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "",
+   "body_events": [
+    "scroll_10\r\nen=scroll_25"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916308141&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "scroll_50",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?cb=1783916308101&ad=%7B%22mh%22%3A%2258027b7f%22%2C%22ua%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KH",
+   "query_event": "init",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_TikTok_cart_f135ad40d7.txt"
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/856193781519963?v=2.9.349&r=stable&domain=www.pipsnacks.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 23.9,
+   "phase": "cart",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?cb=1783916308101&ed=%7B%22np%22%3A%22shopify-web-pixel%22%2C%22eventID%22%3A%22sh-59b2a705-D0B4-4A25-FCEE-3AB0B1E9072F%22%7D&ad=%7B%22mh%22%3A%2258027b",
+   "query_event": "PageVisit",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 24.0,
+   "phase": "cart",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=856193781519963&ev=PageView&dl=https%3A%2F%2Fwww.pipsnacks.com%2Fcart&rl=&if=false&ts=1783916308348&iw=false&sw=1440&sh=900&v=2.9.349&r=stable&a=sho",
+   "query_event": "PageView",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 28.8,
+   "phase": "checkout",
+   "platform": "Meta",
+   "method": "POST",
+   "url": "https://www.facebook.com/tr/",
+   "query_event": "",
+   "body_events": [
+    "SubscribedButtonClick"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_Meta_checkout_85bb69a489.txt"
+  },
+  {
+   "ts": 28.9,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916308141&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "",
+   "body_events": [
+    "scroll_75\r\nen=scroll_90"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 30.4,
+   "phase": "checkout",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/en_US/fbevents.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.6,
+   "phase": "checkout",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/shopify.js?sdkid=CRUO3NRC77U7IT1TGH10&lib=ttq",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.6,
+   "phase": "checkout",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/user/?cb=1783916314979&ed=%7B%22np%22%3A%22shopify-web-pixel%22%2C%22eventID%22%3A%22sh-59b2c191-DDC6-4D8D-54E2-7A20ADA8B23D%22%7D&ad=%7B%22mh%22%3A%225802",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.7,
+   "phase": "checkout",
+   "platform": "TikTok",
+   "method": "GET",
+   "url": "https://analytics.tiktok.com/i18n/pixel/static/shopify.ZjFmMTI5Mi4wLjAuNDk1.js",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.7,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907za200zd9132207907&_p=1783916314999&gcs=G111&gcd=13n3n3n3n5l1&npa=0&dma=0&gdid=dMDg0Yz.dMmQyMD&eci",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.7,
+   "phase": "checkout",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=6&frm=2&auid=50355318.1783916290&dt=Pip%27s%20Heirloom%20Snacks%3A%20Popcorn%2C%20Cheese%20Balls%2C%20Corn%20Chips&en=page_view&dl=https%3A%2",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.7,
+   "phase": "checkout",
+   "platform": "GoogleAds",
+   "method": "POST",
+   "url": "https://www.google.com/ccm/collect?rcb=15&frm=2&ae=g&auid=50355318.1783916290&dt=Pip%27s%20Heirloom%20Snacks%3A%20Popcorn%2C%20Cheese%20Balls%2C%20Corn%20Chips&en=page_view&dl=http",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.7,
+   "phase": "checkout",
+   "platform": "Pinterest",
+   "method": "GET",
+   "url": "https://ct.pinterest.com/v3/?cb=1783916314979&ad=%7B%22mh%22%3A%2258027b7f%22%2C%22ua%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KH",
+   "query_event": "init",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.7,
+   "phase": "checkout",
+   "platform": "TikTok",
+   "method": "POST",
+   "url": "https://analytics.tiktok.com/api/v2/shopify_pixel",
+   "query_event": "",
+   "body_events": [
+    "Pageview"
+   ],
+   "has_body": true,
+   "body_file": "pipsnacks.com_TikTok_checkout_b5755795f1.txt"
+  },
+  {
+   "ts": 30.8,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916315034&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "page_view",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.8,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916315034&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "",
+   "body_events": [
+    "scroll_10\r\nen=scroll_25"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 30.8,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916315034&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "scroll_50",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.8,
+   "phase": "checkout",
+   "platform": "Pinterest",
+   "method": "POST",
+   "url": "https://ct.pinterest.com/v3/",
+   "query_event": "",
+   "body_events": [
+    "PageVisit"
+   ],
+   "has_body": true
+  },
+  {
+   "ts": 30.8,
+   "phase": "checkout",
+   "platform": "Meta-SDK",
+   "method": "GET",
+   "url": "https://connect.facebook.net/signals/config/856193781519963?v=2.9.349&r=stable&domain=www.pipsnacks.com&hme=f29d86973612db0f0627890a64bdc8c47b471189050b33f2680b7d76997afc9a&ex_m=10",
+   "query_event": "",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 30.8,
+   "phase": "checkout",
+   "platform": "Meta",
+   "method": "GET",
+   "url": "https://www.facebook.com/tr/?id=856193781519963&ev=PageView&dl=https%3A%2F%2Fwww.pipsnacks.com%2F&rl=https%3A%2F%2Fwww.pipsnacks.com%2Fcheckouts%2Fcn%2FhWNEPwr5GQG4skYWFhEJjFlS%2Fe",
+   "query_event": "PageView",
+   "body_events": [],
+   "has_body": false
+  },
+  {
+   "ts": 35.8,
+   "phase": "checkout",
+   "platform": "GA",
+   "method": "POST",
+   "url": "https://analytics.google.com/g/collect?v=2&tid=G-Z6P7WTP5QB&gtm=45je6781v9132207907z89168422034za20gzb9168422034zd9168422034&_p=1783916315034&gcd=13l3l3l3l1l1&npa=0&dma=0&ecid=2131",
+   "query_event": "",
+   "body_events": [
+    "scroll_75\r\nen=scroll_90"
+   ],
+   "has_body": true
+  }
+ ]
+}
