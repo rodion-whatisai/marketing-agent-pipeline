@@ -120,11 +120,21 @@ def test_snapchat_gtm_signature_matches_live_container_js():
     assert any(re.search(s, container_js) for s in sigs)
 
 
-# ─── Hotjar: обе группы признаков живы после слияния ─────────────────────────
+# ─── Hotjar: слияние без слабого hj\( (он матчил GTM-рантайм) ────────────────
 
 def test_hotjar_merged_signatures():
     sigs = PLATFORM_SIGNATURES["Hotjar"]
-    old_dead = "window.hjid = 5231524; hj('identify')"   # признаки затёртой строки
-    survivor = "window.hjSetting = {}"                    # признаки выжившей строки
+    old_dead = "window.hjid = 5231524;"                   # признак затёртой строки жив
+    survivor = "window.hjSetting = {}"                    # признак выжившей строки жив
     assert any(re.search(s, old_dead) for s in sigs)
     assert any(re.search(s, survivor) for s in sigs)
+
+
+def test_hotjar_not_matched_by_gtm_runtime():
+    # живые контексты из контейнеров gymshark/allbirds/plurio (2026-07-13):
+    # минифицированные функции hJ()/HJ() рантайма GTM — НЕ Hotjar
+    sigs = PLATFORM_SIGNATURES["Hotjar"]
+    runtime_samples = ['b.set("RecentOnScreen",""+hJ().toString());',
+                       'l=CJ("gtm.historyChange");\nHJ(l);GJ(l);']
+    for sample in runtime_samples:
+        assert not any(re.search(s, sample, re.IGNORECASE) for s in sigs), sample

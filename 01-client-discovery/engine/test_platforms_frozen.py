@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""СНАПШОТ view-таблиц реестра platforms.py (перегенерирован после шага B, 2026-07-13).
+"""СНАПШОТ view-таблиц реестра platforms.py (перегенерирован 2026-07-13, шаг B + Hotjar-фикс).
 Детектор СЛУЧАЙНЫХ изменений: при сознательной правке реестра перегенерировать
-(см. шапку platforms.py) и закоммитить вместе с ней. НЕ ПРАВИТЬ РУКАМИ."""
+(см. шапку platforms.py) и закоммитить вместе. НЕ ПРАВИТЬ РУКАМИ."""
 
 FROZEN_PIXEL_RULES = {'Meta': {'domains': ['facebook.com/tr',
                       'connect.facebook.net/en_US/fbevents',
@@ -122,7 +122,7 @@ FROZEN_GTM_SIGNATURES = {'Meta Pixel': ['fbq\\s*\\(',
                       '_linkedin_partner_id',
                       'px\\.ads\\.linkedin\\.com'],
  'TikTok Pixel': ['analytics\\.tiktok\\.com', 'ttq\\.', 'TiktokAnalyticsObject'],
- 'Hotjar': ['hotjar\\.com', 'hjid\\s*[:=]', 'hj\\s*\\(', 'hjSetting'],
+ 'Hotjar': ['hotjar\\.com', 'hjid\\s*[:=]', 'hjSetting'],
  'Microsoft/Bing': ['bat\\.bing\\.com', 'uetq\\s*=', 'bing\\.com/action'],
  'Intercom': ['intercom\\.com', 'intercomSettings'],
  'HubSpot': ['hubspot\\.com', 'hs-scripts', 'hbspt\\.'],

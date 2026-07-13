@@ -10,7 +10,7 @@
     "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил Meta+TikTok+Pinterest+GA+Ads (Pixel Helper'ы + Tag Assistant), CTA-раскладку; его ручной journey: Meta AddToCart на клик, чекаут без пикселя"
   },
   "scanner_commit": "bbc5c93",
-  "notes": "ГЕЙТ 2026-07-13 (Rodion, ручная сверка): Meta AddToCart стреляет на клик (его journey; в корпусе нет продуктовой страницы — пин не ставим). Чекаут: пиксели исчезают (Shopify checkout-сэндбокс), TikTok шлёт AddPaymentInfo на Pay now БЕЗ ввода данных (misconfig, питч-аргумент). Tag Assistant: ~23 рекламных аккаунта, 2 GTM. Гео-попап 'Where are we shipping to?' свидетель не закрыл. Баннера consent нет (US). TODO: contact-страница не нужна e-com аудиту; чекаут-проход отдельно.",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion, ручная сверка): Meta AddToCart стреляет на клик (его journey; в корпусе нет продуктовой страницы — пин не ставим). Чекаут: пиксели исчезают (Shopify checkout-сэндбокс), TikTok шлёт AddPaymentInfo на Pay now БЕЗ ввода данных (misconfig, питч-аргумент). Tag Assistant: ~23 рекламных аккаунта, 2 GTM. Гео-попап 'Where are we shipping to?' свидетель не закрыл. Баннера consent нет (US). TODO: contact-страница не нужна e-com аудиту; чекаут-проход отдельно. РЕКОНСИЛЯЦИЯ 2026-07-13 (шаг B): Pinterest добавлен в platforms_detected на 8 страниц — сканер прозрел (B5-фикс), правда заверена гейтом №2 (Pixel Helper).",
   "site": {
     "gtm_platforms": [
       "Bing/Microsoft",
@@ -37,6 +37,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -49,6 +50,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -61,6 +63,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -73,6 +76,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -85,6 +89,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -97,6 +102,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -109,6 +115,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []
@@ -121,6 +128,7 @@
         "Google Ads",
         "Google Analytics",
         "Meta",
+        "Pinterest",
         "TikTok"
       ],
       "external_services": []

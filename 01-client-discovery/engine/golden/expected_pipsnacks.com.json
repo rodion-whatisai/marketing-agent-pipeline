@@ -10,15 +10,15 @@
     "rodion_gate": "чат 2026-07-13, гейт №2: подтвердил Meta+TikTok+Pinterest+GA(GT)+Ads; consent-gated (пиксель работает только после принятия); AddToCart: Meta×2 + TikTok; второй пиксель на store-locator — факт зарегистрирован"
   },
   "scanner_commit": "bbc5c93",
-  "notes": "ГЕЙТ 2026-07-13 (Rodion): пиксели не работают до принятия куки. AddToCart: Meta стреляет ДВА события (Shopify-особенность?), TikTok стреляет. Continue-to-checkout: Meta стреляет, TikTok на чекауте работает, Pinterest чекаут-событий не шлёт. ПРАВИЛО Rodion'а: факт второго пикселя (721514255128765 на store-locator, от Destini-виджета) регистрируем всегда, но события на неприоритетных страницах не важны. НЕ в эталоне (он не смог проверить, «нужны ссылки»): редиректы товарных URL на bundle-builder, пустые subscribe-страницы — разбор отдельно (см. facts_2026-07-13.md). Klaviyo: массовые запросы у свидетеля, Rodion не проверял. ПИН Cal.com-forbidden на store-locator (2026-07-13, baseline): сканер сматчил подстроку cal.com/ в HTML Destini-виджета — false positive класса A3 (shakedown 07-08, валидирован Rodion'ом), каскадом перекрашивает статус страницы в unverified-booking и счётчики. Правда: Cal.com на сайте НЕТ, статус store-locator = GAP. Гаснет фиксом границ слов (день 6).",
+  "notes": "ГЕЙТ 2026-07-13 (Rodion): пиксели не работают до принятия куки. AddToCart: Meta стреляет ДВА события (Shopify-особенность?), TikTok стреляет. Continue-to-checkout: Meta стреляет, TikTok на чекауте работает, Pinterest чекаут-событий не шлёт. ПРАВИЛО Rodion'а: факт второго пикселя (721514255128765 на store-locator, от Destini-виджета) регистрируем всегда, но события на неприоритетных страницах не важны. НЕ в эталоне (он не смог проверить, «нужны ссылки»): редиректы товарных URL на bundle-builder, пустые subscribe-страницы — разбор отдельно (см. facts_2026-07-13.md). Klaviyo: массовые запросы у свидетеля, Rodion не проверял. ПИН Cal.com-forbidden на store-locator (2026-07-13, baseline): сканер сматчил подстроку cal.com/ в HTML Destini-виджета — false positive класса A3 (shakedown 07-08, валидирован Rodion'ом), каскадом перекрашивает статус страницы в unverified-booking и счётчики. Правда: Cal.com на сайте НЕТ, статус store-locator = GAP. Гаснет фиксом границ слов (день 6). ПЕРЕ-БАЗА 2026-07-13 (шаг B): Cal.com-фейк (A3) красил 8 страниц в «unverified booking» — статусы/счётчики пересняты с пост-фикс скана, Cal.com удалён из external_services, forbidden-пин распространён на все страницы.",
   "site": {
     "gtm_platforms": [],
     "counters": {
-      "gaps": 1,
+      "gaps": 5,
       "oks": 3,
-      "no_ctas": 0,
+      "no_ctas": 4,
       "no_tracking": 0,
-      "unverified": 8
+      "unverified": 0
     },
     "platform": "shopify"
   },
@@ -31,10 +31,13 @@
         "Google Analytics",
         "Meta"
       ],
-      "external_services": []
+      "external_services": [],
+      "external_services_forbidden": [
+        "Cal.com"
+      ]
     },
     "/pages/contact-us": {
-      "status": "UNVERIFIED",
+      "status": "GAP",
       "page_type": "lead_form",
       "has_cta": true,
       "platforms_detected": [
@@ -44,12 +47,13 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
     "/pages/wholesale-contact": {
-      "status": "UNVERIFIED",
+      "status": "GAP",
       "page_type": "lead_form",
       "has_cta": true,
       "platforms_detected": [
@@ -59,7 +63,8 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
@@ -74,7 +79,8 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
@@ -89,12 +95,13 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
     "/pages/pip15-subscribe-page": {
-      "status": "UNVERIFIED",
+      "status": "NO_CTA",
       "page_type": "pricing",
       "has_cta": true,
       "platforms_detected": [
@@ -104,12 +111,13 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
     "/pages/snack-subscribe-page": {
-      "status": "UNVERIFIED",
+      "status": "NO_CTA",
       "page_type": "pricing",
       "has_cta": true,
       "platforms_detected": [
@@ -119,7 +127,8 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
@@ -140,7 +149,7 @@
       ]
     },
     "/pages/subscription": {
-      "status": "UNVERIFIED",
+      "status": "NO_CTA",
       "page_type": "pricing",
       "has_cta": true,
       "platforms_detected": [
@@ -150,12 +159,13 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
     "/pages/wholefoods-subscribe-page": {
-      "status": "UNVERIFIED",
+      "status": "NO_CTA",
       "page_type": "pricing",
       "has_cta": true,
       "platforms_detected": [
@@ -165,12 +175,13 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
     "/products/cbdp45c12-dill-pickle-balls": {
-      "status": "UNVERIFIED",
+      "status": "GAP",
       "page_type": "product",
       "has_cta": true,
       "platforms_detected": [
@@ -180,12 +191,13 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     },
     "/products/cbkm45c12-classic-kimchi-balls": {
-      "status": "UNVERIFIED",
+      "status": "GAP",
       "page_type": "product",
       "has_cta": true,
       "platforms_detected": [
@@ -195,7 +207,8 @@
         "Pinterest",
         "TikTok"
       ],
-      "external_services": [
+      "external_services": [],
+      "external_services_forbidden": [
         "Cal.com"
       ]
     }

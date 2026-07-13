@@ -203,8 +203,13 @@ PLATFORMS = _build([
 
 GTM_TOOLS = _build([
     # ШАГ B (2026-07-13): слиты ДВЕ строки старого литерала — первая (hjid, hj()
-    # была молча затёрта дублем ключа и годами не работала
-    ("Hotjar", [r'hotjar\.com', r'hjid\s*[:=]', r'hj\s*\(', r'hjSetting']),
+    # была молча затёрта дублем ключа и годами не работала. При слиянии паттерн
+    # hj\s*\( ВЫБРОШЕН: с re.IGNORECASE он матчил минифицированные функции самого
+    # GTM-рантайма ('"+hJ().toString()', 'HJ(l);') → фейковый Hotjar на gymshark/
+    # allbirds/plurio (класс A2: сигнатура ловит рантайм контейнера).
+    # Tested: 2026-07-13 на живых контейнерах GTM-WQXVFFG/TH8KRSBJ/T2S24PV —
+    # hj\( давал 1-3 ложных хита, hotjar.com/hjid/hjSetting — ноль (Hotjar'а нет).
+    ("Hotjar", [r'hotjar\.com', r'hjid\s*[:=]', r'hjSetting']),
     ("Intercom", [r'intercom\.com', r'intercomSettings']),
     ("HubSpot", [r'hubspot\.com', r'hs-scripts', r'hbspt\.']),
     ("Drift", [r'drift\.com', r'driftt\.com']),
