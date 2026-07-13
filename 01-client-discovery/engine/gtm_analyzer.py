@@ -237,54 +237,15 @@ EXTRACTION_PATTERNS = {
     "custom_scripts": r'<script[^>]*>(.*?)</script>',
 }
 
-# Известные платформы и их признаки в JS
-PLATFORM_SIGNATURES = {
-    "Meta Pixel": [
-        r'fbq\s*\(', r'connect\.facebook\.net', r'fbevents\.js',
-        r'facebook\.com/tr', r'Meta Pixel',
-    ],
-    "Google Analytics GA4": [
-        r'G-[A-Z0-9]{6,}', r'gtag\s*\(', r'analytics\.google\.com',
-        r'google-analytics\.com/g/collect',
-    ],
-    "Google Ads": [
-        r'AW-\d{6,}', r'googleadservices\.com', r'conversion_id',
-        r'google\.com/pagead',
-    ],
-    "LinkedIn Insight": [
-        r'snap\.licdn\.com', r'linkedin\.com/li', r'_linkedin_partner_id',
-        r'px\.ads\.linkedin\.com',
-    ],
-    "TikTok Pixel": [
-        r'analytics\.tiktok\.com', r'ttq\.', r'TiktokAnalyticsObject',
-    ],
-    "Hotjar": [
-        r'hotjar\.com', r'hjid\s*[:=]', r'hj\s*\(',
-    ],
-    "Microsoft/Bing": [
-        r'bat\.bing\.com', r'uetq\s*=', r'bing\.com/action',
-    ],
-    "Intercom": [r'intercom\.com', r'intercomSettings'],
-    "HubSpot": [r'hubspot\.com', r'hs-scripts', r'hbspt\.'],
-    "Drift": [r'drift\.com', r'driftt\.com'],
-    "Zendesk": [r'zendesk\.com', r'zopim'],
-    "Hotjar": [r'hotjar\.com', r'hjSetting'],
-    "Clarity": [r'clarity\.ms', r'microsoft\.com/clarity'],
-    # 'analytics\.js' убран (A2): это имя файла рантайма самого gtm.js —
-    # матчился почти на каждом контейнере → фейковый Segment на 8 сайтах.
-    # Tested: 2026-07-08 on allbirds/bombas/fritz-kola/gymshark/tinytronics —
-    #         Segment исчез из gtm.json; синтетика cdn.segment.com детектится.
-    "Segment": [r'segment\.com', r'cdn\.segment'],
-    "Mixpanel": [r'mixpanel\.com', r'mixpanel\.init'],
-    "Amplitude": [r'amplitude\.com', r'amplitude\.init'],
-    "Klaviyo": [r'klaviyo\.com'],
-    "Mailchimp": [r'mailchimp\.com', r'chimpstatic\.com'],
-    "Optimizely": [r'optimizely\.com'],
-    "VWO": [r'vwo\.com', r'visualwebsiteoptimizer'],
-    "Stripe": [r'stripe\.com', r'stripe\.js'],
-    "Crisp": [r'crisp\.chat'],
-    "Freshchat": [r'freshchat\.com', r'freshworks\.com'],
-}
+# Известные платформы и их признаки в JS.
+# С 2026-07-13 источник — единый реестр platforms.py (шаг A, эквивалентность
+# запинена test_platforms.py). ВАЖНО: в старом литерале ключ "Hotjar" был
+# объявлен ДВАЖДЫ и вторая запись молча затирала первую — реестр воспроизводит
+# эффективное значение, а его конструктор такие дубли отныне роняет исключением.
+# Комментарии-кейсы (A2 Segment, Tested: ...) — в реестре.
+import platforms as _platforms
+
+PLATFORM_SIGNATURES = _platforms.as_gtm_platform_signatures()
 
 # Признаки конверсионных событий в JS
 CONVERSION_EVENT_PATTERNS = {

@@ -133,99 +133,16 @@ def discover_buttons(page, debug: bool = False) -> list:
 
 
 # ─── Pixel rules ──────────────────────────────────────────────────────────────
+# С 2026-07-13 источник знаний — ЕДИНЫЙ реестр platforms.py (шаг A рефакторинга,
+# TESTBED-PLAN.md). Старые имена — производные view'ы; содержимое и порядок
+# ключей эквивалентны прежним литералам (пины: test_platforms.py против
+# замороженных копий). Комментарии-кейсы (Tested: ...) переехали в реестр.
+import platforms as _platforms
 
-PIXEL_RULES = {
-    "Meta": {
-        "domains": ["facebook.com/tr", "connect.facebook.net/en_US/fbevents",
-                    "connect.facebook.net/signals/config"],
-        "event_param": "ev",
-        "id_param": "id",                              # facebook.com/tr?id=<id>
-        "id_path_re": r"/signals/config/(\d{6,})",     # SDK config — летит даже в headless
-    },
-    "Google Analytics": {
-        # 'google-analytics.com/g/collect' substring-ловит и www., и region1. хосты —
-        # реальные GA4 endpoints; старые записи оставлены для legacy UA / analytics.google.com
-        # Tested: 2026-07-07 on tinytronics.nl — GA4 бил в www.google-analytics.com/g/collect,
-        #         старые паттерны его не матчили (ломался на '/g/')
-        "domains": ["analytics.google.com/g/collect", "google-analytics.com/collect",
-                    "google-analytics.com/g/collect"],
-        "event_param": "en",
-        "id_param": "tid",                             # ?tid=G-XXXX
-    },
-    "Google Ads": {
-        # ccm/collect и viewthroughconversion — presence-пинги современного gtag:
-        # регистрируют платформу/ID, но page_view и т.п. глушатся NOISE_EVENTS ниже
-        "domains": ["googleadservices.com/pagead/conversion",
-                    "google.com/pagead/1p-conversion",
-                    "google.com/ccm/collect",
-                    "doubleclick.net/ccm/s/collect",
-                    "doubleclick.net/pagead/viewthroughconversion",
-                    "pagead/1p-user-list"],
-        "event_param": "en",                           # ccm/collect несёт en=page_view
-        "id_path_re": r"/(?:conversion|viewthroughconversion)/(\d{6,})",
-    },
-    "Bing/Microsoft": {
-        "domains": ["bat.bing.com/action", "bat.bing.com/p/action"],
-        "event_param": "ea",
-        "id_param": "ti",                              # ?ti=<id>
-    },
-    "LinkedIn": {
-        "domains": ["px.ads.linkedin.com", "snap.licdn.com"],
-        "event_param": "conversionId",
-        "id_param": "pid",                             # ?pid=<id>
-    },
-    "TikTok": {
-        # i18n/pixel = загрузка SDK (events.js/config) — presence-сигнал, как fbevents у Meta.
-        # Подстроки без хоста кроют региональные хосты (analytics-sg.tiktok.com и т.п.).
-        # Кейс: bobbies.com — TikTok через GTM грузил i18n/pixel/events.js, старое правило
-        # (только analytics.tiktok.com/api/v2/pixel) его не видело → ложный «TikTok ❌».
-        "domains": ["tiktok.com/api/v2/pixel", "tiktok.com/i18n/pixel/"],
-        "event_param": "event",
-        "id_param": "sdkid",                           # events.js?sdkid=<PIXEL_ID>&lib=ttq
-    },
-    "Snapchat": {
-        # До 2026-07-08 правила НЕ БЫЛО вообще — «Snapchat ❌» не мог стать ✅ в принципе
-        "domains": ["tr.snapchat.com", "sc-static.net/scevent"],
-        "event_param": None,
-    },
-}
-
-CONVERSION_EVENTS_TIER1 = {
-    "Meta": ["Purchase", "Lead", "InitiateCheckout", "AddToCart",
-             "CompleteRegistration", "Schedule", "Contact", "AddPaymentInfo"],
-    "Google Analytics": ["purchase", "begin_checkout", "add_to_cart",
-                         "generate_lead", "form_submit", "conversion"],
-    "Google Ads": ["conversion"],
-    "Bing/Microsoft": ["purchase", "lead", "conversion"],
-    "TikTok": ["Purchase", "AddToCart", "InitiateCheckout", "PlaceAnOrder"],
-    "Snapchat": ["PURCHASE", "START_CHECKOUT", "ADD_CART", "SIGN_UP", "LEAD"],
-}
-
-CONVERSION_EVENTS_TIER2 = {
-    "Meta": ["ViewContent", "Search", "Subscribe"],
-    "Google Analytics": ["view_item", "view_item_list", "search",
-                         "select_item", "view_promotion"],
-    "Google Ads": [],
-    "Bing/Microsoft": [],
-    "TikTok": ["ViewContent"],
-}
-
-NOISE_EVENTS = {
-    "Meta": ["fired"],   # PageView НЕ noise: показываем «Meta: PageView» (пиксель активен, шлёт baseline)
-    "Google Analytics": [
-        "gtm.init", "gtm.init_consent", "gtm.js", "fired",
-        "page_view", "user_engagement", "session_start", "first_visit",
-        "scroll", "click", "view_item_list",
-        "form_start", "form_close",
-    ],
-    # page_view/gtag.config с ccm/collect — presence-пинг, НЕ конверсия: без этого
-    # ccm-хиты ложно «озеленяли» бы GAP-страницы
-    "Google Ads": ["page_view", "gtag.config"],
-    "Bing/Microsoft": ["fired"],
-    "TikTok": ["fired"],
-    "LinkedIn": ["fired"],
-    "Snapchat": ["fired"],
-}
+PIXEL_RULES = _platforms.as_pixel_rules()
+CONVERSION_EVENTS_TIER1 = _platforms.as_conversion_tier1()
+CONVERSION_EVENTS_TIER2 = _platforms.as_conversion_tier2()
+NOISE_EVENTS = _platforms.as_noise_events()
 
 # ─── External services ────────────────────────────────────────────────────────
 

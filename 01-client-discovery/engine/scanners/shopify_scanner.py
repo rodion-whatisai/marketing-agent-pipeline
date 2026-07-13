@@ -12,30 +12,12 @@ from .base_scanner import (
 )
 from log import log_debug
 
-SHOPIFY_PIXEL_PLATFORMS = {
-    "550306007":  "Meta",
-    "2179629271": "Google Analytics",
-    "96403671":   "TikTok",
-    "136216791":  "Pinterest",
-}
+# С 2026-07-13 источник — единый реестр platforms.py (шаг A, эквивалентность
+# запинена test_platforms.py). Комментарии-кейсы (баг A1, Tested: ...) — в реестре.
+import platforms as _platforms
 
-# Маркеры ВЫЗОВОВ per-платформа — НЕ голые слова. Голые подстроки ("snapchat",
-# "bing") били в UA-регэкспы рантайма Shopify web-pixels-manager
-# (/(chromium|instagram|snapchat)/i, /bingbot/i), который грузится на КАЖДОМ
-# магазине → фейковые «Snapchat ✅»/«Bing ✅» в клиентском отчёте (баг A1;
-# allbirds: 0 запросов к tr.snapchat.com/bat.bing из ~1200, а в отчёте обе).
-# Все маркеры lowercase — тело скрипта приводится к lower() перед матчингом.
-# Tested: 2026-07-08 on allbirds.com — Snapchat/Bing исчезли (0 network-запросов);
-#         pipsnacks.com — Pinterest жив через маркеры (code-only → warning в отчёте).
-SHOPIFY_PIXEL_MARKERS = {
-    "Meta":             ("fbevents.js", "fbq(", "connect.facebook.net", "facebook.com/tr"),
-    "Google Analytics": ("googletagmanager.com", "google-analytics.com", "gtag("),
-    "TikTok":           ("ttq.load", "analytics.tiktok.com"),
-    "Pinterest":        ("pintrk", "ct.pinterest.com", "s.pinimg.com"),
-    "Bing/Microsoft":   ("bat.bing.com", "uetq"),
-    "LinkedIn":         ("lintrk", "snap.licdn.com", "px.ads.linkedin.com"),
-    "Snapchat":         ("snaptr(", "tr.snapchat.com", "sc-static.net"),
-}
+SHOPIFY_PIXEL_PLATFORMS = _platforms.as_shopify_pixel_platforms()
+SHOPIFY_PIXEL_MARKERS = _platforms.as_shopify_pixel_markers()
 
 _SHOPIFY_CTA_JS = """
 () => {
