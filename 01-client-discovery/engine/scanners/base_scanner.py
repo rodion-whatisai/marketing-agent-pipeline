@@ -240,6 +240,72 @@ def get_event_from_url(url: str, platform: str) -> str:
     return "fired"
 
 
+def _event_from_body(body: str, ep: str) -> str:
+    """Значение поля `ep` из POST-тела запроса; '' если не найдено.
+
+    Три формата тел, подтверждённые на 59 фикстурах scans/_fixtures/post_bodies
+    (BUGS-2026-07-13, Проблема 1):
+      JSON        (TikTok):  {"event":"AddToCart", ...}
+      multipart   (Meta):    ...; name="ev"<CRLF><CRLF>AddToCart<CRLF>--boundary
+      urlencoded  (Meta):    id=..&ev=AddToCart&..
+    Границы ключа (кавычки JSON / name="ev" / parse_qs), не голая подстрока —
+    не цепляет event_id, page_trigger, поля se/ss/pmd с JSON-значениями. Regex,
+    а не json.loads всего документа — устойчиво к обрезке тела."""
+    stripped = body.lstrip()
+    # 1) JSON (TikTok; Meta CAPI на будущее) — только точный ключ, не event_id
+    if stripped[:1] in ("{", "["):
+        m = re.search(r'"' + re.escape(ep) + r'"\s*:\s*"([^"]*)"', body)
+        return m.group(1) if m else ""
+    # 2) multipart/form-data (Meta sendBeacon). [\r\n]+ покрывает \n, \r\n и
+    #    реальный \r\r\n фикстур; якорь name="ev" не цепляет se/ss/pmd.
+    if stripped.startswith("--") or "Content-Disposition" in body[:200]:
+        m = re.search(r'name="' + re.escape(ep) + r'"[\r\n]+([^\r\n]+)', body)
+        if m:
+            val = m.group(1).strip()
+            if val and not val.startswith("--"):   # пустое ev → следующий boundary, не имя
+                return val
+        return ""
+    # 3) application/x-www-form-urlencoded (Meta formPOST)
+    try:
+        vals = parse_qs(body).get(ep)
+        if vals and vals[0]:
+            return vals[0]
+    except Exception:
+        pass
+    return ""
+
+
+def get_event_from_request(request, platform: str) -> str:
+    """Имя события с аддитивным дочитыванием POST-тела (BUGS-2026-07-13, Проблема 1).
+
+    Meta шлёт содержательные события multipart/urlencoded POST'ом (name="ev"),
+    TikTok — JSON-телом ("event":..). get_event_from_url читает только query →
+    такие события деградировали в 'fired' (системный ложный GAP).
+
+    ПИН: если query дал имя (GET-пиксели GA4/Bing/Pinterest; Meta/TikTok, когда
+    событие всё же в URL) — возвращаем его, тело НЕ читаем. Тело трогаем ТОЛЬКО
+    когда query дал 'fired'."""
+    event = get_event_from_url(request.url, platform)
+    if event != "fired":
+        return event
+    ep = PIXEL_RULES.get(platform, {}).get("event_param")
+    if not ep:                     # Snapchat (event_param=None) — имя в теле не ищем
+        return "fired"
+    try:
+        body = request.post_data
+    except Exception:
+        log_debug(f"get_event_from_request: post_data недоступен для {request.url}")
+        return "fired"
+    if not body:
+        return "fired"
+    name = _event_from_body(body, ep)
+    if name:
+        log_fire(f"get_event_from_request: {platform} событие из POST-тела -> '{name}'")
+        return name
+    log_fire(f"get_event_from_request: {platform} тело без имени события -> 'fired'")
+    return "fired"
+
+
 def get_pixel_id_from_url(url: str, platform: str) -> str:
     """Достаёт ID пикселя/счётчика из tracking-URL. '' если нет.
     Path-regex (Meta SDK config, Google Ads) ловит ID даже когда конверсионное
@@ -465,7 +531,8 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
             for domain, pattern in zip(rules["domains"], _PIXEL_DOMAIN_PATTERNS[platform]):
                 if pattern.search(req_url_lower):
                     log_fire(f"on_request: {platform} pixel request matched domain '{domain}' url={req_url}")
-                    event = get_event_from_url(req_url, platform)
+                    # POST-тело дочитывается только когда query пуст (BUGS-2026-07-13, Проблема 1)
+                    event = get_event_from_request(request, platform)
                     pixel_events.setdefault(platform, [])
                     entry = {
                         "event": event,

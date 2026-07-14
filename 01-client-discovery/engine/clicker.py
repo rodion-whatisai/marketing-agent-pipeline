@@ -87,7 +87,7 @@ DL_CONVERSION_MAP = {
 def make_pixel_listener(holder: dict, debug: bool = False):
     """on_request handler, пишущий в holder['buf']. Буфер свопается на каждую кнопку
     (без detach/attach) — так события привязываются к конкретному клику."""
-    from scanners.base_scanner import (PIXEL_RULES, get_event_from_url, match_pixel_platform,
+    from scanners.base_scanner import (PIXEL_RULES, get_event_from_request, match_pixel_platform,
                                         is_conversion_event, is_partial_event, is_noise_event)
 
     def on_request(request):
@@ -102,7 +102,9 @@ def make_pixel_listener(holder: dict, debug: bool = False):
         if platform is None:
             return
         rules = PIXEL_RULES[platform]
-        event = get_event_from_url(req_url, platform)
+        # POST-тело дочитывается только когда query пуст (BUGS-2026-07-13, Проблема 1):
+        # на artbouquet Meta:AddToCart летит POST'ом именно по клику
+        event = get_event_from_request(request, platform)
         # Какой именно пиксель стрельнул: id из ?id=<pixel> (для дубль-пикселей критично)
         pid = None
         id_param = rules.get("id_param")
