@@ -1,0 +1,461 @@
+{
+  "base_url": "https://photographersmontreal.ca",
+  "status": "ok",
+  "scan_url_base": "https://photographersmontreal.ca",
+  "scan_language": "en",
+  "languages_available": {},
+  "language_switch_source": null,
+  "external_en": null,
+  "sitemap_source": "https://photographersmontreal.ca/sitemap_index.xml",
+  "platform": {
+    "platform": "wordpress",
+    "confidence": "high",
+    "score": 19,
+    "signals": [
+      "wp-content",
+      "wp-includes",
+      "wp-json",
+      "wordpress",
+      "woocommerce"
+    ],
+    "all_scores": {
+      "wordpress": 19
+    },
+    "profile": {
+      "description": "WordPress CMS",
+      "url_patterns": {
+        "/shop/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/product/": {
+          "type": "product",
+          "priority": 2
+        },
+        "/cart/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/checkout/": {
+          "type": "checkout",
+          "priority": 1
+        },
+        "/blog/": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/?p=": {
+          "type": "blog_content",
+          "priority": 4
+        },
+        "/wp-admin": {
+          "type": "technical",
+          "priority": 5
+        }
+      },
+      "expected_pixels": [
+        "Meta",
+        "Google Analytics",
+        "Google Ads"
+      ],
+      "expected_events": {
+        "product": [
+          "ViewContent",
+          "view_item"
+        ],
+        "checkout": [
+          "Purchase",
+          "purchase"
+        ],
+        "lead_form": [
+          "Lead",
+          "generate_lead"
+        ]
+      },
+      "notes": "Often uses GTM. Check for WooCommerce events."
+    }
+  },
+  "site_language": {
+    "lang": "en",
+    "is_english": true,
+    "source": "html lang attr"
+  },
+  "lang_removed": 18,
+  "lang_prefixes": [
+    "fr"
+  ],
+  "total_found": 23,
+  "discovered_patterns": 0,
+  "social": {
+    "facebook": "https://www.facebook.com/WeddingPhotoVideoMontreal/",
+    "instagram": "https://www.instagram.com/artephotomontreal/",
+    "linkedin": "https://www.linkedin.com/in/arte-studio-photography-videography-5ab1621a6/",
+    "youtube": "https://www.youtube.com/channel/UCHerAp2-iu2b3kLUU4Alpgg/",
+    "facebook_accounts": {
+      "target": "https://photographersmontreal.ca",
+      "brand_name": "photographersmontreal",
+      "site_country": "CA",
+      "site_country_source": "tld (.ca)",
+      "accounts": [
+        {
+          "handle": "weddingphotovideomontreal",
+          "display_name": "Arte Studio Photo + Video Montreal",
+          "url": "https://www.facebook.com/weddingphotovideomontreal",
+          "page_id": "143282565722637",
+          "alive": true,
+          "total_ever": 0,
+          "active": null,
+          "inactive": null,
+          "active_ads_count": 0,
+          "partnership_ads": false,
+          "partnership_count": 0,
+          "ad_texts": [],
+          "saved_images": [],
+          "structured_ads": [],
+          "ads_library_mode": "unknown",
+          "raw_keyword_total": 0,
+          "extraction_method": "unknown",
+          "ads_search_term": "Arte Studio Photo + Video Montreal",
+          "ads_library": {
+            "ALL": {
+              "active_only": "https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&view_all_page_id=143282565722637&search_type=page&media_type=all",
+              "all": "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&view_all_page_id=143282565722637&search_type=page&media_type=all",
+              "inactive_only": "https://www.facebook.com/ads/library/?active_status=inactive&ad_type=all&country=ALL&view_all_page_id=143282565722637&search_type=page&media_type=all"
+            }
+          },
+          "discovery_method": "homepage_link"
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "url": "https://www.photographersmontreal.ca/contact",
+      "path": "/contact",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/contact(?:/|$)",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/quote",
+      "path": "/quote",
+      "type": "quote",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Quote",
+      "expect_events": [
+        "Lead",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/home-thats-amore",
+      "path": "/home-thats-amore",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/oshin-a-creative-multipurpose-wordpress-theme",
+      "path": "/oshin-a-creative-multipurpose-wordpress-theme",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/photos",
+      "path": "/photos",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/portfolio/photo-booth",
+      "path": "/portfolio/photo-booth",
+      "type": "search_results",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/portfolios?(?:/|$)",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/portfolio/weddings",
+      "path": "/portfolio/weddings",
+      "type": "search_results",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/portfolios?(?:/|$)",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/portfolio_categories/services",
+      "path": "/portfolio_categories/services",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/portfolios",
+      "path": "/portfolios",
+      "type": "search_results",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "/portfolios?(?:/|$)",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/services-2",
+      "path": "/services-2",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/useful-links",
+      "path": "/useful-links",
+      "type": "use_case",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Use Case",
+      "expect_events": [
+        "ViewContent",
+        "Lead"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/about-us",
+      "path": "/about-us",
+      "type": "about",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/about-us",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/about-us-2",
+      "path": "/about-us-2",
+      "type": "about",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/about-us",
+      "description": "About",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/videos",
+      "path": "/videos",
+      "type": "blog_content",
+      "priority": 3,
+      "method": "regex",
+      "matched_pattern": "/videos(?:/|$)",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/category/uncategorized",
+      "path": "/category/uncategorized",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/corporate-photos",
+      "path": "/corporate-photos",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/corporate-videos",
+      "path": "/corporate-videos",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/latest-news",
+      "path": "/latest-news",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/tag/12-demos",
+      "path": "/tag/12-demos",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/tag/modern",
+      "path": "/tag/modern",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/tag/page-builder",
+      "path": "/tag/page-builder",
+      "type": "blog_content",
+      "priority": 4,
+      "method": "patterns_json",
+      "description": "Blog Content",
+      "expect_events": []
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/locations.kml",
+      "path": "/locations.kml",
+      "type": "technical",
+      "priority": 5,
+      "method": "patterns_json",
+      "description": "Technical",
+      "expect_events": []
+    }
+  ],
+  "to_scan": [
+    {
+      "url": "https://www.photographersmontreal.ca/contact",
+      "path": "/contact",
+      "type": "lead_form",
+      "priority": 1,
+      "method": "regex",
+      "matched_pattern": "/contact(?:/|$)",
+      "description": "Lead Form",
+      "expect_events": [
+        "Lead",
+        "Contact",
+        "CompleteRegistration"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/quote",
+      "path": "/quote",
+      "type": "quote",
+      "priority": 1,
+      "method": "patterns_json",
+      "description": "Quote",
+      "expect_events": [
+        "Lead",
+        "InitiateCheckout"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca",
+      "path": "/",
+      "type": "homepage",
+      "priority": 2,
+      "method": "regex",
+      "matched_pattern": "^/?$",
+      "description": "Homepage",
+      "expect_events": [
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/home-thats-amore",
+      "path": "/home-thats-amore",
+      "type": "product",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Product",
+      "expect_events": [
+        "ViewContent",
+        "AddToCart"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/photos",
+      "path": "/photos",
+      "type": "search_results",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Search Results",
+      "expect_events": [
+        "Search",
+        "ViewContent"
+      ]
+    },
+    {
+      "url": "https://www.photographersmontreal.ca/useful-links",
+      "path": "/useful-links",
+      "type": "use_case",
+      "priority": 2,
+      "method": "patterns_json",
+      "description": "Use Case",
+      "expect_events": [
+        "ViewContent",
+        "Lead"
+      ]
+    }
+  ],
+  "_testbed_note": "to_scan усечён 12->6 при заморозке 2026-07-13 (правило PROCESS: главная + все priority-1 + по одной страницы каждого типа). Полный список в classified. ТРИАЖ: /oshin-a-creative-multipurpose-wordpress-theme — демо WP-темы как product, кандидат в разбор классификатора."
+}
