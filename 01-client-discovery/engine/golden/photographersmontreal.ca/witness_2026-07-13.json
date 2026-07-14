@@ -1,0 +1,222 @@
+{
+ "schema_version": 1,
+ "domain": "photographersmontreal.ca",
+ "mode": "pages",
+ "date": "2026-07-13",
+ "witness_commit": "2536d66",
+ "headless": true,
+ "consent": {
+  "clicked": null,
+  "on_page": "/contact"
+ },
+ "pages": [
+  {
+   "path": "/contact",
+   "requested_url": "https://www.photographersmontreal.ca/contact",
+   "http_status": 200,
+   "final_url": "https://www.photographersmontreal.ca/contact/",
+   "redirected": false,
+   "pixel_requests": [],
+   "clickables": [
+    "GET A QUOTE",
+    "EN",
+    "FR",
+    "iWEBAPP AGENCY Web Design Company",
+    "Home",
+    "Photography",
+    "Videography",
+    "Photobooth",
+    "Contact",
+    "QUOTE REQUEST",
+    "iWEBAPP Agency Inc. Toronto Web Design Company & Online Marketing Agency",
+    "iWEBAPP Agency Inc. Ottawa Web Design Company & Online Internet Marketing Agency",
+    "Website Design Company Canada iWEBAPP Online Marketing Agency Ontario",
+    "Website Design Company Alberta iWEBAPP Online Marketing Agency Vancouver"
+   ],
+   "third_party_hosts": [
+    "c.statcounter.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.statcounter.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/photographersmontreal.ca/01_contact.png"
+  },
+  {
+   "path": "/quote",
+   "requested_url": "https://www.photographersmontreal.ca/quote",
+   "http_status": 200,
+   "final_url": "https://www.photographersmontreal.ca/quote/",
+   "redirected": false,
+   "pixel_requests": [],
+   "clickables": [
+    "GET A QUOTE",
+    "EN",
+    "FR",
+    "iWEBAPP AGENCY Web Design Company",
+    "Home",
+    "Photography",
+    "Videography",
+    "Photobooth",
+    "Contact",
+    "Send",
+    "iWEBAPP Agency Inc. Toronto Web Design Company & Online Marketing Agency",
+    "iWEBAPP Agency Inc. Ottawa Web Design Company & Online Internet Marketing Agency",
+    "Website Design Company Canada iWEBAPP Online Marketing Agency Ontario",
+    "Website Design Company Alberta iWEBAPP Online Marketing Agency Vancouver"
+   ],
+   "third_party_hosts": [
+    "c.statcounter.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.statcounter.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/photographersmontreal.ca/02_quote.png"
+  },
+  {
+   "path": "/",
+   "requested_url": "https://www.photographersmontreal.ca",
+   "http_status": 200,
+   "final_url": "https://www.photographersmontreal.ca/",
+   "redirected": false,
+   "pixel_requests": [],
+   "clickables": [
+    "GET A QUOTE",
+    "EN",
+    "FR",
+    "iWEBAPP AGENCY Web Design Company",
+    "Home",
+    "Photography",
+    "Videography",
+    "Photobooth",
+    "Contact",
+    "WEDDING",
+    "CORPORATE",
+    "icon-instagram2",
+    "icon-facebook",
+    "icon-vimeo2",
+    "icon-social_youtube",
+    "icon-social_linkedin",
+    "icon-social_blogger_square",
+    "MORE DETAILS",
+    "MORE ABOUT WEDDINGS",
+    "SEE PHOTO GALLERY",
+    "SEE VIDEO GALLERY",
+    "(555) 555-0100",
+    "redacted@example.com",
+    "GET QUOTE"
+   ],
+   "third_party_hosts": [
+    "c.statcounter.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.statcounter.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/photographersmontreal.ca/03_home.png"
+  },
+  {
+   "path": "/home-thats-amore",
+   "requested_url": "https://www.photographersmontreal.ca/home-thats-amore",
+   "http_status": 200,
+   "final_url": "https://www.photographersmontreal.ca/home-thats-amore/",
+   "redirected": false,
+   "pixel_requests": [],
+   "clickables": [
+    "GET A QUOTE",
+    "EN",
+    "FR",
+    "iWEBAPP AGENCY Web Design Company",
+    "Home",
+    "Photography",
+    "Videography",
+    "Photobooth",
+    "Contact",
+    "WEDDING",
+    "CORPORATE",
+    "icon-instagram2",
+    "icon-facebook",
+    "icon-vimeo2",
+    "icon-social_youtube",
+    "icon-social_linkedin",
+    "MORE DETAILS",
+    "MORE ABOUT WEDDINGS",
+    "SEE PHOTO GALLERY",
+    "SEE VIDEO GALLERY",
+    "(555) 555-0100",
+    "redacted@example.com",
+    "GET QUOTE"
+   ],
+   "third_party_hosts": [
+    "c.statcounter.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.statcounter.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/photographersmontreal.ca/04_home-thats-amore.png"
+  },
+  {
+   "path": "/photos",
+   "requested_url": "https://www.photographersmontreal.ca/photos",
+   "http_status": 200,
+   "final_url": "https://www.photographersmontreal.ca/photos/",
+   "redirected": false,
+   "pixel_requests": [],
+   "clickables": [
+    "GET A QUOTE",
+    "EN",
+    "FR",
+    "iWEBAPP AGENCY Web Design Company",
+    "Home",
+    "Photography",
+    "Videography",
+    "Photobooth",
+    "Contact",
+    "iWEBAPP Agency Inc. Toronto Web Design Company & Online Marketing Agency",
+    "iWEBAPP Agency Inc. Ottawa Web Design Company & Online Internet Marketing Agency",
+    "Website Design Company Canada iWEBAPP Online Marketing Agency Ontario",
+    "Website Design Company Alberta iWEBAPP Online Marketing Agency Vancouver"
+   ],
+   "third_party_hosts": [
+    "c.statcounter.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.statcounter.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/photographersmontreal.ca/05_photos.png"
+  },
+  {
+   "path": "/useful-links",
+   "requested_url": "https://www.photographersmontreal.ca/useful-links",
+   "http_status": 200,
+   "final_url": "https://www.photographersmontreal.ca/useful-links/",
+   "redirected": false,
+   "pixel_requests": [],
+   "clickables": [
+    "GET A QUOTE",
+    "EN",
+    "FR",
+    "iWEBAPP AGENCY Web Design Company",
+    "Home",
+    "Photography",
+    "Videography",
+    "Photobooth",
+    "Contact",
+    "Thats Amore Productions",
+    "Rose Gold Celebrations",
+    "Mariages à Bras Ouverts",
+    "Le Rouge",
+    "Le Loft la Quenouille",
+    "iWEBAPP Agency Inc. Toronto Web Design Company & Online Marketing Agency",
+    "iWEBAPP Agency Inc. Ottawa Web Design Company & Online Internet Marketing Agency",
+    "Website Design Company Canada iWEBAPP Online Marketing Agency Ontario",
+    "Website Design Company Alberta iWEBAPP Online Marketing Agency Vancouver"
+   ],
+   "third_party_hosts": [
+    "c.statcounter.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "www.statcounter.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-13/photographersmontreal.ca/06_useful-links.png"
+  }
+ ]
+}

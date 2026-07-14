@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "domain": "photographersmontreal.ca",
+  "verified_by": "rodion",
+  "verified_date": "2026-07-13",
+  "verified_against": "учение дня 8: гейт в чате + его проверка («ничего вообще нет»)",
+  "verified_via": {
+    "witness": "golden/photographersmontreal.ca/witness_2026-07-13.json",
+    "rodion_gate": "чат 2026-07-13: подтвердил «ни Facebook, ни Google, ни GTM — ничего нет; кнопки есть»"
+  },
+  "scanner_commit": "09c70c6",
+  "notes": "УЧЕНИЕ ДНЯ 8 — первый сайт через полную петлю PROCESS. Полный ноль трекинга при живых CTA (GET A QUOTE / QUOTE REQUEST / Send) — учебник tier-1 лида TNC. Пины отсутствия всех 5 платформ (Rodion проверил). Триаж-находка: /home-thats-amore и /oshin-* — демо-страницы WP-темы классифицированы как product (в разбор классификатора, см. _testbed_note step1).",
+  "site": {
+    "gtm_platforms": [],
+    "counters": {
+      "gaps": 0,
+      "oks": 0,
+      "no_ctas": 0,
+      "no_tracking": 6,
+      "unverified": 0
+    },
+    "platform": "wordpress"
+  },
+  "pages": {
+    "/": {
+      "status": "NO_TRACKING",
+      "page_type": "homepage",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "Google Analytics",
+        "Google Ads"
+      ]
+    },
+    "/contact": {
+      "status": "NO_TRACKING",
+      "page_type": "lead_form",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "Google Analytics",
+        "Google Ads"
+      ]
+    },
+    "/quote": {
+      "status": "NO_TRACKING",
+      "page_type": "quote",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "Google Analytics",
+        "Google Ads"
+      ]
+    },
+    "/home-thats-amore": {
+      "status": "NO_TRACKING",
+      "page_type": "product",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "Google Analytics",
+        "Google Ads"
+      ]
+    },
+    "/photos": {
+      "status": "NO_TRACKING",
+      "page_type": "search_results",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "Google Analytics",
+        "Google Ads"
+      ]
+    },
+    "/useful-links": {
+      "status": "NO_TRACKING",
+      "page_type": "use_case",
+      "has_cta": true,
+      "platforms_detected": [],
+      "external_services": [],
+      "platforms_forbidden": [
+        "Meta",
+        "TikTok",
+        "Pinterest",
+        "Google Analytics",
+        "Google Ads"
+      ]
+    }
+  }
+}
