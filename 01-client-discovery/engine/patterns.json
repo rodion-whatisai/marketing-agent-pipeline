@@ -170,7 +170,8 @@
       "https://planner5d.com/sv/contacts",
       "https://planner5d.com/ru/contacts",
       "https://www.plurio.ai/contacts",
-      "/contacts"
+      "/contacts",
+      "https://client-a.example/contacts"
     ],
     "added": "2026-04-08",
     "source": "manual"

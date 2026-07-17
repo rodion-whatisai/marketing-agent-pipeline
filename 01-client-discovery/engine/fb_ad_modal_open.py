@@ -29,6 +29,66 @@ COOKIE_DISMISS_SELECTORS = [
     '[data-cookiebanner="accept_button"]',
 ]
 
+# Клик по кнопке 'See ad details' именно той карточки, где нужный Library ID.
+# FB рендерит эту кнопку на каждой карточке листинга — кликать `.first` нельзя.
+_CLICK_CARD_BUTTON_JS = """
+(libId) => {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node, anchor = null;
+  while ((node = walker.nextNode())) {
+    if (node.textContent.includes('Library ID: ' + libId)) { anchor = node.parentElement; break; }
+  }
+  if (!anchor) return 'no_anchor';
+  let el = anchor;
+  for (let up = 0; up < 15 && el; up++, el = el.parentElement) {
+    const btns = [...el.querySelectorAll('div[role="button"], button')]
+      .filter(b => b.textContent.trim() === 'See ad details');
+    if (btns.length >= 1) { btns[0].click(); return 'clicked'; }
+  }
+  return 'no_button';
+}
+"""
+
+
+def _ensure_graphql_capture(page):
+    """Вешает на page перехват /api/graphql/ ответов (один раз на page).
+    Ответы копятся в page._ss_graphql_responses (list)."""
+    if getattr(page, "_ss_graphql_attached", False):
+        return
+    page._ss_graphql_responses = []
+    page.on("response",
+            lambda r: page._ss_graphql_responses.append(r)
+            if "/api/graphql" in r.url else None)
+    page._ss_graphql_attached = True
+    log_debug("_ensure_graphql_capture: слушатель /api/graphql повешен")
+
+
+def _wait_for_ad_details_payload(page, timeout_s: int = 12):
+    """Ждёт GraphQL-ответ с ad_details (стреляет при открытии модалки).
+    Возвращает dict payload или None. Источник: network_request."""
+    import json as _json
+    for _ in range(max(1, timeout_s // 2)):
+        page.wait_for_timeout(2000)
+        for r in list(getattr(page, "_ss_graphql_responses", [])):
+            try:
+                body = r.text()
+            except Exception:
+                continue
+            if '"ad_details"' not in body:
+                continue
+            for line in body.splitlines():
+                if '"ad_details"' in line:
+                    try:
+                        payload = _json.loads(line)
+                        log_debug("_wait_for_ad_details_payload: ad_details захвачен "
+                                  f"({len(line)} bytes)")
+                        return payload
+                    except _json.JSONDecodeError:
+                        log_debug("_wait_for_ad_details_payload: строка с ad_details не парсится")
+                    break
+    log_debug("_wait_for_ad_details_payload: ad_details не прилетел")
+    return None
+
 
 def _dismiss_cookie_banner(page, verbose: bool = False) -> bool:
     """Пытается дисмиссить cookie banner. Возвращает True если что-то нажал."""
@@ -81,7 +141,10 @@ def open_ad_modal(library_id: str, page=None,
     url = f"https://www.facebook.com/ads/library/?id={library_id}"
     if verbose: log_step(f"[{library_id}] open {url}", emoji="📂")
 
+    _ensure_graphql_capture(page)
+
     try:
+        page._ss_graphql_responses.clear()
         log_debug(f"open_ad_modal: page.goto {url}")
         page.goto(url, wait_until="domcontentloaded", timeout=25000)
         page.wait_for_timeout(3000)
@@ -89,14 +152,25 @@ def open_ad_modal(library_id: str, page=None,
 
         _dismiss_cookie_banner(page, verbose=verbose)
 
-        # Click 'See ad details' — это <div role="button">, не <button>
-        # Используем role-based locator (ловит и <button>, и [role="button"])
+        # Click 'See ad details' НУЖНОЙ карточки. С ~конца июня 2026 FB рендерит
+        # эту кнопку на каждой карточке листинга (25+ на странице) — клик по
+        # `.first` уходил в чужую карточку и модалка не открывалась.
+        # Tested: 2026-07-17 on client-a.example — 30/30 модалок открылись per-card кликом.
         log_debug("open_ad_modal: жду селектор 'See ad details'")
         page.wait_for_selector('text=See ad details', timeout=12000)
-        btn = page.get_by_role("button", name="See ad details").first
-        btn.scroll_into_view_if_needed(timeout=5000)
-        btn.click(force=True, timeout=8000)
-        if verbose: log_step(f"clicked 'See ad details'", emoji="🖱")
+        click_res = page.evaluate(_CLICK_CARD_BUTTON_JS, library_id)
+        if click_res != "clicked":
+            # карточка может быть ниже вьюпорта (виртуализация листинга) — доскролл
+            log_debug(f"open_ad_modal: карточка {library_id} не в DOM ({click_res}), скроллю")
+            for _ in range(8):
+                page.mouse.wheel(0, 2500)
+                page.wait_for_timeout(1200)
+                click_res = page.evaluate(_CLICK_CARD_BUTTON_JS, library_id)
+                if click_res == "clicked":
+                    break
+        if click_res != "clicked":
+            raise RuntimeError(f"'See ad details' для карточки {library_id} не найдена ({click_res})")
+        if verbose: log_step(f"clicked 'See ad details' (карточка {library_id})", emoji="🖱")
 
         # Ждём heading 'Transparency by location' — модалка отрисована
         log_debug("open_ad_modal: жду heading 'Transparency by location'")
@@ -110,6 +184,10 @@ def open_ad_modal(library_id: str, page=None,
         page.wait_for_timeout(800)
 
         result = {"success": True, "library_id": library_id, "url": url}
+
+        # GraphQL ad_details — полные цифры прозрачности (EU/UK reach, полная
+        # демография, payer+beneficiary, page_info). Источник: network_request.
+        result["graphql_ad_details"] = _wait_for_ad_details_payload(page)
 
         if own_browser:
             # Возвращаем HTML и закрываем браузер для standalone-режима

@@ -29,7 +29,7 @@ from fb_page_finder import find_brand_pages
 from fb_ads_listing import scrape_ads_listing
 from fb_ad_modal_open import open_ad_modal
 from fb_ad_modal_expand import expand_all_present_accordions
-from fb_ad_modal_parse import parse_modal
+from fb_ad_modal_parse import parse_modal, parse_graphql_ad_details
 
 
 def _save_ad_json(domain: str, status: str, library_id: str, data: dict):
@@ -64,9 +64,23 @@ def deep_scan_one_ad(page, library_id: str, status: str, domain: str,
     log_debug(f"deep_scan_one_ad: Step 5 parse_modal для {library_id}")
     parsed = parse_modal(exp_res["html"])
     parsed["library_id"]      = library_id  # из listing — самый надёжный
+    # ВНИМАНИЕ: parsed["meta"] (started_running и т.п.) — regex по ВСЕЙ странице;
+    # в новом UI (июль 2026) первое совпадение может быть с чужой карточки листинга.
     parsed["status"]          = status
     parsed["expand_diag"]     = exp_res["diag"]
     parsed["scan_duration_s"] = round(time.time() - t0, 1)
+
+    # GraphQL ad_details (перехвачен в open_ad_modal) — полные цифры прозрачности.
+    gql_payload = open_res.get("graphql_ad_details")
+    if gql_payload:
+        raw_path = Path("scans") / domain / "fb_deep" / status / f"{library_id}_graphql.json"
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
+        raw_path.write_text(json.dumps(gql_payload, indent=2, ensure_ascii=False),
+                            encoding="utf-8")
+        parsed["graphql"] = parse_graphql_ad_details(gql_payload)
+        log_debug(f"deep_scan_one_ad: graphql сохранён → {raw_path}")
+    else:
+        parsed["graphql"] = None
 
     # Save
     saved_path = _save_ad_json(domain, status, library_id, parsed)
@@ -158,14 +172,25 @@ def scan_domain(domain: str, top_n: int = 5, verbose: bool = True) -> dict:
                 if res.get("success"):
                     d = res["data"]
                     t = d["transparency"]
-                    log_success(f"reach={t.get('total_reach')} demos={len(t['demographics'])} "
+                    gql = d.get("graphql") or {}
+                    # regex-парсер — первичный; GraphQL — fallback если DOM не раскрылся
+                    reach = t.get("total_reach")
+                    reach_source = "dom_regex" if reach is not None else (
+                        "graphql" if gql.get("eu_total_reach") is not None else None)
+                    if reach is None:
+                        reach = gql.get("eu_total_reach")
+                    log_success(f"reach={reach} ({reach_source}) demos={len(t['demographics'])} "
+                          f"gql_demo_rows={len(gql.get('eu_demographics') or [])} "
                           f"sections={len(d['sections_present'])}/5 ({d['scan_duration_s']}s)")
                     bucket.append({
                         "library_id":    lib_id,
                         "rank":          i,
                         "saved":         res["saved"],
-                        "total_reach":   t.get("total_reach"),
+                        "total_reach":   reach,
+                        "reach_source":  reach_source,
                         "demos_count":   len(t["demographics"]),
+                        "graphql_eu_total_reach": gql.get("eu_total_reach"),
+                        "beneficiary":   gql.get("beneficiary"),
                         "sections":      d["sections_present"],
                         "scan_duration_s": d["scan_duration_s"],
                     })

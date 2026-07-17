@@ -265,6 +265,74 @@ def _parse_additional_assets(html: str) -> dict:
     return out
 
 
+# ─── GraphQL ad_details (network_request, не DOM) ───────────────────────────
+
+def _flatten_breakdown(block: dict) -> list:
+    """age_country_gender_reach_breakdown → плоские строки
+    {country, age_range, male, female, unknown}."""
+    rows = []
+    for c in (block or {}).get("age_country_gender_reach_breakdown") or []:
+        for b in c.get("age_gender_breakdowns") or []:
+            rows.append({
+                "country":   c.get("country"),
+                "age_range": b.get("age_range"),
+                "male":      b.get("male") or 0,
+                "female":    b.get("female") or 0,
+                "unknown":   b.get("unknown") or 0,
+            })
+    return rows
+
+
+def parse_graphql_ad_details(payload: dict) -> dict:
+    """Парсит GraphQL-ответ модалки (ad_details) в плоский dict.
+    Источник каждого поля: network_request (не DOM-регекс).
+    Несёт то, чего в DOM-таблице нет/не видно: точный EU/UK reach, ПОЛНАЯ
+    демография (все страны × возрасты × м/ж/неизв.), payer + beneficiary,
+    исключённые страны таргета, точные лайки/IG страницы.
+    Tested: 2026-07-17 on client-a.example top-30 — 30/30 payload'ов распарсились."""
+    det = (((payload or {}).get("data") or {}).get("ad_library_main") or {}).get("ad_details") or {}
+    tbl = det.get("transparency_by_location") or {}
+    eu = tbl.get("eu_transparency") or {}
+    uk = tbl.get("uk_transparency") or {}
+    br = tbl.get("br_transparency") or {}
+    aaa = det.get("aaa_info") or {}
+    pb = (aaa.get("payer_beneficiary_data") or [{}])[0]
+    page_info = (((det.get("advertiser") or {}).get("ad_library_page_info") or {})
+                 .get("page_info") or {})
+    age = eu.get("age_audience") or {}
+
+    out = {
+        "source": "network_request",
+        "eu_total_reach":    eu.get("eu_total_reach"),
+        "uk_total_reach":    uk.get("total_reach"),
+        "br_total_reach":    br.get("total_reach"),
+        "eu_demographics":   _flatten_breakdown(eu),
+        "uk_demographics":   _flatten_breakdown(uk),
+        "gender_audience":   eu.get("gender_audience"),
+        "age_audience_min":  age.get("min"),
+        "age_audience_max":  age.get("max"),
+        "location_audience": [
+            {"name": l.get("name"), "type": l.get("type"),
+             "excluded": bool(l.get("excluded"))}
+            for l in (eu.get("location_audience") or [])
+        ],
+        "payer":             pb.get("payer"),
+        "beneficiary":       pb.get("beneficiary"),
+        "targets_eu":        aaa.get("targets_eu"),
+        "is_ad_taken_down":  aaa.get("is_ad_taken_down"),
+        "violation_types":   det.get("violation_types") or [],
+        "page_name":         page_info.get("page_name"),
+        "page_category":     page_info.get("page_category"),
+        "page_likes":        page_info.get("likes"),
+        "page_verification": page_info.get("page_verification"),
+        "ig_username":       page_info.get("ig_username"),
+        "ig_followers":      page_info.get("ig_followers"),
+    }
+    log_debug(f"parse_graphql_ad_details: eu_reach={out['eu_total_reach']} "
+              f"demo_rows={len(out['eu_demographics'])} beneficiary={out['beneficiary']!r}")
+    return out
+
+
 # ─── Главная функция ────────────────────────────────────────────────────────
 
 def parse_modal(html: str) -> dict:
