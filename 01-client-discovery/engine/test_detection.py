@@ -105,10 +105,13 @@ def test_gtm_to_scan_knows_new_platforms():
 
 def test_report_noise_covers_pagevisit_for_headline_metric():
     # ревью дня 6 (high): Pinterest pagevisit раздувал «X of N имеют пиксель+событие»
-    import generate_report_html as grh
-    assert grh.is_noise("Pinterest", "pagevisit")
-    assert grh.is_noise("Meta", "PageView")
-    assert not grh.is_noise("Pinterest", "checkout")
+    # is_noise-обёртка уехала из generate_report_html (рефактор report_truth 2026-07);
+    # инвариант проверяем на первоисточнике — реестре platforms.
+    import platforms as P
+    noise = P.as_report_noise_events()
+    assert "pagevisit" in noise.get("Pinterest", [])
+    assert "PageView" in noise.get("Meta", [])
+    assert "checkout" not in noise.get("Pinterest", [])
 
 
 # ─── B6: Snapchat в GTM-сигнатурах ───────────────────────────────────────────
