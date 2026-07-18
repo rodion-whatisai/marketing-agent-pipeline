@@ -231,6 +231,141 @@ def scrape_ads_listing(ads_library_urls: dict, display_name: str = "",
     return result
 
 
+# ─── Полные ad-records листинга (GraphQL-перехват, для fb_audience_report) ──
+
+def normalize_listing_record(obj: dict) -> dict:
+    """Плоские поля из ad-record листинга (ad_archive_id + snapshot).
+    Источник: network_request (GraphQL пагинации листинга или HAR браузера)."""
+    snap = obj.get("snapshot") or {}
+    body = (snap.get("body") or {})
+    body_text = body.get("text") if isinstance(body, dict) else (body or None)
+    cards = snap.get("cards") or []
+    # DCO: top-level body бывает шаблоном {{product.brand}} — fallback на cards[0]
+    if (not body_text or "{{" in str(body_text)) and cards:
+        b0 = (cards[0] or {}).get("body")
+        if b0:
+            body_text = b0 if isinstance(b0, str) else b0.get("text")
+    imp = obj.get("impressions_with_index") or {}
+    return {
+        "publisher_platform": obj.get("publisher_platform") or [],
+        "display_format":     snap.get("display_format"),
+        "body_text":          (body_text or "")[:300],
+        "link_url":           snap.get("link_url"),
+        "cta_text":           snap.get("cta_text"),
+        "cta_type":           snap.get("cta_type"),
+        "title":              snap.get("title"),
+        "start_date_unix":    obj.get("start_date"),
+        "end_date_unix":      obj.get("end_date"),
+        "is_active":          obj.get("is_active"),
+        "collation_count":    obj.get("collation_count"),
+        "total_active_time":  obj.get("total_active_time"),
+        "impressions_text":   imp.get("impressions_text"),
+        "n_videos":           len(snap.get("videos") or []),
+        "n_images":           len(snap.get("images") or []),
+        "n_cards":            len(cards),
+    }
+
+
+def _walk_ad_records(obj, out: dict):
+    """Рекурсивно собирает все ad-records (ad_archive_id + snapshot) из JSON."""
+    if isinstance(obj, dict):
+        aid = obj.get("ad_archive_id")
+        if aid and isinstance(obj.get("snapshot"), dict):
+            out[str(aid)] = normalize_listing_record(obj)
+        for v in obj.values():
+            if isinstance(v, (dict, list)):
+                _walk_ad_records(v, out)
+    elif isinstance(obj, list):
+        for x in obj:
+            _walk_ad_records(x, out)
+
+
+def parse_records_from_json_text(text: str, out: dict):
+    """Извлекает ad-records из тела GraphQL-ответа (может быть несколько JSON-строк)."""
+    for line in text.splitlines():
+        if "ad_archive_id" not in line:
+            continue
+        i = line.find("{")
+        if i < 0:
+            continue
+        try:
+            _walk_ad_records(json.loads(line[i:]), out)
+        except json.JSONDecodeError:
+            continue
+
+
+def collect_active_ad_records(listing_url: str, max_stale: int = 8,
+                               max_rounds: int = 120, verbose: bool = True) -> dict:
+    """Скроллит листинг, перехватывая GraphQL-пагинацию → полные ad-records.
+
+    Конец скролла: футер «System status» в DOM (наблюдение Rodion'а: появляется
+    только когда список кончился) ЛИБО max_stale раундов без новых записей.
+    Возвращает {"records": {lib_id: rec}, "reached_footer": bool, "rounds": int}.
+    Известное ограничение: карточки-группы (collation) едут ОДНОЙ записью-представителем,
+    члены группы отдельно в пагинации не появляются — покрытие < 100%, репортим честно.
+    # Tested: 2026-07-18 on client-a --top 10 — 118 records, футер достигнут."""
+    from playwright.sync_api import sync_playwright
+    records: dict = {}
+    log_step(f"Листинг ad-records: {listing_url[:90]}...", emoji="📜")
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        ctx = browser.new_context(
+            user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                       "AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+            locale="en-US", viewport={"width": 1400, "height": 900})
+        page = ctx.new_page()
+        page.on("response", lambda r: _on_listing_response(r, records))
+        page.goto(listing_url, wait_until="domcontentloaded", timeout=40000)
+        page.wait_for_timeout(6000)
+        stale, prev, rounds, reached_footer = 0, 0, 0, False
+        while stale < max_stale and rounds < max_rounds:
+            page.mouse.wheel(0, 3000)
+            page.wait_for_timeout(1800)
+            rounds += 1
+            now = len(records)
+            stale = 0 if now > prev else stale + 1
+            prev = now
+            try:
+                # футер «System status» рендерится только в конце списка
+                reached_footer = page.evaluate(
+                    "() => document.body.innerText.includes('System status')")
+            except Exception as e:
+                log_debug(f"collect_active_ad_records: footer-check упал: {e}")
+            if reached_footer and stale >= 2:
+                log_debug(f"collect_active_ad_records: футер System status + stale — конец")
+                break
+        browser.close()
+    if verbose:
+        log_success(f"листинг: {len(records)} ad-records, раундов {rounds}, "
+                    f"футер {'достигнут' if reached_footer else 'НЕ достигнут'}")
+    return {"records": records, "reached_footer": reached_footer, "rounds": rounds}
+
+
+def _on_listing_response(r, records: dict):
+    if "/api/graphql" not in r.url:
+        return
+    try:
+        body = r.text()
+    except Exception:
+        return
+    if "ad_archive_id" in body:
+        parse_records_from_json_text(body, records)
+
+
+def parse_har_ad_records(har_path: str) -> dict:
+    """Ad-records из HAR-файла браузера (канал Rodion'а: залогиненный вид даёт
+    вдобавок impressions_text). Возвращает {lib_id: rec}."""
+    from pathlib import Path
+    records: dict = {}
+    har = json.loads(Path(har_path).read_text(encoding="utf-8"))
+    for e in (har.get("log") or {}).get("entries") or []:
+        text = (((e.get("response") or {}).get("content") or {}).get("text")) or ""
+        if "ad_archive_id" in text:
+            parse_records_from_json_text(text, records)
+    log_success(f"HAR: {len(records)} ad-records из {har_path}")
+    return records
+
+
 # ─── Standalone ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
