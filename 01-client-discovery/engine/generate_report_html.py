@@ -1,20 +1,32 @@
 """
-TNC Report Generator — HTML v2
-================================
-Читает step2.json и генерирует HTML отчёт.
-Структура: заголовок → инструменты → платформы → события → GAP страницы → внешние сервисы
+TNC Report Generator — HTML v3 (эталонный, truth-first)
+========================================================
+Читает step2.json и генерирует client-facing HTML отчёт.
+
+Ядро отчёта — модуль report_truth (две таблицы: что установлено + воронка
+событий, с подсказками «как для бабушки»). Плюс перенесённые факты:
+внешние сервисы и постраничный срез. Никаких вердиктов/оценок/рекомендаций —
+только сухая правда о том, что мы наблюдали (решение Rodion'а 2026-07-14).
+
+Старый отчёт (вердикт, блоки Google Tools/Платформы, GAP-карточки, OK-секция,
+рекомендации) выброшен: новые таблицы покрывают это честнее.
 """
 
 import sys
 import json
 import os
+import html as _html
 import webbrowser
 from datetime import datetime
 from urllib.parse import urlparse
-from pathlib import Path
-from collections import defaultdict
 
 from log import log_info, log_error, log_debug, log_success, log_step
+
+import report_truth
+
+
+def esc(s):
+    return _html.escape(str(s))
 
 
 def load_json(path: str) -> dict:
@@ -60,7 +72,6 @@ def load_step1_stats(domain: str, step2_dir: str) -> dict:
             log_debug(f"load_step1_stats: classified pages = {result['total']}")
             from collections import Counter
             type_counts = Counter(p.get("type", "general") for p in classified)
-            # Человекочитаемые названия категорий
             TYPE_NAMES = {
                 "lead_form": "формы/заявки",
                 "homepage": "главная",
@@ -88,675 +99,90 @@ def load_step1_stats(domain: str, step2_dir: str) -> dict:
     return result
 
 
-def page_label(path: str, ptype: str) -> str:
-    if path == "/" or ptype == "homepage":
-        return "Главная страница"
-    labels = {
-        "lead_form": "Форма / заявка",
-        "product": "Страница продукта",
-        "checkout": "Оформление заказа",
-        "booking_confirm": "Подтверждение",
-        "location": "Локация / студия",
-        "pricing": "Цены / пакеты",
-        "about": "О компании",
-        "faq_support": "FAQ",
-        "blog_content": "Блог",
-    }
-    return labels.get(ptype, path)
+# ─── Внешние сервисы (перенесённый факт) ─────────────────────────────────────
+ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory"}
 
 
-# Шаг B (2026-07-13): локальная копия убрана — единый реестр platforms.py
-# (ревью дня 5: копия разъехалась — в клиентском HTML noise-пинги
-# «fired → LinkedIn/Snapchat», «page_view → Google Ads» рендерились как
-# живые события). Презентационная надбавка (PageView и т.п.) — в реестре.
-import platforms as _platforms
-
-NOISE_EVENTS = _platforms.as_report_noise_events()
-
-def is_noise(plat, ev):
-    return ev in NOISE_EVENTS.get(plat, [])
+def _external_block(external_services: dict) -> str:
+    if not external_services:
+        return ""
+    rows = ""
+    for svc, where in external_services.items():
+        pages = where if isinstance(where, (list, tuple, set)) else []
+        where_str = ", ".join(esc(x) for x in list(pages)[:3]) or "—"
+        if svc in ANALYTICS_TOOLS:
+            note = "Запись сессий / тепловые карты."
+        else:
+            note = "Конверсия происходит на стороне сервиса — пиксели её не видят."
+        rows += (f'<tr><td class="rt-name">{esc(svc)}</td>'
+                 f'<td class="rt-ok">{note}</td>'
+                 f'<td class="rt-mut">{where_str}</td></tr>')
+    return (f'<section class="rt"><h2 class="rt-h2">Замечено на сайте — внешние сервисы</h2>'
+            f'<table class="rt-tbl"><thead><tr><th>Сервис</th><th>Что это значит</th>'
+            f'<th>Где</th></tr></thead><tbody>{rows}</tbody></table></section>')
 
 
 def generate_html(data: dict, gtm_data: dict = None) -> str:
-    log_debug("generate_html: старт рендера отчёта")
+    log_debug("generate_html: старт рендера отчёта (truth-first v3)")
+    gtm_data = gtm_data or {}
     base_url = data.get("base_url", "")
     domain = urlparse(base_url).netloc or base_url
     date_str = datetime.now().strftime("%d.%m.%Y")
-    log_debug(f"generate_html: domain={domain}, date={date_str}")
+    all_pages = data.get("all_pages", [])
+    scanned = data.get("scanned", len(all_pages))
+    sitemap_total = data.get("sitemap_total", 0)
+    cats = data.get("sitemap_categories", {}) or {}
+    external_services = data.get("external_services", {}) or {}
 
-    scanned        = data.get("scanned", 0)
-    sitemap_total  = data.get("sitemap_total", 0)
-    sitemap_cats   = data.get("sitemap_categories", {})
-    # Строка с категориями — топ 4
-    cats_str = ", ".join(f"{name} ({cnt})" for name, cnt in list(sitemap_cats.items())[:4])
-    sitemap_poi    = data.get("sitemap_poi", scanned)
-    sitemap_deduped= data.get("sitemap_deduped", scanned)
-    lang_removed   = data.get("lang_removed", 0)
-    lang_prefixes  = data.get("lang_prefixes", [])
-    lang_sub = f"только EN ({lang_removed} {', '.join(lang_prefixes).upper()} убрано как дубли)" if lang_removed > 0 else "приоритетные страницы каждой категории"
-    oks            = data.get("oks", 0)
-    gaps        = data.get("gaps", 0)
-    no_tracking = data.get("no_tracking", 0)
-    gtm_platforms_raw = data.get("gtm_platforms", [])
-    external_services = data.get("external_services", {})
-    gap_pages   = data.get("gap_pages", [])
-    ok_pages    = data.get("ok_pages", [])
-    all_pages   = data.get("all_pages", [])
-    unverified_pages = data.get("unverified_pages", [])
-    dup_pages   = [p for p in all_pages if p.get("duplicate_pixels")]
+    # объём скана (перенесённый факт): отобрано для аудита из полного sitemap → сколько прошли
+    selected = data.get("sitemap_deduped") or data.get("sitemap_poi") or scanned
+    scope = f"Отобрано для аудита: {selected}"
+    if sitemap_total:
+        scope += f" из {sitemap_total} страниц сайта"
+    scope += " (приоритетные страницы каждой категории)"
+    if scanned != selected:
+        scope += f". Просканировано: {scanned}"
+    cats_str = ", ".join(f"{esc(n)} ({c})" for n, c in list(cats.items())[:5])
+    if cats_str:
+        scope += f". Категории: {cats_str}"
 
-    # GTM info
-    gtm_ids = list(gtm_data.keys()) if gtm_data else []
-    gtm_id_str = gtm_ids[0] if gtm_ids else None
+    truth_block = report_truth.render(all_pages, gtm_data, domain)   # ядро (+ CSS)
+    external_block = _external_block(external_services)
+    pages_block = report_truth.render_pages(all_pages)
 
-    # GTM платформы из контейнера
-    gtm_container_platforms = set()
-    for container in (gtm_data or {}).values():
-        for p in container.get("platforms_found", {}):
-            gtm_container_platforms.add(p)
-
-    # Нормализация названий — из реестра (ревью дня 6: локальная копия не знала
-    # Snapchat Pixel/Pinterest Tag — GTM-детекция B6 не доходила до блока платформ)
-    PLAT_NORM = _platforms.as_gtm_to_scan()
-    gtm_platforms = {PLAT_NORM.get(p, p) for p in gtm_platforms_raw}
-    gtm_container_norm = {PLAT_NORM.get(p, p) for p in gtm_container_platforms}
-
-    # Платформы найденные в network
-    network_platforms = set()
-    shopify_platforms = set()
-    presence_platforms = set()   # пиксель пойман по ID (присутствие) — ловится даже в headless
-    for page in all_pages:
-        for plat in page.get("pixel_events", {}):
-            network_platforms.add(plat)
-        for plat in page.get("shopify_pixel_platforms", []):
-            shopify_platforms.add(plat)
-        for plat in page.get("pixel_ids", {}):
-            presence_platforms.add(plat)
-
-    all_found = network_platforms | shopify_platforms
-    log_debug(f"generate_html: network={sorted(network_platforms)}, shopify={sorted(shopify_platforms)}, presence={sorted(presence_platforms)}")
-    log_debug(f"generate_html: oks={oks}, gaps={gaps}, no_tracking={no_tracking}, all_pages={len(all_pages)}")
-
-    # Три ключевые метрики
-    pages_with_cta = sum(1 for p in all_pages if p.get("cta_elements"))
-    # "Имеют пиксель" = пиксель установлен (присутствие), не "событие сработало".
-    # pixel_ids ловит Meta по ID даже когда конверсионное событие не стрельнуло (пассивная загрузка).
-    # Tested: 2026-06-26 on nissan.ie — robot ловил оба Meta-ID, счётчик флипает 0→4 of 4.
-    pages_with_pixel = sum(
-        1 for p in all_pages
-        if p.get("pixel_events") or p.get("shopify_pixel_platforms") or p.get("pixel_ids")
-    )
-    # baseline-пинги отсекаем отчётным шумом (is_noise: реестр + презентационная
-    # надбавка PageView/pagevisit/track) — ревью дня 6: Pinterest pagevisit
-    # (сканерный is_noise=False, «пиксель жив») раздувал метрику до ~N of N
-    pages_with_conversion = sum(
-        1 for p in all_pages
-        if any(
-            ev.get("is_conversion") or (
-                ev.get("event", "") not in ("fired", "unknown")
-                and not ev.get("is_noise")
-                and not is_noise(plat, ev.get("event", ""))
-            )
-            for plat, evs in p.get("pixel_events", {}).items()
-            for ev in evs
-        )
-    )
-
-    log_debug(f"generate_html: pages_with_cta={pages_with_cta}, pages_with_pixel={pages_with_pixel}, pages_with_conversion={pages_with_conversion}")
-
-    # Вердикт
-    if no_tracking > 0 and not all_found:
-        verdict_cls = "critical"
-        verdict_text = "Трекинг отсутствует"
-    elif gaps > 0:
-        verdict_cls = "warning"
-        verdict_text = "Есть пробелы в трекинге"
-    elif oks > 0:
-        verdict_cls = "ok"
-        verdict_text = "Трекинг настроен"
-    else:
-        verdict_cls = "warning"
-        verdict_text = "Требует проверки"
-    log_debug(f"generate_html: вердикт = {verdict_cls} ({verdict_text})")
-
-    # ── Google Tools блок ──────────────────────────────────────────
-    gtm_row = ""
-    if gtm_id_str:
-        gtm_row = f'<div class="tool-row"><span class="tool-label">Google Tag Manager</span><span class="tool-val active">{gtm_id_str}</span></div>'
-    else:
-        gtm_row = f'<div class="tool-row"><span class="tool-label">Google Tag Manager</span><span class="tool-val missing">Не найден</span></div>'
-
-    ga4_id = next((i for i in gtm_platforms if i.startswith("G-")), None)
-    has_ga4 = "Google Analytics" in gtm_platforms or "Google Analytics" in all_found
-    ga4_row = f'<div class="tool-row"><span class="tool-label">Google Analytics (GA4)</span><span class="tool-val {"active" if has_ga4 else "missing"}">{"Установлен" if has_ga4 else "Не найден"}</span></div>'
-
-    has_ads = "Google Ads" in gtm_platforms or "Google Ads" in all_found
-    ads_row = f'<div class="tool-row"><span class="tool-label">Google Ads</span><span class="tool-val {"active" if has_ads else "missing"}">{"Установлен" if has_ads else "Не найден"}</span></div>'
-
-    # ── Платформы блок ─────────────────────────────────────────────
-    PLATFORMS_ORDER = ["Meta", "TikTok", "Bing/Microsoft", "LinkedIn", "Snapchat", "Pinterest"]
-    plat_rows = ""
-    for plat in PLATFORMS_ORDER:
-        in_network   = plat in network_platforms
-        in_shopify   = plat in shopify_platforms
-        in_presence  = plat in presence_platforms
-        in_gtm_cont  = plat in gtm_container_norm
-
-        if in_network:
-            cls, status = "active", "Установлен — виден в сети"
-        elif in_presence:
-            cls, status = "active", "Установлен — виден по ID (событие не зафиксировано)"
-        elif in_shopify:
-            # только в коде web-pixels, network-подтверждения нет — НЕ зелёный (A1)
-            cls, status = "warning", "Обнаружен в коде (Shopify web-pixels) — запросов не зафиксировано"
-        elif in_gtm_cont:
-            cls, status = "warning", "Есть в GTM — при загрузке не зафиксирован"
-        else:
-            cls, status = "missing", "Не найден"
-
-        plat_rows += f'<div class="plat-row"><span class="plat-name">{plat}</span><span class="plat-status {cls}">{status}</span></div>'
-
-    # ── GAP страницы ───────────────────────────────────────────────
-    TYPE_ORDER = ["lead_form", "booking_confirm", "quote", "checkout", "homepage",
-                  "product", "location", "pricing", "use_case", "search_results",
-                  "about", "general"]
-
-    gap_by_type = defaultdict(list)
-    for p in gap_pages:
-        gap_by_type[p.get("page_type", "general")].append(p)
-
-    gap_sections_html = ""
-    for ptype in TYPE_ORDER:
-        pages = gap_by_type.get(ptype, [])
-        if not pages:
-            continue
-        log_debug(f"generate_html: GAP-секция '{ptype}' — {len(pages)} страниц")
-
-        type_labels = {
-            "lead_form": "Формы и заявки",
-            "booking_confirm": "Подтверждение бронирования",
-            "quote": "Запрос цены / смета",
-            "checkout": "Оформление заказа",
-            "homepage": "Главная страница",
-            "product": "Страницы продуктов",
-            "location": "Локации",
-            "pricing": "Цены и пакеты",
-            "use_case": "Use cases / решения",
-            "search_results": "Поиск / каталог",
-            "about": "О компании",
-            "general": "Прочие страницы",
-        }
-        section_label = type_labels.get(ptype, ptype)
-
-        items_html = ""
-        for r in pages:
-            path = r.get("path", "")
-            ctas = r.get("cta_elements", [])
-            missing = r.get("missing_events", [])
-            px = r.get("pixel_events", {})
-            shopify_plats = r.get("shopify_pixel_platforms", [])
-
-            display_name = "Главная страница" if path == "/" else path
-
-            # Что зафиксировано при загрузке
-            fired = []
-            for plat, evts in px.items():
-                names = [e["event"] for e in evts if not is_noise(plat, e["event"])]
-                if names:
-                    fired.append(f"{', '.join(names)} → {plat}")
-                else:
-                    noise_names = [e["event"] for e in evts if is_noise(plat, e["event"])]
-                    if noise_names:
-                        fired.append(f"PageView → {plat}")
-            for plat in shopify_plats:
-                if plat not in px:
-                    # в коде web-pixels, network-запросов нет — не приписываем событие (A1)
-                    fired.append(f"{plat} — в коде (web-pixels), запросов нет")
-
-            fired_str = " &nbsp;|&nbsp; ".join(fired) if fired else "Ничего не зафиксировано"
-
-            cta_str = ", ".join(ctas[:4]) if ctas else "—"
-
-            missing_rows = ""
-            for ev in missing:
-                missing_rows += f'<div class="ev-missing">{ev}: не зафиксирован при загрузке</div>'
-
-            items_html += f"""
-            <div class="gap-card">
-                <div class="gap-card-path">{display_name}</div>
-                <div class="gap-card-row"><span class="gc-label">Кнопки на странице</span><span class="gc-val">{cta_str}</span></div>
-                <div class="gap-card-row"><span class="gc-label">При загрузке</span><span class="gc-val dim">{fired_str}</span></div>
-                {missing_rows}
-            </div>"""
-
-        gap_sections_html += f"""
-        <div class="gap-section">
-            <div class="gap-section-title">{section_label}</div>
-            {items_html}
-        </div>"""
-
-    # ── Unverified: пиксель есть, событие не подтверждено ──────────
-    unverified_items = ""
-    for r in unverified_pages:
-        u_path = r.get("path", "")
-        u_name = "Главная страница" if u_path == "/" else u_path
-        u_pids = r.get("pixel_ids", {})
-        u_ids_str = " &nbsp;|&nbsp; ".join(f"{plat}: {', '.join(ids)}" for plat, ids in u_pids.items()) if u_pids else "—"
-        u_reason = r.get("unverified_reason") or r.get("status", "")
-        u_dup = ""
-        if r.get("duplicate_pixels"):
-            u_dupnames = ", ".join(r["duplicate_pixels"])
-            u_dup = f'<div class="ev-missing" style="color:#d9a300">Дубль: {u_dupnames} — возможен двойной счёт</div>'
-        unverified_items += f"""
-        <div class="gap-card" style="border-left:3px solid #d9a300">
-            <div class="gap-card-path">{u_name}</div>
-            <div class="gap-card-row"><span class="gc-label">Пиксели по ID</span><span class="gc-val">{u_ids_str}</span></div>
-            {u_dup}
-            <div class="gap-card-row"><span class="gc-label dim">Статус</span><span class="gc-val dim">{u_reason}</span></div>
-        </div>"""
-
-    # ── Дубли пикселей (site-level) ────────────────────────────────
-    dup_rows_html = ""
-    for p in dup_pages:
-        for plat in p.get("duplicate_pixels", []):
-            ids = p.get("pixel_ids", {}).get(plat, [])
-            ids_join = ", ".join(ids)
-            dup_rows_html += f'<div class="ext-row"><div class="ext-svc">{plat}</div><div class="ext-note">{p.get("path", "")} — {len(ids)} ID: {ids_join}</div></div>'
-
-    # ── Внешние сервисы ────────────────────────────────────────────
-    ANALYTICS_TOOLS = {"Microsoft Clarity", "Hotjar", "FullStory"}
-    conv_ext = {s: p for s, p in external_services.items() if s not in ANALYTICS_TOOLS}
-    anal_ext = {s: p for s, p in external_services.items() if s in ANALYTICS_TOOLS}
-
-    ext_rows = ""
-    for svc, pages in conv_ext.items():
-        pages_str = ", ".join(pages[:3])
-        ext_rows += f"""
-        <div class="ext-row">
-            <div class="ext-svc">{svc}</div>
-            <div class="ext-note">Конверсии происходят на стороне сервиса — пиксели их не видят</div>
-            <div class="ext-pages">Найден на: {pages_str}</div>
-        </div>"""
-
-    anal_rows = ""
-    for svc, pages in anal_ext.items():
-        anal_rows += f'<div class="anal-row"><span class="anal-name">{svc}</span><span class="anal-note">Heatmap / session recording установлен</span></div>'
-
-    # OK section
-    if ok_pages:
-        ok_items = "".join(
-            f'<div class="ok-row"><span class="ok-path">{r.get("path","")}</span>' +
-            f'<span class="ok-events">{", ".join(r.get("conversion_events_found",[])[:4])}</span></div>'
-            for r in ok_pages
-        )
-        ok_section_html = f'''<div class="section">
-    <div class="section-title">Трекинг настроен корректно</div>
-    {ok_items}
-  </div>'''
-    else:
-        ok_section_html = ""
-
-    html = f"""<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tracking Audit — {domain}</title>
+<title>Аудит трекинга — {esc(domain)}</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
-
   *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-
-  :root {{
-    --bg:      #0d0d12;
-    --bg2:     #13131a;
-    --bg3:     #1c1c26;
-    --border:  #252530;
-    --border2: #32323f;
-    --text:    #e8e8f0;
-    --dim:     #7a7a8a;
-    --accent:  #5b7fff;
-    --green:   #3ecf8e;
-    --yellow:  #f5c842;
-    --red:     #ff5c5c;
-    --mono:    'DM Mono', monospace;
-    --sans:    'DM Sans', sans-serif;
-  }}
-
-  body {{
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-  }}
-
-  /* ── Header ── */
-  .header {{
-    border-bottom: 1px solid var(--border);
-    padding: 28px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }}
-  .header-left {{ display: flex; flex-direction: column; gap: 4px; }}
-  .header-label {{ font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; }}
-  .header-domain {{ font-size: 22px; font-weight: 600; color: var(--text); margin-top: 2px; }}
-  .header-right {{ display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }}
-  .header-date {{ font-family: var(--mono); font-size: 12px; color: var(--dim); }}
-
-  .verdict {{
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 4px;
-    font-weight: 500;
-  }}
-  .verdict.ok      {{ background: rgba(62,207,142,0.12); color: var(--green); border: 1px solid rgba(62,207,142,0.3); }}
-  .verdict.warning {{ background: rgba(245,200,66,0.12); color: var(--yellow); border: 1px solid rgba(245,200,66,0.3); }}
-  .verdict.critical{{ background: rgba(255,92,92,0.12);  color: var(--red);    border: 1px solid rgba(255,92,92,0.3); }}
-
-  /* ── Stats ── */
-  .stats {{
-    display: grid;
-    border-bottom: 1px solid var(--border);
-  }}
-  .stats-top {{
-    grid-template-columns: repeat(2, 1fr);
-    border-bottom: 1px solid var(--border);
-  }}
-  .stats-bottom {{
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 1px solid var(--border);
-  }}
-  .stat {{
-    padding: 32px 48px;
-    border-right: 1px solid var(--border);
-  }}
-  .stat:last-child {{ border-right: none; }}
-  .stat-num {{ font-family: var(--mono); font-size: 40px; font-weight: 500; line-height: 1; margin-bottom: 8px; }}
-  .stat-num.ok  {{ color: var(--green); }}
-  .stat-num.gap {{ color: var(--yellow); }}
-  .stat-num.def {{ color: var(--accent); }}
-  .stat-label {{ font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; }}
-  .stat-sub {{ font-size: 12px; color: var(--dim); margin-top: 4px; }}
-
-  /* ── Sections ── */
-  .content {{ padding: 0 48px 64px; }}
-  .section {{ margin-top: 48px; }}
-  .section-title {{
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }}
-
-  /* ── Tool rows ── */
-  .tool-row {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 20px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    margin-bottom: 4px;
-    border-radius: 6px;
-  }}
-  .tool-label {{ font-size: 14px; color: var(--text); }}
-  .tool-val {{ font-family: var(--mono); font-size: 13px; }}
-  .tool-val.active  {{ color: var(--green); }}
-  .tool-val.missing {{ color: var(--dim); }}
-
-  /* ── Platform rows ── */
-  .plat-row {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 20px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    margin-bottom: 4px;
-    border-radius: 6px;
-  }}
-  .plat-name {{ font-size: 14px; font-weight: 500; }}
-  .plat-status {{ font-size: 13px; font-family: var(--mono); }}
-  .plat-status.active  {{ color: var(--green); }}
-  .plat-status.warning {{ color: var(--yellow); }}
-  .plat-status.missing {{ color: var(--dim); }}
-
-  /* ── GAP sections ── */
-  .gap-section {{ margin-bottom: 32px; }}
-  .gap-section-title {{
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--dim);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
-  }}
-  .gap-card {{
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--yellow);
-    border-radius: 6px;
-    padding: 18px 22px;
-    margin-bottom: 8px;
-  }}
-  .gap-card-path {{
-    font-family: var(--mono);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 12px;
-  }}
-  .gap-card-row {{
-    display: flex;
-    gap: 16px;
-    margin-bottom: 6px;
-    font-size: 13px;
-  }}
-  .gc-label {{ color: var(--dim); min-width: 140px; flex-shrink: 0; }}
-  .gc-val   {{ color: var(--text); }}
-  .gc-val.dim {{ color: var(--dim); }}
-  .ev-missing {{
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--yellow);
-    margin-top: 8px;
-    padding: 6px 10px;
-    background: rgba(245,200,66,0.07);
-    border-radius: 4px;
-    display: inline-block;
-    margin-right: 6px;
-  }}
-
-  /* ── External services ── */
-  .ext-row {{
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--red);
-    border-radius: 6px;
-    padding: 16px 20px;
-    margin-bottom: 6px;
-  }}
-  .ext-svc   {{ font-size: 14px; font-weight: 600; margin-bottom: 4px; }}
-  .ext-note  {{ font-size: 13px; color: var(--yellow); margin-bottom: 4px; }}
-  .ext-pages {{ font-size: 12px; color: var(--dim); font-family: var(--mono); }}
-
-  .anal-row {{
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 20px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    margin-bottom: 4px;
-    font-size: 13px;
-  }}
-  .anal-name {{ font-weight: 500; }}
-  .anal-note {{ color: var(--dim); font-family: var(--mono); font-size: 12px; }}
-
-  /* ── OK pages ── */
-  .ok-row {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--green);
-    border-radius: 6px;
-    margin-bottom: 4px;
-  }}
-  .ok-path   {{ font-family: var(--mono); font-size: 13px; }}
-  .ok-events {{ font-size: 12px; color: var(--green); }}
-
-  .empty-note {{ color: var(--dim); font-size: 13px; font-style: italic; padding: 16px 0; }}
+  body {{ font-family:"IBM Plex Sans",-apple-system,Segoe UI,Roboto,sans-serif;
+    background:#0e0f13; color:#d7dae0; line-height:1.6; min-height:100vh; }}
+  .doc {{ max-width:940px; margin:0 auto; padding:28px 40px 60px; }}
+  .head {{ border-bottom:1px solid #23262e; padding-bottom:16px; margin-bottom:8px; }}
+  .head .label {{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:#5b7fff;
+    letter-spacing:.15em; text-transform:uppercase; }}
+  .head h1 {{ font-size:22px; font-weight:600; color:#fff; margin-top:4px; }}
+  .head .date {{ font-family:"IBM Plex Mono",monospace; font-size:12px; color:#7a7a8a; margin-top:2px; }}
+  .scope {{ color:#9aa0ab; font-size:13px; margin:14px 0 4px; }}
 </style>
 </head>
 <body>
-
-<!-- Header -->
-<div class="header">
-  <div class="header-left">
-    <div class="header-label">TNC · Tracking Audit</div>
-    <div class="header-domain">{domain}</div>
+  <div class="doc">
+    <div class="head">
+      <div class="label">TNC · Аудит трекинга</div>
+      <h1>{esc(domain)}</h1>
+      <div class="date">{date_str}</div>
+    </div>
+    <p class="scope">{scope}</p>
+    {truth_block}
+    {external_block}
+    {pages_block}
   </div>
-  <div class="header-right">
-    <div class="header-date">{date_str}</div>
-    <div class="verdict {verdict_cls}">{verdict_text}</div>
-  </div>
-</div>
-
-<!-- Stats -->
-<div class="stats stats-top">
-  <div class="stat">
-    <div class="stat-num def">{sitemap_total if sitemap_total else scanned}</div>
-    <div class="stat-label">Страниц на сайте</div>
-    <div class="stat-sub">{cats_str if cats_str else "обнаружено в sitemap"}</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num def">{scanned}</div>
-    <div class="stat-label">Отобрано для аудита</div>
-    <div class="stat-sub">{lang_sub}</div>
-  </div>
-</div>
-<div class="stats stats-bottom">
-  <div class="stat">
-    <div class="stat-num {"ok" if pages_with_cta > 0 else "gap"}">{pages_with_cta} of {scanned}</div>
-    <div class="stat-label">имеют CTA</div>
-    <div class="stat-sub">кнопки и формы похожие на конверсии</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num {"ok" if pages_with_pixel > 0 else "gap"}">{pages_with_pixel} of {scanned}</div>
-    <div class="stat-label">имеют пиксель</div>
-    <div class="stat-sub">Meta, GA4, GTM или другие платформы</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num {"ok" if pages_with_conversion > 0 else "gap"}">{pages_with_conversion} of {scanned}</div>
-    <div class="stat-label">имеют пиксель + событие</div>
-    <div class="stat-sub">конверсионное событие зафиксировано</div>
-  </div>
-</div>
-
-<div class="content">
-
-  <!-- Google Tools -->
-  <div class="section">
-    <div class="section-title">Google — инструменты аналитики и рекламы</div>
-    {gtm_row}
-    {ga4_row}
-    {ads_row}
-  </div>
-
-  <!-- Платформы -->
-  <div class="section">
-    <div class="section-title">Рекламные платформы</div>
-    {plat_rows}
-  </div>
-
-  <!-- GAP страницы -->
-  {"" if not gap_pages else f'''
-  <div class="section">
-    <div class="section-title">Страницы с пробелами — конверсионные события не зафиксированы при загрузке</div>
-    {gap_sections_html}
-  </div>
-  '''}
-
-  <!-- Unverified: пиксель есть, событие не подтверждено -->
-  {"" if not unverified_pages else f'''
-  <div class="section">
-    <div class="section-title">⚠️ Пиксель установлен — конверсионное событие не зафиксировано</div>
-    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
-      Пиксель найден по ID, но конверсионное событие при сканировании не зафиксировано:
-      конверсии срабатывают только при действии пользователя (клик/сабмит), которое
-      автоматический скан мог не воспроизвести. Это не означает поломку — нужна ручная проверка.
-    </p>
-    {unverified_items}
-  </div>
-  '''}
-
-  <!-- Дубли пикселей -->
-  {"" if not dup_pages else f'''
-  <div class="section">
-    <div class="section-title">⚠️ Дублирующие пиксели — возможен двойной счёт</div>
-    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
-      Найдено более одного ID одной платформы. Частая причина искажённого ROAS.
-      Проверить вручную (легитимный случай: пиксель агентства + пиксель клиента).
-    </p>
-    {dup_rows_html}
-  </div>
-  '''}
-
-  <!-- NO TRACKING страницы -->
-  {f'''
-  <div class="section">
-    <div class="section-title">❌ Пикселей нет вообще</div>
-    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
-      На этих страницах не обнаружено ни одного tracking пикселя. Attribution отсутствует полностью.
-    </p>
-    {"".join(
-      f'<div class="ok-row"><span class="ok-path">{r.get("path","")}</span><span class="ok-events" style="color:var(--red,#e05)">Пикселей не найдено</span></div>'
-      for r in data.get("no_tracking_pages", [])
-    )}
-  </div>
-  ''' if data.get("no_tracking_pages") else ""}
-
-  <!-- OK страницы -->
-  {ok_section_html}
-
-  <!-- Внешние сервисы -->
-  {"" if not conv_ext else f'''
-  <div class="section">
-    <div class="section-title">Внешние сервисы — конверсии вне сайта</div>
-    <p style="font-size:13px; color: var(--dim); margin-bottom: 16px;">
-      Пользователи совершают действия в этих сервисах — пиксели их не видят. Attribution теряется.
-    </p>
-    {ext_rows}
-  </div>
-  '''}
-
-  <!-- Аналитика -->
-  {"" if not anal_ext else f'''
-  <div class="section">
-    <div class="section-title">Поведенческая аналитика</div>
-    {anal_rows}
-  </div>
-  '''}
-
-</div>
 </body>
 </html>"""
-
-    log_debug(f"generate_html: HTML собран, длина {len(html)} символов")
-    return html
 
 
 def run(step2_path: str):

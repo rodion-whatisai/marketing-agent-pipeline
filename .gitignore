@@ -12,3 +12,4 @@ pw-profile/
 # scratch: анализ чужого приватного дашборда (сырьё, НЕ коммитим — только анонимный deliverable в 03-execution/)
 _confidential*
 _build_inputs.py
+har-for-ads-meta-client-a/
