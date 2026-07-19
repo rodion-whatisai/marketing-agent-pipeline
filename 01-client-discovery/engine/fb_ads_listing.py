@@ -263,6 +263,9 @@ def normalize_listing_record(obj: dict) -> dict:
         "n_videos":           len(snap.get("videos") or []),
         "n_images":           len(snap.get("images") or []),
         "n_cards":            len(cards),
+        # превью креатива: resized (~50KB), не original (1-2MB) — иначе репорт раздувается
+        "image_url":          ((snap.get("images") or [{}])[0] or {}).get("resized_image_url"),
+        "video_preview_url":  ((snap.get("videos") or [{}])[0] or {}).get("video_preview_image_url"),
     }
 
 

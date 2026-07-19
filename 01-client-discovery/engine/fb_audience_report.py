@@ -96,6 +96,38 @@ def step_a_listing(target: str, save_as: str, har_path: str | None,
     return {"page": page0, "records": records, "reached_footer": res.get("reached_footer")}
 
 
+# ─── Шаг A2: скачивание картинок креативов ──────────────────────────────────
+
+def step_a2_images(save_as: str, records: dict) -> dict:
+    """Качает превью креативов (resized/video-preview) в
+    scans/<save_as>/fb_ads_images/active/<lib_id>.jpg. Идемпотентно."""
+    import requests
+    img_dir = Path("scans") / save_as / "fb_ads_images" / "active"
+    img_dir.mkdir(parents=True, exist_ok=True)
+    todo = {lid: (r.get("image_url") or r.get("video_preview_url"))
+            for lid, r in records.items()
+            if (r.get("image_url") or r.get("video_preview_url"))
+            and not (img_dir / f"{lid}.jpg").exists()}
+    have = sum(1 for lid in records if (img_dir / f"{lid}.jpg").exists())
+    log_step(f"ШАГ A2: картинки креативов — скачать {len(todo)}, уже есть {have}", emoji="🖼")
+    ok, fail = 0, 0
+    for lid, url in todo.items():
+        try:
+            resp = requests.get(url, timeout=15, headers={
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                              "AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36"})
+            if resp.status_code == 200 and resp.content:
+                (img_dir / f"{lid}.jpg").write_bytes(resp.content)
+                ok += 1
+            else:
+                fail += 1
+        except Exception as e:
+            log_debug(f"step_a2_images: {lid} не скачалась: {e}")
+            fail += 1
+    log_success(f"картинки: скачано {ok}, ошибок {fail}, всего на диске {have + ok}")
+    return {"downloaded": ok, "failed": fail, "total": have + ok}
+
+
 # ─── Шаг B: deep-scan ───────────────────────────────────────────────────────
 
 def step_b_deepscan(lib_ids: list, save_as: str, top_n: int, verbose: bool = True) -> dict:
@@ -370,7 +402,8 @@ def step_d_outputs(save_as: str, calc: dict, listing_meta: dict):
 
 def run(target: str, save_as: str | None = None, top_n: int = 0,
         har_path: str | None = None, skip_deep: bool = False,
-        zombie_days: int = 7, zombie_reach: int = 100) -> dict:
+        zombie_days: int = 7, zombie_reach: int = 100,
+        html: bool = False) -> dict:
     save_as = save_as or target
     log_header(f"FB AUDIENCE REPORT — {target} → scans/{save_as}/")
 
@@ -379,6 +412,8 @@ def run(target: str, save_as: str | None = None, top_n: int = 0,
     if not records and not skip_deep:
         log_warn("листинг пуст (rate-limit или нет объявлений) — "
                  "работаю по имеющимся сайдкарам")
+    if records:
+        step_a2_images(save_as, records)
 
     if not skip_deep:
         ids = list(records.keys())
@@ -391,6 +426,9 @@ def run(target: str, save_as: str | None = None, top_n: int = 0,
         log_error("нет сайдкаров для расчёта — нечего писать")
         return calc
     step_d_outputs(save_as, calc, listing)
+    if html:
+        from fb_audience_report_html import build_html
+        build_html(save_as, calc, records, listing)
     log_header("ГОТОВО")
     log_info(f"ads_v4.csv: {calc['n']} строк | зомби: {calc['zombies']} | "
              f"плейсменты: {calc['cover']['placements']}/{calc['n']}")
@@ -408,6 +446,9 @@ if __name__ == "__main__":
                     help="без deep-scan — расчёты по имеющимся сайдкарам")
     ap.add_argument("--zombie-days", type=int, default=7)
     ap.add_argument("--zombie-reach", type=int, default=100)
+    ap.add_argument("--html", action="store_true",
+                    help="напечатать HTML-репорт «Ads Library Intelligence v2»")
     a = ap.parse_args()
     run(a.target, save_as=a.save_as, top_n=a.top, har_path=a.har,
-        skip_deep=a.skip_deep, zombie_days=a.zombie_days, zombie_reach=a.zombie_reach)
+        skip_deep=a.skip_deep, zombie_days=a.zombie_days,
+        zombie_reach=a.zombie_reach, html=a.html)
