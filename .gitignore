@@ -13,3 +13,5 @@ pw-profile/
 _confidential*
 _build_inputs.py
 har-for-ads-meta-client-a/
+# pitch-decks: PDF-деки тяжёлые (~93 MB), живут локально/в Drive — в git только карточки
+01-client-discovery/pitch-adviser/pitch-decks/*.pdf
