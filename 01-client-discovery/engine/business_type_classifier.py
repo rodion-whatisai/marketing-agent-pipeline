@@ -959,19 +959,33 @@ def _polite_get(session: requests.Session, url: str) -> tuple:
 # ─── Слой 2: Haiku ────────────────────────────────────────────────────────────
 
 SITE_VERDICT_SYSTEM = (
-    "You are a business-type classifier for a digital marketing agency. "
+    "You are a business-type analyst for a performance marketing agency. "
+    "You are the LAST step: cheap pattern rules already ran and could not decide. "
+    "Read the collected evidence and answer. If the evidence genuinely does not "
+    "show something, say so — an honest \"unknown\"/null is correct and expected, "
+    "a plausible guess is a failure. "
     "Respond with a valid JSON object only, no markdown, no explanation.")
+
+MATERIAL_BUDGET = 16000   # знаков материала — держим вызов в ~5K токенов
 
 
 def build_site_verdict_request(html: str, urls: list = None, classified: list = None,
                                domain: str = "", fb_category: str = None,
-                               fb_bio: str = None, about_text: str = None) -> dict:
-    """Материал + инструкция для site-verdict вопроса. Используется и одиночным
-    вызовом (пост-хок), и подсадкой в URL-батч step1 (после гейта)."""
+                               fb_bio: str = None, about_text: str = None,
+                               pricing_text: str = None, observed: dict = None,
+                               partial: dict = None) -> dict:
+    """Материал + инструкция для site-verdict — ПОСЛЕДНЯЯ ступень лесенки.
+    Отдаём Haiku ВСЁ что собрали: главную, дочитанные About/Pricing, «глаз»
+    просканированных страниц (отрисованные title/H1/тарифные строки),
+    НАБЛЮДЕНИЕ кликера, пути, кнопки, FB-категорию — плюс что уже решили
+    дешёвые слои и что именно осталось нерешённым."""
     html = (html or "")[:RAW_HTML_CAP]
-    text = _visible_text(html)[:3000]
+    text = _visible_text(html)[:2500]
     head = _head_bits(html)
     ctas = _cta_texts(html, cap=20)
+    observed = observed or {}
+    partial = partial or {}
+
     paths = []
     poi_first = sorted((classified or []), key=lambda r: r.get("priority", 9))
     for rec in poi_first:
@@ -983,37 +997,93 @@ def build_site_verdict_request(html: str, urls: list = None, classified: list = 
     if not paths:
         paths = _paths_from(urls, None)[:40]
 
-    fb_line = ""
-    if fb_category or fb_bio:
-        fb_line = f"Facebook page category: {fb_category or '—'}; bio: {fb_bio or '—'}\n"
-    about_line = f"About page excerpt:\n{about_text[:1200]}\n\n" if about_text else ""
+    parts = [f"WEBSITE: {domain}",
+             f"Homepage title: {head['title']}",
+             f"Homepage meta description: {head['meta_description']}",
+             f"Homepage H1: {' | '.join(head['h1s'][:4])}"]
 
-    material = (
-        f"Website: {domain}\n"
-        f"Title: {head['title']}\n"
-        f"Meta description: {head['meta_description']}\n"
-        f"H1: {' | '.join(head['h1s'][:4])}\n"
-        f"{fb_line}\n"
-        f"{about_line}"
-        f"Visible homepage text (excerpt):\n{text}\n\n"
-        f"Site page paths:\n" + "\n".join(paths) + "\n\n"
-        f"Button/CTA texts:\n" + " | ".join(ctas))
+    if fb_category or fb_bio:
+        parts.append(f"Facebook page category: {fb_category or '—'} | bio: {fb_bio or '—'}")
+
+    # НАБЛЮДЕНИЕ (не догадка): что реально произошло при сканировании step2
+    obs_lines = []
+    if observed.get("pages_scanned"):
+        obs_lines.append(f"- {observed['pages_scanned']} pages were browser-scanned")
+    if observed.get("add_to_cart_fired"):
+        obs_lines.append("- We CLICKED a buy/cart button and a purchase-intent event "
+                         "(AddToCart/InitiateCheckout/Purchase) actually fired — "
+                         "self-service purchase works on this site")
+    elif observed.get("pages_scanned"):
+        obs_lines.append("- No purchase-intent event was observed (either there is no "
+                         "self-service checkout, or we never reached a product page — "
+                         "do not treat this as proof either way)")
+    if observed.get("checkout_page_seen"):
+        obs_lines.append("- A checkout page exists and was scanned")
+    if obs_lines:
+        parts.append("OBSERVED BEHAVIOUR (facts, not guesses):\n" + "\n".join(obs_lines))
+
+    # «Глаз» — самоописание ОТРИСОВАННЫХ страниц (title/H1/строки тарифов)
+    eyes = observed.get("page_eyes") or []
+    if eyes:
+        eye_lines = []
+        for eye in eyes[:12]:
+            bits = [b for b in (eye.get("title"), " / ".join(eye.get("h1s") or [])[:120],
+                                "; ".join(eye.get("plan_lines") or [])[:200]) if b]
+            if bits:
+                eye_lines.append("- " + " | ".join(bits))
+        if eye_lines:
+            parts.append("SCANNED PAGES (rendered titles / headings / pricing lines):\n"
+                         + "\n".join(eye_lines))
+
+    if about_text:
+        parts.append(f"ABOUT PAGE:\n{about_text[:1500]}")
+    if pricing_text:
+        parts.append(f"PRICING PAGE (shows who the plans are for):\n{pricing_text[:2500]}")
+
+    parts.append(f"Homepage visible text (excerpt):\n{text}")
+    parts.append("Site page paths:\n" + "\n".join(paths))
+    parts.append("Button/CTA texts:\n" + " | ".join(ctas))
+
+    # Что уже решили дешёвые слои — чтобы Haiku добивал именно дыры
+    if partial:
+        parts.append(
+            "WHAT CHEAP RULES ALREADY DETERMINED (may be incomplete or wrong):\n"
+            f"- buyer_type: {partial.get('buyer_type') or 'undecided'} "
+            f"(confidence {partial.get('confidence') or '—'}, "
+            f"decided by {partial.get('decided_by') or '—'})\n"
+            f"- industry: {partial.get('industry') or 'undecided'}\n"
+            f"- business_model: {', '.join(partial.get('business_model') or []) or 'undecided'}")
+
+    material = "\n\n".join(parts)[:MATERIAL_BUDGET]
 
     instruction = (
-        "Look at all the pages and content of this website and decide:\n"
-        '1. "buyer_type" — who does this site sell to: "b2c" (consumers), '
-        '"b2b" (businesses) or "mixed" (both directions as REAL separate business '
-        "lines, not just an enterprise plan).\n"
-        '2. "probability_b2c" — number 0.0-1.0.\n'
-        '3. "business_model" — subset of ["app","saas","ecom","services","info"].\n'
-        '4. "industry" — one short lowercase industry tag '
-        '(e.g. "education", "fashion", "cybersecurity", "fintech"), or null. '
-        "Return null unless the industry is explicitly clear from the material — "
-        "do NOT guess.\n"
-        '5. "industry_tags" — up to 3 lowercase tags.\n'
-        '6. "evidence" — for buyer/model/industry give 1-3 short verbatim quotes '
-        "copied exactly from the material above.\n\n"
-        'Return JSON object: {"buyer_type": "...", "probability_b2c": 0.0, '
+        "Decide who this company SELLS TO and WHAT it sells. Reason in this order:\n"
+        "STEP 1 — What do they sell? Most product categories imply the buyer: "
+        "mobile games/clothing/food/beauty/travel/photography are bought by consumers; "
+        "cybersecurity/cloud infrastructure/developer tools/adtech/HR software are "
+        "bought by companies. Note: a corporate site of e.g. a game studio talks to "
+        "recruiters and press, but the BUSINESS still sells games to players — judge "
+        "the business, not the website's visitors.\n"
+        "STEP 2 — If the category can go both ways (education, fintech, health, "
+        "generic software), who do they NAME as the customer? "
+        '"for teams/businesses/agencies/your company" = businesses; '
+        '"no experience needed/from scratch/your career/players/students" = consumers.\n'
+        "STEP 3 — How is it bought? Self-service cart/checkout/app store = consumers. "
+        "Demo, quote, contact-sales-for-pricing, per-seat pricing = businesses. "
+        "The OBSERVED BEHAVIOUR section above is stronger evidence than any wording.\n"
+        "STEP 4 — If the evidence still does not answer, return unknown/null. Do not guess.\n\n"
+        "Answer these fields:\n"
+        '1. "buyer_type": "b2c" | "b2b" | "mixed" | "unknown". Use "mixed" when BOTH '
+        "audiences really buy/use it (e.g. a tool with a real free personal tier AND "
+        "an enterprise sales motion), not for a mere enterprise upsell.\n"
+        '2. "probability_b2c": number 0.0-1.0.\n'
+        '3. "business_model": subset of ["app","saas","ecom","services","info"].\n'
+        '4. "industry": one short lowercase tag (e.g. "gaming", "education", '
+        '"cybersecurity", "fintech", "fashion"), or null if not clearly shown.\n'
+        '5. "industry_tags": up to 3 lowercase tags.\n'
+        '6. "evidence": for buyer/model/industry, 1-3 SHORT quotes copied verbatim '
+        "from the material above (quotes that are not verbatim will be discarded).\n\n"
+        'Return JSON: {"buyer_type": "...", "probability_b2c": 0.0, '
         '"business_model": [...], "industry": "..." | null, "industry_tags": [...], '
         '"evidence": {"buyer": [...], "model": [...], "industry": [...]}}')
 
