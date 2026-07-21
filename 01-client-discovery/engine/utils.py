@@ -7,8 +7,11 @@ TNC Pipeline — Shared Utilities
 import os
 import sys
 import re
+import time
 from pathlib import Path
 from urllib.parse import urlparse
+
+from log import log_debug, log_warn
 
 # ─── SSL: не проверяем сертификаты клиентских сайтов ─────────────────────────
 # Сканер аудирует чужие сайты — битый/просроченный сертификат клиента не должен
@@ -213,6 +216,253 @@ def safe_get(url: str, timeout: int = 10, **kwargs):
         return requests.get(url, headers=HEADERS, timeout=timeout, **kwargs)
     except Exception:
         return None
+
+
+# ─── Вежливые запросы: единое правило движка ─────────────────────────────────
+#
+# ПРАВИЛО (утв. Родионом 2026-07-20).
+# Пускают нас на сайт или нет — решается ОДИН раз, на входе, по главной странице.
+# Дальше это решение не пересматривается. Любой упавший запрос ПОСЛЕ этого —
+# про наш темп и наш инструмент, а не про сайт:
+#   429 = мы частим            → пауза (по Retry-After, если сервер его прислал) и ОДИН повтор
+#   403 = нас приняли за бота  → повтор настоящим браузером (Playwright ходит как Chrome)
+#   не вышло после этого       → честно «не дочитали». Слово «WAF» не употребляется.
+# Ни один упавший запрос не имеет права породить вердикт о сайте.
+#
+# Правило действует ТОЛЬКО на аудируемый сайт клиента. Запросы к чужим сервисам
+# (FB CDN с картинками, Ads Library, googletagmanager, Anthropic API) исключены
+# списком NEVER_POLITE_HOSTS: там 429 лечится темпом на своём уровне, а браузерный
+# повтор либо бесполезен, либо вреден (см. fb_audience_report — 273 картинки за прогон).
+
+POLITE_TIMEOUT = 12          # секунд на requests-заход по сайту клиента
+POLITE_PAUSE_SEC = 2.5       # пауза между запросами к одному домену
+RETRY_429_WAIT = 6           # пауза перед повтором на 429, если сервер не прислал Retry-After
+RETRY_AFTER_CAP = 30         # потолок ожидания: Retry-After=3600 ждать не будем
+BROWSER_TIMEOUT_MS = 20000   # goto в Playwright-повторе
+
+# Хосты, к которым правило вежливости НЕ применяется (не сайт клиента).
+# Совпадение по суффиксу домена: "scontent.fyhu2-1.fna.fbcdn.net" → "fbcdn.net".
+NEVER_POLITE_HOSTS = (
+    "facebook.com", "fbcdn.net", "fbsbx.com", "fb.com",
+    "google.com", "googleapis.com", "googletagmanager.com", "gstatic.com",
+    "anthropic.com",
+)
+
+# Подменяется в тестах, чтобы не спать по-настоящему. В проде — time.sleep.
+_polite_sleep = time.sleep
+
+# Глубина вложенности polite_get: пока он работает, глобальный патч 429 молчит,
+# иначе на один 429 пришлось бы две паузы (патч + сама функция).
+_polite_depth = 0
+
+
+def _host_of(url: str) -> str:
+    try:
+        return (urlparse(url).hostname or "").lower()
+    except Exception:
+        return ""
+
+
+def is_polite_host(url: str) -> bool:
+    """True — это сайт клиента, правило вежливости применимо.
+    False — чужой сервис (FB CDN, Google, Anthropic), у него свой темп."""
+    host = _host_of(url)
+    if not host:
+        return False
+    return not any(host == h or host.endswith("." + h) for h in NEVER_POLITE_HOSTS)
+
+
+def retry_after_sec(response, default: int = RETRY_429_WAIT) -> int:
+    """Сколько ждать перед повтором. Уважаем Retry-After сервера, но с потолком —
+    иначе Retry-After: 3600 остановит прогон на час."""
+    raw = ""
+    try:
+        raw = (response.headers or {}).get("Retry-After", "") or ""
+    except Exception:
+        raw = ""
+    try:
+        wait = int(float(str(raw).strip()))
+    except (TypeError, ValueError):
+        return default
+    if wait <= 0:
+        return default
+    return min(wait, RETRY_AFTER_CAP)
+
+
+class PoliteResult:
+    """Итог вежливого захода. status=-1 — ответа не было вообще (сеть/DNS/таймаут).
+    Несёт всё, что нужно вызывающим: тело, финальный URL после редиректов,
+    заголовки и кодировку (перекодировка главной в classify_post_hoc без них не живёт)."""
+
+    __slots__ = ("status", "text", "final_url", "headers", "encoding",
+                 "apparent_encoding", "method", "reason")
+
+    def __init__(self, status: int, text: str = None, final_url: str = None,
+                 headers: dict = None, encoding: str = None,
+                 apparent_encoding: str = None, method: str = "requests",
+                 reason: str = None):
+        self.status = status
+        self.text = text
+        self.final_url = final_url
+        self.headers = headers or {}
+        self.encoding = encoding
+        self.apparent_encoding = apparent_encoding
+        self.method = method              # requests | browser | none
+        self.reason = reason              # текст исключения, если ответа не было
+
+    @property
+    def ok(self) -> bool:
+        return self.status == 200 and bool(self.text)
+
+    def __repr__(self) -> str:
+        return f"<PoliteResult {self.status} {self.method} len={len(self.text or '')}>"
+
+
+def browser_get(url: str, timeout_ms: int = BROWSER_TIMEOUT_MS) -> PoliteResult:
+    """Повтор настоящим браузером — ходит как Chrome, поэтому бот-детект его пропускает.
+    ignore_https_errors=True: для requests сертификаты выключены глобально (см. верх файла),
+    браузерный повтор без этого падал бы там, где requests проходил."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return PoliteResult(-1, method="none", reason="playwright не установлен")
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            try:
+                ctx = browser.new_context(
+                    user_agent=HEADERS["User-Agent"],
+                    locale="en-US",
+                    ignore_https_errors=True,
+                )
+                page = ctx.new_page()
+                resp = page.goto(url, wait_until="domcontentloaded", timeout=timeout_ms)
+                status = resp.status if resp else -1
+                html = page.content()
+                final = page.url or url
+                headers = {}
+                try:
+                    headers = dict(resp.headers) if resp else {}
+                except Exception:
+                    headers = {}
+                return PoliteResult(status, html, final, headers, method="browser")
+            finally:
+                browser.close()
+    except Exception as e:
+        return PoliteResult(-1, method="none", reason=str(e)[:120])
+
+
+def polite_get(url: str, session=None, timeout: int = POLITE_TIMEOUT,
+               allow_browser: bool = True, headers: dict = None) -> PoliteResult:
+    """Единственная реализация правила вежливости. Возвращает PoliteResult, никогда не бросает.
+
+    429 → пауза и один повтор тем же способом; 403 или отсутствие ответа → повтор
+    браузером; дальше не идём. allow_browser=False — только дешёвая часть (для мест,
+    где браузер стоит дороже пользы: массовое скачивание, батчи).
+
+    # Tested: 2026-07-21 test_polite_http.py — 429→пауза→200 (один повтор, не два),
+    #         повторный 429 не зацикливается, Retry-After уважается с потолком 30с,
+    #         403→браузер, чужие хосты (fbcdn/google/anthropic) правило не трогает.
+    """
+    global _polite_depth
+    import requests as _rq
+
+    getter = session.get if session is not None else _rq.get
+    hdrs = headers or HEADERS
+    polite = is_polite_host(url)
+
+    _polite_depth += 1                    # глушим глобальный патч на время своей работы
+    try:
+        try:
+            r = getter(url, headers=hdrs, timeout=timeout)
+            if r.status_code == 429 and polite:
+                wait = retry_after_sec(r)
+                log_warn(f"429 — мы частим; пауза {wait}с и один повтор: {url}")
+                _polite_sleep(wait)
+                r = getter(url, headers=hdrs, timeout=timeout)
+            status = r.status_code
+            if status == 200:
+                return PoliteResult(status, r.text, r.url, dict(r.headers),
+                                    r.encoding, getattr(r, "apparent_encoding", None))
+            reason = None
+        except Exception as e:
+            status, reason = -1, str(e)[:120]
+            log_debug(f"polite_get: запрос не состоялся ({reason}): {url}")
+    finally:
+        _polite_depth -= 1
+
+    if status in (403, -1) and polite and allow_browser:
+        log_debug(f"polite_get: {status} — повтор браузером: {url}")
+        res = browser_get(url)
+        if res.status == 200 and res.text:
+            return res
+        # Браузер тоже не пустил — отдаём его код, если он был; иначе исходный.
+        return PoliteResult(res.status if res.status != -1 else status,
+                            method=res.method, reason=res.reason or reason)
+
+    return PoliteResult(status, method="requests" if status != -1 else "none",
+                        reason=reason)
+
+
+def fetch_note(status: int, method: str = None, home_ok: bool = None) -> str:
+    """Честная формулировка исхода для лога и отчёта. Слово «WAF» тут не появляется
+    намеренно: 403/429 на отдельной странице — это про наш заход, а не про сайт."""
+    if status == 200:
+        return "прочитано браузером" if method == "browser" else "прочитано"
+    if status == 429:
+        note = "не дочитали: сайт просит сбавить темп (429), повтор не помог"
+    elif status == 403:
+        note = "не дочитали: страница не отдалась ни обычным запросом, ни браузером (403)"
+    elif status == -1 or status is None:
+        note = "не дочитали: соединение не состоялось"
+    elif status == 404:
+        note = "страницы нет (404)"
+    else:
+        note = f"не дочитали: HTTP {status}"
+    if home_ok and status not in (200, 404):
+        note += " — главная сайта открылась, значит это наш заход, а не защита сайта"
+    return note
+
+
+# ─── Глобальный ретрай на 429 ────────────────────────────────────────────────
+# Дешёвая половина правила, раздаваемая всем ~24 местам движка, которые зовут
+# requests.get напрямую (step1, gtm, language_detector, FB discovery). Патч кроет
+# их все, потому что любой requests.get идёт через Session.request — тот же приём,
+# что и SSL-патч наверху файла. Дорогая половина (браузерный повтор на 403) сюда
+# НЕ входит: из Session.request нельзя честно вернуть Response, собранный браузером.
+#
+# Границы: только GET/HEAD (повтор POST мог бы отправить форму дважды), только
+# сайт клиента (см. is_polite_host), только один повтор, выключатель TNC_POLITE_RETRY=0.
+if os.environ.get("TNC_POLITE_RETRY") != "0":
+    import requests as _requests_polite
+
+    if not getattr(_requests_polite.Session.request, "_tnc_polite", False):
+        _orig_request_for_polite = _requests_polite.Session.request
+
+        def _polite_request(self, method, url, *args, **kwargs):
+            resp = _orig_request_for_polite(self, method, url, *args, **kwargs)
+            if _polite_depth:                       # polite_get сам разберётся
+                return resp
+            if getattr(resp, "status_code", None) != 429:
+                return resp
+            if str(method).upper() not in ("GET", "HEAD"):
+                return resp
+            if not is_polite_host(url):
+                return resp
+            wait = retry_after_sec(resp)
+            log_warn(f"429 — мы частим; пауза {wait}с и один повтор: {url}")
+            _polite_sleep(wait)
+            return _orig_request_for_polite(self, method, url, *args, **kwargs)
+
+        _polite_request._tnc_polite = True
+        # Сторож SSL-патча смотрит только на ВНЕШНЮЮ обёртку Session.request. Встав
+        # поверх него, мы обязаны пронести его флаг дальше — иначе повторный импорт
+        # (importlib.reload) не увидит SSL-патч под нами и намотает второй слой,
+        # а за ним третий: цепочка растёт до RecursionError. Флаг ставим честно —
+        # только если SSL-патч действительно есть под нами (TNC_SSL_VERIFY=1 его снимает).
+        if getattr(_orig_request_for_polite, "_tnc_no_verify", False):
+            _polite_request._tnc_no_verify = True
+        _requests_polite.Session.request = _polite_request
 
 
 # ─── Site Language Detection ──────────────────────────────────────────────────
