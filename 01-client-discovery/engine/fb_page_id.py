@@ -17,7 +17,7 @@ Pipeline:
          → get_ads_data
   → сохраняем scans/{domain}/fb.json
 
-Brand-keyword fallback: если на homepage 0 FB ссылок (или WAF block),
+Brand-keyword fallback: если на homepage 0 FB ссылок (или главную не дочитали),
 ищем по brand-name в Ads Library с fuzzy name filter.
 
 Запуск:
@@ -78,10 +78,10 @@ def run(target: str, html: str = None, headers: dict = None, status: int = None)
         brand_name = urlparse(base_url).netloc.split(".")[0]
         log_debug(f"base_url={base_url} brand_name={brand_name}")
 
-        # Fetch homepage: requests → Playwright fallback при 403/error.
-        # Playwright обходит Cloudflare/WAF и отдаёт тот же HTML что пользователь
-        # видит в браузере — вместе с FB-линкой в footer, даже если поверх висят
-        # cookie/geo popups (они не скрывают static HTML).
+        # Заход на главную: requests → повтор настоящим браузером, если не отдалась.
+        # Браузер ходит как Chrome и отдаёт тот же HTML, что видит пользователь —
+        # вместе с FB-линкой в footer, даже если поверх висят cookie/geo popups
+        # (они не скрывают static HTML).
         if html and status == 200:
             # HTML и headers уже скачаны вызывателем (step1) — fetch не нужен.
             log_debug("homepage/headers переданы из step1 — fetch_homepage пропущен")
