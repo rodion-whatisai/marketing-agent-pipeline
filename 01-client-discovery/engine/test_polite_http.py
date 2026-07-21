@@ -303,6 +303,76 @@ def test_глобальный_патч_не_дублирует_паузу_вну
     assert len(no_real_sleep) == 1
 
 
+# ─── step2: 403/429 — это наш заход, а не мёртвая страница ───────────────────
+
+class _FakeResponse:
+    def __init__(self, status, headers=None):
+        self.status = status
+        self.headers = headers or {}
+
+
+class _FakePage:
+    """Минимальный двойник Playwright-страницы: считает goto и паузы."""
+
+    def __init__(self, *statuses, headers=None):
+        self.statuses = list(statuses)
+        self.headers = headers or {}
+        self.gotos = []
+        self.waits = []
+        self.url = CLIENT
+
+    def goto(self, url, **kwargs):
+        n = len(self.gotos)
+        self.gotos.append(url)
+        status = self.statuses[min(n, len(self.statuses) - 1)]
+        return _FakeResponse(status, self.headers if status == 429 else None)
+
+    def wait_for_timeout(self, ms):
+        self.waits.append(ms)
+
+
+def test_429_на_странице_даёт_паузу_и_повтор():
+    """Реальный корпус: страница с 429 уходила в «мертва» без единой попытки."""
+    from scanners.base_scanner import navigate_and_gate
+    page = _FakePage(429, 200, headers={"retry-after": "9"})   # Playwright: ключи в нижнем регистре
+    verdict = navigate_and_gate(page, CLIENT)
+    assert len(page.gotos) == 2, "повтор ровно один"
+    assert 9000 in page.waits, "пауза взята из Retry-After сервера"
+    assert verdict["http_status"] == 200
+    assert verdict["http_error"] is False
+
+
+def test_403_на_странице_тоже_повторяется():
+    from scanners.base_scanner import navigate_and_gate
+    page = _FakePage(403, 200)
+    verdict = navigate_and_gate(page, CLIENT)
+    assert len(page.gotos) == 2
+    assert verdict["http_error"] is False
+
+
+def test_повтор_не_помог_отдаём_честный_код():
+    from scanners.base_scanner import navigate_and_gate
+    page = _FakePage(429, 429)
+    verdict = navigate_and_gate(page, CLIENT)
+    assert len(page.gotos) == 2, "второй 429 не порождает третью попытку"
+    assert verdict["http_status"] == 429 and verdict["http_error"] is True
+
+
+def test_404_не_повторяем():
+    """Отсутствующая страница — факт о сайте, повторять нечего."""
+    from scanners.base_scanner import navigate_and_gate
+    page = _FakePage(404)
+    verdict = navigate_and_gate(page, CLIENT)
+    assert len(page.gotos) == 1
+    assert verdict["http_error"] is True
+
+
+def test_200_не_повторяем():
+    from scanners.base_scanner import navigate_and_gate
+    page = _FakePage(200)
+    assert len(navigate_and_gate(page, CLIENT)) and len(page.gotos) == 1
+
+
 def test_ssl_патч_пережил_соседа(monkeypatch, no_real_sleep):
     """Вежливость встала поверх SSL-патча — verify=False должен доезжать до транспорта."""
     stub = _AdapterStub(200)

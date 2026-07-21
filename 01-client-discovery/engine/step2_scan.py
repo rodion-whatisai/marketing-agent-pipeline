@@ -198,7 +198,8 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                 if _gate.get("http_error"):
                     result["status"] = f"⛔ HTTP {_gate.get('http_status')}"
                     http_error_pages.append(result)
-                    print(f"  → {result['status']} — страница мертва, аудит пропущен")
+                    # Не «мертва»: код ответа — это про наш заход, а не про сайт.
+                    print(f"  → {result['status']} — не дочитали эту страницу, аудит пропущен")
                 else:
                     result["status"] = "↪ REDIRECTED"
                     redirected_pages.append(result)

@@ -277,7 +277,10 @@ def retry_after_sec(response, default: int = RETRY_429_WAIT) -> int:
     иначе Retry-After: 3600 остановит прогон на час."""
     raw = ""
     try:
-        raw = (response.headers or {}).get("Retry-After", "") or ""
+        # requests отдаёт регистронезависимый CaseInsensitiveDict, Playwright —
+        # обычный dict с ключами в нижнем регистре. Проверяем оба написания.
+        hdrs = response.headers or {}
+        raw = hdrs.get("Retry-After") or hdrs.get("retry-after") or ""
     except Exception:
         raw = ""
     try:

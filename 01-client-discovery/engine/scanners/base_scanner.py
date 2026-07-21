@@ -7,7 +7,8 @@ import re
 from urllib.parse import urlparse, parse_qs
 
 from page_classifier import classify_page_content
-from log import log_debug, log_fire
+from log import log_debug, log_fire, log_warn
+from utils import retry_after_sec
 
 
 # ─── Общий детектор кнопок/CTA (один источник истины для сканера и кликера) ────
@@ -458,6 +459,14 @@ def gate_verdict(requested_url: str, final_url: str, http_status) -> dict:
     return out
 
 
+def _status_of(response):
+    """HTTP-код ответа Playwright, None если ответа нет или объект уже недоступен."""
+    try:
+        return response.status if response else None
+    except Exception:
+        return None
+
+
 def navigate_and_gate(page, url: str, settle_ms: int = 1500, retry_settle_ms: int = 1000) -> dict:
     """goto с ретраем (общий паттерн трёх сканеров) + вердикт шлюза.
     Возвращает gate_verdict(...) + 'errors' (список ошибок навигации)."""
@@ -475,11 +484,23 @@ def navigate_and_gate(page, url: str, settle_ms: int = 1500, retry_settle_ms: in
         except Exception as e2:
             log_warn(f"navigate_and_gate: navigation failed for {url}: {str(e2)[:100]}")
             errors.append(str(e2)[:100])
-    status = None
-    try:
-        status = response.status if response else None
-    except Exception:
-        pass
+
+    # 429/403 — это наш заход, а не мёртвая страница. 429 = мы частим, 403 = нас
+    # приняли за бота. Пауза и ОДИН повтор; эскалировать дальше некуда — браузер
+    # здесь уже последняя ступень. Пауза берётся из Retry-After, если сервер его
+    # прислал (потолок 30с), иначе дефолт.
+    if _status_of(response) in (429, 403):
+        wait = retry_after_sec(response)
+        log_warn(f"HTTP {_status_of(response)} — сбавляю темп: пауза {wait}с и один повтор {url}")
+        try:
+            page.wait_for_timeout(wait * 1000)
+            response = page.goto(url, wait_until="domcontentloaded", timeout=20000)
+            page.wait_for_timeout(settle_ms)
+        except Exception as e:
+            log_warn(f"navigate_and_gate: повтор не удался для {url}: {str(e)[:100]}")
+            errors.append(str(e)[:100])
+
+    status = _status_of(response)
     final_url = ""
     try:
         final_url = page.url or ""
