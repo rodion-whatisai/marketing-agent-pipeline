@@ -29,10 +29,11 @@ Brand-keyword fallback: если на homepage 0 FB ссылок (или WAF blo
 import sys
 import json
 import time
-import requests
+# requests больше не нужен: единственный прямой GET (повторная качка главной ради
+# заголовков) убран 2026-07-21 — заголовки приходят из fetch_homepage.
 from urllib.parse import urlparse
 
-from utils import scan_path, HEADERS, setup_console
+from utils import scan_path, setup_console
 setup_console()
 
 from log import log_info, log_warn, log_error, log_debug, log_success, log_step, log_header
@@ -88,21 +89,14 @@ def run(target: str, html: str = None, headers: dict = None, status: int = None)
             _headers = headers or {}
         else:
             log_debug(f"fetch_homepage({base_url}) — старт")
-            _html, _homepage_status, _fetch_method, _homepage_error = fetch_homepage(base_url)
+            # Заголовки для country detection приходят из ТОГО ЖЕ ответа. До 2026-07-21
+            # здесь стоял повторный GET той же главной через секунды после первого —
+            # мы частили сами против себя, ровно то, от чего лечит правило вежливости.
+            # Побочно: теперь заголовки есть и на браузерном пути, раньше там был TLD-фоллбэк.
+            _html, _homepage_status, _fetch_method, _homepage_error, _headers = fetch_homepage(base_url)
             log_debug(f"fetch_homepage результат: status={_homepage_status} method={_fetch_method} error={_homepage_error}")
             if _fetch_method == "playwright":
                 log_success(f"Homepage получен через Playwright (HTTP {_homepage_status})", emoji="✓")
-
-            # Для country detection нужны headers — они есть только в requests-ответе.
-            # Если Playwright — оставляем пустыми, detect_site_country свалится на TLD.
-            _headers = {}
-            if _fetch_method == "requests":
-                log_debug("fetch_method=requests — повторный GET для headers (country detection)")
-                try:
-                    _r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
-                    _headers = dict(_r.headers)
-                except Exception as e:
-                    log_debug(f"повторный GET для headers упал: {e}")
 
         log_debug("detect_site_country() — старт")
         country_result = detect_site_country(urlparse(base_url).netloc, html=_html, response_headers=_headers)

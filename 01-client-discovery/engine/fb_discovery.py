@@ -5,7 +5,7 @@ Homepage → FB handles → classification → Page ID pipeline.
 
 Отвечает за discovery brand'a в Facebook'е:
 - detect_site_country: страна сайта (header → lang-attr → TLD)
-- fetch_homepage: HTTP fetch с Playwright fallback при WAF
+- fetch_homepage: HTTP fetch с повтором через настоящий браузер
 - find_all_fb_handles: 4 формата FB URL в HTML + классификация id_type
   (page / profile / unknown — определяет можно ли доверять числовому ID в URL)
 - prioritize_handles: сортировка handle'ов (id_type=page приоритетнее всего)
@@ -116,13 +116,25 @@ SKIP_FB_PATHS = {
 
 # ─── Заход на главную: requests, потом настоящий браузер ─────────────────────
 
+def _resp_headers(response) -> dict:
+    """Заголовки ответа Playwright; пустой словарь если их не достать."""
+    try:
+        return dict(response.headers) if response else {}
+    except Exception:
+        return {}
+
+
 def fetch_homepage(base_url: str) -> tuple:
     """
     Пытается получить HTML домашней страницы. Сначала через requests (быстро),
     если не отдалась — повтор через headless Playwright (ходит как Chrome).
 
-    Returns: (html, status_code, method, error)
+    Returns: (html, status_code, method, error, headers)
       method ∈ {"requests", "playwright", "not_fetched"}
+
+    headers — заголовки ответа. Отдаём их наружу, чтобы вызывающий не ходил на
+    главную ВТОРОЙ раз только ради Content-Language (см. fb_page_id): по правилу
+    вежливости частить самим против себя нельзя.
 
     «not_fetched» — честная констатация «мы не достали главную», без утверждений
     о сайте. Раньше здесь стояло "blocked_by_waf", и это оказалось неправдой:
@@ -138,7 +150,7 @@ def fetch_homepage(base_url: str) -> tuple:
         # 200 = нас пустили, точка. Короткое тело — это особенность сайта (одностраничник,
         # редирект-заглушка), а не причина объявлять главную недоступной.
         if r.status_code == 200 or (r.status_code < 400 and len(r.text) > 500):
-            return r.text, r.status_code, "requests", None
+            return r.text, r.status_code, "requests", None, dict(r.headers)
         requests_status = r.status_code
     except Exception as e:
         requests_status = None
@@ -149,7 +161,7 @@ def fetch_homepage(base_url: str) -> tuple:
         from playwright.sync_api import sync_playwright
     except ImportError:
         log_debug("fetch_homepage: playwright не установлен — главную не достали")
-        return "", requests_status, "not_fetched", "playwright не установлен"
+        return "", requests_status, "not_fetched", "playwright не установлен", {}
 
     log_step(f"requests вернул {requests_status} — повтор настоящим браузером...", emoji="🎭")
     try:
@@ -178,16 +190,16 @@ def fetch_homepage(base_url: str) -> tuple:
                 # Отказ если status 4xx/5xx — даже если есть HTML, это скорее всего
                 # CF challenge page или error page, а не реальный контент сайта
                 if html and len(html) > 500 and (status is None or status < 400):
-                    return html, status, "playwright", None
+                    return html, status, "playwright", None, _resp_headers(response)
                 log_debug(f"fetch_homepage: главную не достали (браузер вернул {status})")
-                return "", status, "not_fetched", f"браузер вернул HTTP {status}"
+                return "", status, "not_fetched", f"браузер вернул HTTP {status}", {}
             except Exception as e:
                 browser.close()
                 log_debug(f"fetch_homepage: playwright goto error: {str(e)[:80]}")
-                return "", requests_status, "not_fetched", f"ошибка браузера: {str(e)[:80]}"
+                return "", requests_status, "not_fetched", f"ошибка браузера: {str(e)[:80]}", {}
     except Exception as e:
         log_debug(f"fetch_homepage: playwright launch failed: {str(e)[:80]}")
-        return "", requests_status, "not_fetched", f"браузер не стартовал: {str(e)[:80]}"
+        return "", requests_status, "not_fetched", f"браузер не стартовал: {str(e)[:80]}", {}
 
 
 # ─── Сбор всех FB ссылок на сайте ────────────────────────────────────────────

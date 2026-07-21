@@ -375,6 +375,37 @@ def test_200_не_повторяем():
     assert len(navigate_and_gate(page, CLIENT)) and len(page.gotos) == 1
 
 
+# ─── Главную качаем ОДИН раз ─────────────────────────────────────────────────
+
+def test_fetch_homepage_отдаёт_заголовки_первого_ответа(monkeypatch):
+    """До 2026-07-21 fb_page_id делал ВТОРОЙ GET той же главной через секунды
+    после первого — только ради Content-Language. Мы частили сами против себя."""
+    import fb_discovery
+
+    calls = []
+
+    def fake_get(url, **kwargs):
+        calls.append(url)
+        return _resp(200, url, {"Content-Language": "fr-CA"}, body="x" * 600)
+
+    monkeypatch.setattr(fb_discovery.requests, "get", fake_get)
+    html, status, method, error, headers = fb_discovery.fetch_homepage(CLIENT)
+
+    assert len(calls) == 1, "главная качается ровно один раз"
+    assert status == 200 and method == "requests" and error is None
+    assert headers.get("Content-Language") == "fr-CA"
+
+
+def test_главная_200_с_коротким_телом_не_провал(monkeypatch):
+    """expired.badssl.com и visarun.com отдавали 200, но тело короче 500 байт —
+    и код объявлял их «за WAF». 200 = нас пустили, точка."""
+    import fb_discovery
+    monkeypatch.setattr(fb_discovery.requests, "get",
+                        lambda url, **kw: _resp(200, url, body="привет"))
+    html, status, method, error, headers = fb_discovery.fetch_homepage(CLIENT)
+    assert method == "requests" and status == 200 and error is None
+
+
 # ─── Сводный отчёт: найденные данные важнее того, как мы заходили ────────────
 
 def _fake_scan(tmp_path, monkeypatch, *, method, accounts):
