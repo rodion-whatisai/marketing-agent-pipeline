@@ -1,0 +1,118 @@
+# выгружено из живой таблицы 2026-07-19 (снимок при заливке v2; первый успешный запуск с ключом перезапишет)
+Параметр,Campaign Objective,Ориентировочный таргетинг,Geo,Gender,Age from,Age to,Placements,Formats,CPM from,CPM to,Currency,Комментарий,Обновлено
+CPM,Traffic / Engagement,"БЕЗ таргетинга (вся аудитория, broad)",Worldwide,All,18,65,All,All,0.5,2,USD,"ЯКОРЬ: самая дешёвая база всей таблицы (низ = минимум по всем профилям). Дешёвые страны = Индия, Пакистан, Бангладеш, Филиппины, Индонезия, Нигерия и т.п. — «WW-чистый» везде ниже означает Worldwide без них. Ист.: lebesgue.io, affectgroup.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,"БЕЗ таргетинга (вся аудитория, broad)",WW-чистый,All,18,65,All,All,1,4,USD,"ЯКОРЬ: чистый WW без таргетинга. Ист.: lebesgue.io, affectgroup.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),"БЕЗ таргетинга (вся аудитория, broad)",Worldwide,All,18,65,All,All,1,4,USD,"ЯКОРЬ: конверсионная база без таргетинга. Ист.: lebesgue.io, affectgroup.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),"БЕЗ таргетинга (вся аудитория, broad)",WW-чистый,All,18,65,All,All,2,8,USD,"ЯКОРЬ: чистый WW, конверсии, без таргетинга. Ист.: lebesgue.io, affectgroup.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),"Все, что связано с AI и кодингом",Worldwide,All,18,65,All,All,12,22,USD,Строка Родиона (зафиксировано 2026-07-19).,2026-07-19
+CPM,Sales (Conversions),"Все, что связано с AI и кодингом",WW-чистый,All,18,65,All,All,20,40,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),"Все, что связано с AI и кодингом",WW-чистый,All,18,65,Facebook,All,24,48,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),"Все, что связано с AI и кодингом",WW-чистый,All,18,65,Instagram,All,22,44,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),"Все, что связано с AI и кодингом",WW-чистый,Male,18,65,All,All,25,60,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),"Все, что связано с AI и кодингом",WW-чистый,All,18,30,All,All,23,52,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,"Все, что связано с AI и кодингом",Worldwide,All,18,65,All,All,6,12,USD,"Прикидка от якоря Sales WW $12–22: бенчмарки 2025–26 дают Software/Tech CPM ~$10–15 blended и $20–30+ для… Ист.: adamigo.ai, superads.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,"Все, что связано с AI и кодингом",WW-чистый,All,18,65,All,All,10,20,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,"Все, что связано с AI и кодингом",WW-чистый,All,18,65,Facebook,All,12,24,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,"Все, что связано с AI и кодингом",WW-чистый,All,18,65,Instagram,All,11,22,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,"Все, что связано с AI и кодингом",WW-чистый,Male,18,65,All,All,12.5,30,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,"Все, что связано с AI и кодингом",WW-чистый,All,18,30,All,All,11.5,26,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),"Авто-интендеры, luxury авто",Worldwide,All,18,65,All,All,2,5,USD,"Прикидка собрана из бенчмарков 2025–2026: авто-вертикаль CPM ~$7–10 (US), CPM по странам (Tier-3… Ист.: adligator.com, lebesgue.io. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),"Авто-интендеры, luxury авто",WW-чистый,All,18,65,All,All,4,10,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),"Авто-интендеры, luxury авто",WW-чистый,All,18,65,Facebook,All,5,12,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),"Авто-интендеры, luxury авто",WW-чистый,All,18,65,Instagram,All,4.5,11,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),"Авто-интендеры, luxury авто",WW-чистый,Male,18,65,All,All,5,15,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),"Авто-интендеры, luxury авто",WW-чистый,All,18,30,All,All,4.5,13,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,"Авто-интендеры, luxury авто",Worldwide,All,18,65,All,All,1,2.5,USD,"Прикидка собрана из бенчмарков 2025–2026: авто-вертикаль CPM ~$7–10 (US), CPM по странам (Tier-3… Ист.: adligator.com, lebesgue.io. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,"Авто-интендеры, luxury авто",WW-чистый,All,18,65,All,All,2,5,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,"Авто-интендеры, luxury авто",WW-чистый,All,18,65,Facebook,All,2.5,6,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,"Авто-интендеры, luxury авто",WW-чистый,All,18,65,Instagram,All,2,5.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,"Авто-интендеры, luxury авто",WW-чистый,Male,18,65,All,All,2.5,7.5,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,"Авто-интендеры, luxury авто",WW-чистый,All,18,30,All,All,2.5,6.5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),Beauty / skincare / косметика,Worldwide,All,18,65,All,All,2,4,USD,"Прикидка на бенчмарках 2025-2026: страновые CPM Meta (Индия ~$1.4, Филиппины ~$3.4, US ~$16-20), премиум… Ист.: lebesgue.io, adlibrary.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),Beauty / skincare / косметика,WW-чистый,All,18,65,All,All,5,9,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),Beauty / skincare / косметика,WW-чистый,All,18,65,Facebook,All,6,11,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),Beauty / skincare / косметика,WW-чистый,All,18,65,Instagram,All,5.5,10,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),Beauty / skincare / косметика,WW-чистый,Female,18,65,All,All,6,13.5,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),Beauty / skincare / косметика,WW-чистый,All,18,30,All,All,6,11.5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,Beauty / skincare / косметика,Worldwide,All,18,65,All,All,1,2,USD,"Прикидка на бенчмарках 2025-2026: страновые CPM Meta (Индия ~$1.4, Филиппины ~$3.4, US ~$16-20), премиум… Ист.: lebesgue.io, adlibrary.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,Beauty / skincare / косметика,WW-чистый,All,18,65,All,All,2.5,4.5,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,Beauty / skincare / косметика,WW-чистый,All,18,65,Facebook,All,3,5.5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,Beauty / skincare / косметика,WW-чистый,All,18,65,Instagram,All,3,5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,Beauty / skincare / косметика,WW-чистый,Female,18,65,All,All,3,7,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,Beauty / skincare / косметика,WW-чистый,All,18,30,All,All,3,6,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),"FMCG, женская аудитория",Worldwide,All,18,65,All,All,2,4,USD,"Прикидка собрана из страновых бенчмарков Meta 2025-26 (Tier-3: Индия/Бангладеш/Пакистан ~$0.5-2… Ист.: lebesgue.io, wordstream.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),"FMCG, женская аудитория",WW-чистый,All,18,65,All,All,4,8,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),"FMCG, женская аудитория",WW-чистый,All,18,65,Facebook,All,5,9.5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),"FMCG, женская аудитория",WW-чистый,All,18,65,Instagram,All,4.5,9,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),"FMCG, женская аудитория",WW-чистый,Female,18,65,All,All,5,12,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),"FMCG, женская аудитория",WW-чистый,All,18,30,All,All,4.5,10.5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,"FMCG, женская аудитория",Worldwide,All,18,65,All,All,1,2,USD,"Прикидка собрана из страновых бенчмарков Meta 2025-26 (Tier-3: Индия/Бангладеш/Пакистан ~$0.5-2… Ист.: lebesgue.io, wordstream.com. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,"FMCG, женская аудитория",WW-чистый,All,18,65,All,All,2,4,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,"FMCG, женская аудитория",WW-чистый,All,18,65,Facebook,All,2.5,5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,"FMCG, женская аудитория",WW-чистый,All,18,65,Instagram,All,2,4.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,"FMCG, женская аудитория",WW-чистый,Female,18,65,All,All,2.5,6,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,"FMCG, женская аудитория",WW-чистый,All,18,30,All,All,2.5,5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),Онлайн-образование / курсы,Worldwide,All,18,65,All,All,2,4,USD,"Прикидка собрана из бенчмарков 2025-2026: CPM образовательной вертикали ~$5-9 в Tier-1 (US $16-21… Ист.: superads.ai, adamigo.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),Онлайн-образование / курсы,WW-чистый,All,18,65,All,All,4,8,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),Онлайн-образование / курсы,WW-чистый,All,18,65,Facebook,All,5,9.5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),Онлайн-образование / курсы,WW-чистый,All,18,65,Instagram,All,4.5,9,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),Онлайн-образование / курсы,WW-чистый,Female,18,65,All,All,5,12,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),Онлайн-образование / курсы,WW-чистый,All,18,30,All,All,4.5,10.5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,Онлайн-образование / курсы,Worldwide,All,18,65,All,All,1,2,USD,"Прикидка собрана из бенчмарков 2025-2026: CPM образовательной вертикали ~$5-9 в Tier-1 (US $16-21… Ист.: superads.ai, adamigo.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,Онлайн-образование / курсы,WW-чистый,All,18,65,All,All,2,4,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,Онлайн-образование / курсы,WW-чистый,All,18,65,Facebook,All,2.5,5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,Онлайн-образование / курсы,WW-чистый,All,18,65,Instagram,All,2,4.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,Онлайн-образование / курсы,WW-чистый,Female,18,65,All,All,2.5,6,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,Онлайн-образование / курсы,WW-чистый,All,18,30,All,All,2.5,5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),Туризм / путешествия,Worldwide,All,18,65,All,All,1,3,USD,"Прикидка от страновых бенчмарков Meta CPM 2025-2026: Tier-3 (Индия ~$1-1.8, Бангладеш $0.6-1.2, Пакистан… Ист.: adamigo.ai, lebesgue.io. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),Туризм / путешествия,WW-чистый,All,18,65,All,All,2,6,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),Туризм / путешествия,WW-чистый,All,18,65,Facebook,All,2.5,7,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),Туризм / путешествия,WW-чистый,All,18,65,Instagram,All,2,6.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),Туризм / путешествия,WW-чистый,Female,18,65,All,All,2.5,9,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),Туризм / путешествия,WW-чистый,All,18,30,All,All,2.5,8,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,Туризм / путешествия,Worldwide,All,18,65,All,All,0.5,1.5,USD,"Прикидка от страновых бенчмарков Meta CPM 2025-2026: Tier-3 (Индия ~$1-1.8, Бангладеш $0.6-1.2, Пакистан… Ист.: adamigo.ai, lebesgue.io. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,Туризм / путешествия,WW-чистый,All,18,65,All,All,1,3,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,Туризм / путешествия,WW-чистый,All,18,65,Facebook,All,1,3.5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,Туризм / путешествия,WW-чистый,All,18,65,Instagram,All,1,3.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,Туризм / путешествия,WW-чистый,Female,18,65,All,All,1,4.5,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,Туризм / путешествия,WW-чистый,All,18,30,All,All,1,4,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),Fashion / одежда / streetwear,Worldwide,All,18,65,All,All,2,4,USD,"Прикидка на бенчмарках 2025-2026: страновые CPM Meta (Индия ~$1.4, Филиппины ~$3.4, США ~$16, Западная Европа… Ист.: lebesgue.io, adamigo.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),Fashion / одежда / streetwear,WW-чистый,All,18,65,All,All,4,9,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),Fashion / одежда / streetwear,WW-чистый,All,18,65,Facebook,All,5,11,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),Fashion / одежда / streetwear,WW-чистый,All,18,65,Instagram,All,4.5,10,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),Fashion / одежда / streetwear,WW-чистый,Female,18,65,All,All,5,13.5,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),Fashion / одежда / streetwear,WW-чистый,All,18,30,All,All,4.5,11.5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,Fashion / одежда / streetwear,Worldwide,All,18,65,All,All,1,2,USD,"Прикидка на бенчмарках 2025-2026: страновые CPM Meta (Индия ~$1.4, Филиппины ~$3.4, США ~$16, Западная Европа… Ист.: lebesgue.io, adamigo.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,Fashion / одежда / streetwear,WW-чистый,All,18,65,All,All,2,4.5,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,Fashion / одежда / streetwear,WW-чистый,All,18,65,Facebook,All,2.5,5.5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,Fashion / одежда / streetwear,WW-чистый,All,18,65,Instagram,All,2,5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,Fashion / одежда / streetwear,WW-чистый,Female,18,65,All,All,2.5,7,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,Fashion / одежда / streetwear,WW-чистый,All,18,30,All,All,2.5,6,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),Health / wellness приложения,Worldwide,All,18,65,All,All,1.5,3,USD,"Прикидка собрана из страновых CPM-бенчмарков Meta 2025-2026 (Индия ~$1.4, Филиппины ~$3.4, Бразилия ~$2.6… Ист.: lebesgue.io, superads.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),Health / wellness приложения,WW-чистый,All,18,65,All,All,3,6.5,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),Health / wellness приложения,WW-чистый,All,18,65,Facebook,All,3.5,8,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),Health / wellness приложения,WW-чистый,All,18,65,Instagram,All,3.5,7,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),Health / wellness приложения,WW-чистый,Female,18,65,All,All,4,10,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),Health / wellness приложения,WW-чистый,All,18,30,All,All,3.5,8.5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,Health / wellness приложения,Worldwide,All,18,65,All,All,1,2,USD,"Прикидка собрана из страновых CPM-бенчмарков Meta 2025-2026 (Индия ~$1.4, Филиппины ~$3.4, Бразилия ~$2.6… Ист.: lebesgue.io, superads.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,Health / wellness приложения,WW-чистый,All,18,65,All,All,2,4,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,Health / wellness приложения,WW-чистый,All,18,65,Facebook,All,2.5,5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,Health / wellness приложения,WW-чистый,All,18,65,Instagram,All,2,4.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,Health / wellness приложения,WW-чистый,Female,18,65,All,All,2.5,6,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,Health / wellness приложения,WW-чистый,All,18,30,All,All,2.5,5,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Sales (Conversions),События / спорт / развлечения,Worldwide,All,18,65,All,All,1,3,USD,"Прикидка собрана из бенчмарков 2025-2026: entertainment-вертикаль на Meta стоит заметно ниже среднего (~$7-8… Ист.: superads.ai, adamigo.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Sales (Conversions),События / спорт / развлечения,WW-чистый,All,18,65,All,All,2,6,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Sales (Conversions),События / спорт / развлечения,WW-чистый,All,18,65,Facebook,All,2.5,7,USD,= чистый WW × 1.2,2026-07-19
+CPM,Sales (Conversions),События / спорт / развлечения,WW-чистый,All,18,65,Instagram,All,2,6.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Sales (Conversions),События / спорт / развлечения,WW-чистый,Male,18,65,All,All,2.5,9,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Sales (Conversions),События / спорт / развлечения,WW-чистый,All,18,30,All,All,2.5,8,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+CPM,Traffic / Engagement,События / спорт / развлечения,Worldwide,All,18,65,All,All,0.5,1.5,USD,"Прикидка собрана из бенчмарков 2025-2026: entertainment-вертикаль на Meta стоит заметно ниже среднего (~$7-8… Ист.: superads.ai, adamigo.ai. ПРОВЕРИТЬ",2026-07-19
+CPM,Traffic / Engagement,События / спорт / развлечения,WW-чистый,All,18,65,All,All,1,3,USD,Без дешёвых стран. ПРОВЕРИТЬ,2026-07-19
+CPM,Traffic / Engagement,События / спорт / развлечения,WW-чистый,All,18,65,Facebook,All,1,3.5,USD,= чистый WW × 1.2,2026-07-19
+CPM,Traffic / Engagement,События / спорт / развлечения,WW-чистый,All,18,65,Instagram,All,1,3.5,USD,= чистый WW × 1.1,2026-07-19
+CPM,Traffic / Engagement,События / спорт / развлечения,WW-чистый,Male,18,65,All,All,1,4.5,USD,= чистый WW × 1.25–1.5,2026-07-19
+CPM,Traffic / Engagement,События / спорт / развлечения,WW-чистый,All,18,30,All,All,1,4,USD,= чистый WW × 1.15–1.3 (18–30),2026-07-19
+Частота при небольшом охвате,,,,,,,,,2,2.5,,Сколько раз один человек видит рекламу за срок объявления. Небольшой охват = ниже порога (строка ниже). ПРОВЕРИТЬ,2026-07-19
+Частота при большом охвате,,,,,,,,,1.5,1.8,,"Чем больше охват, тем ниже частота. ПРОВЕРИТЬ",2026-07-19
+"Порог небольшой/большой охват, людей",,,,,,,,,50000,,,"Ниже порога считаем охват небольшим, выше — большим. ПРОВЕРИТЬ",2026-07-19
+Worldwide-коэффициент (доля EU+UK в мировом таргете),,,,,,,,,,,,Пока НЕ заполняем — методика (учёт исключённых стран из FB-данных) обсуждается с Родионом.,2026-07-19

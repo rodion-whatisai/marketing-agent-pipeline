@@ -7,24 +7,23 @@
 Формула (см. README «Формула прикидки затрат»):
     охват (EU + UK одним числом) x частота = показы
     показы / 1000 x CPM = затраты
-Частота и CPM — из бенчмарк-таблицы в Drive (пока константами ниже,
-чтение таблицы через Drive добавим позже).
+Частота, порог и CPM берутся из живой Google-таблицы Родиона через
+benchmarks_loader (при недоступности — из кэша, с предупреждением).
 
-Запуск:  python spend_estimate.py client-a.example
+Запуск:
+    python spend_estimate.py client-a.example
+    python spend_estimate.py client-a.example --vertical "Онлайн-образование" --objective Traffic
 """
+import argparse
 import re
 import sys
 from pathlib import Path
 
+from benchmarks_loader import load_benchmarks, pick_cpm, list_verticals
+
 sys.stdout.reconfigure(encoding="utf-8")
 
 ENGINE_SCANS = Path(__file__).resolve().parent.parent / "engine" / "scans"
-
-# ── бенчмарки (источник: «TNC Pitch-Adviser — CPM бенчмарки v2», Drive) ──
-FREQ_THRESHOLD = 50_000          # порог «небольшой / большой охват», людей
-FREQ_SMALL = (2.0, 2.5)          # частота при небольшом охвате
-FREQ_BIG = (1.5, 1.8)            # чем больше охват, тем ниже частота
-BENCH_SRC = "CPM бенчмарки v2 (Drive), строки: частота + профиль вертикали"
 
 
 def parse_ads(html: str) -> list[dict]:
@@ -57,16 +56,16 @@ def parse_ads(html: str) -> list[dict]:
     return ads
 
 
-def estimate(ads: list[dict], cpm_low: float, cpm_high: float) -> dict:
-    small = [a["reach"] for a in ads if 0 < a["reach"] < FREQ_THRESHOLD]
-    big = [a["reach"] for a in ads if a["reach"] >= FREQ_THRESHOLD]
-    imp_low = sum(small) * FREQ_SMALL[0] + sum(big) * FREQ_BIG[0]
-    imp_high = sum(small) * FREQ_SMALL[1] + sum(big) * FREQ_BIG[1]
+def estimate(ads: list[dict], bench: dict, cpm_low: float, cpm_high: float) -> dict:
+    threshold = bench["threshold"]
+    f_small, f_big = bench["freq_small"], bench["freq_big"]
+    small = [a["reach"] for a in ads if 0 < a["reach"] < threshold]
+    big = [a["reach"] for a in ads if a["reach"] >= threshold]
+    imp_low = sum(small) * f_small[0] + sum(big) * f_big[0]
+    imp_high = sum(small) * f_small[1] + sum(big) * f_big[1]
     return {
-        "n_ads": len(ads),
         "n_zero": sum(1 for a in ads if a["reach"] == 0),
-        "eu": sum(a["eu"] for a in ads),
-        "uk": sum(a["uk"] for a in ads),
+        "eu": sum(a["eu"] for a in ads), "uk": sum(a["uk"] for a in ads),
         "reach": sum(a["reach"] for a in ads),
         "n_small": len(small), "reach_small": sum(small),
         "n_big": len(big), "reach_big": sum(big),
@@ -82,40 +81,62 @@ def sp(n) -> str:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        raise SystemExit("Использование: python spend_estimate.py <домен> [cpm_from] [cpm_to]")
-    domain = sys.argv[1]
-    cpm_low = float(sys.argv[2]) if len(sys.argv) > 2 else 4.0
-    cpm_high = float(sys.argv[3]) if len(sys.argv) > 3 else 8.0
+    ap = argparse.ArgumentParser(description="Прикидка затрат по EU+UK охвату")
+    ap.add_argument("domain", help="домен, напр. client-a.example")
+    ap.add_argument("--vertical", default="", help="таргетинг из бенчмарк-таблицы (часть названия)")
+    ap.add_argument("--objective", default="Sales",
+                    help="Sales (есть конверсионное событие) или Traffic (событий нет)")
+    ap.add_argument("--geo", default="WW-чистый", help="строка Geo из таблицы")
+    ap.add_argument("--list-verticals", action="store_true", help="показать таргетинги таблицы и выйти")
+    args = ap.parse_args()
 
-    report = ENGINE_SCANS / domain / f"{domain} — Ads Library Intelligence v2.html"
-    print(f"Читаю репорт: {report.name}")
+    bench = load_benchmarks()
+    if args.list_verticals:
+        for v in list_verticals(bench):
+            print(" ·", v)
+        return
+
+    profile = pick_cpm(bench, objective=args.objective,
+                       vertical_hint=args.vertical, geo=args.geo)
+    cpm_low, cpm_high = profile["cpm_from"], profile["cpm_to"]
+
+    report = ENGINE_SCANS / args.domain / f"{args.domain} — Ads Library Intelligence v2.html"
     if not report.exists():
         raise SystemExit(f"Не найден репорт: {report}")
-
+    print(f"Читаю репорт: {report.name}")
     ads = parse_ads(report.read_text(encoding="utf-8"))
     print(f"Разобрано объявлений: {len(ads)}")
-    r = estimate(ads, cpm_low, cpm_high)
 
+    r = estimate(ads, bench, cpm_low, cpm_high)
     top = sorted((a["reach"] for a in ads), reverse=True)
     share10 = sum(top[:10]) / r["reach"] * 100 if r["reach"] else 0
     fmt_img = sum(1 for a in ads if a["fmt"] == "IMAGE")
     fmt_vid = sum(1 for a in ads if a["fmt"] == "VIDEO")
     zombies = sum(1 for a in ads if a["zombie"])
+    thr, f_small, f_big = bench["threshold"], bench["freq_small"], bench["freq_big"]
 
-    print(f"\n── {domain}: прикидка затрат по EU+UK ──")
+    print(f"\n── {args.domain}: прикидка затрат по EU+UK ──")
     print(f"Охват: EU {sp(r['eu'])} + UK {sp(r['uk'])} = {sp(r['reach'])} человек")
-    print(f"  небольшой охват (<{sp(FREQ_THRESHOLD)}): {r['n_small']} объявл., {sp(r['reach_small'])} — частота {FREQ_SMALL[0]}–{FREQ_SMALL[1]}")
-    print(f"  большой охват (≥{sp(FREQ_THRESHOLD)}): {r['n_big']} объявл., {sp(r['reach_big'])} — частота {FREQ_BIG[0]}–{FREQ_BIG[1]}")
+    print(f"  небольшой охват (<{sp(thr)}): {r['n_small']} объявл., {sp(r['reach_small'])} — частота {f_small[0]}–{f_small[1]}")
+    print(f"  большой охват (≥{sp(thr)}): {r['n_big']} объявл., {sp(r['reach_big'])} — частота {f_big[0]}–{f_big[1]}")
     if r["n_zero"]:
         print(f"  с нулевым охватом: {r['n_zero']} (в расчёт не входят)")
     print(f"Показы ≈ {sp(r['imp_low'])} – {sp(r['imp_high'])}")
     print(f"CPM ${cpm_low}–${cpm_high} → ЗАТРАТЫ ≈ ${sp(r['cost_low'])} – ${sp(r['cost_high'])}")
-    print(f"\nКонтекст: топ-10 объявлений держат {share10:.0f}% охвата · "
+
+    print(f"\nСтрока бенчмарков: {profile['objective']} · {profile['targeting']} · "
+          f"{profile['geo']} · {profile['gender']} · {profile['placements']} · "
+          f"{profile['age_from']:.0f}–{profile['age_to']:.0f}")
+    if profile["comment"]:
+        print(f"  комментарий строки: {profile['comment'][:120]}")
+    print(f"Контекст: топ-10 объявлений держат {share10:.0f}% охвата · "
           f"зомби {zombies} из {len(ads)} · IMAGE {fmt_img} / VIDEO {fmt_vid}")
-    print(f"Допущения: частота и CPM — {BENCH_SRC}. Только EU+UK (Meta раскрывает "
-          f"охват лишь по ним), worldwide не экстраполируем. Все цифры — оценка.")
+    print("Только EU+UK (Meta раскрывает охват лишь по ним), worldwide не "
+          "экстраполируем. Все цифры — оценка.")
 
 
+# Tested: 2026-07-20 on client-a.example — 268 объявлений, охват EU+UK 3 336 555,
+# показы 5.12–6.17 млн, затраты $20 491–49 368 при CPM 4–8 из строки
+# «Sales · Онлайн-образование / курсы · WW-чистый». Совпало с ручным прогоном.
 if __name__ == "__main__":
     main()
