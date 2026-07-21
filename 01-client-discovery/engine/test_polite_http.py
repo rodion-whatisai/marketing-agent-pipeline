@@ -375,6 +375,43 @@ def test_200_не_повторяем():
     assert len(navigate_and_gate(page, CLIENT)) and len(page.gotos) == 1
 
 
+# ─── Клиентский отчёт: «не дочитали» ≠ «трекинга нет» ────────────────────────
+
+def _page(path, **kw):
+    p = {"path": path, "page_type": "general", "pixel_events": {}, "click_result": {}}
+    p.update(kw)
+    return p
+
+
+def test_недочитанная_страница_не_выглядит_как_страница_без_трекинга():
+    """Главная дыра: report_truth печатал такую строку прочерками — клиент читал
+    это как «трекинга нет», хотя мы страницу просто не открыли."""
+    from report_truth import render_pages
+    html = render_pages([
+        _page("/", pixel_events={"Meta": [{"event": "PageView"}]}),
+        _page("/pricing", gate={"http_error": True, "http_status": 403}),
+    ])
+    assert "не дочитали (HTTP 403)" in html
+    assert "не проверялась" in html
+    assert "Проверено 1 из 2 страниц" in html
+    assert "waf" not in html.lower()
+
+
+def test_страница_без_трекинга_остаётся_прочерком():
+    """Обратная сторона: реальное отсутствие трекинга не должно маскироваться."""
+    from report_truth import render_pages
+    html = render_pages([_page("/", pixel_events={})])
+    assert "—" in html
+    assert "не дочитали" not in html
+    assert "Проверено" not in html, "охват раскрываем только когда он неполный"
+
+
+def test_редирект_называется_редиректом():
+    from report_truth import render_pages
+    html = render_pages([_page("/old", gate={"redirected": True})])
+    assert "увела на другой адрес" in html
+
+
 # ─── Главную качаем ОДИН раз ─────────────────────────────────────────────────
 
 def test_fetch_homepage_отдаёт_заголовки_первого_ответа(monkeypatch):

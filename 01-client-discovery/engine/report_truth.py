@@ -303,11 +303,33 @@ def render(all_pages, gtm_data, domain=""):
 {CSS}'''
 
 
+def _not_read(page) -> str:
+    """Страница, которую мы не прочитали: пусто в её строках — это про НАШ заход,
+    а не про отсутствие трекинга. Возвращает пояснение или "" если страница прочитана.
+    Про сайт ничего не утверждаем: только «не дочитали» и код, который увидели."""
+    gate = page.get("gate") or {}
+    if gate.get("http_error"):
+        code = gate.get("http_status")
+        return f"не дочитали (HTTP {code})" if code else "не дочитали"
+    if gate.get("redirected"):
+        return "увела на другой адрес"
+    return ""
+
+
 def render_pages(all_pages):
     """Постраничный срез — из чего схлопнуты таблицы выше. Факт, без вердиктов."""
     rows = ""
+    n_not_read = 0
     for p in all_pages or []:
         path = "Главная страница" if p.get("path") == "/" else esc(p.get("path", ""))
+        skipped = _not_read(p)
+        if skipped:
+            # Прочерк тут означал бы «трекинга нет» — а мы просто не смотрели.
+            n_not_read += 1
+            rows += (f'<tr><td class="rt-name">{path}</td>'
+                     f'<td class="rt-mut">{esc(p.get("page_type", ""))}</td>'
+                     f'<td class="rt-mut" colspan="2">{esc(skipped)} — не проверялась</td></tr>')
+            continue
         load = []
         for pl, evs in (p.get("pixel_events") or {}).items():
             names = sorted({e["event"] for e in evs if _is_shown_event(pl, e.get("event", ""))})
@@ -323,7 +345,14 @@ def render_pages(all_pages):
                  f'<td class="rt-ok">{load_str}</td>'
                  f'<td class="rt-ok">{click_str}</td></tr>')
     n = len(all_pages or [])
+    # Охват раскрываем всегда, когда он неполный: иначе «не найдено на сайте» выше
+    # читается как проверенный факт, хотя часть страниц мы не открывали.
+    coverage = ""
+    if n_not_read:
+        coverage = (f'<p class="rt-mut">Проверено {n - n_not_read} из {n} страниц. '
+                    f'{n_not_read} не дочитали — выводы выше построены без них.</p>')
     return (f'<section class="rt"><details class="rt-pg"><summary>Постранично — из чего собраны таблицы ({n} стр.)</summary>'
+            f'{coverage}'
             f'<table class="rt-tbl"><thead><tr><th>Страница</th><th>Тип</th>'
             f'<th>События при загрузке</th><th>Конверсии по клику</th></tr></thead>'
             f'<tbody>{rows}</tbody></table></details></section>')
