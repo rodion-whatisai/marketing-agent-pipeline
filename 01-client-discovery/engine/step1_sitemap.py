@@ -155,9 +155,11 @@ def _host_variants(base_url: str) -> list:
     return [f"{p.scheme}://{p.netloc}", f"{p.scheme}://{sibling}"]
 
 
-def _looks_like_waf_challenge(text: str) -> bool:
-    """Только маркеры, встречающиеся исключительно на Cloudflare-интерстишле —
-    НЕ 'challenge-platform' (есть на обычных CF-страницах и в легитимных robots.txt)."""
+def _looks_like_interstitial(text: str) -> bool:
+    """Вместо robots.txt / карты сайта пришла страница-заслонка («Just a moment…»).
+    Это проверка ФОРМЫ ответа, а не вердикт о сайте: мы просто не приняли
+    заслонку за карту. Только маркеры интерстишла — НЕ 'challenge-platform'
+    (есть на обычных страницах и в легитимных robots.txt)."""
     t = text.lower()
     return ("just a moment" in t or "_cf_chl_opt" in t
             or "enable javascript and cookies" in t)
@@ -176,8 +178,8 @@ def fetch_links_from_html_sitemap(url: str, site_domain: str) -> list:
     log_debug(f"fetch_links_from_html_sitemap: пробую {url}")
     try:
         r = requests.get(url, headers=HEADERS, timeout=15, allow_redirects=True)
-        if r.status_code != 200 or _looks_like_waf_challenge(r.text):
-            log_debug(f"fetch_links_from_html_sitemap: {url} статус={r.status_code}/waf — пусто")
+        if r.status_code != 200 or _looks_like_interstitial(r.text):
+            log_debug(f"fetch_links_from_html_sitemap: {url} статус={r.status_code} / пришла заслонка — пусто")
             return []
         if "sitemap" not in r.url.lower():
             log_debug(f"fetch_links_from_html_sitemap: редирект увёл на {r.url} (не карта) — пусто")
@@ -231,8 +233,8 @@ def get_sitemap_urls(base_url: str) -> tuple:
             if r.status_code != 200:
                 log_debug(f"get_sitemap_urls: robots.txt {robots_base} статус={r.status_code}")
                 continue
-            if _looks_like_waf_challenge(r.text):
-                log_warn(f"robots.txt {robots_base} — WAF-заглушка, пропускаю")
+            if _looks_like_interstitial(r.text):
+                log_warn(f"robots.txt {robots_base} — вместо файла пришла страница-заслонка, пропускаю")
                 continue
             found = re.findall(r'(?i)sitemap\s*:\s*(https?://\S+)', r.text)
             log_debug(f"get_sitemap_urls: robots.txt {robots_base} дал {len(found)} sitemap-ссылок")

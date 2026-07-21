@@ -114,15 +114,20 @@ SKIP_FB_PATHS = {
 }
 
 
-# ─── Homepage fetch with WAF fallback ────────────────────────────────────────
+# ─── Заход на главную: requests, потом настоящий браузер ─────────────────────
 
 def fetch_homepage(base_url: str) -> tuple:
     """
     Пытается получить HTML домашней страницы. Сначала через requests (быстро),
-    если блок (403/error) — через headless Playwright (обходит Cloudflare/WAF).
+    если не отдалась — повтор через headless Playwright (ходит как Chrome).
 
     Returns: (html, status_code, method, error)
-      method ∈ {"requests", "playwright", "blocked_by_waf"}
+      method ∈ {"requests", "playwright", "not_fetched"}
+
+    «not_fetched» — честная констатация «мы не достали главную», без утверждений
+    о сайте. Раньше здесь стояло "blocked_by_waf", и это оказалось неправдой:
+    проверка 53 реальных fb.json дала 8 таких доменов, среди них НИ ОДНОГО 403/429 —
+    шесть DNS/SSL/таймаут, два (expired.badssl.com, visarun.com) вообще отдали 200.
     """
     log_debug(f"fetch_homepage: base_url={base_url}")
     # Step 1: requests
@@ -130,7 +135,9 @@ def fetch_homepage(base_url: str) -> tuple:
         log_debug("fetch_homepage: trying requests.get")
         r = requests.get(base_url, headers=HEADERS, timeout=10, allow_redirects=True)
         log_debug(f"fetch_homepage: requests status={r.status_code} len={len(r.text)}")
-        if r.status_code < 400 and len(r.text) > 500:
+        # 200 = нас пустили, точка. Короткое тело — это особенность сайта (одностраничник,
+        # редирект-заглушка), а не причина объявлять главную недоступной.
+        if r.status_code == 200 or (r.status_code < 400 and len(r.text) > 500):
             return r.text, r.status_code, "requests", None
         requests_status = r.status_code
     except Exception as e:
@@ -141,10 +148,10 @@ def fetch_homepage(base_url: str) -> tuple:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        log_debug("fetch_homepage: playwright not installed — returning blocked_by_waf")
-        return "", requests_status, "blocked_by_waf", "playwright not installed"
+        log_debug("fetch_homepage: playwright не установлен — главную не достали")
+        return "", requests_status, "not_fetched", "playwright не установлен"
 
-    log_step(f"requests blocked ({requests_status}) — пробую Playwright...", emoji="🎭")
+    log_step(f"requests вернул {requests_status} — повтор настоящим браузером...", emoji="🎭")
     try:
         log_debug("fetch_homepage: launching headless Chromium")
         with sync_playwright() as p:
@@ -172,15 +179,15 @@ def fetch_homepage(base_url: str) -> tuple:
                 # CF challenge page или error page, а не реальный контент сайта
                 if html and len(html) > 500 and (status is None or status < 400):
                     return html, status, "playwright", None
-                log_debug(f"fetch_homepage: playwright blocked_by_waf (status {status})")
-                return "", status, "blocked_by_waf", f"playwright got status {status}"
+                log_debug(f"fetch_homepage: главную не достали (браузер вернул {status})")
+                return "", status, "not_fetched", f"браузер вернул HTTP {status}"
             except Exception as e:
                 browser.close()
                 log_debug(f"fetch_homepage: playwright goto error: {str(e)[:80]}")
-                return "", requests_status, "blocked_by_waf", f"playwright error: {str(e)[:80]}"
+                return "", requests_status, "not_fetched", f"ошибка браузера: {str(e)[:80]}"
     except Exception as e:
         log_debug(f"fetch_homepage: playwright launch failed: {str(e)[:80]}")
-        return "", requests_status, "blocked_by_waf", f"playwright launch failed: {str(e)[:80]}"
+        return "", requests_status, "not_fetched", f"браузер не стартовал: {str(e)[:80]}"
 
 
 # ─── Сбор всех FB ссылок на сайте ────────────────────────────────────────────

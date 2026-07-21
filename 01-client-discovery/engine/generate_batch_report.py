@@ -156,7 +156,8 @@ def _load_site_data(domain: str) -> dict:
     else:
         log_debug(f"_load_site_data: no fb.json at {fb_p}")
 
-    if out["fetch_method"] == "blocked_by_waf":
+    # Оба написания: "not_fetched" — текущее, "blocked_by_waf" — в сканах до 2026-07-21.
+    if out["fetch_method"] in ("blocked_by_waf", "not_fetched"):
         out["ads_count_status"] = "blocked_by_waf"
     elif out["active_ads"] > 0:
         out["ads_count_status"] = "active"

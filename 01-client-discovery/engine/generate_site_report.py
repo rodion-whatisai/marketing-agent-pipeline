@@ -482,16 +482,17 @@ def render_facebook(fb: dict) -> str:
         status = discovery_meta.get("homepage_status") or "error"
         fetch_method = discovery_meta.get("homepage_fetch_method") or "blocked"
         keyword = discovery_meta.get("fallback_keyword") or "?"
-        waf_line = ""
-        if fetch_method == "blocked_by_waf":
-            waf_line = ("Both direct HTTP fetch and headless-browser fetch (Playwright) were blocked — "
-                        "the site is behind a WAF (Cloudflare or similar). ")
+        # Оба написания: "not_fetched" — текущее, "blocked_by_waf" — в сканах до 2026-07-21.
+        detail_line = ""
+        if fetch_method in ("not_fetched", "blocked_by_waf"):
+            detail_line = ("Neither a direct HTTP request nor a real-browser retry returned the "
+                           "page, so we did not read it. ")
         return f"""
 <section id="facebook">
   <h2>Facebook page</h2>
   <div class="warning-box">
-    <strong>⚠️ Homepage blocked by WAF.</strong>
-    The site returned HTTP {_esc(status)} to our scanner. {_esc(waf_line)}
+    <strong>⚠️ We could not read the homepage.</strong>
+    The site returned HTTP {_esc(status)} to our scanner. {_esc(detail_line)}
     We also tried a direct Ads Library search with brand keyword <code>{_esc(keyword)}</code>
     — no active ads were found under that name either.<br><br>
     <em>Manual verification recommended.</em> Open the site in your browser, locate the FB link
@@ -515,7 +516,7 @@ def render_facebook(fb: dict) -> str:
 
     # Case C: brand-keyword fallback succeeded (homepage was blocked)
     if discovery == "brand_keyword_fallback":
-        status = discovery_meta.get("homepage_status") or "blocked"
+        status = discovery_meta.get("homepage_status") or "not read"
         keyword = top.get("ads_search_term") or top.get("display_name") or "?"
         note = top.get("confidence_note") or ""
         return f"""
@@ -528,7 +529,7 @@ def render_facebook(fb: dict) -> str:
     <em>{_esc(note)}</em>
   </div>
   <div class="kv"><strong>Search keyword</strong> <code>{_esc(keyword)}</code></div>
-  <div class="kv"><strong>Discovery method</strong> Brand-keyword fallback (homepage blocked)</div>
+  <div class="kv"><strong>Discovery method</strong> Brand-keyword fallback (homepage not read)</div>
 </section>
 """
 

@@ -115,9 +115,9 @@ def run(target: str, html: str = None, headers: dict = None, status: int = None)
         handles = find_all_fb_handles(base_url, html=_html)
         log_debug(f"find_all_fb_handles вернул {len(handles)} handle(s)")
 
-        # Homepage blocked flag — триггер brand-name fallback только если оба способа
-        # (requests + Playwright) не смогли пробиться.
-        homepage_blocked = _fetch_method == "blocked_by_waf"
+        # Главную не достали ни requests, ни браузером — тогда включаем brand-name fallback.
+        # Оба написания: "not_fetched" — текущее, "blocked_by_waf" — в сканах до 2026-07-21.
+        homepage_not_fetched = _fetch_method in ("not_fetched", "blocked_by_waf")
 
         if not handles:
             log_debug("handles пусто — вход в brand-keyword fallback")
@@ -132,16 +132,17 @@ def run(target: str, html: str = None, headers: dict = None, status: int = None)
             }
 
             # Brand-keyword fallback запускаем ВСЕГДА когда handles пусто:
-            #   - WAF block (homepage не достали)
+            #   - главную не достали
             #   - Homepage 200 OK, но 0 FB ссылок в HTML (Carolinas franchise pattern,
             #     Car Keys To Go: homepage не линкует city-specific FB pages, а FB
             #     pages при этом существуют — Spartanburg / Rock Hill / Charlotte etc).
             # Confidence-note меняется в зависимости от причины — отчёт разделяет.
-            if homepage_blocked:
-                log_warn(f"Homepage заблокирован (status={_homepage_status}, err={_homepage_error})")
-                confidence_note = ("Homepage was blocked. These ads were found by "
-                                   "searching Ads Library with brand-name keyword and "
-                                   "then fuzzy-matching advertiser names. "
+            if homepage_not_fetched:
+                log_warn(f"Главную не достали (status={_homepage_status}, err={_homepage_error})")
+                confidence_note = ("We could not read the site's homepage, so the Facebook "
+                                   "link could not be confirmed from the site itself. These "
+                                   "ads were found by searching Ads Library with brand-name "
+                                   "keyword and then fuzzy-matching advertiser names. "
                                    "Manual verification recommended.")
             else:
                 log_warn(f"Facebook ссылки не найдены на homepage (status {_homepage_status})")
