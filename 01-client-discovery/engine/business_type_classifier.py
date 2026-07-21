@@ -290,7 +290,7 @@ MODEL_MAX_REPORTED = 2
 # «Cybersecurity», а не «suite» — коллизии генерик-слов исчезают на этом корпусе.
 
 INDUSTRY_SIGNALS = {
-    r"\bbootcamp\b|e-?learning\b|\bcurriculum\b|\benroll\b|online\s+courses?\b|\bsyllabus\b|\bcourses?\b|learn\s+[\w-]+\s+skills?\b|career\s+paths?\b": "education",
+    r"\bbootcamps?\b|e-?learning\b|\bcurriculum\b|\benroll\b|online\s+courses?\b|\bsyllabus\b|\bcourses?\b|learn\s+[\w-]+\s+skills?\b|career\s+paths?\b": "education",
     # НЕ голое coding: «coding bootcamps / learn coding» — это education, не девтулзы
     r"\bcopilot\b|no-?code\b|\bide\b|code\s+completion|pair\s+programming|developer\s+(platform|tools?)|\bsdk\b|coding\s+(assistant|agent|tool)": "dev-tools",
     r"cyber\s?security\b|data\s+protection\b|\bantivirus\b|threat\s+(intel|detection)|anti-?fraud\b|\binfosec\b": "cybersecurity",
