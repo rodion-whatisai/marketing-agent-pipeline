@@ -4,10 +4,9 @@ requests>=2.31
 anthropic>=0.39
 colorama>=0.4        # цвета в терминале (логи с уровнями), кроссплатформенно
 
-# Стадия 01 — pitch-adviser: чтение CPM-бенчмарков из Google Sheets
-# (сервисный аккаунт, ключ в pitch-adviser/.secrets/gsheets.json — вне git)
-gspread>=6.0
-google-auth>=2.0
+# Стадия 01 — pitch-adviser: чтение CPM-бенчмарков из базы фабрики
+# (таблица benchmarks в tnc-factory, Postgres в докере)
+psycopg[binary]>=3.1
 
 # Тесты
 pytest>=8.0
