@@ -41,7 +41,8 @@ import requests
 
 from log import (log_debug, log_error, log_header, log_info, log_step,
                  log_success, log_warn)
-from utils import load_env, safe_get, scan_path, HEADERS, SCANS_DIR
+from utils import (load_env, safe_get, scan_path, HEADERS, SCANS_DIR,
+                   polite_get, fetch_note)
 
 load_env()  # ключ из engine/.env если в окружении нет — ДО module-level чтения ниже
 
@@ -852,18 +853,16 @@ def needs_about_page(result: dict) -> bool:
             or result.get("confidence") in ("low", "unknown"))
 
 
-# ─── Дочитка About/Contacts (вежливая, по правилу WAF Родиона) ────────────────
-# Правило: главная открылась → WAF на сайте нет. 429 = мы частим (пауза+повтор),
-# 403 = бот-детект на requests (повтор Playwright'ом). Не прошло → честно
-# «не дочитали». # Tested: 2026-07-20 refetch_politeness_test.py — 6/6 доменов
-# открылись requests'ом с паузой 2.5с (вкл. бывшие allbirds-429, acronis-403).
+# ─── Дочитка About/Contacts (вежливая) ───────────────────────────────────────
+# Правило живёт в utils.polite_get — здесь только пауза между страницами одного
+# домена. Своя копия правила была тут до 2026-07-21 и создавала двойную паузу:
+# глобальный патч в utils уже ретраит 429, а копия ретраила его второй раз.
 
 ABOUT_PATH_HINTS = ("about", "company", "our-story", "our-team", "mission",
                     "who-we-are", "what-we-do")
 CONTACT_PATH_HINTS = ("contact",)
 PRICING_PATH_HINTS = ("pricing", "/plans", "/plan")
 POLITE_PAUSE_SEC = 2.5
-RETRY_429_WAIT = 6
 
 
 # Страницы про деньги КЛИЕНТА (рассрочка, оплата обучения) — не про суть бизнеса:
@@ -906,54 +905,20 @@ def fetch_about_text(urls: list, session: requests.Session = None,
     texts, fetched, failed = [], [], []
     for url in urls:
         time.sleep(POLITE_PAUSE_SEC)
-        code, body = _polite_get(session, url)
-        if code == 200 and body:
-            head = _head_bits(body)
+        res = polite_get(url, session=session)
+        if res.ok:
+            head = _head_bits(res.text)
             excerpt = " ".join([head["title"], head["meta_description"],
                                 " ".join(head["h1s"]),
-                                _visible_text(body)[:text_cap]])
+                                _visible_text(res.text)[:text_cap]])
             texts.append(excerpt)
             fetched.append(url)
             log_success(f"дочитка ок: {url}")
         else:
             failed.append(url)
-            log_warn(f"дочитка не удалась ({code}): {url}")
+            log_warn(f"дочитка не удалась: {fetch_note(res.status, res.method)} — {url}")
     return {"text": " ".join(texts)[:text_cap + 1500], "fetched": fetched,
             "failed": failed}
-
-
-def _polite_get(session: requests.Session, url: str) -> tuple:
-    """GET по политике вежливости: 429 → пауза+повтор; 403/сеть → Playwright."""
-    try:
-        r = session.get(url, headers=HEADERS, timeout=12)
-        if r.status_code == 429:
-            log_debug(f"_polite_get: 429 — жду {RETRY_429_WAIT}с и повторяю")
-            time.sleep(RETRY_429_WAIT)
-            r = session.get(url, headers=HEADERS, timeout=12)
-        if r.status_code == 200:
-            return 200, r.text
-        code = r.status_code
-    except Exception as e:
-        log_debug(f"_polite_get: requests fail {str(e)[:60]}")
-        code = -1
-    if code in (403, -1):
-        log_debug(f"_polite_get: {code} — повтор через Playwright")
-        try:
-            from playwright.sync_api import sync_playwright
-            with sync_playwright() as p:
-                b = p.chromium.launch(headless=True)
-                ctx = b.new_context(user_agent=HEADERS["User-Agent"], locale="en-US")
-                pg = ctx.new_page()
-                resp = pg.goto(url, wait_until="domcontentloaded", timeout=20000)
-                body = pg.content()
-                status = resp.status if resp else -1
-                b.close()
-                if status == 200:
-                    return 200, body
-                return status, None
-        except Exception as e:
-            log_debug(f"_polite_get: playwright fail {str(e)[:60]}")
-    return code, None
 
 
 # ─── Слой 2: Haiku ────────────────────────────────────────────────────────────
