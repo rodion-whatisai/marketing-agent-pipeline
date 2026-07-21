@@ -10,6 +10,8 @@
 
 Запуск:  cd 01-client-discovery/engine && python -m pytest test_polite_http.py -q
 """
+import json
+
 import requests
 import pytest
 
@@ -371,6 +373,37 @@ def test_200_не_повторяем():
     from scanners.base_scanner import navigate_and_gate
     page = _FakePage(200)
     assert len(navigate_and_gate(page, CLIENT)) and len(page.gotos) == 1
+
+
+# ─── Сводный отчёт: найденные данные важнее того, как мы заходили ────────────
+
+def _fake_scan(tmp_path, monkeypatch, *, method, accounts):
+    (tmp_path / "scans" / "site.com").mkdir(parents=True)
+    (tmp_path / "scans" / "site.com" / "fb.json").write_text(
+        json.dumps({"site_country": "CA", "accounts": accounts,
+                    "discovery_meta": {"homepage_fetch_method": method,
+                                       "homepage_status": 403}}),
+        encoding="utf-8")
+    monkeypatch.chdir(tmp_path)
+    import generate_batch_report as gbr
+    return gbr._load_site_data("site.com")
+
+
+@pytest.mark.parametrize("method", ["not_fetched", "blocked_by_waf"])
+def test_найденная_реклама_важнее_метки(tmp_path, monkeypatch, method):
+    """Раньше проверка метки стояла первой, и домен с 21 объявлением уезжал
+    в корзину «заблокирован» — реальный случай puntopago.com."""
+    out = _fake_scan(tmp_path, monkeypatch, method=method,
+                     accounts=[{"alive": True, "handle": "x", "active_ads_count": 21}])
+    assert out["active_ads"] == 21
+    assert out["ads_count_status"] == "active"
+
+
+@pytest.mark.parametrize("method", ["not_fetched", "blocked_by_waf"])
+def test_без_данных_метка_читается_в_обоих_написаниях(tmp_path, monkeypatch, method):
+    """16 сканов на диске лежат со старым написанием — они обязаны читаться."""
+    out = _fake_scan(tmp_path, monkeypatch, method=method, accounts=[])
+    assert out["ads_count_status"] == "not_fetched"
 
 
 def test_ssl_патч_пережил_соседа(monkeypatch, no_real_sleep):

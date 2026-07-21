@@ -156,11 +156,13 @@ def _load_site_data(domain: str) -> dict:
     else:
         log_debug(f"_load_site_data: no fb.json at {fb_p}")
 
-    # Оба написания: "not_fetched" — текущее, "blocked_by_waf" — в сканах до 2026-07-21.
-    if out["fetch_method"] in ("blocked_by_waf", "not_fetched"):
-        out["ads_count_status"] = "blocked_by_waf"
-    elif out["active_ads"] > 0:
+    # Найденная реклама важнее того, как мы заходили: раньше проверка метки стояла
+    # ПЕРВОЙ, и домен с 21 объявлением уезжал в корзину «заблокирован».
+    # Оба написания метода: "not_fetched" — текущее, "blocked_by_waf" — до 2026-07-21.
+    if out["active_ads"] > 0:
         out["ads_count_status"] = "active"
+    elif out["fetch_method"] in ("blocked_by_waf", "not_fetched"):
+        out["ads_count_status"] = "not_fetched"
     elif out["fb_handle"]:
         out["ads_count_status"] = "fb_no_ads"
     else:
@@ -300,7 +302,7 @@ table.summary tbody tr:hover { background: #f9fafb; }
 .status-active     { background: #d4edda; color: #155724; }
 .status-fb_no_ads  { background: #fff3cd; color: #856404; }
 .status-no_fb      { background: #f0f2f5; color: #65676b; }
-.status-blocked_by_waf { background: #f8d7da; color: #721c24; }
+.status-not_fetched { background: #f8d7da; color: #721c24; }
 
 /* Buckets */
 .bucket-line {
@@ -462,13 +464,13 @@ function collapseAll() {
 # ─── Renderers ───────────────────────────────────────────────────────────────
 
 def render_summary_header(title: str, scan_date: str, n: int, sites: list) -> str:
-    by_status = {"active": [], "fb_no_ads": [], "no_fb": [], "blocked_by_waf": []}
+    by_status = {"active": [], "fb_no_ads": [], "no_fb": [], "not_fetched": []}
     for s in sites:
-        by_status[s["ads_count_status"]].append(s)
+        by_status.setdefault(s["ads_count_status"], []).append(s)
 
     n_active = len(by_status["active"])
     n_fb_total = n_active + len(by_status["fb_no_ads"])
-    n_blocked = len(by_status["blocked_by_waf"])
+    n_not_read = len(by_status["not_fetched"])
     total_ads = sum(s["active_ads"] for s in sites)
 
     sorted_active = sorted(by_status["active"], key=lambda s: -s["active_ads"])[:3]
@@ -497,7 +499,7 @@ def render_summary_header(title: str, scan_date: str, n: int, sites: list) -> st
   <div class="stat-card"><div class="num">{n}</div><div class="label">Sites scanned</div></div>
   <div class="stat-card"><div class="num">{n_fb_total}</div><div class="label">Have FB page</div></div>
   <div class="stat-card"><div class="num">{n_active}</div><div class="label">Running ads now</div></div>
-  <div class="stat-card"><div class="num">{n_blocked}</div><div class="label">Blocked by WAF</div></div>
+  <div class="stat-card"><div class="num">{n_not_read}</div><div class="label">Homepage not read</div></div>
 </div>
 """
 
@@ -524,7 +526,7 @@ def render_summary_table(sites: list) -> str:
             "active":         "Active",
             "fb_no_ads":      "FB · 0 ads",
             "no_fb":          "No FB",
-            "blocked_by_waf": "WAF blocked",
+            "not_fetched":    "Homepage not read",
         }.get(s["ads_count_status"], "?")
 
         # Anchor link → opens <details> via JS
@@ -571,7 +573,7 @@ def render_summary_table(sites: list) -> str:
 
 
 def render_buckets(sites: list) -> str:
-    by_status = {"active": [], "fb_no_ads": [], "no_fb": [], "blocked_by_waf": []}
+    by_status = {"active": [], "fb_no_ads": [], "no_fb": [], "not_fetched": []}
     for s in sites:
         by_status[s["ads_count_status"]].append(s)
 
@@ -594,7 +596,7 @@ def render_buckets(sites: list) -> str:
   {render_one('Active advertisers', 'active')}
   {render_one('FB exists, 0 active ads', 'fb_no_ads')}
   {render_one('No FB link on site', 'no_fb')}
-  {render_one('Blocked by WAF', 'blocked_by_waf')}
+  {render_one('Homepage not read', 'not_fetched')}
 </section>
 """
 
@@ -615,7 +617,7 @@ def render_detail_block(s: dict) -> str:
         "active":         "Active",
         "fb_no_ads":      "FB · 0 ads",
         "no_fb":          "No FB",
-        "blocked_by_waf": "WAF blocked",
+        "not_fetched":    "Homepage not read",
     }.get(s["ads_count_status"], "?")
     handle_str = ""
     if s.get("fb_handle"):
@@ -667,10 +669,10 @@ def render_disclaimer(scan_date: str) -> str:
     this snapshot was taken.
   </p>
   <p>
-    <strong>WAF-blocked sites:</strong> when a site's WAF (Cloudflare/Akamai/etc.) blocks both our
-    HTTP scanner and a headless-browser fallback, we mark the site as <code>blocked_by_waf</code>
-    and recommend manual verification. We do not use stealth plugins, residential proxies, or
-    captcha solvers — these are explicitly out of scope.
+    <strong>Sites we could not read:</strong> when neither a direct HTTP request nor a
+    real-browser retry returns the homepage, we mark it <code>not_fetched</code> and recommend
+    manual verification. We report what we observed and make no claim about why. We do not use
+    stealth plugins, residential proxies, or captcha solvers — these are explicitly out of scope.
   </p>
 </section>
 """
