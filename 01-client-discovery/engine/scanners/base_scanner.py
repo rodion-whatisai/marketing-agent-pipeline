@@ -578,6 +578,49 @@ def make_listeners(pixel_events: dict, web_pixel_urls: list, web_pixel_bodies: d
 
 # ─── Base page scan ───────────────────────────────────────────────────────────
 
+def capture_page_eye(page, combined_html: str = "") -> dict:
+    """«Глаз» рядом с кликером: пока кликер жмёт, читаем ЧТО за страница —
+    с ОТРИСОВАННОГО DOM (JS выполнен; статика этого не видит).
+    Снимаем: title/meta/H1 рендера, строки тарифов/цен («Free for small teams»,
+    «per member», «contact sales» — прямой ответ «кому продают»), выжимку текста.
+    Никогда не роняет скан — при любой ошибке возвращает {}."""
+    eye = {}
+    try:
+        if page is not None:
+            data = page.evaluate(
+                """() => {
+                    const meta = document.querySelector('meta[name="description"]');
+                    const h1s = [...document.querySelectorAll('h1')].slice(0, 4)
+                        .map(h => (h.innerText || '').trim()).filter(Boolean);
+                    const body = document.body ? document.body.innerText : '';
+                    return {title: document.title || '',
+                            meta: meta ? (meta.content || '') : '',
+                            h1s: h1s, body: body.slice(0, 20000)};
+                }""")
+            body = data.get("body") or ""
+            plan_rx = re.compile(
+                r"per\s+(seat|user|member)|/\s?mo\b|per\s+month|free\s+plan|"
+                r"free\s+for\b|contact\s+sales|\$\s?\d|€\s?\d|£\s?\d|billed\s+",
+                re.IGNORECASE)
+            plan_lines = []
+            for line in body.splitlines():
+                line = line.strip()
+                if 3 <= len(line) <= 120 and plan_rx.search(line):
+                    plan_lines.append(line)
+                if len(plan_lines) >= 10:
+                    break
+            eye = {
+                "title": (data.get("title") or "")[:200],
+                "meta_description": (data.get("meta") or "")[:300],
+                "h1s": (data.get("h1s") or [])[:4],
+                "plan_lines": plan_lines,
+                "text_excerpt": " ".join(body.split())[:1500],
+            }
+    except Exception as e:
+        log_debug(f"capture_page_eye: не снялся ({str(e)[:60]}) — пустой глаз")
+    return eye
+
+
 def base_scan_page(page, url: str, page_type: str, expect_events: list,
                    platform: str = "unknown",
                    pixel_events: dict = None,
@@ -604,6 +647,7 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
     combined_html = "\n".join(all_html_parts)
     log_debug(f"base_scan_page: combined_html len={len(combined_html)} from {len(all_html_parts)} part(s); classifying content")
     content_analysis = classify_page_content(combined_html, page)
+    page_eye = capture_page_eye(page, combined_html)
 
     # Build request URL list for network-only service detection
     request_urls = list(web_pixel_urls)  # subclasses can extend this
@@ -668,5 +712,7 @@ def base_scan_page(page, url: str, page_type: str, expect_events: list,
         "duplicate_pixels": [p for p, ids in pixel_ids.items() if len(ids) >= 2],
         "external_services": external_services,
         "content_analysis": content_analysis,
+        # «глаз»: самоописание ОТРИСОВАННОЙ страницы (для business_type вердикта)
+        "page_eye": page_eye,
         "errors": [],
     }

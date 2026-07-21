@@ -345,6 +345,11 @@ def run(target: str, html: str = None, headers: dict = None, status: int = None)
             "url":                fb_page_url,
             "page_id":            fb_page_id,
             "alive":              True,
+            # Самоописание страницы из того же HTML (источник для business_type):
+            # category есть у каждой страницы; "wall" = логин-стена, не отсутствие
+            "page_category":      status.get("page_category"),
+            "page_bio":           status.get("page_bio"),
+            "about_access":       status.get("about_access", "wall"),
             # 3-проходная структура
             "total_ever":         total_ever,
             "active":             active_block,

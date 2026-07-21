@@ -334,16 +334,48 @@ def prioritize_handles(handles: list, brand_name: str) -> list:
 
 # ─── Проверка живой/битой ссылки + display_name ─────────────────────────────
 
+def _extract_page_about(html_raw: str) -> dict:
+    """Категория + Bio страницы из УЖЕ скачанного HTML (тот же page.content()).
+
+    Категория есть у каждой FB-страницы (обязательное поле). Незалогиненному
+    headless-заходу FB отдаёт часть страниц целиком (категория в JSON-прелоадере
+    "category_name"), часть — логин-стеной (~330KB оболочка, категории в HTML нет).
+    Стена ≠ «нет категории» — помечаем "wall", не пустотой.
+    # Tested: 2026-07-20 — gymshark → "Clothing (Brand)", Semrush → "Software",
+    #   weareallbirdscanada → "Brand" + bio; MiroHQ/allbirds(US) → стена (332KB,
+    #   устойчиво: base, /about, /directory_category, m.facebook — всё стена).
+    """
+    category = None
+    m = re.search(r'"category_name"\s*:\s*"([^"]+)"', html_raw)
+    if m:
+        category = m.group(1)
+    bio = None
+    m = re.search(r'"blurb"\s*:\s*"([^"]{10,300})"', html_raw)
+    if m:
+        bio = m.group(1)
+        if "\\u" in bio:
+            try:
+                bio = bio.encode().decode("unicode_escape")
+            except Exception:
+                pass
+    return {"page_category": category, "page_bio": bio,
+            "about_access": "ok" if category else "wall"}
+
+
 def check_fb_page_alive_playwright(handle: str) -> dict:
     """
     Открывает страницу facebook.com/{handle} в headless Chromium и за один проход:
       - alive: жива ли страница (нет ли dead signals в HTML)
       - display_name: имя страницы из <title> / <h1>
+      - page_category / page_bio: из того же HTML (см. _extract_page_about) —
+        раньше выбрасывались, теперь сохраняются (источник для business_type)
 
     Используется и для готового Page ID (Ветка A: /pages/Name/{ID}/), и
     для verification после delegate_page extraction (Ветка B step 2).
 
-    Returns: {"alive": bool, "reason": str, "display_name": str | None}
+    Returns: {"alive": bool, "reason": str, "display_name": str | None,
+              "page_category": str | None, "page_bio": str | None,
+              "about_access": "ok" | "wall"}
     """
     log_debug(f"check_fb_page_alive_playwright: handle={handle}")
     try:
@@ -381,6 +413,8 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
                 if h1_m:
                     display_name = h1_m.group(1).strip()
 
+            about = _extract_page_about(html_raw)
+
             # Alive check — dead signals в HTML
             dead_signals = [
                 "this page isn't available",
@@ -392,14 +426,18 @@ def check_fb_page_alive_playwright(handle: str) -> dict:
                 if signal in html:
                     log_debug(f"check_fb_page_alive_playwright: dead signal matched: {signal[:40]}")
                     return {"alive": False, "reason": f"playwright: {signal[:40]}",
-                            "display_name": display_name}
+                            "display_name": display_name, **about}
 
+            if about["page_category"]:
+                log_debug(f"check_fb_page_alive_playwright: category={about['page_category']!r}")
             log_debug(f"check_fb_page_alive_playwright: alive, display_name={display_name}")
-            return {"alive": True, "reason": "playwright_ok", "display_name": display_name}
+            return {"alive": True, "reason": "playwright_ok",
+                    "display_name": display_name, **about}
     except Exception as e:
         log_debug(f"check_fb_page_alive_playwright: exception, assuming alive: {str(e)[:80]}")
         return {"alive": True, "reason": "playwright_failed_assuming_alive",
-                "display_name": None}
+                "display_name": None, "page_category": None, "page_bio": None,
+                "about_access": "wall"}
 
 
 # ─── Поиск Page ID через delegate_page (мост profile → Page) ────────────────

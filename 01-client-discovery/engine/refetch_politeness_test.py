@@ -76,7 +76,7 @@ def fetch_playwright(url: str) -> int:
         return -1
 
 
-def test_domain(domain: str) -> dict:
+def check_domain(domain: str) -> dict:
     log_step(f"{domain}", emoji="🌐")
     session = requests.Session()
     base = f"https://{domain}"
@@ -117,7 +117,7 @@ def test_domain(domain: str) -> dict:
 
 def main():
     log_header("Тест правила WAF / вежливой дочитки")
-    rows = [test_domain(d) for d in DOMAINS]
+    rows = [check_domain(d) for d in DOMAINS]
     log_header("ИТОГ")
     ok = sum(1 for r in rows if r.get("verdict") == "polite_ok")
     testable = [r for r in rows if r.get("verdict") not in ("skip_home_not_200",)]
