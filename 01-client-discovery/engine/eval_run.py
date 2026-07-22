@@ -24,6 +24,7 @@ import time
 import shutil
 import argparse
 import datetime
+from pathlib import Path
 from unittest.mock import patch
 
 from utils import setup_console
@@ -72,10 +73,9 @@ def run_domain(domain: str, run_dir, skip_scan: bool) -> dict:
             shutil.copy2(step2_path, arch_dir / f"{domain}_step2_pre-eval-{stamp}.json")
         import step2_scan
         log_step(f"Скан {domain} по замороженному step1", emoji="🔬")
-        # Стенд НЕ сабмитит формы: регулярные прогоны слали бы test@test.com
-        # сайтам корпуса при каждом eval — политика тестовых сабмитов (CLAUDE.md
-        # 2026-07-22) распространяется на разовые аудиты, не на стенд.
-        os.environ["TNC_FORM_FILL"] = "0"
+        # Form-fill на стенде ВКЛЮЧЁН (решение Родиона 2026-07-22: «в этом же
+        # смысл» — стенд должен видеть события после отправки тестовых данных).
+        # Ручной выключатель остаётся: TNC_FORM_FILL=0 в окружении.
         # click_mode=True — боевой режим (у функции дефолт False, включает CLI-обёртка)
         actual = step2_scan.run(str(s1_path), max_priority=2, click_mode=True)
         note = ""
@@ -219,6 +219,65 @@ def refresh_step1(domain: str):
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
+def run_parallel(domains: list, run_dir, workers: int, skip_scan: bool, debug: bool):
+    """Параллельный прогон: отдельный процесс на домен (свой Chromium, свои логи).
+
+    Ребёнок = этот же скрипт с --worker-child: делает run_domain() и пишет
+    run_dir/<domain>_result.json. Консоль ребёнка → run_dir/<domain>_console.log
+    (родительская консоль остаётся читаемой). Scorecard/history — только родитель.
+    Изоляция сбоев как в последовательном цикле: умерший воркер = skipped-запись."""
+    import subprocess
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+    pending = list(domains)
+    running = {}          # domain -> (Popen, file handle консоли)
+    results, skipped = [], []
+    done = 0
+    total_n = len(domains)
+    while pending or running:
+        while pending and len(running) < workers:
+            d = pending.pop(0)
+            out_f = open(run_dir / f"{d}_console.log", "w", encoding="utf-8", errors="replace")
+            cmd = [sys.executable, str(ev.ENGINE_DIR / "eval_run.py"),
+                   "--worker-child", d, "--run-dir", str(run_dir)]
+            if skip_scan:
+                cmd.append("--skip-scan")
+            if debug:
+                cmd.append("--debug")
+            p = subprocess.Popen(cmd, stdout=out_f, stderr=subprocess.STDOUT,
+                                 cwd=str(ev.ENGINE_DIR), env=env)
+            running[d] = (p, out_f)
+            log_step(f"воркер стартовал: {d}  (активно {len(running)}/{workers}, "
+                     f"в очереди {len(pending)})", emoji="🧵")
+        time.sleep(1)
+        for d in list(running):
+            p, out_f = running[d]
+            if p.poll() is None:
+                continue
+            out_f.close()
+            del running[d]
+            done += 1
+            rf = run_dir / f"{d}_result.json"
+            if rf.exists():
+                r = json.loads(rf.read_text(encoding="utf-8"))
+            else:
+                r = {"domain": d, "skipped": f"воркер умер без результата "
+                     f"(exit={p.returncode}, см. {d}_console.log)"}
+            (skipped if "skipped" in r else results).append(r)
+            if "skipped" in r:
+                log_warn(f"[{done}/{total_n}] {d}: {r['skipped']}")
+            else:
+                s = r["summary"]
+                fn = log_success if s["fail"] == 0 else log_error
+                fn(f"[{done}/{total_n}] {d}: {s['match']}/{s['total']} MATCH"
+                   + (f", FAIL={s['fail']}" if s["fail"] else "")
+                   + f"  ({r['duration_s']}s)")
+    # порядок как в корпусе — scorecard читается стабильно между прогонами
+    order = {d: i for i, d in enumerate(domains)}
+    results.sort(key=lambda r: order.get(r["domain"], 999))
+    skipped.sort(key=lambda r: order.get(r["domain"], 999))
+    return results, skipped
+
+
 def main():
     parser = argparse.ArgumentParser(description="Раннер испытательного стенда (см. TESTBED-PLAN.md)")
     parser.add_argument("--domains", nargs="*", default=None, help="только эти домены")
@@ -228,10 +287,28 @@ def main():
     parser.add_argument("--refresh-step1", default=None, metavar="DOMAIN",
                         help="сознательно пересоздать замороженный step1 домена")
     parser.add_argument("--debug", action="store_true", help="полный лог-поток (дефолт: INFO)")
+    # Дефолт 2, не 3: при 3 одновременных Chromium'ах тайминги плывут и детекция
+    # флейкает (2026-07-22, allbirds: запрос Google Ads в трафике есть, сканер
+    # проморгал — только под 3 воркерами). Стабильность стенда дороже минут.
+    parser.add_argument("--workers", type=int, default=2,
+                        help="параллельных доменов (процессов); 1 = последовательно (default: 2)")
+    parser.add_argument("--worker-child", default=None, help=argparse.SUPPRESS)
+    parser.add_argument("--run-dir", default=None, help=argparse.SUPPRESS)
     args = parser.parse_args()
 
     if not args.debug:
         log.set_level("INFO")
+
+    # ── Режим воркера: один домен → result.json, без scorecard/history ──
+    if args.worker_child:
+        domain, run_dir = args.worker_child, Path(args.run_dir)
+        try:
+            r = run_domain(domain, run_dir, skip_scan=args.skip_scan)
+        except (Exception, SystemExit) as e:
+            r = {"domain": domain, "skipped": f"сбой: {type(e).__name__}: {str(e)[:120]}"}
+        (run_dir / f"{domain}_result.json").write_text(
+            json.dumps(r, ensure_ascii=False, indent=2), encoding="utf-8")
+        return 0
 
     if args.history:
         print_history()
@@ -268,18 +345,24 @@ def main():
     run_dir.mkdir(parents=True, exist_ok=True)
     commit = scanner_commit()
 
-    log_header(f"TNC Testbed — eval прогон · {len(domains)} доменов · режим {mode}")
-    results, skipped = [], []
-    for i, domain in enumerate(domains, 1):
-        log_step(f"[{i}/{len(domains)}] {domain}", emoji="🧪")
-        # изоляция доменов: один битый домен НЕ роняет весь прогон (ревью 2026-07-13);
-        # SystemExit ловим отдельно — step2_scan.run делает sys.exit(1) на нечитаемом файле
-        try:
-            r = run_domain(domain, run_dir, skip_scan=args.skip_scan)
-        except (Exception, SystemExit) as e:
-            log_error(f"{domain}: сбой прогона — {type(e).__name__}: {str(e)[:200]}")
-            r = {"domain": domain, "skipped": f"сбой: {type(e).__name__}: {str(e)[:120]}"}
-        (skipped if "skipped" in r else results).append(r)
+    workers = max(1, min(args.workers, len(domains)))
+    log_header(f"TNC Testbed — eval прогон · {len(domains)} доменов · режим {mode}"
+               + (f" · {workers} воркера(ов)" if workers > 1 else ""))
+    if workers > 1:
+        results, skipped = run_parallel(domains, run_dir, workers,
+                                        skip_scan=args.skip_scan, debug=args.debug)
+    else:
+        results, skipped = [], []
+        for i, domain in enumerate(domains, 1):
+            log_step(f"[{i}/{len(domains)}] {domain}", emoji="🧪")
+            # изоляция доменов: один битый домен НЕ роняет весь прогон (ревью 2026-07-13);
+            # SystemExit ловим отдельно — step2_scan.run делает sys.exit(1) на нечитаемом файле
+            try:
+                r = run_domain(domain, run_dir, skip_scan=args.skip_scan)
+            except (Exception, SystemExit) as e:
+                log_error(f"{domain}: сбой прогона — {type(e).__name__}: {str(e)[:200]}")
+                r = {"domain": domain, "skipped": f"сбой: {type(e).__name__}: {str(e)[:120]}"}
+            (skipped if "skipped" in r else results).append(r)
 
     if not results:
         log_warn("Ни одного домена с эталоном — сравнивать нечего")

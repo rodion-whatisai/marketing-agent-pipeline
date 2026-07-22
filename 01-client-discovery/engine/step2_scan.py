@@ -235,9 +235,8 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     # ── Form-fill journey (политика тестовых сабмитов 2026-07-22) ──
                     # Настоящий submit с тестовыми данными на lead-gen страницах:
                     # ловим события после отправки PII + SPA-навигационные события.
-                    # TNC_FORM_FILL=0 выключает (eval-раннер: стенд гоняется регулярно,
-                    # каждый прогон сабмитил бы формы сайтам корпуса — это уже спам,
-                    # политика разовых аудитов на него не распространяется).
+                    # Действует ВЕЗДЕ, включая стенд (решение Родиона 2026-07-22).
+                    # TNC_FORM_FILL=0 — ручной выключатель на особый случай.
                     from clicker import fill_and_submit_form, NON_COMMERCE_TYPES
                     if ptype in NON_COMMERCE_TYPES and os.environ.get("TNC_FORM_FILL") != "0":
                         try:
