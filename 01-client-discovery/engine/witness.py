@@ -57,7 +57,10 @@ CONSENT_SELECTORS = [
     "button[data-testid*='accept']", "button#accept-cookies",
 ]
 CONSENT_TEXTS = ["accept all", "accept", "alle akzeptieren", "akzeptieren", "tout accepter",
-                 "j'accepte", "agree", "allow all", "got it", "i understand", "ok"]
+                 "j'accepte", "agree", "allow all", "got it", "i understand", "ok",
+                 # матч точный (^…$), поэтому "ok" НЕ ловит "Okay" — нужна своя запись.
+                 # Tested: 2026-07-22 on plurio.ai — чип "We use cookies… [Okay]"
+                 "okay"]
 
 ATC_SELECTORS = [
     "button[name='add']", "[name='add']", "form[action*='/cart/add'] button[type='submit']",
@@ -151,6 +154,18 @@ def try_click(page, selectors, texts, timeout=2500) -> str:
             if loc.count():
                 loc.click(timeout=timeout)
                 return f"text:{t}"
+        except Exception:
+            continue
+    # <input type="button" value="Okay"> (Framer cookie-чип): текста внутри нет —
+    # has_text его не видит, CSS [role='button'] тоже (роль неявная). Ловим через
+    # accessibility-роль: она покрывает и input[type=button/submit] по value.
+    # Tested: 2026-07-22 on plurio.ai/connectors/cart
+    for t in texts:
+        try:
+            loc = page.get_by_role("button", name=re.compile(rf"^\s*{re.escape(t)}\s*$", re.I)).first
+            if loc.count():
+                loc.click(timeout=timeout)
+                return f"role:{t}"
         except Exception:
             continue
     return ""
@@ -388,6 +403,11 @@ def run_pages(domain: str, headed: bool = False) -> dict:
             page.wait_for_timeout(4000)
             if i == 1:
                 clicked = try_click(page, CONSENT_SELECTORS, CONSENT_TEXTS, timeout=1500)
+                if not clicked:
+                    # Framer-чип рендерится ~на 5-й секунде — одна поздняя попытка.
+                    # Tested: 2026-07-22 on plurio.ai (первый заход в 4с промахивался)
+                    page.wait_for_timeout(3500)
+                    clicked = try_click(page, CONSENT_SELECTORS, CONSENT_TEXTS, timeout=1500)
                 result["consent"] = {"clicked": clicked or None, "on_page": path}
                 print(f"    consent: {clicked or 'баннер не кликнут'}")
                 page.wait_for_timeout(3000)

@@ -1,0 +1,908 @@
+{
+ "schema_version": 1,
+ "domain": "plurio.ai",
+ "mode": "pages",
+ "date": "2026-07-22",
+ "witness_commit": "8952fdf",
+ "headless": true,
+ "consent": {
+  "clicked": "role:okay",
+  "on_page": "/connectors/cart"
+ },
+ "pages": [
+  {
+   "path": "/connectors/cart",
+   "requested_url": "https://www.plurio.ai/connectors/cart",
+   "http_status": 200,
+   "final_url": "https://www.plurio.ai/connectors/cart",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=%20GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=5549698&time=1784736907252&url=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=5549698&time=1784736907252&url=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-HR6V4ZJ3S9&cx=c&gtm=4e67l0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-16528071966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841z8871042597za20gzb871042597zd871042597&_p=1784736906980&_gaz=1&gcs=G111&gcd=13v3v3v3v5l1&npa=0&dma=0&_eu=AAAAAGAC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=1&tag_exp=115616985~115938465~115938469~118395334~118897920~118897930~1189",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-9TKZ79W4D6&cx=c&_slc=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16528071966/?random=1784736907488&cv=11&fst=1784736907488&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13v3v3v3v5l1&dma=0&tag_exp=115616986~115938465~115938469~118395334~118897920~118897930~119259606~119724322~119773331~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart&rcb=3&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Perform",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/16528071966/?random=1784736907488&cv=11&fst=1784736907488&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13v3v3v3v5l1&dma=0&tag_exp=115616986~115938465~115938469~118395334~118897920~118897930~119259606~119724322~119773331~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart&rcb=3&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=3&frm=0&apvc=1&auid=1246024859.1784736907&dt=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&tid=AW-16528071966&en=page_view&dl=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart&scrsrc=www.googletagmanager.com&rnd=1265615312.1784736907&navt=n&npa=0&gcs=G111&gcd=13v3v3v3v5l1&tids=AW-16528071966&tft=1784736907501&tfd=612&gtm=45be67l0v9184142371za200zd9184142371xec&dma=0&tag_exp=115616986~115938465~115938469~118395334~",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "e3712f0f44",
+     "body_snippet": "H4sIAAAAAAAACj2PwUrDQBRFfyW89cSmNk3a2WWhElAstnQjIq+Tl/pwMjPOvCBaCn6EX+iXiC24PNzL4d4DBO4S6Mf5vFxWy8WTgmQiB9lSTOwd6FmxUCA8EOhpvSjrWbUs6rKeKej8gOxAQ7BjZH+BDArGaEHDi0hIejL5TybGO0dGfEwTg1FAQcA9bVgsgYbVqZc1bdbsyUn28/WdNaN45wc/puw+CA/8icLeZb2P2Ypi7+OAzlB2h/GVhN0eFLzTLrHQmvcO7QO9jZSk7UDDdFGUl9PK5DVikSP2Rd71",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_LinkedIn_connectors_cart_e3712f0f44.txt"
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1426162685442595?v=2.9.359&r=stable&domain=www.plurio.ai&hme=db7c4844507b728f524bbfb5449eda841f7f67300bf2850aee64b78febf25c48&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C26%2C27%2C28%2C30%2C48%2C150%2C78%2C115%2C18%2C20%2C44%2C40%2C42%2C41%2C86%2C95%2C99%2C113%2C148%2C151%2C46%2C114%2C24%2C21%2C122%2C70%2C36%2C153%2C152%2C154%2C145%2C143%2C25%2C35%2C59%2C112%2C165%2C71%2C17%2C1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1426162685442595&ev=PageView&dl=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart&rl=&if=false&ts=1784736907603&iw=false&sw=1440&sh=900&v=2.9.359&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1784736907597.816077106748507222&cs_est=true&ler=empty&pmd[title]=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&pmd[locale]=en&pmd[description]=Plurio%20is%20the%20AI%20agent%20that%20analyzes%20campaigns%2C%20predicts%20outcomes%2C%20an",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-9TKZ79W4D6&gtm=45je67k1v9125855405za20g&_p=1784736906980&gcs=G111&gcd=13v3v3v3v6l1&npa=0&dma=0&_eu=ABAI&are=1&cid=1644163643.1784736907&frm=0&ngs=1&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&_s=1&tag_exp=115938465~115938469~118395334~118897920~118897930~119259606~119527019~119724322~119773331~119896803&dl=h",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/16528071966/?random=1784736907488&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13v3v3v3v5l1&dma=0&tag_exp=115616986~115938465~115938469~118395334~118897920~118897930~119259606~119724322~119773331~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart&rcb=3&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=ww",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/16528071966/?random=1784736907488&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13v3v3v3v5l1&dma=0&tag_exp=115616986~115938465~115938469~118395334~118897920~118897930~119259606~119724322~119773331~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fconnectors%2Fcart&rcb=3&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "POST",
+     "url": "https://www.facebook.com/tr/",
+     "query_event": "",
+     "body_events": [
+      "SubscribedButtonClick"
+     ],
+     "body_sha1": "2a0808dd26",
+     "body_snippet": "------WebKitFormBoundaryeGnhX1DiPS87A6yX\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n1426162685442595\r\n------WebKitFormBoundaryeGnhX1DiPS87A6yX\r\nContent-Disposition: form-data; name=\"ev\"\r\n\r\nSubscribedButtonClick\r\n------WebKitFormBoundaryeGnhX1DiPS87A6yX\r\nContent-Disposition: form-data; name=\"dl\"\r\n",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_Meta_connectors_cart_2a0808dd26.txt"
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "d8feb812a3",
+     "body_snippet": "H4sIAAAAAAAACrVU224TQQz9lZWfZ0nT3PctRBQi2lKR0JcoqryzTmIyl2XGC4QqEh/BF/IlaLtpRCouD4hHz7HPHI+P5x5KLiJki16vO+qPhksFUQcu5ZZCZO8g65wNFQhbgqw9GHYHnf6o3e51ugoKb5EdZFCaKrB/hgwKqmAgg41IGbNW64i0tHeOtPgQWxqDgIIS1zRnMQQZ3DzkJeNpMl6Tk+T712/JuBLvvPVVTN6Uwpa/oLB3ycqH5IbCygeLTlNyhWFLwm4NCj5RHlloxmuH5i19qCjKtIAMimI0",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_LinkedIn_connectors_cart_d8feb812a3.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841z8871042597za20gzb871042597zd871042597&_p=1784736906980&gcs=G111&gcd=13v3v3v3v5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115616985~115938465~115938469~118395334~118897920~118897930~118981136~119259",
+     "query_event": "",
+     "body_events": [
+      "get_user_data"
+     ],
+     "body_sha1": "f8a58e808c",
+     "body_snippet": "en=get_user_data&ep.timestamp=2026%20Jul%2022%2012%3A15%3A07&_et=33&up.user_gtag_client_id=1644163643.1784736907.\r\nen=scroll_25%25&_et=267",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_Google Analytics_connectors_cart_f8a58e808c.txt"
+    }
+   ],
+   "clickables": [
+    "MODULES",
+    "CASE STUDIES",
+    "BLOG",
+    "COMPANY",
+    "BOOK A DEMO BOOK A DEMO",
+    "Terms",
+    "Privacy Policy.",
+    "LINKEDIN",
+    "YOUTUBE",
+    "Careers",
+    "Blog",
+    "Case studies",
+    "Connectors",
+    "Media Kit",
+    "Terms of Services",
+    "Data Security & Compliance",
+    "Privacy Policy",
+    "hello@ellyanalytics.com",
+    "Log In",
+    "Cookie Settings",
+    "5.0",
+    "Visit data security page"
+   ],
+   "third_party_hosts": [
+    "ad.doubleclick.net",
+    "analytics.google.com",
+    "api.framer.com",
+    "app.framerstatic.com",
+    "c.bing.com",
+    "c.clarity.ms",
+    "connect.facebook.net",
+    "events.framer.com",
+    "fonts.gstatic.com",
+    "framer.com",
+    "framerusercontent.com",
+    "googleads.g.doubleclick.net",
+    "j.clarity.ms",
+    "load.sst.ellyanalytics.com",
+    "ob.brilliantchap.com",
+    "ob.jollyoutdoorjogger.com",
+    "obs.brilliantchap.com",
+    "obs.jollyoutdoorjogger.com",
+    "px.ads.linkedin.com",
+    "s3-us-west-2.amazonaws.com",
+    "scripts.clarity.ms",
+    "snap.licdn.com",
+    "stats.g.doubleclick.net",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google-analytics.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.youtube.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-22/plurio.ai/01_connectors_cart.png"
+  },
+  {
+   "path": "/contacts",
+   "requested_url": "https://www.plurio.ai/contacts",
+   "http_status": 200,
+   "final_url": "https://www.plurio.ai/contacts",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841za20gzb871042597zd871042597&_p=1784736906980&gcs=G111&gcd=13v3v3v3v5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=17&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=3&tag_exp=115616985~115938465~115938469~118395334~118897920~118897930~118981136~119259606~11",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-HR6V4ZJ3S9&cx=c&gtm=4e67l0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-16528071966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16528071966/?random=1784736923887&cv=11&fst=1784736923887&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118395333~118897920~118897930~119724322~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fcontacts&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.goog",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/16528071966/?random=1784736923887&cv=11&fst=1784736923887&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118395333~118897920~118897930~119724322~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fcontacts&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0&",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&apvc=1&auid=1246024859.1784736907&dt=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&tid=AW-16528071966&en=page_view&dl=https%3A%2F%2Fwww.plurio.ai%2Fcontacts&scrsrc=www.googletagmanager.com&rnd=1909161661.1784736924&navt=n&npa=0&gcd=13l3l3l3l1l1&tids=AW-16528071966&tft=1784736923915&tfd=646&gtm=45be67l0v9184142371za200zd9184142371xec&dma=0&tag_exp=115938466~115938469~118395333~118897920~118897930~1197243",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=%20GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1426162685442595?v=2.9.359&r=stable&domain=www.plurio.ai&hme=db7c4844507b728f524bbfb5449eda841f7f67300bf2850aee64b78febf25c48&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C26%2C27%2C28%2C30%2C48%2C150%2C78%2C115%2C18%2C20%2C44%2C40%2C42%2C41%2C86%2C95%2C99%2C113%2C148%2C151%2C46%2C114%2C24%2C21%2C122%2C70%2C36%2C153%2C152%2C154%2C145%2C143%2C25%2C35%2C59%2C112%2C165%2C71%2C17%2C1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-9TKZ79W4D6&cx=c&_slc=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/16528071966/?random=1784736923887&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118395333~118897920~118897930~119724322~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fcontacts&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/16528071966/?random=1784736923887&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938466~115938469~118395333~118897920~118897930~119724322~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fcontacts&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0&",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=5549698&time=1784736924855&url=https%3A%2F%2Fwww.plurio.ai%2Fcontacts",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=5549698&time=1784736924855&url=https%3A%2F%2Fwww.plurio.ai%2Fcontacts",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1426162685442595&ev=PageView&dl=https%3A%2F%2Fwww.plurio.ai%2Fcontacts&rl=&if=false&ts=1784736924884&iw=false&sw=1440&sh=900&v=2.9.359&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1784736907597.816077106748507222&cs_est=true&ler=empty&pmd[title]=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&pmd[locale]=en&pmd[description]=Plurio%20is%20the%20AI%20agent%20that%20analyzes%20campaigns%2C%20predicts%20outcomes%2C%20and%20optim",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "dc0da60d60",
+     "body_snippet": "H4sIAAAAAAAACj2PwUrDQBRFfyW89cS2dtKks8tCS0Cx2OJGRF6Tl/pwMjPOvCBaCn6EX+iXiC24PNzL4d4DBO4SmMei0MvFsnpSkNrIQR4oJvYOzHxaKRAeCMysrHQ5Xywvi8tiqqDzA7IDA8GOkf0FMigYowUDLyIhmcnkP5m03gm2kkBBwD1tWSyBgfWpkNVNVu/JSfbz9Z3Vo3jnBz+m7C4ID/yJwt5lvY/ZmmLv44CupewW4ysJuz0oeKddYqEN7x3ae3obKUnTgQFNs6IoZ22udYk59nqat92iz+eV",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_LinkedIn_contacts_dc0da60d60.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841z8871042597za20gzb871042597zd871042597&_p=1784736923382&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938466~115938468~118897920~118897930~118981135~119724322~119773331~119896",
+     "query_event": "",
+     "body_events": [
+      "page_view\r\nen=get_user_data"
+     ],
+     "body_sha1": "dcc15bff0a",
+     "body_snippet": "en=page_view\r\nen=get_user_data&ep.timestamp=2026%20Jul%2022%2012%3A15%3A24&_et=76&up.user_gtag_client_id=1644163643.1784736907.\r\nen=scroll_25%25&_et=593",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_Google Analytics_contacts_dcc15bff0a.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-9TKZ79W4D6&gtm=45je67k1v9125855405za20g&_p=1784736923382&gcs=G111&gcd=13t3t3t3t6l1&npa=0&dma=0&_eu=ABAIAAQ&are=1&cid=1644163643.1784736907&frm=0&ngs=1&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&_s=1&tag_exp=115616985~115938466~115938468~118897920~118897930~118981135~119724322~119773331~119896802&dl=https%3",
+     "query_event": "page_view",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "MODULES",
+    "CASE STUDIES",
+    "BLOG",
+    "COMPANY",
+    "BOOK A DEMO BOOK A DEMO",
+    "SUBMIT SUBMIT",
+    "LINKEDIN",
+    "YOUTUBE",
+    "Careers",
+    "Blog",
+    "Case studies",
+    "Connectors",
+    "Media Kit",
+    "Terms of Services",
+    "Data Security & Compliance",
+    "Privacy Policy",
+    "hello@ellyanalytics.com",
+    "Log In",
+    "Cookie Settings",
+    "5.0",
+    "Visit data security page"
+   ],
+   "third_party_hosts": [
+    "analytics.google.com",
+    "api.framer.com",
+    "app.framerstatic.com",
+    "connect.facebook.net",
+    "events.framer.com",
+    "fonts.gstatic.com",
+    "framer.com",
+    "framerusercontent.com",
+    "googleads.g.doubleclick.net",
+    "j.clarity.ms",
+    "load.sst.ellyanalytics.com",
+    "ob.brilliantchap.com",
+    "ob.jollyoutdoorjogger.com",
+    "obs.brilliantchap.com",
+    "obs.jollyoutdoorjogger.com",
+    "px.ads.linkedin.com",
+    "s3-us-west-2.amazonaws.com",
+    "scripts.clarity.ms",
+    "snap.licdn.com",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google-analytics.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.youtube.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-22/plurio.ai/02_contacts.png"
+  },
+  {
+   "path": "/thank-you",
+   "requested_url": "https://www.plurio.ai/thank-you",
+   "http_status": 200,
+   "final_url": "https://www.plurio.ai/thank-you",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841za20gzb871042597zd871042597&_p=1784736923382&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=19&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938468~118897920~118897930~118981135~119724322~119773331~119896802&si",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=%20GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-HR6V4ZJ3S9&cx=c&gtm=4e67l0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-16528071966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16528071966/?random=1784736936831&cv=11&fst=1784736936831&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~118981135~119724321~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fthank-you&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.goo",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/16528071966/?random=1784736936831&cv=11&fst=1784736936831&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~118981135~119724321~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fthank-you&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=11&frm=0&auid=1246024859.1784736907&dt=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&en=page_view&dl=https%3A%2F%2Fwww.plurio.ai%2Fthank-you&scrsrc=www.googletagmanager.com&rnd=1456499846.1784736937&navt=n&npa=0&gtm=45be67l0v9184142371za200zd9184142371xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~118981135~119724321~119773332~119896802&apve=1&apvf=f&apvc=1&tids=AW-1652807196",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1426162685442595?v=2.9.359&r=stable&domain=www.plurio.ai&hme=db7c4844507b728f524bbfb5449eda841f7f67300bf2850aee64b78febf25c48&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C26%2C27%2C28%2C30%2C48%2C150%2C78%2C115%2C18%2C20%2C44%2C40%2C42%2C41%2C86%2C95%2C99%2C113%2C148%2C151%2C46%2C114%2C24%2C21%2C122%2C70%2C36%2C153%2C152%2C154%2C145%2C143%2C25%2C35%2C59%2C112%2C165%2C71%2C17%2C1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-9TKZ79W4D6&cx=c&_slc=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/16528071966/?random=1784736936831&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~118981135~119724321~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fthank-you&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/16528071966/?random=1784736936831&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938468~118897920~118897930~118981135~119724321~119773332~119896802&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2Fthank-you&rcb=11&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=5549698&time=1784736937139&url=https%3A%2F%2Fwww.plurio.ai%2Fthank-you",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=5549698&time=1784736937139&url=https%3A%2F%2Fwww.plurio.ai%2Fthank-you",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1426162685442595&ev=PageView&dl=https%3A%2F%2Fwww.plurio.ai%2Fthank-you&rl=&if=false&ts=1784736937200&iw=false&sw=1440&sh=900&v=2.9.359&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1784736907597.816077106748507222&cs_est=true&ler=empty&pmd[title]=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&pmd[locale]=en&pmd[description]=Vibecode%20your%20hardest%20ad%20rule.%20One%20chat%20and%20it%27s%20automated&plt=252.30000001192093",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "607f271a3d",
+     "body_snippet": "H4sIAAAAAAAACj2PzWrCQBSFXyXc9aQa8z+7LFoJtFSquCmljMlVL05mpjM3FCtCH6JP2CcpVXD5cQ4f55zAUR9AvuZ5Vhd19SYgdJ4cr9EHsgZkOq0EMA0IMimrrEyLOi1nZSKgt4MiAxKcHj3ZO0UgYPQaJOyZXZCTyS2Z8F6ZQ3y0IwhwaocrYo0gYXFpRE0bNTs0HP1+/0TNyNbYwY4henZMA30pJmuirfXRAv3W+kGZDqMn5Q/IZHYg4BM3gRiXtDNKv+DHiIHbHiRUSV50dZXF21xlcVf0szgv6iqe",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_LinkedIn_thank-you_607f271a3d.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841z8871042597za20gzb871042597zd871042597&_p=1784736936246&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=16&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938466~115938468~117776796~118897920~118897930~119724321~119773332~119896",
+     "query_event": "",
+     "body_events": [
+      "page_view\r\nen=get_user_data"
+     ],
+     "body_sha1": "793da10887",
+     "body_snippet": "en=page_view\r\nen=get_user_data&ep.timestamp=2026%20Jul%2022%2012%3A15%3A37&_et=18&up.user_gtag_client_id=1644163643.1784736907.\r\nen=scroll_25%25&_et=271",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_Google Analytics_thank-you_793da10887.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-9TKZ79W4D6&gtm=45je67k1v9125855405za20g&_p=1784736936246&gcs=G111&gcd=13t3t3t3t6l1&npa=0&dma=0&_eu=ABAIAAQ&are=1&cid=1644163643.1784736907&frm=0&ngs=1&pscdl=noapi&rcb=6&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&_s=1&tag_exp=115938466~115938468~118897920~118897930~118981135~119724321~119773332~119896802&dl=https%3A%2F%2Fwww.",
+     "query_event": "page_view",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "MODULES",
+    "CASE STUDIES",
+    "BLOG",
+    "COMPANY",
+    "BOOK A DEMO BOOK A DEMO",
+    "RETURN HOME RETURN HOME",
+    "LINKEDIN",
+    "YOUTUBE",
+    "Careers",
+    "Blog",
+    "Case studies",
+    "Connectors",
+    "Media Kit",
+    "Terms of Services",
+    "Data Security & Compliance",
+    "Privacy Policy",
+    "hello@ellyanalytics.com",
+    "Log In",
+    "Cookie Settings",
+    "5.0",
+    "Visit data security page"
+   ],
+   "third_party_hosts": [
+    "analytics.google.com",
+    "api.framer.com",
+    "app.framerstatic.com",
+    "connect.facebook.net",
+    "events.framer.com",
+    "fonts.gstatic.com",
+    "framer.com",
+    "framerusercontent.com",
+    "googleads.g.doubleclick.net",
+    "j.clarity.ms",
+    "load.sst.ellyanalytics.com",
+    "ob.brilliantchap.com",
+    "ob.jollyoutdoorjogger.com",
+    "obs.brilliantchap.com",
+    "obs.jollyoutdoorjogger.com",
+    "px.ads.linkedin.com",
+    "s3-us-west-2.amazonaws.com",
+    "scripts.clarity.ms",
+    "snap.licdn.com",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google-analytics.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.youtube.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-22/plurio.ai/03_thank-you.png"
+  },
+  {
+   "path": "/",
+   "requested_url": "https://www.plurio.ai",
+   "http_status": 200,
+   "final_url": "https://www.plurio.ai/",
+   "redirected": false,
+   "pixel_requests": [
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841za20gzb871042597zd871042597&_p=1784736936246&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=16&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&_s=2&tag_exp=115938466~115938468~117776796~118897920~118897930~119724321~119773332~119896802&si",
+     "query_event": "user_engagement",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "GTM",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtm.js?id=%20GTM-T2S24PV",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-HR6V4ZJ3S9&cx=c&gtm=4e67l0",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=AW-16528071966",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/en_US/fbevents.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/16528071966/?random=1784736949829&cv=11&fst=1784736949829&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119724320~119773332~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2F&rcb=18&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&n",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "POST",
+     "url": "https://www.google.com/rmkt/collect/16528071966/?random=1784736949829&cv=11&fst=1784736949829&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119724320~119773332~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2F&rcb=18&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google.com/ccm/collect?rcb=18&frm=0&auid=1246024859.1784736907&dt=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&en=page_view&dl=https%3A%2F%2Fwww.plurio.ai%2F&scrsrc=www.googletagmanager.com&rnd=1702555921.1784736950&navt=n&npa=0&gtm=45be67l0v9184142371za200zd9184142371xec&gcs=G111&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119724320~119773332~119896803&apve=1&apvf=f&apvc=1&tids=AW-16528071966&tid=AW-1652807196",
+     "query_event": "page_view",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://snap.licdn.com/li.lms-analytics/insight.old.min.js",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://connect.facebook.net/signals/config/1426162685442595?v=2.9.359&r=stable&domain=www.plurio.ai&hme=db7c4844507b728f524bbfb5449eda841f7f67300bf2850aee64b78febf25c48&ex_m=107%2C208%2C158%2C22%2C73%2C74%2C149%2C69%2C68%2C11%2C167%2C93%2C16%2C141%2C130%2C39%2C76%2C81%2C137%2C163%2C169%2C26%2C27%2C28%2C30%2C48%2C150%2C78%2C115%2C18%2C20%2C44%2C40%2C42%2C41%2C86%2C95%2C99%2C113%2C148%2C151%2C46%2C114%2C24%2C21%2C122%2C70%2C36%2C153%2C152%2C154%2C145%2C143%2C25%2C35%2C59%2C112%2C165%2C71%2C17%2C1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "GET",
+     "url": "https://www.googletagmanager.com/gtag/js?id=G-9TKZ79W4D6&cx=c&_slc=1",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.com/pagead/1p-user-list/16528071966/?random=1784736949829&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119724320~119773332~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2F&rcb=18&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "Google Ads",
+     "method": "GET",
+     "url": "https://www.google.ca/pagead/1p-user-list/16528071966/?random=1784736949829&cv=11&fst=1784736000000&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be67l0v9184142371za200zd9184142371xec&gcd=13t3t3t3t5l1&dma=0&tag_exp=115938466~115938469~118897920~118897930~119724320~119773332~119896803&u_w=1440&u_h=900&url=https%3A%2F%2Fwww.plurio.ai%2F&rcb=18&frm=0&tiba=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1",
+     "query_event": "gtag.config",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/attribution_trigger?pid=5549698&time=1784736950200&url=https%3A%2F%2Fwww.plurio.ai%2F",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "GET",
+     "url": "https://px.ads.linkedin.com/collect?v=2&fmt=js&pid=5549698&time=1784736950200&url=https%3A%2F%2Fwww.plurio.ai%2F",
+     "query_event": "",
+     "body_events": []
+    },
+    {
+     "platform": "Meta",
+     "method": "GET",
+     "url": "https://www.facebook.com/tr/?id=1426162685442595&ev=PageView&dl=https%3A%2F%2Fwww.plurio.ai%2F&rl=&if=false&ts=1784736950222&iw=false&sw=1440&sh=900&v=2.9.359&r=stable&ec=0&o=4126&aems=0%3B0&fbp=fb.1.1784736907597.816077106748507222&cs_est=true&ler=empty&pmd[title]=Plurio%20AI%20Agent%20%E2%80%94%20Autonomous%20Optimization%20for%20Performance%20Marketing&pmd[locale]=en&pmd[description]=Plurio%20is%20the%20AI%20agent%20that%20analyzes%20campaigns%2C%20predicts%20outcomes%2C%20and%20optimizes%20p",
+     "query_event": "PageView",
+     "body_events": []
+    },
+    {
+     "platform": "LinkedIn",
+     "method": "POST",
+     "url": "https://px.ads.linkedin.com/wa/?medium=fetch&fmt=g",
+     "query_event": "",
+     "body_events": [],
+     "body_sha1": "1a815ca04e",
+     "body_snippet": "H4sIAAAAAAAACj2PzUrDQBRGXyXc9cS25n92WWgJKBYbuhGRSeYmvXQyM85MEC0FH8In9EnEFro8HDh83xEsSQ/8JcvSKq/KVwa+d2TDDp0no4Eny5JBoAmBr4oyLZK8ypZJUTCQZhKkgYNVsyNzIwgYzE4Bh30I1vPF4moWwMCKEVsKCoHD5iyiuonqEXWIfr9/onoORpvJzD56soEm+hKBjI4G46INusG4Segeo0fhDhhIj8DgAztPAbc0aqGe8X1GHxoJHIoU+2RZlTFW/Sq+FV0fyz5P46yTFcpS5sOy",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_LinkedIn_home_1a815ca04e.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://analytics.google.com/g/collect?v=2&tid=G-HR6V4ZJ3S9&gtm=45je67l0v884376841z8871042597za20gzb871042597zd871042597&_p=1784736948935&gcs=G111&gcd=13t3t3t3t5l1&npa=0&dma=0&_eu=AAAAAGQC&are=1&cid=1644163643.1784736907&frm=0&pscdl=noapi&rcb=13&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&gaf=2&tag_exp=115938466~115938469~118897920~118897930~119724320~119773332~119896803&sid=17",
+     "query_event": "",
+     "body_events": [
+      "page_view\r\nen=get_user_data"
+     ],
+     "body_sha1": "e8371c0844",
+     "body_snippet": "en=page_view\r\nen=get_user_data&ep.timestamp=2026%20Jul%2022%2012%3A15%3A50&_et=23&up.user_gtag_client_id=1644163643.1784736907.",
+     "body_file": "scans/_witness_2026-07-22/plurio.ai/fixtures/plurio.ai_Google Analytics_home_e8371c0844.txt"
+    },
+    {
+     "platform": "Google Analytics",
+     "method": "POST",
+     "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-9TKZ79W4D6&gtm=45je67k1v9125855405za20g&_p=1784736948935&gcs=G111&gcd=13t3t3t3t6l1&npa=0&dma=0&_eu=ABAIAAQ&are=1&cid=1644163643.1784736907&frm=0&ngs=1&pscdl=noapi&rcb=9&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B99.0.0.0%7CHeadlessChrome%3B145.0.7632.6%7CChromium%3B145.0.7632.6&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=ru&_s=1&tag_exp=115938466~115938469~118012009~118395334~118897920~118897930~118981136~119724320~119773332~119896802&d",
+     "query_event": "page_view",
+     "body_events": []
+    }
+   ],
+   "clickables": [
+    "MODULES",
+    "CASE STUDIES",
+    "BLOG",
+    "COMPANY",
+    "BOOK A DEMO BOOK A DEMO",
+    "5.0 5.0",
+    "EXPLORE",
+    "Terms",
+    "Privacy Policy.",
+    "LINKEDIN",
+    "YOUTUBE",
+    "Careers",
+    "Blog",
+    "Case studies",
+    "Connectors",
+    "Media Kit",
+    "Terms of Services",
+    "Data Security & Compliance",
+    "Privacy Policy",
+    "hello@ellyanalytics.com",
+    "Log In",
+    "Cookie Settings",
+    "5.0",
+    "Visit data security page"
+   ],
+   "third_party_hosts": [
+    "analytics.google.com",
+    "api.framer.com",
+    "app.framerstatic.com",
+    "connect.facebook.net",
+    "events.framer.com",
+    "fonts.gstatic.com",
+    "framer.com",
+    "framerusercontent.com",
+    "googleads.g.doubleclick.net",
+    "j.clarity.ms",
+    "load.sst.ellyanalytics.com",
+    "ob.brilliantchap.com",
+    "ob.jollyoutdoorjogger.com",
+    "obs.brilliantchap.com",
+    "obs.jollyoutdoorjogger.com",
+    "px.ads.linkedin.com",
+    "s3-us-west-2.amazonaws.com",
+    "scripts.clarity.ms",
+    "snap.licdn.com",
+    "www.clarity.ms",
+    "www.facebook.com",
+    "www.google-analytics.com",
+    "www.google.ca",
+    "www.google.com",
+    "www.googletagmanager.com",
+    "www.youtube.com"
+   ],
+   "screenshot": "scans/_witness_2026-07-22/plurio.ai/04_home.png"
+  }
+ ]
+}

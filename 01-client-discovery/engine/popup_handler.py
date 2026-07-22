@@ -58,6 +58,10 @@ ACCEPT_ALL_TEXTS = [
     "ok, i agree",
     "yes, i agree",
     "got it",
+    # Малый баннер-чип с единственной кнопкой "Okay" (plurio.ai / Framer).
+    # Голое "ok" НЕ добавляем: partial match зацепил бы пол-интернета.
+    # Tested: 2026-07-22 on plurio.ai — баннер "We use cookies… [Okay]"
+    "okay",
     # French
     "tout accepter", "accepter tout", "tout autoriser",
     # German
