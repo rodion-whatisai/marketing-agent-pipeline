@@ -128,6 +128,8 @@ STATES_LEGEND = [
     ("Настроено, не проверяли", "тег стоит, но повода сработать мы не создавали (не открыли товар и т.п.). Стоит — да; работает ли — не подтверждаем."),
     ("Проверить нельзя", "чтобы тег сработал, нужна реальная покупка/оплата или отправка заявки, а мы этого не делаем."),
     ("Не найдено на сайте", "такого пикселя/тега/события на сайте нет."),
+    ("⚠️ в колонке конверсий", "событие срабатывает, но классом «корзина» (AddToCart) на странице "
+     "заявки/записи — алгоритм рекламы учится не на том действии. Стоит рассмотреть событие класса Lead."),
 ]
 
 
@@ -336,10 +338,18 @@ def render_pages(all_pages):
             if names:
                 load.append(f'{esc(pl)}: {esc(", ".join(names))}')
         clicks = []
+        yellow_reasons = []
         for b in ((p.get("click_result") or {}).get("buttons") or []):
             clicks += (b.get("conversion_events") or [])
+            # Жёлтый флаг кликера: конверсия работает, но commerce-классом на
+            # lead-gen странице (гейт Rodion'а 2026-07-22, plurio). Статус не меняем —
+            # только пометка ⚠️ с причиной в tooltip.
+            if b.get("yellow_flag") and b.get("yellow_flag_reason"):
+                yellow_reasons.append(b["yellow_flag_reason"])
         load_str = " · ".join(load) if load else "—"
         click_str = esc(", ".join(sorted(set(clicks)))) if clicks else "—"
+        if yellow_reasons:
+            click_str += (f' <span class="rt-yellow" title="{esc("; ".join(sorted(set(yellow_reasons))))}">⚠️</span>')
         rows += (f'<tr><td class="rt-name">{path}</td>'
                  f'<td class="rt-mut">{esc(p.get("page_type", ""))}</td>'
                  f'<td class="rt-ok">{load_str}</td>'
@@ -371,6 +381,7 @@ CSS = '''<style>
 .rt-ok { color:#cfd4dc; }
 .rt-mid { color:#9aa0ab; }
 .rt-no, .rt-dash { color:#6c717c; }
+.rt-yellow { cursor:help; }
 .rt-qc { width:26px; padding-right:0; }
 .rt-empty { color:#9aa0ab; font-size:13px; }
 .rt-legend { list-style:none; padding:0; margin:0; font-size:13px; }

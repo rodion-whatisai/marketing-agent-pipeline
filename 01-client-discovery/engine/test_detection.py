@@ -181,3 +181,146 @@ def test_hotjar_not_matched_by_gtm_runtime():
                        'l=CJ("gtm.historyChange");\nHJ(l);GJ(l);']
     for sample in runtime_samples:
         assert not any(re.search(s, sample, re.IGNORECASE) for s in sigs), sample
+
+
+# ─── Consent-баннер "Okay" (plurio.ai, гейт 2026-07-22) ──────────────────────
+
+def test_okay_in_accept_texts_but_not_bare_ok():
+    # малый баннер-чип "We use cookies… [Okay]" (Framer) не закрывался —
+    # "okay" не было в списке. Голое "ok" запрещено: partial match зацепит
+    # кнопки вида "Book now", "OK, отмена" и пол-интернета заодно.
+    from popup_handler import ACCEPT_ALL_TEXTS
+    assert "okay" in ACCEPT_ALL_TEXTS
+    assert "ok" not in ACCEPT_ALL_TEXTS
+
+
+# ─── Жёлтый флаг: cart-класс событие на lead-gen странице (plurio, 2026-07-22) ─
+
+def test_yellow_flag_addtocart_on_lead_form():
+    # plurio.ai: BOOK A DEMO шлёт Meta:AddToCart на lead_form/homepage —
+    # событие работает, но commerce-классом. Жёлтый флаг, статус OK не меняется.
+    from clicker import _derive_yellow_flag, _derive_red_flag
+    yf, reason = _derive_yellow_flag("lead_form", ["Meta:AddToCart"])
+    assert yf and "Lead" in reason
+    # GA4-вариант написания
+    yf2, _ = _derive_yellow_flag("homepage", ["Google Analytics:add_to_cart"])
+    assert yf2
+    # красный при этом НЕ поднимается (AddToCart не purchase-класс)
+    rf, _ = _derive_red_flag("lead_form", ["Meta:AddToCart"])
+    assert not rf
+
+
+def test_yellow_flag_not_on_commerce_pages():
+    # на product/checkout AddToCart легитимен — никаких флагов
+    from clicker import _derive_yellow_flag
+    assert _derive_yellow_flag("product_detail", ["Meta:AddToCart"]) == (False, None)
+    assert _derive_yellow_flag("checkout", ["Meta:AddToCart"]) == (False, None)
+
+
+def test_purchase_stays_red_not_yellow():
+    # Purchase на lead_form — по-прежнему красный (misconfiguration), не жёлтый
+    from clicker import _derive_red_flag
+    rf, reason = _derive_red_flag("lead_form", ["Meta:Purchase"])
+    assert rf and "purchase" in reason.lower() or rf
+
+
+# ─── FB: доменный якорь против одноимённых импостеров (plurio, 2026-07-22) ───
+
+def _fb_listing_html(raw_ads):
+    # минимальный Relay-JSON блок как в реальной выдаче Ads Library
+    import json as _json
+    doc = {"result": {"search_results_connection": {
+        "count": len(raw_ads),
+        "edges": [{"node": {"collated_results": raw_ads}}]}}}
+    return f'<script type="application/json">{_json.dumps(doc)}</script>'
+
+
+def _fb_raw_ad(lib_id, page_name, page_uri, link_url):
+    return {"ad_archive_id": lib_id, "page_name": page_name, "is_active": True,
+            "snapshot": {"page_name": page_name, "page_profile_uri": page_uri,
+                         "link_url": link_url, "body": {"text": "x"}}}
+
+
+def test_domain_anchor_filters_impostor():
+    # кейс plurio.ai: два рекламодателя «Plurio» (fuzzy-имя = 1.0 у обоих).
+    # Клиент ведёт объявления на plurio.ai, импостер — на instagram.com/plurioid.
+    from fb_ads_scraper import _extract_ads_from_json
+    html = _fb_listing_html([
+        _fb_raw_ad("111", "Plurio", "https://www.facebook.com/61563178984628/",
+                   "https://www.plurio.ai/"),
+        _fb_raw_ad("222", "Plurio", "https://www.facebook.com/plurioid/",
+                   "https://www.instagram.com/plurioid"),
+    ])
+    out = _extract_ads_from_json(html, target_name="plurio", target_domain="plurio.ai")
+    assert out["mode"] == "keyword_filtered_by_domain"
+    assert [a["library_id"] for a in out["ads"]] == ["111"]
+    assert out["brand_page_uris"] == ["https://www.facebook.com/61563178984628/"]
+
+
+def test_domain_anchor_falls_back_to_name_when_no_match():
+    # ни одно объявление не ведёт на домен (in-FB destinations) → прежний fuzzy
+    from fb_ads_scraper import _extract_ads_from_json
+    html = _fb_listing_html([
+        _fb_raw_ad("333", "Plurio", "https://www.facebook.com/61563178984628/",
+                   "http://fb.me/"),
+    ])
+    out = _extract_ads_from_json(html, target_name="plurio", target_domain="plurio.ai")
+    assert out["mode"] == "keyword_filtered_by_name"
+    assert [a["library_id"] for a in out["ads"]] == ["333"]
+
+
+def test_ad_leads_to_domain_hosts():
+    from fb_ads_scraper import _ad_leads_to_domain
+    assert _ad_leads_to_domain({"link_url": "https://www.plurio.ai/", "caption": ""}, "plurio.ai")
+    assert _ad_leads_to_domain({"link_url": "", "caption": "shop.plurio.ai"}, "plurio.ai")
+    # чужой хост и хост-«матрёшка» не проходят
+    assert not _ad_leads_to_domain({"link_url": "https://www.instagram.com/plurioid"}, "plurio.ai")
+    assert not _ad_leads_to_domain({"link_url": "https://plurio.ai.evil.com/"}, "plurio.ai")
+
+
+# ─── Form-fill journey: подбор значений и lead-класс (2026-07-22) ────────────
+
+def test_form_fill_value_selection():
+    from clicker import _value_for_field, TEST_FORM_VALUES
+    assert _value_for_field({"kind": "email"}) == TEST_FORM_VALUES["email"]
+    assert _value_for_field({"kind": "text", "placeholder": "Work email"}) == TEST_FORM_VALUES["email"]
+    assert _value_for_field({"kind": "tel"}) == TEST_FORM_VALUES["tel"]
+    assert _value_for_field({"kind": "text", "name": "phone_number"}) == TEST_FORM_VALUES["tel"]
+    assert _value_for_field({"kind": "text", "name": "first_name"}) == TEST_FORM_VALUES["text"]
+
+
+def test_lead_class_detection():
+    from clicker import _has_lead_class, _lead_class_tags
+    assert _has_lead_class(["Meta:Lead"])
+    assert _has_lead_class(["Google Analytics:generate_lead"])
+    assert _has_lead_class(["Meta:Contact"])
+    assert _has_lead_class(["Meta:CompleteRegistration"])
+    # плюрио-кейс: AddToCart после отправки PII — это НЕ lead-класс
+    assert not _has_lead_class(["Meta:AddToCart", "Meta:SubscribedButtonClick"])
+    # plumbing-события формы — не конверсия (давали ложное «Lead есть»)
+    assert not _has_lead_class(["Google Analytics:gtm.formSubmit",
+                                "Google Analytics:framer_form_submit"])
+    # кастомный dataLayer-маркер ловится тегом
+    assert _lead_class_tags(["Google Analytics:elly_lead"]) == ["Google Analytics:elly_lead"]
+
+
+def test_ad_pixel_lead_separated_from_datalayer():
+    # плюрио-урок: elly_lead в dataLayer есть, Meta:Lead нет — вердикты раздельны.
+    # «Пиксель» в терминах Rodion'а = Meta/TikTok (сверяемо Pixel Helper'ом).
+    from clicker import _lead_class_tags, _AD_PIXEL_PLATFORMS
+    fired = ["Meta:AddToCart", "Google Analytics:elly_lead", "Meta:page_view_demo"]
+    tags = _lead_class_tags(fired)
+    assert tags == ["Google Analytics:elly_lead"]
+    assert not any(t.split(":", 1)[0] in _AD_PIXEL_PLATFORMS for t in tags)
+    # а вот Meta:Lead — пиксельный
+    assert any(t.split(":", 1)[0] in _AD_PIXEL_PLATFORMS
+               for t in _lead_class_tags(["Meta:Lead"]))
+
+
+def test_payment_fields_never_filled():
+    # политика: пароли и платёжные поля не заполняем
+    from clicker import _FIELD_BLOCKLIST_RE
+    for bad in ("card_number", "cvc", "cvv2", "expiry", "iban", "password"):
+        assert _FIELD_BLOCKLIST_RE.search(bad), bad
+    for ok in ("first_name", "work_email", "phone", "company"):
+        assert not _FIELD_BLOCKLIST_RE.search(ok), ok

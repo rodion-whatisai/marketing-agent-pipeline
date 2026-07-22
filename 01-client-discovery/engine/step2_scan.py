@@ -10,6 +10,7 @@ TNC Pipeline — Step 2: Pages of Interest Scanner
     python step2_scan.py scans/bandago.com/bandago.com_step1.json --url /contact
 """
 
+import os
 import sys
 import json
 import time
@@ -230,6 +231,37 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                         print(f"       🖱 {clicked_n} CTA прокликано · 0 именованных событий при клике — ни одна кнопка не шлёт конверсию")
                     elif clicked_n:
                         print(f"       🖱 Кликнули {clicked_n}/{len(btns)} кнопок · события на {fired_n}")
+
+                    # ── Form-fill journey (политика тестовых сабмитов 2026-07-22) ──
+                    # Настоящий submit с тестовыми данными на lead-gen страницах:
+                    # ловим события после отправки PII + SPA-навигационные события.
+                    # TNC_FORM_FILL=0 выключает (eval-раннер: стенд гоняется регулярно,
+                    # каждый прогон сабмитил бы формы сайтам корпуса — это уже спам,
+                    # политика разовых аудитов на него не распространяется).
+                    from clicker import fill_and_submit_form, NON_COMMERCE_TYPES
+                    if ptype in NON_COMMERCE_TYPES and os.environ.get("TNC_FORM_FILL") != "0":
+                        try:
+                            # Кликер мог увести страницу — возвращаемся перед формой
+                            if page.url != url:
+                                page.goto(url, wait_until="domcontentloaded", timeout=15000)
+                                page.wait_for_timeout(1500)
+                            ff = fill_and_submit_form(page, url, ptype, debug=debug_mode)
+                            if ff.get("attempted"):
+                                click_result["form_fill"] = ff
+                                evs = ", ".join(ff.get("events_fired") or []) or "—"
+                                print(f"       🧪 Форма: {len(ff.get('fields') or [])} полей → "
+                                      f"submit «{(ff.get('submit_buttons') or ['?'])[0]}» · события: {evs}")
+                                # Раздельно: рекламный пиксель vs dataLayer-маркеры (не смешивать!)
+                                px_lead = "зафиксирован" if ff.get("ad_pixel_lead_fired") else "НЕ зафиксирован"
+                                print(f"          Lead-класс на рекламном пикселе после отправки тестовых данных: {px_lead}")
+                                lead_tags = ff.get("lead_class_events") or []
+                                if lead_tags and not ff.get("ad_pixel_lead_fired"):
+                                    print(f"          Lead-маркеры в dataLayer/аналитике: {', '.join(lead_tags)}")
+                                if ff.get("scheduler_hosts_seen"):
+                                    print(f"          Внешний планировщик в network после submit: "
+                                          f"{', '.join(ff['scheduler_hosts_seen'])}")
+                        except Exception as e:
+                            log_warn(f"Form-fill error: {e}")
                 except Exception as e:
                     log_warn(f"Clicker error: {e}")
 
@@ -378,6 +410,8 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
                     print(f"  События (клик «{bt}»):  {_fmt_click_events(b)}")
                     if b.get("red_flag"):
                         print(f"      🚩 RED FLAG: кнопка {b.get('red_flag_reason', '')}")
+                    elif b.get("yellow_flag"):
+                        print(f"      ⚠️  кнопка {b.get('yellow_flag_reason', '')}")
             else:
                 print(f"  События:       не зафиксированы")
 
@@ -493,9 +527,15 @@ def run(step1_file: str, max_priority: int = 2, only_url: str = None,
     if clean_oks:
         print(f"\n✅ OK — страницы с корректным tracking:")
         for r in clean_oks:
-            print(f"  {r['path']}")
+            # Жёлтый флаг статус НЕ меняет (страница остаётся OK) — только пометка.
+            yellow = bool((r.get("click_result") or {}).get("any_yellow_flag"))
+            print(f"  {r['path']}" + ("  ⚠️" if yellow else ""))
             for ev in r["conversion_events_found"]:
                 print(f"    → {ev}")
+            if yellow:
+                for b in (r.get("click_result") or {}).get("buttons", []):
+                    if b.get("yellow_flag"):
+                        print(f"    ⚠️  {b.get('yellow_flag_reason', '')}")
 
     output = {
         "base_url": base_url,

@@ -16,6 +16,7 @@ TNC Testbed — eval_run: раннер испытательного стенда
 Выход: scans/_eval/<ts>/scorecard.md + .csv, строка в golden/history.csv (коммитится).
 """
 
+import os
 import sys
 import csv
 import json
@@ -71,6 +72,10 @@ def run_domain(domain: str, run_dir, skip_scan: bool) -> dict:
             shutil.copy2(step2_path, arch_dir / f"{domain}_step2_pre-eval-{stamp}.json")
         import step2_scan
         log_step(f"Скан {domain} по замороженному step1", emoji="🔬")
+        # Стенд НЕ сабмитит формы: регулярные прогоны слали бы test@test.com
+        # сайтам корпуса при каждом eval — политика тестовых сабмитов (CLAUDE.md
+        # 2026-07-22) распространяется на разовые аудиты, не на стенд.
+        os.environ["TNC_FORM_FILL"] = "0"
         # click_mode=True — боевой режим (у функции дефолт False, включает CLI-обёртка)
         actual = step2_scan.run(str(s1_path), max_priority=2, click_mode=True)
         note = ""

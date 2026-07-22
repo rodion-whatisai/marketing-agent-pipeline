@@ -25,6 +25,13 @@ from scanners.base_scanner import discover_buttons
 # Ивенты «покупка/чекаут» — если стрельнули на НЕ-commerce странице → красный флаг
 _PURCHASE_WORDS = ("purchase", "checkout", "placeanorder", "completepayment", "addpaymentinfo")
 
+# Ивенты «корзина» на НЕ-commerce странице → жёлтый флаг (не красный): событие
+# работает и данные в пиксель идут, но классом commerce — алгоритм платформы
+# учится на «положил в корзину» вместо «оставил заявку». Гейт Rodion'а 2026-07-22
+# (plurio.ai): Book a Demo → Meta:AddToCart. Book a Demo = намерение, не Lead;
+# статус страницы остаётся OK, флаг = «стоит рассмотреть событие класса Lead».
+_CART_WORDS = ("addtocart", "add_to_cart")
+
 # Типы страниц, где purchase-ивент подозрителен (нет товара — а Purchase стрельнул)
 NON_COMMERCE_TYPES = {
     "lead_form", "contact", "homepage", "search_results",
@@ -182,6 +189,23 @@ def _derive_red_flag(page_type: str, fired: list):
     return False, None
 
 
+def _is_cart_type(tag: str) -> bool:
+    ev = tag.split(":", 1)[-1].lower()
+    return any(w in ev for w in _CART_WORDS)
+
+
+def _derive_yellow_flag(page_type: str, fired: list):
+    """Жёлтый флаг: cart-класс конверсия на lead-gen странице. Статус OK не меняет.
+    Tested: 2026-07-22 on plurio.ai — BOOK A DEMO шлёт Meta:AddToCart на lead_form/homepage."""
+    if page_type not in NON_COMMERCE_TYPES:
+        return False, None
+    sus = [t for t in fired if _is_cart_type(t)]
+    if sus:
+        return True, (f"при клике шлёт {', '.join(sus)} — событие commerce-класса на странице "
+                      f"типа «{page_type}»; стоит рассмотреть событие класса Lead")
+    return False, None
+
+
 # ─── Основная функция ─────────────────────────────────────────────────────────
 
 def click_page(page, url: str, page_type: str, platform: str = "unknown",
@@ -193,7 +217,8 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
               red_flag, red_flag_reason, error}], any_red_flag, errors}
     """
     log_debug(f"click_page: start url={url} page_type={page_type} platform={platform}")
-    result = {"url": url, "page_type": page_type, "buttons": [], "any_red_flag": False, "errors": []}
+    result = {"url": url, "page_type": page_type, "buttons": [], "any_red_flag": False,
+              "any_yellow_flag": False, "errors": []}
 
     from popup_handler import handle_popups
     # Баннеры уже закрыл сканер на этой же странице/сессии — не дублируем сюда.
@@ -240,7 +265,8 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
             row = {"button_text": cand["text"], "button_tag": cand["tag"],
                    "is_form_submit": cand["isFormSubmit"], "clicked": False,
                    "navigated_to": None, "events_fired": [], "events_pixel": {}, "conversion_events": [],
-                   "partial_events": [], "red_flag": False, "red_flag_reason": None, "error": None}
+                   "partial_events": [], "red_flag": False, "red_flag_reason": None,
+                   "yellow_flag": False, "yellow_flag_reason": None, "error": None}
             try:
                 idx = cand["index"]
                 # Восстановление: предыдущий клик увёл страницу → reload landing + re-locate по тексту.
@@ -299,6 +325,13 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
                 if rf:
                     result["any_red_flag"] = True
                     log_debug(f"click_page: RED FLAG '{cand['text'][:40]}' → {conv} на {page_type} (рендерится в step2 «События»)")
+                else:
+                    # Жёлтый только когда нет красного: purchase-слова серьёзнее cart-слов.
+                    yf, y_reason = _derive_yellow_flag(page_type, fired)
+                    row["yellow_flag"], row["yellow_flag_reason"] = yf, y_reason
+                    if yf:
+                        result["any_yellow_flag"] = True
+                        log_debug(f"click_page: YELLOW FLAG '{cand['text'][:40]}' → {conv} на {page_type}")
             except Exception as e:
                 row["error"] = str(e)[:100]
                 log_debug(f"click_page: button '{cand['text'][:30]}' error: {str(e)[:80]}")
@@ -320,6 +353,203 @@ def click_page(page, url: str, page_type: str, platform: str = "unknown",
             pass
 
     log_debug(f"click_page: done {len(result['buttons'])} кнопок, any_red_flag={result['any_red_flag']}")
+    return result
+
+
+# ─── Form-fill journey (политика тестовых сабмитов, Rodion 2026-07-22) ────────
+#
+# Этап 1 («стреляет ли событие по пустой форме») уже покрыт основным проходом
+# кнопок — Ctrl+клики по submit-кнопкам идут без данных. Здесь этап 2/3:
+# заполняем видимые поля тестовыми значениями и жмём submit ПО-НАСТОЯЩЕМУ
+# (без Ctrl) — ловим события после отправки PII (класс Lead?) и события,
+# привязанные к SPA-навигации (кейс plurio: page_view_demo стреляет только
+# при переходе внутри сайта, прямой заход его не показывает).
+
+import re as _re
+
+TEST_FORM_VALUES = {"email": "test@test.com", "tel": "5145550100", "text": "test"}
+# Пароли и платёжные поля не заполняем никогда (политика в CLAUDE.md)
+_FIELD_BLOCKLIST_RE = _re.compile(r"card|cvc|cvv|expir|iban|passw|search|captcha|coupon|promo", _re.I)
+# Слова lead-класса: по ним отвечаем на вопрос «сработал ли Lead после PII».
+# Строго конверсионные имена — gtm.formSubmit/framer_form_submit это plumbing,
+# не конверсия (плюрио-урок: они стреляли всегда и давали ложное «Lead есть»).
+_LEAD_WORDS = ("lead", "contact", "completeregistration", "generate_lead",
+               "submitapplication")
+# Рекламные пиксели — вопрос Rodion'а «сработал ли Lead» именно про них
+# («пиксель» = Meta/TikTok, сверяемо Pixel Helper'ом; Google — «теги»)
+_AD_PIXEL_PLATFORMS = {"Meta", "TikTok", "LinkedIn", "Pinterest", "Snapchat",
+                       "Google Ads", "Bing/Microsoft", "Twitter/X"}
+# Хосты внешних планировщиков — живое network-подтверждение (vs html-подстрока)
+_SCHEDULER_HOSTS = ("calendly.com", "cal.com", "acuityscheduling.com",
+                    "meetings.hubspot.com", "savvycal.com", "tidycal.com")
+
+_DISCOVER_FIELDS_JS = """
+() => {
+  const out = [];
+  let i = 0;
+  const vis = el => {
+    const r = el.getBoundingClientRect();
+    const s = getComputedStyle(el);
+    return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none';
+  };
+  for (const el of document.querySelectorAll('input, textarea')) {
+    const t = (el.type || 'text').toLowerCase();
+    if (el.tagName === 'INPUT' && !['text', 'email', 'tel'].includes(t)) continue;
+    if (el.disabled || el.readOnly || !vis(el)) continue;
+    if ((el.value || '').trim()) continue;               // уже заполнено — не трогаем
+    el.setAttribute('data-tnc-fill', String(i));
+    out.push({ index: i, kind: el.tagName === 'TEXTAREA' ? 'textarea' : t,
+               name: el.name || '', placeholder: el.placeholder || '',
+               autocomplete: el.getAttribute('autocomplete') || '' });
+    i++;
+  }
+  return out;
+}"""
+
+
+def _value_for_field(f: dict) -> str:
+    """email/tel по типу; по подсказкам name/placeholder/autocomplete — уточняем."""
+    hints = " ".join([f.get("name") or "", f.get("placeholder") or "",
+                      f.get("autocomplete") or ""]).lower()
+    if f.get("kind") == "email" or "mail" in hints:
+        return TEST_FORM_VALUES["email"]
+    if f.get("kind") == "tel" or _re.search(r"phone|tel|мобильн|телефон", hints):
+        return TEST_FORM_VALUES["tel"]
+    return TEST_FORM_VALUES["text"]
+
+
+def _lead_class_tags(fired: list) -> list:
+    """Теги lead-класса из списка событий (Meta:Lead, GA:elly_lead и т.п.)."""
+    out = []
+    for tag in fired:
+        ev = tag.split(":", 1)[-1].lower().replace("_", "").replace(" ", "")
+        if any(w.replace("_", "") in ev for w in _LEAD_WORDS):
+            out.append(tag)
+    return out
+
+
+def _has_lead_class(fired: list) -> bool:
+    return bool(_lead_class_tags(fired))
+
+
+def fill_and_submit_form(page, url: str, page_type: str, debug: bool = False,
+                          max_rounds: int = 2) -> dict:
+    """Заполняет видимые поля тестовыми данными и жмёт submit по-настоящему.
+
+    До max_rounds раундов (многошаговые формы: контакты → календарь).
+    Финальный сторонний виджет (Calendly-слот) не трогаем — фиксируем только
+    его network-появление. Returns dict для click_result["form_fill"].
+    Tested: 2026-07-22 on plurio.ai/demo-booking-2-steps"""
+    result = {"attempted": False, "rounds": 0, "fields": [], "submit_buttons": [],
+              "events_fired": [], "conversion_events": [], "partial_events": [],
+              "lead_class_event_after_submit": False, "navigated_to": None,
+              "scheduler_hosts_seen": [], "error": None}
+
+    holder = {"buf": None}
+    listener = make_pixel_listener(holder, debug)
+    sched_seen = set()
+
+    def _sched_listener(req):
+        u = req.url.lower()
+        for h in _SCHEDULER_HOSTS:
+            if h in u:
+                sched_seen.add(h)
+
+    page.on("request", listener)
+    page.on("request", _sched_listener)
+    try:
+        for round_n in range(1, max_rounds + 1):
+            fields = page.evaluate(_DISCOVER_FIELDS_JS)
+            fields = [f for f in fields if not _FIELD_BLOCKLIST_RE.search(
+                (f.get("name") or "") + " " + (f.get("placeholder") or "") + " " +
+                (f.get("autocomplete") or ""))]
+            if not fields:
+                log_debug(f"fill_and_submit_form: раунд {round_n} — пустых полей нет, стоп")
+                break
+
+            result["attempted"] = True
+            result["rounds"] = round_n
+            for f in fields:
+                val = _value_for_field(f)
+                try:
+                    page.locator(f'[data-tnc-fill="{f["index"]}"]').fill(val, timeout=3000)
+                    result["fields"].append({"kind": f["kind"], "name": f.get("name") or
+                                             f.get("placeholder") or "", "value": val})
+                    log_debug(f"fill_and_submit_form: поле {f.get('name') or f.get('placeholder')!r} ← {val}")
+                except Exception as e:
+                    log_debug(f"fill_and_submit_form: поле {f} не заполнилось: {str(e)[:60]}")
+
+            # Submit: сперва настоящий submit-элемент, затем формо-сабмитная CTA
+            btn = page.locator('form button[type="submit"]:visible, form input[type="submit"]:visible').first
+            try:
+                has_btn = btn.count() > 0
+            except Exception:
+                has_btn = False
+            if not has_btn:
+                cands = discover_buttons(page, debug)
+                sub = next((c for c in cands if c.get("isFormSubmit")), None)
+                if sub is None:
+                    log_debug("fill_and_submit_form: submit-кнопка не найдена — стоп")
+                    break
+                btn = page.locator(f'[data-tnc-btn="{sub["index"]}"]').first
+
+            buf = {}
+            holder["buf"] = buf
+            try:
+                marks = _js_watermarks(page)
+            except Exception:
+                marks = [0, 0]
+            btn_text = ""
+            try:
+                btn_text = (btn.inner_text(timeout=1000) or btn.get_attribute("value") or "")
+                # inner_text вложенных спанов дублирует надпись через \n — схлопываем
+                btn_text = " ".join(dict.fromkeys(btn_text.split()))[:40]
+            except Exception:
+                pass
+            log_debug(f"fill_and_submit_form: раунд {round_n} — настоящий клик submit «{btn_text}»")
+            btn.click(timeout=5000, no_wait_after=True)      # БЕЗ Ctrl: навигация разрешена
+            result["submit_buttons"].append(btn_text or "(submit)")
+            page.wait_for_timeout(8000)                       # окно на события + SPA-переход
+
+            if page.url != url:
+                result["navigated_to"] = page.url
+            try:
+                _read_js_events(page, buf, marks, debug)
+            except Exception as e:
+                log_debug(f"fill_and_submit_form: js read err: {str(e)[:60]}")
+            fired, conv, partial, _ = _flatten(buf)
+            for t in fired:
+                if t not in result["events_fired"]:
+                    result["events_fired"].append(t)
+            for t in conv:
+                if t not in result["conversion_events"]:
+                    result["conversion_events"].append(t)
+            for t in partial:
+                if t not in result["partial_events"]:
+                    result["partial_events"].append(t)
+            holder["buf"] = None
+    except Exception as e:
+        result["error"] = str(e)[:120]
+        log_debug(f"fill_and_submit_form: исключение: {str(e)[:100]}")
+    finally:
+        holder["buf"] = None
+        for fn in (listener, _sched_listener):
+            try:
+                page.remove_listener("request", fn)
+            except Exception:
+                pass
+
+    lead_tags = _lead_class_tags(result["events_fired"])
+    result["lead_class_events"] = lead_tags
+    # Раздельный вердикт: рекламный пиксель (Meta и т.п.) vs dataLayer-маркеры.
+    # Плюрио-кейс: elly_lead в dataLayer есть, Meta:Lead — нет; смешивать нельзя.
+    result["ad_pixel_lead_fired"] = any(
+        t.split(":", 1)[0] in _AD_PIXEL_PLATFORMS for t in lead_tags)
+    result["lead_class_event_after_submit"] = bool(lead_tags)
+    result["scheduler_hosts_seen"] = sorted(sched_seen)
+    log_debug(f"fill_and_submit_form: done rounds={result['rounds']} "
+              f"events={result['events_fired']} lead={result['lead_class_event_after_submit']} "
+              f"schedulers={result['scheduler_hosts_seen']}")
     return result
 
 

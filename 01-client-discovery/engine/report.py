@@ -689,9 +689,16 @@ def print_report(data: dict, gtm_data: dict = None):
         print(f"✅ OK — tracking настроен")
         print(f"{'─' * 65}")
         for p in ok_pages:
-            print(f"  {p['path']}")
+            # Жёлтый флаг кликера (cart-класс событие на lead-gen странице):
+            # статус OK не меняет — только пометка «рассмотреть класс события».
+            yellow = bool((p.get("click_result") or {}).get("any_yellow_flag"))
+            print(f"  {p['path']}" + ("  ⚠️" if yellow else ""))
             for ev in p.get("conversion_events_found", []):
                 print(f"    → {ev}")
+            if yellow:
+                for b in (p.get("click_result") or {}).get("buttons", []):
+                    if b.get("yellow_flag"):
+                        print(f"    ⚠️  {b.get('yellow_flag_reason', '')}")
 
     # ── 6. Рекомендации ──────────────────────────────────────────
     print(f"\n{'─' * 65}")
