@@ -33,6 +33,7 @@ vs KeyMe Locksmiths (общий суффикс давал 0.75).
 import re
 import json
 import ssl
+from urllib.parse import urlparse
 
 from utils import scan_path, setup_console
 from log import log_info, log_warn, log_error, log_success, log_step, log_debug
@@ -216,9 +217,35 @@ def _normalize_ad_record(raw: dict) -> dict:
         return None
 
 
+def _strip_www(host: str) -> str:
+    return host[4:] if host.startswith("www.") else host
+
+
+def _ad_leads_to_domain(ad: dict, domain: str) -> bool:
+    """Ведёт ли объявление на сайт клиента (link_url/caption → домен).
+
+    Якорь идентификации бренда: домен известен ДО любого поиска в Ads Library,
+    в отличие от имени страницы (одноимённые импостеры) и page_id (появляется
+    только из выдачи). Tested: 2026-07-22 on plurio.ai — 13 ads → plurio.ai,
+    1 ad импостера (page 'Plurio' @plurioid) → instagram.com/plurioid."""
+    d = _strip_www((domain or "").strip().lower())
+    if not d:
+        return False
+    for field in (ad.get("link_url"), ad.get("caption")):
+        if not field:
+            continue
+        t = str(field).strip().lower()
+        host = urlparse(t if "://" in t else "http://" + t).netloc or t.split("/")[0]
+        host = _strip_www(host.split(":")[0])
+        if host == d or host.endswith("." + d):
+            return True
+    return False
+
+
 def _extract_ads_from_json(html: str, limit: int = 10,
                             target_page_id: str = None,
-                            target_name: str = None) -> dict:
+                            target_name: str = None,
+                            target_domain: str = None) -> dict:
     """
     Вытаскивает структурированные ad records из Relay JSON payloads в HTML.
     FB Ads Library hydrate'ит страницу через GraphQL — данные доступны в
@@ -228,10 +255,13 @@ def _extract_ads_from_json(html: str, limit: int = 10,
       - non-null → advertiser-filtered (page mode) — результат авторитетный, без фильтра
       - null    → keyword search — шум возможен, нужен пост-фильтр
 
-    Post-filter (в keyword mode):
+    Post-filter (в keyword mode), по убыванию приоритета:
+      - target_domain  → доменный якорь: страницы, чьи ads ведут на домен клиента
+                         (link_url/caption) → 'keyword_filtered_by_domain'.
+                         Отсеивает одноимённых импостеров (fuzzy-имя бессильно).
       - target_page_id → точный match snapshot.page_id
       - target_name    → fuzzy match (difflib >= 0.85) snapshot.page_name
-      - ни то ни то    → возвращаем как есть (unfiltered, 'keyword_raw')
+      - ничего         → возвращаем как есть (unfiltered, 'keyword_raw')
 
     Threshold 0.85 (raised from 0.75 on 2026-05-07): difflib.SequenceMatcher
     Ratcliff/Obershelp ratio даёт ровно 0.75 для пар вида "X Locksmiths"/"Y
@@ -303,11 +333,29 @@ def _extract_ads_from_json(html: str, limit: int = 10,
     # Mode detection + post-filter
     # Inclusive: ad совпадает если ЛИБО page_id exact match ЛИБО fuzzy name match (или оба).
     # page-mode URL (view_all_page_id) не используется → page_mode_signal обычно False.
+    brand_page_uris = []
     if page_mode_signal is True:
         log_debug("_extract_ads_from_json: ветка page-mode — фильтр не применяется")
         mode = "page"
         matched = all_ads
         matched_count = raw_total
+    elif target_domain and any(
+            a.get("page_profile_uri") and _ad_leads_to_domain(a, target_domain)
+            for a in all_ads):
+        # ── Доменный якорь (приоритетнее fuzzy-имени) ────────────────────
+        # Страница считается клиентской, если хоть одно её объявление ведёт на
+        # домен клиента. Одноимённые импостеры (page_name идентичен, fuzzy=1.0)
+        # отсеиваются: их объявления ведут в другие места.
+        client_pages = {a["page_profile_uri"] for a in all_ads
+                        if a.get("page_profile_uri") and _ad_leads_to_domain(a, target_domain)}
+        matched = [a for a in all_ads if a.get("page_profile_uri") in client_pages]
+        matched_count = len(matched)
+        mode = "keyword_filtered_by_domain"
+        brand_page_uris = sorted(client_pages)
+        dropped = len(all_ads) - matched_count
+        log_debug(f"_extract_ads_from_json: доменный фильтр '{target_domain}' — "
+                  f"клиентских страниц {len(client_pages)} ({brand_page_uris}), "
+                  f"matched={matched_count}/{len(all_ads)}, отсеяно {dropped}")
     elif target_page_id or target_name:
         log_debug("_extract_ads_from_json: ветка keyword post-filter (по page_id и/или name)")
         from difflib import SequenceMatcher
@@ -350,21 +398,26 @@ def _extract_ads_from_json(html: str, limit: int = 10,
         "mode": mode,
         "raw_total": raw_total,
         "matched_count": matched_count,
+        # Клиентские FB-страницы по доменному якорю (пусто вне domain-режима).
+        # Источник для fb.json account.page_url и моста к deep-scan (fb_page_finder).
+        "brand_page_uris": brand_page_uris,
+        "scraped_count": len(all_ads),
     }
 
 
 def _parse_ad_library_html(html: str, limit: int = 10,
                             target_page_id: str = None,
-                            target_name: str = None) -> dict:
+                            target_name: str = None,
+                            target_domain: str = None) -> dict:
     """Парсит HTML страницы Ad Library. Возвращает count, structured_ads (post-filtered),
-    тексты, partnership флаг, ads_library_mode, raw_keyword_total.
+    тексты, partnership флаг, ads_library_mode, raw_keyword_total, brand_page_uris.
 
-    Если передан target_page_id — фильтруем ads в keyword mode по нему.
-    Иначе — если передан target_name — fuzzy-match фильтр по page_name.
-    Если ни того ни другого — всё сырое.
+    Приоритет фильтров keyword mode: target_domain (доменный якорь) →
+    target_page_id (exact) → target_name (fuzzy). Ничего не передали — всё сырое.
     """
     log_debug(f"_parse_ad_library_html: вход — html={len(html)} bytes, limit={limit}, "
-              f"target_page_id={target_page_id}, target_name={target_name}")
+              f"target_page_id={target_page_id}, target_name={target_name}, "
+              f"target_domain={target_domain}")
     result = {"count": None, "status": "could_not_parse", "ad_texts": [],
               "partnership_ads": False, "partnership_count": 0,
               "structured_ads": [], "ads_library_mode": "unknown",
@@ -401,12 +454,14 @@ def _parse_ad_library_html(html: str, limit: int = 10,
     # ── NEW: structured ads из Relay JSON ───────────────────────────
     extracted = _extract_ads_from_json(
         html, limit=limit,
-        target_page_id=target_page_id, target_name=target_name
+        target_page_id=target_page_id, target_name=target_name,
+        target_domain=target_domain
     )
     structured_ads = extracted["ads"]
     result["structured_ads"] = structured_ads
     result["ads_library_mode"] = extracted["mode"]
     result["raw_keyword_total"] = extracted["raw_total"]
+    result["brand_page_uris"] = extracted.get("brand_page_uris") or []
 
     # Главное поле count — теперь это matched_count (после пост-фильтра),
     # а raw_keyword_total хранит исходное число из FB на случай transparency.
@@ -602,7 +657,8 @@ def _scan_one_status(page, url: str, status_label: str, domain: str,
     html = page.content()
     parsed = _parse_ad_library_html(html,
                                      target_page_id=target_page_id,
-                                     target_name=target_name)
+                                     target_name=target_name,
+                                     target_domain=domain)
     parsed["search_term"] = display_name
     parsed["status_filter"] = status_label
 
@@ -769,6 +825,10 @@ def get_ads_data(display_name: str, page_id: str = None,
             "raw_keyword_total":  max(active.get("raw_keyword_total") or 0,
                                       inactive.get("raw_keyword_total") or 0),
             "extraction_method":  active.get("extraction_method") or inactive.get("extraction_method") or "unknown",
+            # Клиентские FB-страницы по доменному якорю (union всех трёх проходов).
+            "brand_page_uris":    sorted(set(all_data.get("brand_page_uris") or []) |
+                                         set(active.get("brand_page_uris") or []) |
+                                         set(inactive.get("brand_page_uris") or [])),
         })
 
         return result

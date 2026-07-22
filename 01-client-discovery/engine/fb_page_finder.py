@@ -37,10 +37,63 @@ from fb_discovery import (
     check_fb_page_alive_playwright,
     find_delegate_page_id,
 )
-from fb_ads_scraper import build_ads_library_urls
+from fb_ads_scraper import build_ads_library_urls, _ad_leads_to_domain
 from utils import HEADERS, setup_console
 from log import log_info, log_warn, log_error, log_success, log_step, log_header, log_debug
 setup_console()
+
+
+# ─── Мост к находкам step1 (fb.json) ────────────────────────────────────────
+
+def _handles_from_fb_json(domain: str, verbose: bool = True) -> list:
+    """Страница бренда из scans/<domain>/fb.json — когда homepage без FB-ссылок.
+
+    Источники по убыванию: accounts[].url (доменный якорь step1-скаута) →
+    page_profile_uri объявлений, ведущих на домен клиента (старые fb.json без
+    поля url). Возвращает handle-список в формате find_all_fb_handles."""
+    from pathlib import Path
+    import re as _re
+    fb_path = Path("scans") / domain / "fb.json"
+    if not fb_path.exists():
+        log_debug(f"_handles_from_fb_json: {fb_path} отсутствует")
+        return []
+    try:
+        data = json.loads(fb_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        log_debug(f"_handles_from_fb_json: {fb_path} не читается: {e}")
+        return []
+
+    page_urls = []
+    for acc in data.get("accounts") or []:
+        if acc.get("url"):
+            page_urls.append((acc["url"], acc.get("display_name")))
+        else:
+            for ad in acc.get("structured_ads") or []:
+                uri = ad.get("page_profile_uri")
+                if uri and _ad_leads_to_domain(ad, domain) and \
+                        not any(u == uri for u, _ in page_urls):
+                    page_urls.append((uri, ad.get("page_name") or acc.get("display_name")))
+    if not page_urls:
+        log_debug("_handles_from_fb_json: в fb.json нет пригодных страниц")
+        return []
+
+    handles = []
+    for url, name in page_urls:
+        m = _re.search(r'facebook\.com/(\d+)', url)
+        if m:
+            # Числовой URI → page_id известен сразу, ветка A (без delegate-моста)
+            handles.append({"handle": m.group(1), "url": url.rstrip("/"),
+                            "format": "pages", "id_type": "page",
+                            "page_id": m.group(1), "display_name": name or m.group(1)})
+        else:
+            tail = url.rstrip("/").split("facebook.com/")[-1].split("?")[0]
+            handles.append({"handle": tail, "url": url.rstrip("/"),
+                            "format": "vanity", "id_type": "unknown",
+                            "display_name": name or tail})
+    if verbose:
+        log_success(f"  Мост fb.json: {len(handles)} страница(ы) из находок step1 — "
+                    f"{[h['url'] for h in handles]}", emoji="📎")
+    return handles
 
 
 # ─── Главная функция ────────────────────────────────────────────────────────
@@ -106,9 +159,16 @@ def find_brand_pages(target: str, verbose: bool = True,
         log_debug(f"find_all_fb_handles(base_url={base_url})")
         handles = find_all_fb_handles(base_url)
         if not handles:
-            log_debug("find_all_fb_handles вернул пусто — ранний return []")
-            if verbose: log_error(f"  FB-ссылки не найдены на homepage")
-            return []
+            # Мост к находкам step1: сайт без FB-ссылок ≠ бренда нет в FB.
+            # fb.json (скаут step1) хранит страницу, найденную доменным якорем
+            # в Ads Library (объявления ведут на сайт клиента).
+            # Tested: 2026-07-22 on plurio.ai — homepage без ссылок, fb.json
+            # даёт facebook.com/61563178984628/
+            handles = _handles_from_fb_json(domain, verbose)
+            if not handles:
+                log_debug("find_all_fb_handles и fb.json пусты — ранний return []")
+                if verbose: log_error(f"  FB-ссылки не найдены ни на homepage, ни в fb.json")
+                return []
         log_debug(f"find_all_fb_handles вернул {len(handles)} handle(s)")
         if verbose: log_info(f"  📎 Найдено FB-ссылок: {len(handles)}")
         handles = prioritize_handles(handles, brand_name)
