@@ -9,12 +9,18 @@ pw-profile/
 .claude/
 # Browser dumps in repo root only (HTML reports in scans/ already excluded)
 /*.html
-# scratch: анализ чужого приватного дашборда (сырьё, НЕ коммитим — только анонимный deliverable в 03-execution/)
+# scratch: анализ приватного дашборда (сырьё, НЕ коммитим — только анонимный deliverable в 03-execution/)
 _confidential*
+/_j*
 _build_inputs.py
-har-for-ads-meta-client-a/
+har-for-ads-*
+*.har
 # pitch-decks: PDF-деки тяжёлые (~93 MB), живут локально/в Drive — в git только карточки
 01-client-discovery/pitch-adviser/pitch-decks/*.pdf
 # ключи service account для чтения Google Sheets — НИКОГДА не коммитим
 **/.secrets/
 *gsheets*.json
+# рабочие заметки и клиентские артефакты — только локально (вычищены из истории 2026-07-23)
+CLAUDE.md
+domains_*.txt
+01-client-discovery/pitch-adviser/out/

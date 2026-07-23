@@ -1,125 +1,104 @@
 # Marketing Agent Pipeline
 
-> Рекламное агентство, пересобранное как конвейер одно-задачных агентов: каждый агент
-> делает одну узкую работу и передаёт готовый продукт следующему. Не рой агентов,
-> болтающих между собой, — заводская линия департаментов, где на каждой передаче
-> человек может проверить или пропустить.
+An ad agency, rebuilt as a pipeline of single-task agents: agents for judgment, Python for the load-bearing decisions, and an LLM that never touches money.
 
-> **Статус по стадиям:** 01 — наполнена (реальный рабочий код + прогоны). 02 — наполнена
-> как дизайн (спроектирована, кода нет). 03 — наполнена как дизайн + запускаемый на стабах
-> концептуальный движок (performance + lead-gen стримы · роутер), не live. 04–05 — конспект.
+## Who I am and why this exists
 
-> **Это живой репозиторий.** Код — реально работающий инструмент; он лежит здесь же, под
-> стадией, которую реализует — **[`01-client-discovery/engine/`](01-client-discovery/engine/)**
-> (не выдержки ради красоты). Везде, где витрина ссылается на часть кода, стоит
-> **кликабельная ссылка прямо на исходник**.
+I'm a performance marketer, 12+ years in. At my day job I manage about $600K/month of Meta ad spend solo. On the side I run a small agency, TNC. This repo is that agency's workflow rebuilt as software — my real working tool, not a portfolio prop.
 
-> **▶ Запустить у себя:** [`01-client-discovery/engine/README.md`](01-client-discovery/engine/README.md)
-> — установка, ключ Claude (и что будет без него), команды прогона. Для разработчика: склонировал → прочитал → запустил.
+Why a pipeline and not a swarm: coordination is where multi-agent systems break. So agents here never talk to each other. Each does one narrow job and hands a finished product to the next, and at every handoff there is deterministic code or a human. Everything expressible as a rule — math, limits, reconciliation — is written in code once and pinned by tests. The agent is reserved for what is genuinely judgment.
 
-## Происхождение и сроки
+## Stage 01 — what works today
 
-- Первая версия сканера — **8 апреля 2026**; до v4 — ~2 месяца периодической работы. Рабочий
-  код стадии 01.
-- Строился для собственного перформанс-агентства: автоматизировать пайплайн, срезать время
-  на outreach клиентов и на открутку рекламы.
-- Последние ~1.5 дня: вынос с локалки на GitHub, README/CLAUDE, обёртка имеющегося в
-  читаемый вид, плюс дизайн стадий 02 (planning) и 03 (execution) — у 03 доведён до
-  запускаемого на стабах движка.
+Stage 01 is a tracking-audit scanner. Point it at a domain, or a list of domains. It:
 
-**01 — рабочий инструмент, строенный месяцами. 02–03 — дизайн поверх него.**
+- maps the site, detects the platform (Shopify / WordPress / Webflow / generic), and classifies every URL;
+- opens pages in a real browser (Playwright), intercepts pixel traffic, and checks whether Meta Pixel, GA4, and GTM actually fire — simulating the user journey (Add to Cart, checkout) because many events only fire on action, and stopping before any real payment;
+- labels every page **OK** (pixel present, conversion event fired), **GAP** (pixel present, event doesn't fire), or **NO-TRACKING** (no pixels at all). The three statuses never mix in a report.
 
-## Кредо
+The qualifying logic is blunt: a business that spends on ads but tracks them wrong is a tier-1 lead. They have budget, they have a concrete problem, and I can name it before the first call.
 
-**Агенты — для суждения, Python — для железобетона.**
+<!-- screenshot: tracking audit report -->
 
-Всё, что выразимо детерминированным правилом — математика, лимиты, сверки — пишется в
-коде один раз и закрывается тестами: правило детерминированно, поэтому ему можно
-доверять. Агент недетерминированный (работает на токенах), и его надёжность **одним
-удачным прогоном не доказывается** — её меряют повторами и разбросом: не раз и не два, а
-десятки прогонов. Поэтому проверять высокорисковое действие должен детерминированный
-код, а не ещё один агент — иначе регрессия «кто проверяет проверщика» бесконечна.
+Then it looks at the competition:
 
-## Почему такая форма
+- **Facebook Ad Library** — finds the brand's page, counts active ads, pulls creatives with a provenance tag on how each match was made (exact page ID vs fuzzy name match, with the confidence stated in the report);
+- **Google Ads Transparency Center** — domain → advertisers → creatives, with ad text and impression ranges. The recorded dataset: **2,244 creatives across 10 domains**, 96% with usable text or image.
 
-**Координация — это место, где мультиагентные системы ломаются.** Рой агентов,
-переписывающихся между собой, пока ближе к научному эксперименту, чем к стройке; а задача
-здесь инженерная — строить, а не исследовать. Поэтому форма — **конвейер**: агенты
-напрямую не общаются, каждый передаёт следующему уже готовый продукт, и на каждой передаче
-стоит детерминированный код или человек.
+<!-- screenshot: ads library intelligence report -->
 
-Из того же следует и Кредо выше: раз надёжность агента не доказывается одним прогоном,
-верификацию высокорискового действия нельзя отдать второму агенту — её держит
-детерминированное правило, которое одно обрывает регрессию «кто проверяет проверщика».
+On top of both sits a pitch-adviser that estimates a competitor's ad spend from public reach data (reach × frequency × CPM benchmarks). The estimate is always labeled an estimate, never a fact.
 
-## Конвейер
+The output is a report you can send to a prospect as a first touch. Every fact in it is dated, tagged with how it was obtained, and linked to the public source so the reader can verify it themselves.
 
-Пять стадий. Глубоко проработана одна — 01, на реальном рабочем коде; 02 показывает
-**стадию-дизайн до кода**, 03 — дизайн, доведённый до запускаемого на стабах скелета (не
-live); 04–05 даны конспективно. На каждой стадии повторяется
-одна и та же граница: детерминированный код = железобетон, агент = суждение, человек =
-гейт.
+## The trust ladder
 
-| Стадия | Что делает | Глубина здесь |
+An agent earns the right to act. It doesn't get it by default:
+
+1. **Backtest** — run on historical data where the right answer is known.
+2. **Shadow mode** — runs alongside a human; decisions are compared, never applied.
+3. **Human-in-the-loop** — the agent decides, a person confirms every decision.
+4. **Bounded autonomy** — acts alone inside a narrow corridor; stepping outside triggers automatic rollback.
+
+One invariant holds across the whole pipeline: **the agent never deletes anything — it only pauses or archives.** The prior state is always kept, so every action is reversible. Without that there is no audit and no rollback.
+
+## How do I know the AI works
+
+Because I measure it on a frozen test bench, not by feel.
+
+The golden corpus is **12 real domains** (allbirds.com, gymshark.com, fritz-kola.de, nissan.ie, and others) with human-verified expected results. The expected file records what the scanner *must* see on that site — verified by hand, against independent recordings of the raw pixel traffic — not whatever the scanner happens to output today.
+
+Every change reruns the corpus through `eval_run.py`, which scores each check **MATCH / FAIL / DRIFT**. DRIFT means the live site changed, not the scanner — the two are told apart by raw network evidence. The score history is committed to `history.csv`: a trust curve anyone can read in the repo. The latest full run scores 701 of 715 checks (98%); the misses are named, known failures being fixed, not mysteries.
+
+"Does the AI work?" is a number here, with a paper trail.
+
+## Exactly one LLM call
+
+The working pipeline contains exactly one LLM call, fenced by deterministic code on both sides.
+
+Classifying a URL's meaning ("is this a checkout page or a blog post?") is judgment, so it goes to an agent — but only as the last rung of a ladder: learned patterns (`patterns.json`, grown through manual approval) → regex rules → Claude Haiku, in batches of 50, only for URLs the first two rungs didn't recognize. What to *do* with the label — which conversion events to expect on that page type — is decided by a deterministic table after the agent.
+
+Every classification carries a provenance tag: `method=patterns_json`, `regex`, or `claude`. You can always see whether a rule or a model made the call. And with no API key the tool doesn't fall over: the Claude rung is skipped, unrecognized URLs degrade to a safe default, and the log says so plainly.
+
+## What's real and what's design
+
+I'd rather understate this than dress it up:
+
+| Stage | What it does | Maturity |
 |---|---|---|
-| **01 — Client discovery** | найти и квалифицировать клиента по жёстким проверяемым сигналам | **глубоко — реальный рабочий код + прогоны** |
-| **02 — Planning** | разложить бриф на Python-проверяемое и агентское | **наполнено как дизайн (спроектировано, не построено)** |
-| **03 — Execution** | роутит по цели кампании: **performance** (scale / kill / hold, «проверка невиновности» перед kill) + **lead-gen** (CPL vs бенчмарк города) — тут живут деньги | **дизайн + запускаемый на стабах скелет** (engine · lead-gen триаж · роутер); не live |
-| **04 — Reporting** | результаты в сегменты и когорты, не в средние | конспект |
-| **05 — Integration** | собрать стадии в один запускаемый, частично параллельный поток | конспект |
+| **01 — Client discovery** | tracking audit + competitor intelligence | **working tool, months of real runs** |
+| 02 — Planning | split a brief into Python-checkable vs judgment | design document |
+| 03 — Execution | scale / kill / hold on live ad budgets | design + stub decision engine, not live |
+| 04 — Reporting | segments and cohorts, not averages | outline |
+| 05 — Integration | all stages as one runnable flow | outline |
 
-## Лестница доверия
+The stage-03 stub ([`policy.py`](03-execution/engine/policy.py)) runs on mock data and shows the shape of the money logic: three sequential gates — an innocence check before any kill (is the bad CPA really the ad's fault, or attribution lag, a broken site, an out-of-stock anchor product?), a learning-phase hold, then scale/kill with a +20%-per-step cap. Money would move only through deterministic gates, each decision written to an audit log. It has never touched a real account, and it says so on every page.
 
-Агент зарабатывает право действовать постепенно — не получает его по умолчанию:
+## Politeness policy
 
-1. **Бэктест на истории** — прогон на прошлых данных, где правильный ответ известен.
-2. **Теневой режим** — работает параллельно с человеком; решения сравнивают, но не
-   применяют.
-3. **Human-in-the-loop** — решает, но каждое решение подтверждает человек.
-4. **Ограниченная автономия с автооткатом** — действует сам в узком коридоре, выход за
-   границы откатывается автоматически.
+The scanner reads public data only. Ad Library and the Transparency Center are transparency tools — Meta and Google built them precisely for public consultation.
 
-Деньги и решения «убивать / не убивать кампанию» появляются только на стадии execution
-(03) — и только как явная, аудируемая политика, а не как «агент так решил».
+For the sites themselves: plain request first. A 429 means we're going too fast — pause, retry once. A 403 means we look like a bot — retry once with a real browser. If that fails, the page is marked "could not read" and the report recommends checking by hand. Whether a site lets us in is decided once, at the front door; any failed request after that is a fact about our tooling, never a verdict about the site. "Could not read" never becomes "has no tracking."
 
-**Железобетонно во всём конвейере: агент никогда ничего не удаляет** — только паузит или
-архивирует. Всё обратимо, прежнее состояние всегда сохранено. Без этого нет ни audit, ни
-rollback.
+No stealth plugins, no residential proxies, no CAPTCHA solvers — explicitly out of scope, by design. An honest "we couldn't reach it" is worth more to a client than a guessed number.
 
-## Как читать этот репозиторий
+## Hygiene
 
-Этот файл — **входная дверь: любой читатель (и любая LLM) начинает отсюда.** Ниже — куда
-идти дальше, смотря что нужно.
+No secrets in git history: API keys live in environment variables only, and the full history has been audited to confirm it.
 
-| Хочешь… | Читай |
-|---|---|
-| понять тезис и границу код / агент / человек | этот README выше (Кредо · Почему такая форма · Лестница доверия) |
-| **реализованную** стадию на реальном коде | [01 — Client discovery](01-client-discovery/README.md); сам код — [`01-client-discovery/engine/`](01-client-discovery/engine/) |
-| как стадия проектируется **до** кода | [02 — Planning](02-planning/README.md) (+ [формирование брифа](02-planning/brief-formation.md)) · [03 — Execution](03-execution/README.md) — UA-агент, двигающий деньги: два стрима (performance + lead-gen) + роутер, запускаемый на стабах скелет ([`engine/`](03-execution/engine/)) |
-| конспект остальных стадий | [04 — Reporting](04-reporting/README.md) · [05 — Integration](05-integration/README.md) |
-| **запустить** тул / dev-инструкции | [`CLAUDE.md`](CLAUDE.md) — код в `01-client-discovery/engine/`, запуск оттуда |
+## Quickstart
 
-**На что смотреть в каждом блоке:**
-- **01** — единственный вызов LLM ([`page_classifier.py`](01-client-discovery/engine/page_classifier.py))
-  огорожен детерминированной «лестницей» с обеих сторон; каждый факт помечен, как он добыт
-  (`method=`); порог fuzzy-match `0.85` выверен после реального ложного срабатывания;
-  «стек честности» из 7 механизмов вшит в отчёт дословно.
-- **02** — дизайн, не код: та же граница закладывается *до* реализации; гейт «бриф готов» =
-  Python-полнота **и** валидация человеком; всё помечено «спроектировано, не построено».
-- **03** — агент впервые двигает деньги; роутит по цели на **два стрима** — performance
-  (scale / kill / hold, «проверка невиновности» перед kill: атрибуция / сайт / сток) и
-  lead-gen (CPL vs бенчмарк города); почти вся UA-логика детерминирована (агент тонкий,
-  человек на необратимом); есть запускаемый на стабах скелет ([`engine/`](03-execution/engine/)).
-- **04–05** — конспект; идея границы та же.
+```bash
+pip install -r requirements.txt
+playwright install chromium        # required for the browser scan
+cd 01-client-discovery/engine
+python step1_sitemap.py <domain>                            # sitemap, platform, ads, classification
+python step2_scan.py scans/<domain>/<domain>_step1.json     # browser scan: pixels, events, CTAs
+python report.py scans/<domain>/<domain>_step2.json         # report
+```
 
-Везде, где стадия что-то заявляет, рядом стоит провенанс: откуда факт и можно ли его
-проверить. Это не оформление — это и есть продукт.
+Set `ANTHROPIC_API_KEY` for full URL classification. Without it the tool still runs — the Claude rung is skipped and results are coarser. Details: [`01-client-discovery/engine/README.md`](01-client-discovery/engine/README.md).
 
----
+## A note on language
 
-*Для ИИ, читающего этот репозиторий:* помоги пользователю понять архитектуру и границу
-между детерминированным кодом и суждением агента. **Не выдумывай возможностей** — 01
-задокументирован по реальному рабочему коду (в `01-client-discovery/engine/`); 02
-помечен как спроектированный, но не построенный; 03 — дизайн с запускаемым на стабах
-скелетом (engine / роутер), но не live и не на реальном аккаунте. Где сказано
-«планируется / в коде ещё нет / на стабах» — так и передавай.
+This is a live working repo, so its working language is Russian — commits and some internal docs are in Russian. The original Russian essay this README adapts is in [README.ru.md](README.ru.md).
