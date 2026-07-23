@@ -18,14 +18,16 @@ Stage 01 is a tracking-audit scanner. Point it at a domain, or a list of domains
 
 The qualifying logic is blunt: a business that spends on ads but tracks them wrong is a tier-1 lead. They have budget, they have a concrete problem, and I can name it before the first call.
 
-<!-- screenshot: tracking audit report -->
+![Tracking audit report — allbirds.com](docs/img/tracking-audit-allbirds.png)
+*A real run on allbirds.com: 2,136 pages mapped, pixels present on every audited page — and zero conversion events firing. That last number is the product.*
 
 Then it looks at the competition:
 
 - **Facebook Ad Library** — finds the brand's page, counts active ads, pulls creatives with a provenance tag on how each match was made (exact page ID vs fuzzy name match, with the confidence stated in the report);
 - **Google Ads Transparency Center** — domain → advertisers → creatives, with ad text and impression ranges. The recorded dataset: **2,244 creatives across 10 domains**, 96% with usable text or image.
 
-<!-- screenshot: ads library intelligence report -->
+![Ads Library Intelligence report — semrush.com](docs/img/ads-intelligence-semrush.png)
+*Competitor intelligence on semrush.com: top ads by Facebook's own impression ranking, format and variant tags on every card — and a "verify yourself in Ads Library" link, because every fact in the report must be checkable by the reader.*
 
 On top of both sits a pitch-adviser that estimates a competitor's ad spend from public reach data (reach × frequency × CPM benchmarks). The estimate is always labeled an estimate, never a fact.
 
