@@ -24,3 +24,5 @@ har-for-ads-*
 CLAUDE.md
 domains_*.txt
 01-client-discovery/pitch-adviser/out/
+# рабочие задания витрины — только локально
+SHOWCASE-*.md
