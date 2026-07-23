@@ -1,100 +1,100 @@
-# ▶ Как запустить локально (Quickstart)
+# ▶ How to run it locally (Quickstart)
 
-Рабочий код стадии 01 (сканер трекинг-аудита). Ниже — всё, что нужно, чтобы склонировать и
-прогнать у себя. Тестировалось на Windows; команды кросс-платформенные (macOS / Linux тоже).
+Working code for stage 01 (the tracking-audit scanner). Below is everything you need to clone
+it and run it yourself. Tested on Windows; the commands are cross-platform (macOS / Linux too).
 
-> **TL;DR** (из корня репозитория):
+> **TL;DR** (from the repository root):
 > ```bash
-> pip install -r requirements.txt        # зависимости
-> playwright install chromium            # браузер для скана (обязательно!)
-> cd 01-client-discovery/engine          # рабочая папка
-> python step1_sitemap.py studioaplus.ca # прогон (пример: маленький сайт, 61 страница)
+> pip install -r requirements.txt        # dependencies
+> playwright install chromium            # browser for the scan (required!)
+> cd 01-client-discovery/engine          # working directory
+> python step1_sitemap.py studioaplus.ca # run (example: a small site, 61 pages)
 > ```
-> На macOS используй `python3` вместо `python`, если `python` не найден.
+> On macOS use `python3` instead of `python` if `python` is not found.
 
 ---
 
-## 1. Требования
+## 1. Requirements
 
 - **Python 3.11+**
-- Зависимости: `pip install -r requirements.txt` (playwright, requests, anthropic, colorama)
-- **Chromium для Playwright:** `playwright install chromium` — без этого шаг 2 (скан) не запустится.
-- (опц.) ключ Claude API — см. ниже. **Без ключа тоже работает**, просто грубее.
+- Dependencies: `pip install -r requirements.txt` (playwright, requests, anthropic, colorama)
+- **Chromium for Playwright:** `playwright install chromium` — without it, step 2 (the scan) won't start.
+- (optional) a Claude API key — see below. **It works without the key too**, just more coarsely.
 
-`requirements.txt` лежит в **корне репозитория**, не в этой папке.
+`requirements.txt` lives in the **repository root**, not in this folder.
 
-## 2. ⚠️ API-ключ Claude — и что будет без него
+## 2. ⚠️ The Claude API key — and what happens without it
 
-Классификатор страниц работает в три слоя: `patterns.json` (выученные пути) → regex (общие
-структурные правила) → **Claude Haiku** (всё, что первые два не распознали, батчами по 50).
-Третий слой требует переменную окружения `ANTHROPIC_API_KEY`.
+The page classifier works in three layers: `patterns.json` (learned paths) → regex (generic
+structural rules) → **Claude Haiku** (everything the first two didn't recognize, in batches of 50).
+The third layer requires the `ANTHROPIC_API_KEY` environment variable.
 
-**Если ключ ЗАДАН** — полная классификация: нераспознанные правилами URL уходят в Claude и
-получают точный тип.
+**If the key IS set** — full classification: URLs the rules didn't recognize go to Claude and
+get an accurate type.
 
-**Если ключа НЕТ** (свежий клон без настройки) — тул **не падает**. Шаг Claude **молча
-пропускается**: каждый URL, который `patterns.json`/regex не узнали, помечается типом
-`general` (приоритет 5) и **в аудит (`to_scan`) не попадает**. На практике это значит: без
-ключа сканируются только страницы, пойманные правилами (контакты, цены, чекаут и т.п.), а
-всё нестандартное игнорируется. Результат корректный, но беднее. В логе будет
-`ANTHROPIC_API_KEY не задан — N URL → general`.
+**If the key is NOT set** (a fresh clone with no setup) — the tool **does not crash**. The Claude
+step is **silently skipped**: every URL that `patterns.json`/regex didn't recognize gets labeled
+type `general` (priority 5) and **does not make it into the audit (`to_scan`)**. In practice this
+means: without the key, only pages caught by the rules get scanned (contacts, pricing, checkout,
+etc.), and everything non-standard is ignored. The result is still correct, just poorer. The log
+will show `ANTHROPIC_API_KEY не задан — N URL → general` ("ANTHROPIC_API_KEY not set — N URLs → general").
 
-> `.env` **не подхватывается автоматически** — задавай настоящую переменную окружения:
+> `.env` is **not picked up automatically** — set a real environment variable:
 
 - **macOS / Linux (bash/zsh):**
   ```bash
   export ANTHROPIC_API_KEY=sk-ant-...
   ```
-- **PyCharm:** Run → Edit Configurations → поле **Environment variables** →
+- **PyCharm:** Run → Edit Configurations → **Environment variables** field →
   `ANTHROPIC_API_KEY=sk-ant-...`
 - **Windows PowerShell:** `$env:ANTHROPIC_API_KEY = "sk-ant-..."`
 
-## 3. Запуск пайплайна (по шагам)
+## 3. Running the pipeline (step by step)
 
-Из папки `01-client-discovery/engine`:
+From the `01-client-discovery/engine` folder:
 
 ```bash
-# Шаг 1 — карта сайта, платформа, соцсети, Facebook Ads, классификация страниц
-python step1_sitemap.py <домен>
+# Step 1 — site map, platform, social links, Facebook Ads, page classification
+python step1_sitemap.py <domain>
 
-# Шаг 2 — браузерный скан отобранных страниц (пиксели, события, CTA)
-python step2_scan.py scans/<домен>/<домен>_step1.json
+# Step 2 — browser scan of the selected pages (pixels, events, CTAs)
+python step2_scan.py scans/<domain>/<domain>_step1.json
 
-# Шаг 3 — текстовый отчёт + HTML
-python report.py scans/<домен>/<домен>_step2.json
+# Step 3 — text report + HTML
+python report.py scans/<domain>/<domain>_step2.json
 
-# Шаг 4 — склеить логи всех шагов в один файл
-python merge_logs.py <домен>
+# Step 4 — merge the logs of all steps into a single file
+python merge_logs.py <domain>
 ```
 
-Результаты — в `scans/<домен>/`: `_step1.json`, `_step2.json`, `_report.html`, `_audit_log.txt`.
+Results land in `scans/<domain>/`: `_step1.json`, `_step2.json`, `_report.html`, `_audit_log.txt`.
 
-**Полный прогон одной строкой** (пример на studioaplus.ca):
+**Full run as a one-liner** (example: studioaplus.ca):
 ```bash
 python step1_sitemap.py studioaplus.ca && python step2_scan.py scans/studioaplus.ca/studioaplus.ca_step1.json && python report.py scans/studioaplus.ca/studioaplus.ca_step2.json && python merge_logs.py studioaplus.ca
 ```
 
-> Маленький сайт (≤65 страниц) проходит быстро и без вопросов. Большой (тысячи URL,
-> напр. nissan.ie) — шаг 1 при заданном ключе долго гоняет классификацию через Claude;
-> без ключа — быстро (Claude-слой скипается).
+> A small site (≤65 pages) goes through quickly and with no questions asked. A large one
+> (thousands of URLs, e.g. nissan.ie) — with the key set, step 1 spends a long time running
+> classification through Claude; without the key it's fast (the Claude layer is skipped).
 
-## 4. Логи
+## 4. Logs
 
-По умолчанию виден **весь поток** (уровень DEBUG): каждый шаг, ветка, решение — цветом по
-уровням (INFO/OK/WARN/ERROR/DEBUG). Файл-лог (`scans/<домен>/*_log.txt`) — без цвета, с
-тегами уровня (грепается по `[ERROR]` и т.п.).
+By default you see the **entire stream** (DEBUG level): every step, branch, and decision,
+color-coded by level (INFO/OK/WARN/ERROR/DEBUG). The file log (`scans/<domain>/*_log.txt`)
+has no color and carries level tags (greppable by `[ERROR]` and the like).
 
-Приглушить (только важное) — флаг `--quiet` или переменная `LOG_LEVEL`:
+To quiet it down (important things only) — the `--quiet` flag or the `LOG_LEVEL` variable:
 ```bash
-python step1_sitemap.py <домен> --quiet        # только INFO и выше
-LOG_LEVEL=WARN python step1_sitemap.py <домен>  # только WARN/ERROR
+python step1_sitemap.py <domain> --quiet        # INFO and above only
+LOG_LEVEL=WARN python step1_sitemap.py <domain>  # WARN/ERROR only
 ```
 
-## 5. Поведение когда страница не отдалась
+## 5. Behavior when a page didn't load
 
-Правило вежливости (`utils.polite_get`): `429` — мы частим, пауза и один повтор;
-`403` — нас приняли за бота, повтор настоящим браузером. Не вышло — тул честно помечает
-`homepage_fetch_method = not_fetched` и продолжает (не выдумывает данные и не делает
-выводов о сайте). Стелс/прокси/капча-солверы **не используются** by design.
+The politeness rule (`utils.polite_get`): `429` — we're requesting too fast, pause and one retry;
+`403` — we've been taken for a bot, retry with a real browser. If that fails, the tool honestly
+marks `homepage_fetch_method = not_fetched` and moves on (it does not invent data and draws no
+conclusions about the site). Stealth/proxies/captcha solvers are **not used**, by design.
 
-Выключатель ретрая: `TNC_POLITE_RETRY=0`.
+Retry kill switch: `TNC_POLITE_RETRY=0`.

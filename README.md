@@ -103,4 +103,4 @@ Set `ANTHROPIC_API_KEY` for full URL classification. Without it the tool still r
 
 ## A note on language
 
-This is a live working repo, so its working language is Russian — commits and some internal docs are in Russian. The original Russian essay this README adapts is in [README.ru.md](README.ru.md).
+This is a live working repo, and its working language is Russian: code comments, commit message bodies, and some internal docs. Everything a visitor needs first is in English — this README, the stage READMEs, the engine and golden-corpus docs — with the Russian originals kept next to them as `*.ru.md`. The original Russian essay this README adapts is in [README.ru.md](README.ru.md).

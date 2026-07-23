@@ -1,57 +1,57 @@
-# golden/ — золотой корпус испытательного стенда
+# golden/ — the testbed's golden corpus
 
-Что это и зачем — в [TESTBED-PLAN.md](../TESTBED-PLAN.md). Коротко:
+What this is and why it exists — see [TESTBED-PLAN.md](../TESTBED-PLAN.md). In short:
 
-- **Эталон = правда, а не текущий вывод сканера.** В `expected_<domain>.json` записано,
-  что сканер ОБЯЗАН видеть на сайте (проверено человеком). Если сканер сейчас этого
-  не видит — это известный провал (known fail), он должен гаснуть по мере фиксов.
-- **step1 заморожен**: `golden/<domain>/step1.json` — копия прогона; step2 в стенде
-  всегда бежит по одному и тому же списку URL, чтобы счёт не шумел от живого sitemap.
-  Обновление — только сознательное (`eval_run.py --refresh-step1`).
-- **Усечение fast-доменов делается в самом замороженном step1** (правка `to_scan`,
-  пометка `_testbed_note` в файле), а НЕ флагом `--max-pages` — тот искажает счётчики
-  (баг D12). tinytronics усечён до 2 страниц: `/` (кейс OK) + `/en/comment-or-suggestion`
-  (кейс GAP); полный список остаётся в `classified`.
-- Состав корпуса и причины выбора каждого сайта — `corpus.json`.
-- История счёта по прогонам — `history.csv` (коммитится, это кривая доверия).
+- **The expected results are the truth, not the scanner's current output.** `expected_<domain>.json`
+  records what the scanner MUST see on the site (verified by a human). If the scanner doesn't
+  currently see it — that's a known fail, and it should die out as fixes land.
+- **step1 is frozen**: `golden/<domain>/step1.json` is a copy of one run; in the testbed, step2
+  always runs over the same list of URLs, so the score doesn't get noisy from a live sitemap.
+  Updating it is a deliberate act only (`eval_run.py --refresh-step1`).
+- **Truncating the fast domains is done inside the frozen step1 itself** (editing `to_scan`,
+  a `_testbed_note` marker in the file), NOT via the `--max-pages` flag — that one distorts
+  the counters (bug D12). tinytronics is truncated to 2 pages: `/` (an OK case) + `/en/comment-or-suggestion`
+  (a GAP case); the full list stays in `classified`.
+- The corpus composition and the reasons each site was chosen — `corpus.json`.
+- Score history across runs — `history.csv` (committed; it's the trust curve).
 
-## Правило гейта и два сорта полей (ревизия 2026-07-13)
+## The gate rule and the two kinds of fields (revision 2026-07-13)
 
-**Любая правда записывается сюда ТОЛЬКО после явного «да» Rodion'а** — с уликой
-свидетеля в вопросе. Кто что подтверждает:
+**Any truth gets recorded here ONLY after an explicit "yes" from Rodion** — with the witness
+evidence included in the question. Who confirms what:
 
-| Сорт | Поля | Кто подтверждает |
+| Kind | Fields | Who confirms |
 |---|---|---|
-| **«Правда о сайте»** — существует независимо от нашего кода | `platforms_detected`, `platforms_forbidden`, `gtm_platforms`, `conversion_events_min`, `external_services`, `has_cta`, redirect/HTTP- и consent-факты | **только Rodion, явным «да»**; улики — witness-файлы рядом; запись — в `verified_via` |
-| **«Контракт сканера»** — договорённость, как ярлычить правду | `page_type` (конвенция классификации), `status` (ярлык при данной правде), `counters`, `missing_events` | скан-derived — допустимо, честно подписано «контракт» |
+| **"Ground truth about the site"** — exists independently of our code | `platforms_detected`, `platforms_forbidden`, `gtm_platforms`, `conversion_events_min`, `external_services`, `has_cta`, redirect/HTTP and consent facts | **Rodion only, via an explicit "yes"**; evidence — the witness files alongside; recorded in `verified_via` |
+| **"Scanner contract"** — an agreement on how to label the truth | `page_type` (classification convention), `status` (the label given this truth), `counters`, `missing_events` | scan-derived is acceptable, honestly signed as "contract" |
 
-Файлы свидетеля: `golden/<domain>/witness_<date>.json` (обход страниц: финальный
-URL+статус, пиксель-запросы с методами и POST-телами, сырые кликабельные тексты,
-сторонние хосты) и `witness_journey_<date>.json` (e-com путь product→ATC→cart→
-checkout). Сырьё (скриншоты, полные тела) — `scans/_witness_<date>/`, gitignored.
+Witness files: `golden/<domain>/witness_<date>.json` (a page walk: final URL+status,
+pixel requests with methods and POST bodies, raw clickable texts, third-party hosts) and
+`witness_journey_<date>.json` (the e-com journey product→ATC→cart→
+checkout). Raw material (screenshots, full bodies) — `scans/_witness_<date>/`, gitignored.
 
-Машинная проверка: `python witness_check.py <domain>` — «эталон не противоречит
-сырому трафику»: ✅ подтверждено / ⚠ не засвидетельствовано (на гейт) /
-❌ противоречие (exit 1).
+Machine check: `python witness_check.py <domain>` — "the expected results do not contradict
+the raw traffic": ✅ confirmed / ⚠ not witnessed (goes to the gate) /
+❌ contradiction (exit 1).
 
-## Формат expected_<domain>.json (schema_version 2)
+## Format of expected_<domain>.json (schema_version 2)
 
-Проверяются ТОЛЬКО стабильные поля. Отсутствующее в эталоне поле = не проверяется.
+ONLY stable fields are checked. A field absent from the expected file = not checked.
 
 ```json
 {
   "schema_version": 2,
   "domain": "fritz-kola.de",
-  "verified_by": "rodion",          // "draft" = черновик, правды в нём НЕТ
+  "verified_by": "rodion",          // "draft" = a draft, there is NO truth in it
   "verified_date": "2026-07-15",
-  "verified_against": "гейт-раунд в чате + ручная сверка",
-  "verified_via": {                 // чем подтверждали (schema v2)
+  "verified_against": "gate round in chat + manual cross-check",
+  "verified_via": {                 // what it was confirmed with (schema v2)
     "witness": "golden/fritz-kola.de/witness_2026-07-15.json",
-    "rodion_gate": "чат 2026-07-15: подтвердил платформы, запреты, кнопки",
+    "rodion_gate": "chat 2026-07-15: confirmed platforms, forbidden list, buttons",
     "rodion_manual": "Pixel Helper / Tag Assistant"
   },
   "scanner_commit": "f7e9a6b",
-  "notes": "Домен 301-ит на fritz-kola.com, пути схлопываются на главную.",
+  "notes": "The domain 301s to fritz-kola.com, paths collapse onto the homepage.",
   "site": {
     "platform": "shopify",
     "gtm_platforms": ["Google Analytics", "Google Ads", "Meta"],
@@ -70,18 +70,18 @@ checkout). Сырьё (скриншоты, полные тела) — `scans/_wi
 }
 ```
 
-Правила:
-- `status` — нормализованный (OK / GAP / NO_TRACKING / NO_CTA / UNVERIFIED,
-  позже REDIRECTED / HTTP_ERROR), НЕ emoji-строка из step2.json.
-- `platforms_detected` / `gtm_platforms` / `external_services` — сравнение
-  «ожидаемое ⊆ фактическое»; лишнее фактическое разбирает FAIL/DRIFT-логика стенда.
-- `status` / `has_cta` / `counters` — точное совпадение.
-- НИКОГДА не пишем в эталон волатильное: тексты кнопок, порядок списков,
-  сырые network-запросы, точные event-списки кликов.
+Rules:
+- `status` — normalized (OK / GAP / NO_TRACKING / NO_CTA / UNVERIFIED,
+  later REDIRECTED / HTTP_ERROR), NOT the emoji string from step2.json.
+- `platforms_detected` / `gtm_platforms` / `external_services` — compared as
+  "expected ⊆ actual"; anything extra on the actual side is handled by the testbed's FAIL/DRIFT logic.
+- `status` / `has_cta` / `counters` — exact match.
+- We NEVER put volatile things into the expected results: button texts, list ordering,
+  raw network requests, exact click event lists.
 
-## Как обновлять
+## How to update
 
-- Новый эталон / перезаверка: `python make_expected.py <domain>` (интерактив, y/n
-  по каждой странице) или `--draft` (черновик без апрува, verified_by="draft").
-- Сайт реально изменился (DRIFT в стенде, подтверждён глазами):
-  `python make_expected.py <domain> --update` + новая verified_date.
+- A new expected file / re-verification: `python make_expected.py <domain>` (interactive, y/n
+  per page) or `--draft` (a draft with no approval, verified_by="draft").
+- The site has genuinely changed (DRIFT in the testbed, confirmed by eye):
+  `python make_expected.py <domain> --update` + a new verified_date.
