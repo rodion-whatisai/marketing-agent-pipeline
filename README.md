@@ -101,6 +101,15 @@ python report.py scans/<domain>/<domain>_step2.json         # report
 
 Set `ANTHROPIC_API_KEY` for full URL classification. Without it the tool still runs — the Claude rung is skipped and results are coarser. Details: [`01-client-discovery/engine/README.md`](01-client-discovery/engine/README.md).
 
+## More work samples
+
+Smaller tools from the same marketing-operations practice, each an anonymized extract from a private working repo (client data, credentials, and production configs removed):
+
+- [**lead-autorouter**](https://github.com/rodion-whatisai/lead-autorouter) — deterministic MongoDB lead router that moves fresh leads to the right campaign by ad-set-name keyword on a schedule. Write-proxy guards, undo/backup, 198 offline tests, no LLM in the loop — the other half of the credo: anything irreversible runs through tested code.
+- [**creative-precull**](https://github.com/rodion-whatisai/creative-precull) — a Claude-vision agent that culls a photo gallery down to the few frames usable as 9:16 ad-creative backgrounds, scored against an art-director rubric. ~$3 per 1000 photos; the model grades, a human picks.
+- [**agent-outbox**](https://github.com/rodion-whatisai/agent-outbox) — an event-driven Telegram channel so sandboxed AI agents can deliver reports without ever holding credentials.
+- [**youtube-brief**](https://github.com/rodion-whatisai/youtube-brief) — video → local Whisper transcript → structured Claude summary; a stdlib-only Anthropic call, no SDK.
+
 ## A note on language
 
 This is a live working repo, and its working language is Russian: code comments, commit message bodies, and some internal docs. Everything a visitor needs first is in English — this README, the stage READMEs, the engine and golden-corpus docs — with the Russian originals kept next to them as `*.ru.md`. The original Russian essay this README adapts is in [README.ru.md](README.ru.md).
