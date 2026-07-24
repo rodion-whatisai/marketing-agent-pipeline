@@ -26,3 +26,5 @@ domains_*.txt
 01-client-discovery/pitch-adviser/out/
 # рабочие задания витрины — только локально
 SHOWCASE-*.md
+# бэкапы базы паттернов — только локально
+patterns.json.bak*

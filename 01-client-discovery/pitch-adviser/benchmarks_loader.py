@@ -18,7 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 CACHE_FILE = ROOT / "benchmarks" / "cpm-cache.csv"
-FACTORY_ENV = Path(r"C:\Users\user\tnc-factory\.env")
+FACTORY_ENV = Path.home() / "tnc-factory" / ".env"
 
 # служебные строки таблицы (не профили CPM) — узнаём по колонке param
 UTIL_SMALL_FREQ = "Частота при небольшом охвате"

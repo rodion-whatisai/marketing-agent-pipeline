@@ -1,12 +1,12 @@
 # CPM-бенчмарки — таблица `benchmarks` в базе фабрики
 
 Источник истины — **таблица `benchmarks` в Postgres фабрики**
-(`C:\Users\user\tnc-factory`, база `factory`). Это решение D12
+(`~\tnc-factory`, база `factory`). Это решение D12
 из `FACTORY.md`: «Бенчмарки CPM/CTR/CVR — таблица с провенансом».
 
 ## Как править руками
 
-1. База поднята: `cd C:\Users\user\tnc-factory && docker compose up -d`
+1. База поднята: `cd ~\tnc-factory && docker compose up -d`
 2. Открыть **http://localhost:8080** (Adminer — веб-таблица в браузере):
    - System: **PostgreSQL**, Server: **db**
    - Username / Password / Database — из `.env` фабрики (`factory`)
