@@ -206,6 +206,10 @@ The validator is the natural next agent under the same discipline of subordinati
 
 > Status: **planned**, not in code yet — recorded as the missing link between "the report
 > got generated" and "the report may be sent."
+>
+> Designed once: the gate mechanics live in
+> [`DOSSIER-ARCHITECTURE.md`](engine/DOSSIER-ARCHITECTURE.md); the factory-level
+> counterpart is H5 in `tnc-factory/FACTORY.md`. Don't duplicate the design.
 
 ## Decision flow — the decision line
 
