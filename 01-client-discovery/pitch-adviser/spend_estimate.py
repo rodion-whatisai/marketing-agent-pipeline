@@ -53,7 +53,9 @@ def parse_ads(html: str) -> list[dict]:
             # EU + UK одним числом; обе ячейки пустые → N/A
             "reach": None if eu is None and uk is None else (eu or 0) + (uk or 0),
             "eu": eu, "uk": uk,
-            "zombie": "ЗОМБИ" in c[9],
+            # непустая ячейка колонки «Холостые» = флаг (в старых репортах
+            # маркер назывался иначе — потому проверка на непустоту, не на текст)
+            "idle": bool(c[9]),
             "fmt": c[12], "vert": c[13],
         })
     return ads
@@ -91,11 +93,10 @@ def summarize(domain: str, ads: list[dict], bench: dict, profile: dict) -> None:
     starts = sorted(a["start"] for a in ads if a["start"])
     fmt_img = sum(1 for a in ads if a["fmt"] == "IMAGE")
     fmt_vid = sum(1 for a in ads if a["fmt"] == "VIDEO")
-    zombies = sum(1 for a in ads if a["zombie"])
     known = [a for a in ads if a["reach"] is not None]
 
     print(f"\n── {domain}: сводка по Meta-рекламе ──")
-    print(f"Объявлений: {len(ads)} · IMAGE {fmt_img} / VIDEO {fmt_vid} · зомби {zombies}")
+    print(f"Объявлений: {len(ads)} · IMAGE {fmt_img} / VIDEO {fmt_vid}")
     if starts:
         print(f"Запуски: {starts[0]} … {starts[-1]}")
     print(f"Охват раскрыт по {len(known)} из {len(ads)} объявлений "
@@ -119,6 +120,9 @@ def summarize(domain: str, ads: list[dict], bench: dict, profile: dict) -> None:
     print(f"  большой охват (≥{sp(thr)}): {r['n_big']} объявл., {sp(r['reach_big'])} — частота {f_big[0]}–{f_big[1]}")
     if r["n_zero"]:
         print(f"  с нулевым охватом: {r['n_zero']} (в расчёт не входят)")
+    n_idle = sum(1 for a in known if a["idle"])
+    if n_idle:
+        print(f"  холостых: {n_idle} (крутятся давно, охвата почти нет)")
     print(f"Показы ≈ {sp(r['imp_low'])} – {sp(r['imp_high'])}")
     print(f"CPM ${cpm_low}–${cpm_high} → ЗАТРАТЫ ≈ ${sp(r['cost_low'])} – ${sp(r['cost_high'])}")
 

@@ -69,7 +69,7 @@ def render_methodology(calc: dict, listing: dict, save_as: str) -> str:
         «сколько аккаунтов в EU / UK видели объявление хотя бы раз» (оценочная метрика).</li>
     <li>Таргетинг (гео/возраст/пол) — настройки рекламодателя; Reach и демография —
         фактическая доставка.</li>
-    <li>«Зомби» в таблицах — техническое определение: {esc(calc['zombie_rule'])}.</li>
+    <li>«Холостые» в таблицах — техническое определение: {esc(calc['idle_rule'])}.</li>
   </ul>
   <table class="mini">
     <tr><th>Покрытие данных</th><th>Доступно</th><th>Из</th></tr>
@@ -111,7 +111,7 @@ def render_summary(calc: dict) -> str:
         ("Мужчины / Женщины", f"{100*gt['male']/T:.0f}% / {100*gt['female']/T:.0f}%"),
         ("Ядро аудитории", core),
         ("Форматы IMAGE / VIDEO", f"{fmt_c.get('IMAGE', 0)} / {fmt_c.get('VIDEO', 0)}"),
-        ("Зомби", _fmt(calc["zombies"])),
+        ("Холостых", _fmt(calc["idle_total"])),
     ]
     tiles_html = "\n".join(
         f'<div class="tile"><div class="tile-v">{esc(v)}</div>'
@@ -147,7 +147,7 @@ def render_summary(calc: dict) -> str:
   <div class="cols3">
     <div><h3>Вертикали (по destination URL)</h3>
       <table class="mini"><tr><th>Вертикаль</th><th class="r">Объявл.</th><th class="r">EU Reach</th>
-      <th class="r">UK Reach</th><th class="r">Зомби</th><th class="r">IMG/VID</th></tr>{vert_rows}</table></div>
+      <th class="r">UK Reach</th><th class="r">Холостые</th><th class="r">IMG/VID</th></tr>{vert_rows}</table></div>
     <div><h3>Возраст × пол (EU Reach)</h3>
       <table class="mini"><tr><th>Возраст</th><th class="r">Мужчины</th><th class="r">Женщины</th></tr>{age_rows}</table></div>
     <div><h3>Топ-10 стран (EU Reach)</h3>

@@ -10,7 +10,7 @@ FB Audience Report — штатная команда: полный аудит а
      HAR-файла залогиненного браузера (даёт impressions_text).
   B. Deep-scan модалок (fb_scan.deep_scan_one_ad: клик-фикс + GraphQL ad_details
      сайдкары) — идемпотентный resume, паузы, бэкофф, перезапуск браузера.
-  C. Расчёты: зомби-флаг, %М, топ-возраст/страна, агрегаты (coverage-first).
+  C. Расчёты: флаг холостых, %М, топ-возраст/страна, агрегаты (coverage-first).
   D. Выходы в scans/<save_as>/: ads_v4.csv, aggregates.csv, demography_by_country.csv.
 
 Запуск:
@@ -229,11 +229,11 @@ def _vertical(link_url: str | None) -> str:
     return "/".join(parts[:2]) if len(parts) >= 2 else ""
 
 
-def step_c_compute(save_as: str, records: dict, zombie_days: int,
-                   zombie_reach: int) -> dict:
+def step_c_compute(save_as: str, records: dict, idle_days: int,
+                   idle_reach: int) -> dict:
     """Per-ad строки + агрегаты из сайдкаров + листинг-records. Только наблюдённое;
     отсутствие данных — 'no_data', покрытие считается и репортится."""
-    log_step("ШАГ C: расчёты (зомби, демография, агрегаты)", emoji="🧮")
+    log_step("ШАГ C: расчёты (холостые, демография, агрегаты)", emoji="🧮")
     deep_dir = Path("scans") / save_as / "fb_deep" / "active"
     lib_ids = sorted(p.name.replace("_graphql.json", "")
                      for p in deep_dir.glob("*_graphql.json"))
@@ -245,7 +245,7 @@ def step_c_compute(save_as: str, records: dict, zombie_days: int,
     country_agg = defaultdict(lambda: [0, 0, 0])   # (страна, возраст) → [м, ж, неизв]
     agg_v = {}
     cover = Counter()
-    zombies = 0
+    n_idle = 0
 
     for lid in lib_ids:
         det = _load_sidecar(deep_dir, lid)
@@ -280,9 +280,12 @@ def step_c_compute(save_as: str, records: dict, zombie_days: int,
         uk_reach = uk.get("total_reach")
         sd = _start_date(rec)
         age_days = (today - sd).days if sd else None
-        zombie = bool(sd and age_days >= zombie_days
-                      and ((eu_reach or 0) + (uk_reach or 0)) < zombie_reach)
-        zombies += 1 if zombie else 0
+        # флаг только при раскрытом охвате: нераскрытый (таргетинг без Европы/UK)
+        # не превращается в «ноль» и объявление не помечается
+        reach_known = eu_reach is not None or uk_reach is not None
+        idle = bool(sd and reach_known and age_days >= idle_days
+                    and ((eu_reach or 0) + (uk_reach or 0)) < idle_reach)
+        n_idle += 1 if idle else 0
 
         pp = rec.get("publisher_platform") or []
         pps = "+".join(PLACEMENT_LABEL.get(p, p) for p in pp) if pp else "no_data"
@@ -304,7 +307,7 @@ def step_c_compute(save_as: str, records: dict, zombie_days: int,
             "Топ возраст": ages.most_common(1)[0][0] if ages else "",
             "Топ страна": countries.most_common(1)[0][0] if countries else "",
             "targets_eu": "да" if te is True else "нет данных",
-            f"Зомби (≥{zombie_days} дн, reach<{zombie_reach})": "ЗОМБИ" if zombie else "",
+            f"Холостые (≥{idle_days} дн, охват<{idle_reach})": "ХОЛОСТОЕ" if idle else "",
             "Impressions-бейдж": rec.get("impressions_text") or "",
             "Плейсменты": pps,
             "Формат": fmt,
@@ -319,16 +322,16 @@ def step_c_compute(save_as: str, records: dict, zombie_days: int,
         a["n"] += 1
         a["eu"] += eu_reach or 0
         a["uk"] += uk_reach or 0
-        a["z"] += 1 if zombie else 0
+        a["z"] += 1 if idle else 0
         a["fmt"][fmt] += 1
         a["payer"][pb.get("payer") or "—"] += 1
 
     n = len(rows)
-    log_success(f"объявлений в расчёте: {n}, зомби: {zombies}")
+    log_success(f"объявлений в расчёте: {n}, холостых: {n_idle}")
     return {"rows": rows, "agg_v": agg_v, "gender_tot": gender_tot,
             "age_by_gender": age_by_gender, "country_agg": country_agg,
-            "cover": cover, "n": n, "zombies": zombies,
-            "zombie_rule": f"старт ≥{zombie_days} дн назад и EU+UK reach < {zombie_reach}"}
+            "cover": cover, "n": n, "idle_total": n_idle,
+            "idle_rule": f"старт ≥{idle_days} дн назад, охват раскрыт и EU+UK reach < {idle_reach}"}
 
 
 # ─── Шаг D: CSV-выходы ──────────────────────────────────────────────────────
@@ -354,7 +357,7 @@ def step_d_outputs(save_as: str, calc: dict, listing_meta: dict):
     # 2. aggregates.csv — machine-readable блоки, все числа отдельными ячейками
     payer_names = sorted({p for a in calc["agg_v"].values() for p in a["payer"]} - {"—"})
     agg_rows = [["ВЕРТИКАЛИ"],
-                ["Вертикаль", "Объявлений", "EU Reach", "UK Reach", "Зомби",
+                ["Вертикаль", "Объявлений", "EU Reach", "UK Reach", "Холостые",
                  "IMAGE", "VIDEO", "no_data"] + payer_names + ["Без payer"]]
     for v, a in sorted(calc["agg_v"].items(), key=lambda x: -x[1]["eu"]):
         agg_rows.append([v, a["n"], a["eu"], a["uk"], a["z"],
@@ -377,8 +380,8 @@ def step_d_outputs(save_as: str, calc: dict, listing_meta: dict):
                  ["Формат", cv["format"], n, round(100 * cv["format"] / n, 1) if n else 0],
                  ["Дата старта", cv["start_date"], n, round(100 * cv["start_date"] / n, 1) if n else 0],
                  ["Impressions-бейдж", cv["impressions"], n, round(100 * cv["impressions"] / n, 1) if n else 0],
-                 [], ["ЗОМБИ"], ["Метрика", "Значение"],
-                 [f"Зомби всего ({calc['zombie_rule']})", calc["zombies"]],
+                 [], ["ХОЛОСТЫЕ"], ["Метрика", "Значение"],
+                 [f"Холостых всего ({calc['idle_rule']})", calc["idle_total"]],
                  [], ["ПРИМЕЧАНИЯ"],
                  ["Недоступность данных листинга: карточки-группы (collation) едут одной записью-представителем; члены групп в пагинации не появляются"],
                  [f"Футер System status при скролле {'достигнут' if listing_meta.get('reached_footer') else 'НЕ достигнут'}"],
@@ -402,7 +405,7 @@ def step_d_outputs(save_as: str, calc: dict, listing_meta: dict):
 
 def run(target: str, save_as: str | None = None, top_n: int = 0,
         har_path: str | None = None, skip_deep: bool = False,
-        zombie_days: int = 7, zombie_reach: int = 100,
+        idle_days: int = 7, idle_reach: int = 100,
         html: bool = False) -> dict:
     save_as = save_as or target
     log_header(f"FB AUDIENCE REPORT — {target} → scans/{save_as}/")
@@ -421,7 +424,7 @@ def run(target: str, save_as: str | None = None, top_n: int = 0,
     else:
         log_info("deep-scan пропущен (--skip-deep)")
 
-    calc = step_c_compute(save_as, records, zombie_days, zombie_reach)
+    calc = step_c_compute(save_as, records, idle_days, idle_reach)
     if not calc["rows"]:
         log_error("нет сайдкаров для расчёта — нечего писать")
         return calc
@@ -430,7 +433,7 @@ def run(target: str, save_as: str | None = None, top_n: int = 0,
         from fb_audience_report_html import build_html
         build_html(save_as, calc, records, listing)
     log_header("ГОТОВО")
-    log_info(f"ads_v4.csv: {calc['n']} строк | зомби: {calc['zombies']} | "
+    log_info(f"ads_v4.csv: {calc['n']} строк | холостых: {calc['idle_total']} | "
              f"плейсменты: {calc['cover']['placements']}/{calc['n']}")
     return calc
 
@@ -444,11 +447,11 @@ if __name__ == "__main__":
     ap.add_argument("--har", default=None, help="путь к HAR-файлу браузера (доп. источник)")
     ap.add_argument("--skip-deep", action="store_true",
                     help="без deep-scan — расчёты по имеющимся сайдкарам")
-    ap.add_argument("--zombie-days", type=int, default=7)
-    ap.add_argument("--zombie-reach", type=int, default=100)
+    ap.add_argument("--idle-days", type=int, default=7)
+    ap.add_argument("--idle-reach", type=int, default=100)
     ap.add_argument("--html", action="store_true",
                     help="напечатать HTML-репорт «Ads Library Intelligence v2»")
     a = ap.parse_args()
     run(a.target, save_as=a.save_as, top_n=a.top, har_path=a.har,
-        skip_deep=a.skip_deep, zombie_days=a.zombie_days,
-        zombie_reach=a.zombie_reach, html=a.html)
+        skip_deep=a.skip_deep, idle_days=a.idle_days,
+        idle_reach=a.idle_reach, html=a.html)
