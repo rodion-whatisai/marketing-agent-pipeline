@@ -36,9 +36,10 @@ def parse_ads(html: str) -> list[dict]:
         raise SystemExit("Таблица объявлений не распозналась.")
     rows = re.findall(r"<tr[^>]*>(.*?)</tr>", m.group(0), re.S)[1:]
 
-    def num(s: str) -> int:
+    def num(s: str) -> int | None:
+        """Пустая ячейка = N/A (FB не отдал EU-данные), а не ноль."""
         digits = re.sub(r"[^\d]", "", s or "")
-        return int(digits) if digits else 0
+        return int(digits) if digits else None
 
     ads = []
     for r in rows:
@@ -46,10 +47,12 @@ def parse_ads(html: str) -> list[dict]:
              for x in re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)]
         if len(c) < 15:
             continue
+        eu, uk = num(c[3]), num(c[4])
         ads.append({
             "lib": c[0], "start": c[2],
-            "reach": num(c[3]) + num(c[4]),      # EU + UK одним числом
-            "eu": num(c[3]), "uk": num(c[4]),
+            # EU + UK одним числом; обе ячейки пустые → N/A
+            "reach": None if eu is None and uk is None else (eu or 0) + (uk or 0),
+            "eu": eu, "uk": uk,
             "zombie": "ЗОМБИ" in c[9],
             "fmt": c[12], "vert": c[13],
         })
@@ -59,14 +62,16 @@ def parse_ads(html: str) -> list[dict]:
 def estimate(ads: list[dict], bench: dict, cpm_low: float, cpm_high: float) -> dict:
     threshold = bench["threshold"]
     f_small, f_big = bench["freq_small"], bench["freq_big"]
-    small = [a["reach"] for a in ads if 0 < a["reach"] < threshold]
-    big = [a["reach"] for a in ads if a["reach"] >= threshold]
+    known = [a for a in ads if a["reach"] is not None]
+    small = [a["reach"] for a in known if 0 < a["reach"] < threshold]
+    big = [a["reach"] for a in known if a["reach"] >= threshold]
     imp_low = sum(small) * f_small[0] + sum(big) * f_big[0]
     imp_high = sum(small) * f_small[1] + sum(big) * f_big[1]
     return {
-        "n_zero": sum(1 for a in ads if a["reach"] == 0),
-        "eu": sum(a["eu"] for a in ads), "uk": sum(a["uk"] for a in ads),
-        "reach": sum(a["reach"] for a in ads),
+        "n_na": sum(1 for a in ads if a["reach"] is None),
+        "n_zero": sum(1 for a in known if a["reach"] == 0),
+        "eu": sum(a["eu"] or 0 for a in known), "uk": sum(a["uk"] or 0 for a in known),
+        "reach": sum(a["reach"] for a in known),
         "n_small": len(small), "reach_small": sum(small),
         "n_big": len(big), "reach_big": sum(big),
         "imp_low": imp_low, "imp_high": imp_high,
@@ -108,7 +113,7 @@ def main() -> None:
     print(f"Разобрано объявлений: {len(ads)}")
 
     r = estimate(ads, bench, cpm_low, cpm_high)
-    top = sorted((a["reach"] for a in ads), reverse=True)
+    top = sorted((a["reach"] for a in ads if a["reach"] is not None), reverse=True)
     share10 = sum(top[:10]) / r["reach"] * 100 if r["reach"] else 0
     fmt_img = sum(1 for a in ads if a["fmt"] == "IMAGE")
     fmt_vid = sum(1 for a in ads if a["fmt"] == "VIDEO")
@@ -119,6 +124,8 @@ def main() -> None:
     print(f"Охват: EU {sp(r['eu'])} + UK {sp(r['uk'])} = {sp(r['reach'])} человек")
     print(f"  небольшой охват (<{sp(thr)}): {r['n_small']} объявл., {sp(r['reach_small'])} — частота {f_small[0]}–{f_small[1]}")
     print(f"  большой охват (≥{sp(thr)}): {r['n_big']} объявл., {sp(r['reach_big'])} — частота {f_big[0]}–{f_big[1]}")
+    if r["n_na"]:
+        print(f"  N/A — EU-данных нет: {r['n_na']} (вне расчёта)")
     if r["n_zero"]:
         print(f"  с нулевым охватом: {r['n_zero']} (в расчёт не входят)")
     print(f"Показы ≈ {sp(r['imp_low'])} – {sp(r['imp_high'])}")
@@ -138,5 +145,8 @@ def main() -> None:
 # Tested: 2026-07-20 on client-a.example — 268 объявлений, охват EU+UK 3 336 555,
 # показы 5.12–6.17 млн, затраты $20 491–49 368 при CPM 4–8 из строки
 # «Sales · Онлайн-образование / курсы · WW-чистый». Совпало с ручным прогоном.
+# Re-tested 2026-09-23 (N/A-фикс): пустые EU/UK-ячейки = N/A, не ноль. Деньги
+# сошлись с прогоном 07-20 до доллара; 4 «нулевых» оказались N/A (вне Европы /
+# нет данных), n_zero = 0.
 if __name__ == "__main__":
     main()
