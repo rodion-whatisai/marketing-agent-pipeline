@@ -105,6 +105,7 @@ Set `ANTHROPIC_API_KEY` for full URL classification. Without it the tool still r
 
 Smaller tools from the same marketing-operations practice, each an anonymized extract from a private working repo (client data, credentials, and production configs removed):
 
+- [**targeting-tree**](https://github.com/rodion-whatisai/targeting-tree) — a Meta ad account drawn as a tree and grown day by day: thickness is spend, colour is CPL against the median of the ad sets on screen, two periods side by side with a scoreboard. One HTML file; the demo runs on synthetic data, the production one on the warehouse facts.
 - [**lead-autorouter**](https://github.com/rodion-whatisai/lead-autorouter) — deterministic MongoDB lead router that moves fresh leads to the right campaign by ad-set-name keyword on a schedule. Write-proxy guards, undo/backup, 198 offline tests, no LLM in the loop — the other half of the credo: anything irreversible runs through tested code.
 - [**creative-precull**](https://github.com/rodion-whatisai/creative-precull) — a Claude-vision agent that culls a photo gallery down to the few frames usable as 9:16 ad-creative backgrounds, scored against an art-director rubric. ~$3 per 1000 photos; the model grades, a human picks.
 - [**agent-outbox**](https://github.com/rodion-whatisai/agent-outbox) — an event-driven Telegram channel so sandboxed AI agents can deliver reports without ever holding credentials.
